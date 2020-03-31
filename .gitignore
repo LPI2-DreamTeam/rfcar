@@ -15,6 +15,7 @@
 *.glo
 *.lol
 *.org
+*.gz
 # ignore the designated subfolders
 auto/
 
