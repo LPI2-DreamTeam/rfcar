@@ -81,7 +81,7 @@ Aqui estão os contactos de todos os elementos do grupo. Sintam-se à vontade pa
 |-------------- |--------- |--------------------------- |---------- |
 | Nuno Rodrigues | 85207     | nunorodrigues0707@gmail.com |            |
 | Hugo Carvalho  | 85156     | hugo.mitab@gmail.com        |            |
-| Hugo Ferreira  | 80665     | hugunited11@gmail.com       |            |
+| Hugo Ferreira  | 80665     | hugunited11@gmail.com       | 253 112911 |
 | João Faria     | 85632     | joaofaria99@gmail.com       |            |
 | João Carvalho  | 83564     | jafpcarvalho44@gmail.com    |            |
 | José Mendes    | 85951     | josepr.mendes@gmail.com     | 913574979  |
