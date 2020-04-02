@@ -288,4 +288,3 @@ The project consists of a remote controlled car used to assist exploration and m
         -   <span class="underline">Controlo</span>: **João Carvalho**, Nuno Rodrigues
             -   Estas equipas poderão sofrer alterações conforme o projecto assim o exija.
 
-p
