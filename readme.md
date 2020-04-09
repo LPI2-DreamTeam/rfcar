@@ -1,4 +1,3 @@
-- [Alexandre](#org2d1caba)
 - [Gestão do Projecto](#org5d97a4f)
   - [Filesystem: Directórios](#orgfeba7af)
   - [Horas do Projecto](#org474ba36)
@@ -82,10 +81,10 @@ Aqui estão os contactos de todos os elementos do grupo. Sintam-se à vontade pa
 |-------------- |--------- |--------------------------- |---------- |
 | Nuno Rodrigues | 85207     | nunorodrigues0707@gmail.com |            |
 | Hugo Carvalho  | 85156     | hugo.mitab@gmail.com        |            |
-| Hugo Ferreira  | 80665     | hugunited11@gmail.com       |            |
+| Hugo Ferreira  | 80665     | hugunited11@gmail.com       | 253 112911 |
 | João Faria     | 85632     | joaofaria99@gmail.com       |            |
 | João Carvalho  | 83564     | jafpcarvalho44@gmail.com    |            |
-| José Mendes    | 85951     | josepr.mendes@gmail.com     |            |
+| José Mendes    | 85951     | josepr.mendes@gmail.com     | 913574979  |
 | José Pires     | 50178     | a50178@alunos.uminho.pt     | 911 901290 |
 
 
@@ -288,3 +287,4 @@ The project consists of a remote controlled car used to assist exploration and m
         -   <span class="underline">Actuação</span>: **João Faria**, Nuno Rodrigues
         -   <span class="underline">Controlo</span>: **João Carvalho**, Nuno Rodrigues
             -   Estas equipas poderão sofrer alterações conforme o projecto assim o exija.
+
