@@ -1,4 +1,4 @@
-% Created 2020-03-31 Tue 01:01
+% Created 2020-04-09 Thu 16:14
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -32,27 +32,29 @@
 
 
 \section{Product concept: Radio Frequency Camera Assisted Rover (RFCAR)}
-\label{sec:orgf4f2e51}
+\label{sec:orge7b0dc6}
 The envisioned product consists of a remote controlled car used to assist
 exploration and maintenance domains. For this purpose, the vehicle should contain a
-remotely operated camera feeding back video to the user. Additionally, the
+remotely operated camera feeding back video to the user.
+Additionally, the
 vehicle must contain odometric sensors to assist in driving and prevent
 crashes when user is not in control, e.g., when connection is lost.
 The vehicle can be used for exploration of unaccessible areas to human operators
 like fluid pipelines and other hazardous sites.
+I've edited this (Zé).
 
 \section{Foreseen product specifications}
-\label{sec:org942ed5c}
+\label{sec:org31f7574}
 The foreseen product specifications are listed as topics below (sketch).
 
 \subsection{Autonomy}
-\label{sec:org7364ba5}
+\label{sec:orge975868}
 Check Battery and power consumption
 \subsection{Velocity}
-\label{sec:orgb41b31b}
+\label{sec:org08718bc}
 Maximum Velocity allowed for the car
 \subsection{Safety}
-\label{sec:org4323985}
+\label{sec:org83942c3}
 \begin{itemize}
 \item Car: If the user issues a command that would cause damage to the system, the
 system should take corrective measures to prevent it. The same holds true if
@@ -63,64 +65,64 @@ the communication between user and system is lost.
 \item Human: preserve human safety
 \end{itemize}
 \subsection{Image acquisition}
-\label{sec:org7c6e617}
+\label{sec:orgb6a5f66}
 \subsubsection{Frame rate}
-\label{sec:orgc44cea4}
+\label{sec:org5adf4ee}
 \subsubsection{Range}
-\label{sec:org7ecd940}
+\label{sec:orgecb044c}
 Camera's range
 \subsubsection{Resolution}
-\label{sec:orgb7a7db5}
+\label{sec:orgba87554}
 \subsubsection{Color scale (Black and white or color)}
-\label{sec:org8317faa}
+\label{sec:org468ee04}
 \subsubsection{Always present or enabled on user command}
-\label{sec:org64617a1}
+\label{sec:orgd585352}
 \subsection{Usability}
-\label{sec:org2063922}
+\label{sec:org61632e0}
 \begin{itemize}
 \item User-friendly interface
 \item User interface responsiveness
 \end{itemize}
 \subsection{Load}
-\label{sec:org1b54b04}
+\label{sec:orgca6a690}
 Maximum load the car can safely carry.
 \subsection{Overall System latency/responsivess}
-\label{sec:org826af3d}
+\label{sec:org7fd1829}
 The overall system latency is the sum of all systems' latencies, which must be
 under a maximum tolerated value for the user.
 \subsection{Communication}
-\label{sec:org2a30eff}
+\label{sec:org4241610}
 \subsubsection{Reliability}
-\label{sec:org16f237c}
+\label{sec:orgdcb920d}
 Packet must be delivered (reliable, e.g. TCP) or not (e.g. UDP)
 \subsubsection{Range}
-\label{sec:org4411fa9}
+\label{sec:org447a205}
 Maximum distance allowed between user and system for communication purposes
 \subsubsection{Transmission rate / throughput}
-\label{sec:org521acaa}
+\label{sec:org10e75a5}
 \subsubsection{Redundancy}
-\label{sec:org0bf292e}
+\label{sec:orgc5933fc}
 \subsection{Sensibility}
-\label{sec:orgc4bd738}
+\label{sec:org622e63a}
 Sensibility to Smartphone motion
 \subsubsection{Msg Smartphone->Raspberry}
-\label{sec:org9772f2c}
+\label{sec:org6b5cb97}
 x10 y20 v10
 t5 v5
 
 \noindent\rule{\textwidth}{0.5pt}
 \subsection{Closed loop error (Control team)}
-\label{sec:org6959821}
+\label{sec:org436f732}
 Error associated
 \subsubsection{PI}
-\label{sec:org560e9eb}
+\label{sec:org9859444}
 \subsubsection{PID}
-\label{sec:org0f78f13}
+\label{sec:org352c4d4}
 \subsubsection{PD}
-\label{sec:org3a6cfe5}
+\label{sec:org0d324c4}
 
 \subsection{Summary}
-\label{sec:org322183a}
+\label{sec:org1f95256}
 Table \ref{tab:specs-init} lista the foreseen product specifications.
 
 % Please add the following required packages to your document preamble:
@@ -147,7 +149,7 @@ Power supply & 12V batteries, 6W & The main power supply will be 12V batteries \
 \end{table}
 
 \section{Planning}
-\label{sec:org290d8c0}
+\label{sec:orga82318d}
 In fig. \ref{fig:gantt-diag2} is illustrated the Gantt diagram for the project and in
 fig. \ref{fig:gantt-tasks} the tasks' descriptions. It should be noted that the project
 tasks of Analysis, Design, Implementation and Tests are performed in two
@@ -220,15 +222,15 @@ validated by an external agent (an external user to the group).
 \end{figure}
 
 \section{Tests}
-\label{sec:orga3bd3ad}
+\label{sec:org3e2776f}
 \subsection{Verifications tests}
-\label{sec:orgab3743d}
+\label{sec:orge9c79e2}
 The verifications tests are tests performed internally by the design team to
 check the compliance of the foreseen specifications. These tests are done after
 the prototype alpha is concluded.
 
 \subsubsection{Maximum velocity}
-\label{sec:org2d9e8e9}
+\label{sec:org532616f}
 The maximum velocity must be tested to ensure integrity of the
 system. Furthermore, the degree of linearity of the velocity is respect to user
 input must also be tested.
@@ -268,7 +270,7 @@ through \(v= \omega \cdot r\), where \(r\) is the radius of the axis.
 Then through a comparison of the measured velocity and the physical representation of the reference voltage the outcome of the trial will be clear: if the velocities are similar within a range of difference that was agreed upon, it should be considered a success.
 
 \uline{Externally} (average value): measuring the travel time (see Section
-\ref{sec:orge574157}) of a part in the conveyor and
+\ref{sec:org20789b4}) of a part in the conveyor and
 dividing by the conveyor length, the average velocity of the conveyor can be
 determined. This can only be used for steady state analysis of the conveyor's
 behaviour. Thus, if the average velocity is within the boundaries of the desired
@@ -283,7 +285,7 @@ which was agreed to be 10\%, therefore at any given time the conveyor’s veloci
 should never surpass \texttt{0.2 m/s} (the agreed upon maximum velocity) \(\pm\) 10\%.
 
 \subsubsection{Travel Time}
-\label{sec:orge574157}
+\label{sec:org20789b4}
 The time it takes a certain load with a constant mass to travel the full length
 of the conveyor can be measured by a simple series of measurements using a
 chronometer and the calculation of the average.
@@ -291,7 +293,7 @@ chronometer and the calculation of the average.
 It should be noted that during the external measurement of velocity, the travel time was measured, there is a direct correlation between the two as such at assurance’s behest one should make sure that the results obtained during the velocity trial are in accordance with the values obtained in this procedure.
 
 \subsubsection{Settling time}
-\label{sec:orgc80717a}
+\label{sec:orgf4c025f}
 The time that it takes the system to react to the presence of a load with a
 constant mass and achieve a steady state.
 
@@ -311,7 +313,7 @@ occur, the time it takes from this moment until the voltage returns to previous
 value will be the settling time.
 
 \subsubsection{Overshoot}
-\label{sec:orgc7d8dd7}
+\label{sec:orgb1f5c2a}
 An overshoot occurs when the output in a control system exceeds its final,
 steady state value generally caused by a sudden change in the system, in this
 case specifically, the placement of a load upon the conveyor will cause an
@@ -333,7 +335,7 @@ voltage one can arrive at a conclusion. It was agreed that the overshoot
 velocity should be \(V_{ss} \pm 10\%\), where \(V_{ss}\) is the stedy state velocity.
 
 \subsection{Validation tests}
-\label{sec:org36c46e4}
+\label{sec:orgff1a37d}
 The validation tests should be performed by the client using the product’s
 manual, so it is expected that a user without prior experience with the product
 should be able to use it correctly and safely. 
@@ -349,7 +351,7 @@ product’s manual, so the user can use the product also as a didactic kit. Howe
 \end{itemize}
 
 \section{Initial design}
-\label{sec:orgbc75a64}
+\label{sec:org68fdd80}
 After an analysis of the product's family tree (conveyors) and the
 state of the art, an initial design of the product itself can be produced (see
 fig. \ref{fig:initial-design}). 
