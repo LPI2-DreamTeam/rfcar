@@ -1,0 +1,114 @@
+\section{Foreseen product specifications}
+\label{sec:org31f7574}
+The foreseen product specifications are listed as topics below (sketch).
+
+\subsection{Autonomy}
+<<<<<<< HEAD
+\label{sec:orge975868}
+Check Battery and power consumption
+=======
+\label{sec:org7364ba5}
+Check Battery and power consumption jose mendes
+>>>>>>> 4385e827fc6cc7e1834cd451f8d10535b26256e1
+\subsection{Velocity}
+\label{sec:org08718bc}
+Maximum Velocity allowed for the car
+\subsection{Safety}
+\label{sec:org83942c3}
+\begin{itemize}
+\item Car: If the user issues a command that would cause damage to the system, the
+system should take corrective measures to prevent it. The same holds true if
+the communication between user and system is lost.
+\begin{itemize}
+\item \textbf{System uses odometric navigation}
+\end{itemize}
+\item Human: preserve human safety
+\end{itemize}
+\subsection{Image acquisition}
+\label{sec:orgb6a5f66}
+\subsubsection{Frame rate}
+\label{sec:org5adf4ee}
+\subsubsection{Range}
+\label{sec:orgecb044c}
+Camera's range
+\subsubsection{Resolution}
+\label{sec:orgba87554}
+\subsubsection{Color scale (Black and white or color)}
+\label{sec:org468ee04}
+\subsubsection{Always present or enabled on user command}
+\label{sec:orgd585352}
+\subsection{Usability}
+\label{sec:org61632e0}
+\begin{itemize}
+\item User-friendly interface
+\item User interface responsiveness
+\end{itemize}
+\subsection{Load}
+\label{sec:orgca6a690}
+Maximum load the car can safely carry.
+\subsection{Overall System latency/responsivess}
+\label{sec:org7fd1829}
+The overall system latency is the sum of all systems' latencies, which must be
+under a maximum tolerated value for the user.
+\subsection{Communication}
+\label{sec:org4241610}
+\subsubsection{Reliability}
+\label{sec:orgdcb920d}
+Packet must be delivered (reliable, e.g. TCP) or not (e.g. UDP)
+\subsubsection{Range}
+\label{sec:org447a205}
+Maximum distance allowed between user and system for communication purposes
+\subsubsection{Transmission rate / throughput}
+\label{sec:org10e75a5}
+\subsubsection{Redundancy}
+\label{sec:orgc5933fc}
+\subsection{Sensibility}
+\label{sec:org622e63a}
+Sensibility to Smartphone motion
+\subsubsection{Msg Smartphone->Raspberry}
+\label{sec:org6b5cb97}
+x10 y20 v10
+t5 v5
+
+\noindent\rule{\textwidth}{0.5pt}
+\subsection{Closed loop error (Control team)}
+\label{sec:org436f732}
+Error associated
+\subsubsection{PI}
+\label{sec:org9859444}
+\subsubsection{PID}
+\label{sec:org352c4d4}
+\subsubsection{PD}
+\label{sec:org0d324c4}
+
+\subsection{Summary}
+\label{sec:org1f95256}
+Table \ref{tab:specs-init} lista the foreseen product specifications.
+
+% Please add the following required packages to your document preamble:
+\begin{table}[!hbt]
+\centering
+\caption{Specifications}
+\label{tab:specs-init}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lll}
+\hline
+ & Values & Explanation \\ \hline
+Max Velocity & 0.2 m/s & Maximum velocity of the conveyor belt in steady state \\ \hline
+Dimensions & 60x30x30 cm & Dimensions of the conveyor belt in cm {[}l w h{]} \\ \hline
+Time Min & 3 s & \begin{tabular}[c]{@{}l@{}}Time taken to transport a load the full extent \\ of the conveyor belt at maximum velocity\end{tabular} \\ \hline
+Max Load & 1 Kg & \begin{tabular}[c]{@{}l@{}}Load the belt can hold without causing any \\ harm to the product\end{tabular} \\ \hline
+Max slope & 15$^\circ$ & \begin{tabular}[c]{@{}l@{}}Maximum slope in which the conveyor belt can \\ operate at nominal conditions\end{tabular} \\ \hline
+Slope levels & {[}0,5,10,15{]}$^\circ$ & Different levels of slope manually handled \\ \hline
+Settling time & 0.2 $\cdot$ T & \begin{tabular}[c]{@{}l@{}}This means that it takes up to 20\% of the full \\ travel time to reach steady velocity\end{tabular} \\ \hline
+Overshoot & 110\% Vss & \begin{tabular}[c]{@{}l@{}}Maximum velocity the conveyor belt reaches \\ before settling time\end{tabular} \\ \hline
+Margin of error & 95\%-105\% of Vss & Admissible error in steady velocity \\ \hline
+Power supply & 12V batteries, 6W & The main power supply will be 12V batteries \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../Phase1"
+%%% End:
