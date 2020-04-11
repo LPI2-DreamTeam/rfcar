@@ -1,35 +1,35 @@
-\BOOKMARK [1][-]{section.1}{Product concept: Radio Frequency Camera Assisted Rover \(RFCAR\)}{}% 1
-\BOOKMARK [1][-]{section.2}{Foreseen product specifications}{}% 2
+\BOOKMARK [1][-]{section.1}{Product\040concept:\040Radio\040Frequency\040Camera\040Assisted\040Rover\040\(RFCAR\)}{}% 1
+\BOOKMARK [1][-]{section.2}{Foreseen\040product\040specifications}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Autonomy}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Velocity}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Safety}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.4}{Image acquisition}{section.2}% 6
-\BOOKMARK [3][-]{subsubsection.2.4.1}{Frame rate}{subsection.2.4}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Image\040acquisition}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Frame\040rate}{subsection.2.4}% 7
 \BOOKMARK [3][-]{subsubsection.2.4.2}{Range}{subsection.2.4}% 8
 \BOOKMARK [3][-]{subsubsection.2.4.3}{Resolution}{subsection.2.4}% 9
-\BOOKMARK [3][-]{subsubsection.2.4.4}{Color scale \(Black and white or color\)}{subsection.2.4}% 10
-\BOOKMARK [3][-]{subsubsection.2.4.5}{Always present or enabled on user command}{subsection.2.4}% 11
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Color\040scale\040\(Black\040and\040white\040or\040color\)}{subsection.2.4}% 10
+\BOOKMARK [3][-]{subsubsection.2.4.5}{Always\040present\040or\040enabled\040on\040user\040command}{subsection.2.4}% 11
 \BOOKMARK [2][-]{subsection.2.5}{Usability}{section.2}% 12
 \BOOKMARK [2][-]{subsection.2.6}{Load}{section.2}% 13
-\BOOKMARK [2][-]{subsection.2.7}{Overall System latency/responsivess}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.7}{Overall\040System\040latency/responsivess}{section.2}% 14
 \BOOKMARK [2][-]{subsection.2.8}{Communication}{section.2}% 15
 \BOOKMARK [3][-]{subsubsection.2.8.1}{Reliability}{subsection.2.8}% 16
 \BOOKMARK [3][-]{subsubsection.2.8.2}{Range}{subsection.2.8}% 17
-\BOOKMARK [3][-]{subsubsection.2.8.3}{Transmission rate / throughput}{subsection.2.8}% 18
+\BOOKMARK [3][-]{subsubsection.2.8.3}{Transmission\040rate\040/\040throughput}{subsection.2.8}% 18
 \BOOKMARK [3][-]{subsubsection.2.8.4}{Redundancy}{subsection.2.8}% 19
 \BOOKMARK [2][-]{subsection.2.9}{Sensibility}{section.2}% 20
-\BOOKMARK [3][-]{subsubsection.2.9.1}{Msg Smartphone->Raspberry}{subsection.2.9}% 21
-\BOOKMARK [2][-]{subsection.2.10}{Closed loop error \(Control team\)}{section.2}% 22
+\BOOKMARK [3][-]{subsubsection.2.9.1}{Msg\040Smartphone->Raspberry}{subsection.2.9}% 21
+\BOOKMARK [2][-]{subsection.2.10}{Closed\040loop\040error\040\(Control\040team\)}{section.2}% 22
 \BOOKMARK [3][-]{subsubsection.2.10.1}{PI}{subsection.2.10}% 23
 \BOOKMARK [3][-]{subsubsection.2.10.2}{PID}{subsection.2.10}% 24
 \BOOKMARK [3][-]{subsubsection.2.10.3}{PD}{subsection.2.10}% 25
 \BOOKMARK [2][-]{subsection.2.11}{Summary}{section.2}% 26
 \BOOKMARK [1][-]{section.3}{Planning}{}% 27
 \BOOKMARK [1][-]{section.4}{Tests}{}% 28
-\BOOKMARK [2][-]{subsection.4.1}{Verifications tests}{section.4}% 29
-\BOOKMARK [3][-]{subsubsection.4.1.1}{Maximum velocity}{subsection.4.1}% 30
-\BOOKMARK [3][-]{subsubsection.4.1.2}{Travel Time}{subsection.4.1}% 31
-\BOOKMARK [3][-]{subsubsection.4.1.3}{Settling time}{subsection.4.1}% 32
+\BOOKMARK [2][-]{subsection.4.1}{Verifications\040tests}{section.4}% 29
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Maximum\040velocity}{subsection.4.1}% 30
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Travel\040Time}{subsection.4.1}% 31
+\BOOKMARK [3][-]{subsubsection.4.1.3}{Settling\040time}{subsection.4.1}% 32
 \BOOKMARK [3][-]{subsubsection.4.1.4}{Overshoot}{subsection.4.1}% 33
-\BOOKMARK [2][-]{subsection.4.2}{Validation tests}{section.4}% 34
-\BOOKMARK [1][-]{section.5}{Initial design}{}% 35
+\BOOKMARK [2][-]{subsection.4.2}{Validation\040tests}{section.4}% 34
+\BOOKMARK [1][-]{section.5}{Initial\040design}{}% 35
