@@ -1,35 +1,33 @@
-- [Gestão do Projecto](#org5d97a4f)
-  - [Filesystem: Directórios](#orgfeba7af)
-  - [Horas do Projecto](#org474ba36)
-  - [Contactos](#org5c30ff3)
-- [Tools](#org2d683ea)
-  - [Team conversation](#org1f44d04)
-  - [Diagrama de Gantt](#org1adeefe)
-  - [Get Things Done](#org113af48)
-  - [Documentation + Tracking Project](#org39011db)
-    - [Workflow](#org3b55925)
-- [Project](#orgf5c4b60)
-  - [RFCAR - Radio Frequency Camera Assisted Rover](#org62dac93)
-    - [Motivation](#org25fb14c)
-    - [Description](#orgd791fb4)
-    - [Technologies](#orgdeead0d)
-  - [Workgroups](#org30d6f2f)
-  - [Meetings](#orgab4af6e)
-    - [2 &#x2014; Planeamento](#orgf1e940f)
+- [Gestão do Projecto](#org6b03bb2)
+  - [Filesystem: Directórios](#org7d27972)
+  - [Horas do Projecto](#org32d5c63)
+  - [Contactos](#org8136d41)
+- [Tools](#orgb033b23)
+  - [Team conversation](#org847a0cc)
+  - [Diagrama de Gantt](#orgaa667ac)
+  - [Get Things Done](#org0134e24)
+  - [Documentation + Tracking Project](#org9ea8900)
+    - [Workflow](#org7e2c249)
+  - [Git](#org112051f)
+    - [Workflow](#org99256ea)
+    - [Commits' policy](#org659483b)
+- [Project](#org4e444db)
+  - [RFCAR - Radio Frequency Camera Assisted Rover](#orga324747)
+    - [Motivation](#org0a01f0f)
+    - [Description](#org9b06e53)
+    - [Technologies](#org583dbc4)
+  - [Workgroups](#org6d28516)
+  - [Meetings](#org5cbcc17)
+    - [2 &#x2014; Planeamento](#org7fa3f10)
 
 
 
-<a id="org2d1caba"></a>
-
-# Alexandre
-
-
-<a id="org5d97a4f"></a>
+<a id="org6b03bb2"></a>
 
 # Gestão do Projecto
 
 
-<a id="orgfeba7af"></a>
+<a id="org7d27972"></a>
 
 ## Filesystem: Directórios
 
@@ -64,14 +62,14 @@
 -   [./HW/](HW): HW desenvolvido para o projecto decomposto pelas várias vertentes.
 
 
-<a id="org474ba36"></a>
+<a id="org32d5c63"></a>
 
 ## Horas do Projecto
 
 Cada elemento do grupo deverá adicionar o nr. de horas dedicado ao projecto no ficheiro [ProjHours.xlsx](ProjManag/ProjHours.xlsx).Basta duplicar a folha inicial.
 
 
-<a id="org5c30ff3"></a>
+<a id="org8136d41"></a>
 
 ## Contactos
 
@@ -81,26 +79,26 @@ Aqui estão os contactos de todos os elementos do grupo. Sintam-se à vontade pa
 |-------------- |--------- |--------------------------- |---------- |
 | Nuno Rodrigues | 85207     | nunorodrigues0707@gmail.com |            |
 | Hugo Carvalho  | 85156     | hugo.mitab@gmail.com        |            |
-| Hugo Ferreira  | 80665     | hugunited11@gmail.com       | 253 112911 |
+| Hugo Ferreira  | 80665     | hugunited11@gmail.com       |            |
 | João Faria     | 85632     | joaofaria99@gmail.com       |            |
 | João Carvalho  | 83564     | jafpcarvalho44@gmail.com    |            |
-| José Mendes    | 85951     | josepr.mendes@gmail.com     | 913574979  |
+| José Mendes    | 85951     | josepr.mendes@gmail.com     |            |
 | José Pires     | 50178     | a50178@alunos.uminho.pt     | 911 901290 |
 
 
-<a id="org2d683ea"></a>
+<a id="orgb033b23"></a>
 
 # Tools
 
 
-<a id="org1f44d04"></a>
+<a id="org847a0cc"></a>
 
 ## Team conversation
 
 A ferramenta [Twist](https://twist.com) foi escolhida por fornecer agrupamento de conversas em tópicos
 
 
-<a id="org1adeefe"></a>
+<a id="orgaa667ac"></a>
 
 ## Diagrama de Gantt
 
@@ -112,7 +110,7 @@ Será usado o [Gantter](https://www.gantter.com/) para elaboração do diagrama 
 O mapa de Gantt original deverá ser preservado, como constando da etapa 1, mas deverá ser actualizado ao longo do projecto.
 
 
-<a id="org113af48"></a>
+<a id="org0134e24"></a>
 
 ## Get Things Done
 
@@ -124,7 +122,7 @@ O diagrama de Gantt deverá ser usado numa macro-escala para gestão do projecto
 Cada elemento do grupo deverá adicionar o nr. de horas dedicado ao projecto no ficheiro [ProjHours.xlsx](ProjManag/ProjHours.xlsx).Basta duplicar a folha inicial.
 
 
-<a id="org39011db"></a>
+<a id="org9ea8900"></a>
 
 ## Documentation + Tracking Project
 
@@ -135,13 +133,13 @@ Existe um grande fluxo de informação associado ao projeto. Para gerir melhor e
 -   *gestão de projecto*: usando o Trello para adicionar tarefas e atribuí-las aos diferentes membros da equipa.
 
 
-<a id="org3b55925"></a>
+<a id="org7e2c249"></a>
 
 ### Workflow
 
 Para a gestão da informação relacionada com o projecto será necessário adoptar algumas normas e convenções para utilização adequada e conveniente do repositório.
 
-1.  **Filesystem**: Será criado um *filesystem*, cuja raiz é o directório actual e cujas paths devem ser relativas. Para armazenamento do *filesystem* será usada o github. Para visualizar e navegar pelo conteúdo basta replicar o *filesystem* em qq directório. O *filesystem* será navegável através dos links indicados neste readme file na secção [Directórios](#orgfeba7af) deste documento.
+1.  **Filesystem**: Será criado um *filesystem*, cuja raiz é o directório actual e cujas paths devem ser relativas. Para armazenamento do *filesystem* será usada o github. Para visualizar e navegar pelo conteúdo basta replicar o *filesystem* em qq directório. O *filesystem* será navegável através dos links indicados neste readme file na secção [Directórios](#org7d27972) deste documento.
 2.  **Estrutura**:
     1.  Existirá um ficheiro readme `rd.tex` por cada directório que deve conter a informação essencial a esse tópico e permite a navegação para os restantes subtópicos através de links.
     2.  Cada pasta deve conter um directório `./sec/img/` aonde serão armazenadas as imagens relevantes para o tópico.
@@ -161,31 +159,84 @@ Para a gestão da informação relacionada com o projecto será necessário adop
     -   Compilar o ficheiro `.tex` e gerar o respectivo PDF.
 
 
-<a id="orgf5c4b60"></a>
+<a id="org112051f"></a>
+
+## Git
+
+Git is a version control tool, providing easy management of a distributed document source between the several elements of the team.
+
+
+<a id="org99256ea"></a>
+
+### Workflow
+
+1.  Basic
+
+    1.  **Clone** the project
+    2.  The administrator will add you as a colaborator, giving you direct push permissions.
+    3.  **Pull** the last changes from remote repository before starting to work in the project and just before pushing changes to remote repository:
+        -   using: `git pull <branchname>`
+        -   this avoids most conflicts.
+    4.  **Modify** the documents required, keeping it limited to a narrow scope: e.g., fix a bug, add a functionality, etc. Large modifications should be avoided.
+    5.  **Stage** the changes: add them to tracking
+    6.  **Commit** (or discard) the changes: if commited the changes will override the previous files in the local repository.
+    7.  **Push** the changes: send the local repository changes to the remote repository (hosted on github) for update, using `git push <remoteName>`
+        -   Conflicts can be detected if someone has modified:
+            -   the remote repository (some files, but not the ones you've worked in): for this, one can just pull changes (see 2)
+            -   the file(s) you've worked in: in that case, you have to pull the changes (see 2), modify the files with your changes, and commit again.
+
+2.  Advanced
+
+    The advanced workflow increments the basic one, by isolating the core source of the project (current version fully operational) from the addition of new functionalities or from code refinement.
+    
+    For this purpose, a branch should be created with a descriptive name from master remote (preferably) and the functionality added.
+    
+    **Workflow (advanced**:
+    
+    1.  **Branch** from master branch remote: `git branch <branchName> <remoteName>`
+    2.  **Modify** the required files
+    3.  **merge** the branch again to master remote, effectively adding the functionalities to the core.: `git merge <branchName> <remoteName>`
+
+
+<a id="org659483b"></a>
+
+### Commits' policy
+
+The commits made first to local repository and then to the remote repository should contain relevant information about the changes/deletions being made, namely the reason behind them and what has been changed.
+
+For this purpose, a set of thumb rules and tags are used to enforce this policy as follows:
+
+-   `ADD: <what> to <where> and <why>`: addition of a new file, a new functionality, a new snippet of code
+-   `FIX: <what>, <where> and <why>`: fixing a bug, duplicate files, etc. fall in this category
+-   `UPDT: <what>, <where> and <why>`: updating the contents of a file, the file structure, etc., follow in this category
+-   `RM: <what> to <where> and <why>`: removing of a file
+
+
+<a id="org4e444db"></a>
 
 # Project
 
 
-<a id="org62dac93"></a>
+<a id="orga324747"></a>
 
 ## RFCAR - Radio Frequency Camera Assisted Rover
 
 
-<a id="org25fb14c"></a>
+<a id="org0a01f0f"></a>
 
 ### Motivation
 
 This project is being developed in the scope of the integrator project of LPI2. It aims to develop skills in the software engineering area and digital design, wireless communication protocols, odometric vehicle navigation, etc.
 
 
-<a id="orgd791fb4"></a>
+<a id="org9b06e53"></a>
 
 ### Description
 
 The project consists of a remote controlled car used to assist exploration and maintenance domains. For this purpose, the vehicle should contain a remotely operated camera feeding back video to the user. Additionally, the vehicle must contain odometric sensors to assist in driving and prevent crashes when user is not in control, e.g., when connection is lost. The vehicle can be used for exploration of unaccessible areas to human operators like fluid pipelines and other hazardous sites.
 
 
-<a id="orgdeead0d"></a>
+<a id="org583dbc4"></a>
 
 ### Technologies
 
@@ -199,7 +250,7 @@ The project consists of a remote controlled car used to assist exploration and m
     -   GPRS
 
 
-<a id="org30d6f2f"></a>
+<a id="org6d28516"></a>
 
 ## Workgroups
 
@@ -226,12 +277,12 @@ The project consists of a remote controlled car used to assist exploration and m
 5.  **PCBs**: Hugo Carvalho, Hugo Ferreira
 
 
-<a id="orgab4af6e"></a>
+<a id="org5cbcc17"></a>
 
 ## Meetings
 
 
-<a id="orgf1e940f"></a>
+<a id="org7fa3f10"></a>
 
 ### 2 &#x2014; Planeamento
 
@@ -287,4 +338,3 @@ The project consists of a remote controlled car used to assist exploration and m
         -   <span class="underline">Actuação</span>: **João Faria**, Nuno Rodrigues
         -   <span class="underline">Controlo</span>: **João Carvalho**, Nuno Rodrigues
             -   Estas equipas poderão sofrer alterações conforme o projecto assim o exija.
-
