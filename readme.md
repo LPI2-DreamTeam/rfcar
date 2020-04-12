@@ -1,33 +1,33 @@
-- [Gestão do Projecto](#org6b03bb2)
-  - [Filesystem: Directórios](#org7d27972)
-  - [Horas do Projecto](#org32d5c63)
-  - [Contactos](#org8136d41)
-- [Tools](#orgb033b23)
-  - [Team conversation](#org847a0cc)
-  - [Diagrama de Gantt](#orgaa667ac)
-  - [Get Things Done](#org0134e24)
-  - [Documentation + Tracking Project](#org9ea8900)
-    - [Workflow](#org7e2c249)
-  - [Git](#org112051f)
-    - [Workflow](#org99256ea)
-    - [Commits' policy](#org659483b)
-- [Project](#org4e444db)
-  - [RFCAR - Radio Frequency Camera Assisted Rover](#orga324747)
-    - [Motivation](#org0a01f0f)
-    - [Description](#org9b06e53)
-    - [Technologies](#org583dbc4)
-  - [Workgroups](#org6d28516)
-  - [Meetings](#org5cbcc17)
-    - [2 &#x2014; Planeamento](#org7fa3f10)
+- [Gestão do Projecto](#orge73444c)
+  - [Filesystem: Directórios](#org1f40c06)
+  - [Horas do Projecto](#org1708059)
+  - [Contactos](#org3bc03a6)
+- [Tools](#orga475971)
+  - [Team conversation](#orgc6d78b0)
+  - [Diagrama de Gantt](#org0ae3751)
+  - [Get Things Done](#org5437ba1)
+  - [Documentation + Tracking Project](#org3bc523d)
+    - [Workflow](#org9f2d0a5)
+  - [Git](#orgf9b0f53)
+    - [Workflow](#orge14e813)
+    - [Commits' policy](#org18db6dc)
+- [Project](#org66ccb6b)
+  - [RFCAR - Radio Frequency Camera Assisted Rover](#org7c62af3)
+    - [Motivation](#org23e6968)
+    - [Description](#org74e2480)
+    - [Technologies](#org19c85fa)
+  - [Workgroups](#orge94468d)
+  - [Meetings](#org6f3333d)
+    - [2 &#x2014; Planeamento](#orgeb5c9d6)
 
 
 
-<a id="org6b03bb2"></a>
+<a id="orge73444c"></a>
 
 # Gestão do Projecto
 
 
-<a id="org7d27972"></a>
+<a id="org1f40c06"></a>
 
 ## Filesystem: Directórios
 
@@ -62,14 +62,14 @@
 -   [./HW/](HW): HW desenvolvido para o projecto decomposto pelas várias vertentes.
 
 
-<a id="org32d5c63"></a>
+<a id="org1708059"></a>
 
 ## Horas do Projecto
 
 Cada elemento do grupo deverá adicionar o nr. de horas dedicado ao projecto no ficheiro [ProjHours.xlsx](ProjManag/ProjHours.xlsx).Basta duplicar a folha inicial.
 
 
-<a id="org8136d41"></a>
+<a id="org3bc03a6"></a>
 
 ## Contactos
 
@@ -86,19 +86,19 @@ Aqui estão os contactos de todos os elementos do grupo. Sintam-se à vontade pa
 | José Pires     | 50178     | a50178@alunos.uminho.pt     | 911 901290 |
 
 
-<a id="orgb033b23"></a>
+<a id="orga475971"></a>
 
 # Tools
 
 
-<a id="org847a0cc"></a>
+<a id="orgc6d78b0"></a>
 
 ## Team conversation
 
 A ferramenta [Twist](https://twist.com) foi escolhida por fornecer agrupamento de conversas em tópicos
 
 
-<a id="orgaa667ac"></a>
+<a id="org0ae3751"></a>
 
 ## Diagrama de Gantt
 
@@ -110,7 +110,7 @@ Será usado o [Gantter](https://www.gantter.com/) para elaboração do diagrama 
 O mapa de Gantt original deverá ser preservado, como constando da etapa 1, mas deverá ser actualizado ao longo do projecto.
 
 
-<a id="org0134e24"></a>
+<a id="org5437ba1"></a>
 
 ## Get Things Done
 
@@ -122,7 +122,7 @@ O diagrama de Gantt deverá ser usado numa macro-escala para gestão do projecto
 Cada elemento do grupo deverá adicionar o nr. de horas dedicado ao projecto no ficheiro [ProjHours.xlsx](ProjManag/ProjHours.xlsx).Basta duplicar a folha inicial.
 
 
-<a id="org9ea8900"></a>
+<a id="org3bc523d"></a>
 
 ## Documentation + Tracking Project
 
@@ -133,13 +133,13 @@ Existe um grande fluxo de informação associado ao projeto. Para gerir melhor e
 -   *gestão de projecto*: usando o Trello para adicionar tarefas e atribuí-las aos diferentes membros da equipa.
 
 
-<a id="org7e2c249"></a>
+<a id="org9f2d0a5"></a>
 
 ### Workflow
 
 Para a gestão da informação relacionada com o projecto será necessário adoptar algumas normas e convenções para utilização adequada e conveniente do repositório.
 
-1.  **Filesystem**: Será criado um *filesystem*, cuja raiz é o directório actual e cujas paths devem ser relativas. Para armazenamento do *filesystem* será usada o github. Para visualizar e navegar pelo conteúdo basta replicar o *filesystem* em qq directório. O *filesystem* será navegável através dos links indicados neste readme file na secção [Directórios](#org7d27972) deste documento.
+1.  **Filesystem**: Será criado um *filesystem*, cuja raiz é o directório actual e cujas paths devem ser relativas. Para armazenamento do *filesystem* será usada o github. Para visualizar e navegar pelo conteúdo basta replicar o *filesystem* em qq directório. O *filesystem* será navegável através dos links indicados neste readme file na secção [Directórios](#org1f40c06) deste documento.
 2.  **Estrutura**:
     1.  Existirá um ficheiro readme `rd.tex` por cada directório que deve conter a informação essencial a esse tópico e permite a navegação para os restantes subtópicos através de links.
     2.  Cada pasta deve conter um directório `./sec/img/` aonde serão armazenadas as imagens relevantes para o tópico.
@@ -159,14 +159,14 @@ Para a gestão da informação relacionada com o projecto será necessário adop
     -   Compilar o ficheiro `.tex` e gerar o respectivo PDF.
 
 
-<a id="org112051f"></a>
+<a id="orgf9b0f53"></a>
 
 ## Git
 
 Git is a version control tool, providing easy management of a distributed document source between the several elements of the team.
 
 
-<a id="org99256ea"></a>
+<a id="orge14e813"></a>
 
 ### Workflow
 
@@ -198,7 +198,7 @@ Git is a version control tool, providing easy management of a distributed docume
     3.  **merge** the branch again to master remote, effectively adding the functionalities to the core.: `git merge <branchName> <remoteName>`
 
 
-<a id="org659483b"></a>
+<a id="org18db6dc"></a>
 
 ### Commits' policy
 
@@ -211,32 +211,34 @@ For this purpose, a set of thumb rules and tags are used to enforce this policy 
 -   `UPDT: <what>, <where> and <why>`: updating the contents of a file, the file structure, etc., follow in this category
 -   `RM: <what> to <where> and <why>`: removing of a file
 
+**Example**: `ADD: Git Workflow and Commit Policies to add consistency`
 
-<a id="org4e444db"></a>
+
+<a id="org66ccb6b"></a>
 
 # Project
 
 
-<a id="orga324747"></a>
+<a id="org7c62af3"></a>
 
 ## RFCAR - Radio Frequency Camera Assisted Rover
 
 
-<a id="org0a01f0f"></a>
+<a id="org23e6968"></a>
 
 ### Motivation
 
 This project is being developed in the scope of the integrator project of LPI2. It aims to develop skills in the software engineering area and digital design, wireless communication protocols, odometric vehicle navigation, etc.
 
 
-<a id="org9b06e53"></a>
+<a id="org74e2480"></a>
 
 ### Description
 
 The project consists of a remote controlled car used to assist exploration and maintenance domains. For this purpose, the vehicle should contain a remotely operated camera feeding back video to the user. Additionally, the vehicle must contain odometric sensors to assist in driving and prevent crashes when user is not in control, e.g., when connection is lost. The vehicle can be used for exploration of unaccessible areas to human operators like fluid pipelines and other hazardous sites.
 
 
-<a id="org583dbc4"></a>
+<a id="org19c85fa"></a>
 
 ### Technologies
 
@@ -250,7 +252,7 @@ The project consists of a remote controlled car used to assist exploration and m
     -   GPRS
 
 
-<a id="org6d28516"></a>
+<a id="orge94468d"></a>
 
 ## Workgroups
 
@@ -277,12 +279,12 @@ The project consists of a remote controlled car used to assist exploration and m
 5.  **PCBs**: Hugo Carvalho, Hugo Ferreira
 
 
-<a id="org5cbcc17"></a>
+<a id="org6f3333d"></a>
 
 ## Meetings
 
 
-<a id="org7fa3f10"></a>
+<a id="orgeb5c9d6"></a>
 
 ### 2 &#x2014; Planeamento
 
