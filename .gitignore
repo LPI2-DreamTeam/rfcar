@@ -16,6 +16,7 @@
 *.lol
 *.org
 *.gz
+*.out
 # ignore the designated subfolders
 auto/
 

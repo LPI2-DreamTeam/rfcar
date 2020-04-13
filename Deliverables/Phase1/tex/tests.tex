@@ -1,133 +1,217 @@
-\section{Tests}
+\section{Tests}%
 \label{sec:org3e2776f}
-\subsection{Verifications tests}
+Tests are generally considered as those performed over any physical
+component or prototype. Here, however, it is used in a broader sense, to reflect the tests
+conducted into the system and the several prototypes, under the abnormal present
+circumstances. The tests are divided into verification and validation tests.
+\subsection{Verifications tests}%
 \label{sec:orge9c79e2}
 The verifications tests are tests performed internally by the design team to
 check the compliance of the foreseen specifications. These tests are done after
 the prototype alpha is concluded.
 
-\subsubsection{Maximum velocity}
+\subsubsection{Functionality}%
+\label{sec:functionality}
+The remotely operated vehicle is composed of several modules distributed along
+several different platforms, some of which distanced from each other. In the
+present abnormal circumstances, this is even more true. Thus, the proposed sets
+of functionalities should be tested in the integrated system, by tracking and
+analysing the user commands issued along the way until it finally reaches the
+vehicle, assessing if it is correctly processed. For example, if the user issues
+the vehicle to move to a given place, the message sent to the vehicle must be
+signaled in each endpoint hit, and the vehicle should move to that place.
+
+\subsubsection{Maximum Load}%
+\label{sec:load}
+The remotely controlled vehicle can be used in applications involving load
+carrying (besides its own, obviously), e.g., packet delivery. For this purpose
+it is important to determine the maximum load the vehicle can carry safely at
+the minimum velocity defined. As the load increases, also increases the power
+consumption, diminishing the autonomy. Thus, two alternative definitions, and
+consequently, tests arise for the maximum load determination:
+\begin{enumerate}
+\item maximum load (at minimum velocity): maximum load the vehicle can carry
+  safely at the minimum velocity defined.
+\item maximum load (at 50\% over the mean power consumption): maximum load which
+  causes a 50\% increase in the mean power consumption, i.e., while operating at
+  mean velocity.
+\end{enumerate}
+
+To test the former, load should be increased slowly, measuring the vehicle
+mean velocity, until the minimum velocity defined is achieved. To test the
+latter, load should be increased slowly, measuring the power consumption, until
+a 50\% increase over the mean power power consumption is detected, while
+operating at the mean velocity.
+
+\subsubsection{Autonomy}%
 \label{sec:org532616f}
-The maximum velocity must be tested to ensure integrity of the
-system. Furthermore, the degree of linearity of the velocity is respect to user
-input must also be tested.
+The vehicle is operated off-the-grid, thus, a portable power source must be
+included. The autonomy --- time interval between battery fully charged and
+safely discharged --- should be observed for the following scenarios:
+\begin{enumerate}
+\item No load and vehicle operating at maximum speed
+\item No load and vehicle operating at mean speed
+\item Maximum load and vehicle operating at maximum speed
+\item Maximum load and vehicle operating at mean speed
+\end{enumerate}
+The autonomy is related to product's power consumption and the capacity of the
+battery chosen. Under the present abnormal circumstances is not reasonable to
+expect the product's power consumption to match the real one, thus, for all
+purposes, this will be considered as the one drawn by the car module itself,
+namely, the installed motors and sensors.
 
-The procedure to test the maximum velocity is analogous to the velocity's
-linearity trial, the only difference being the reference velocity’s regulation potentiometer position which should, for the maximum velocity’s case be at maximum.
+Then, the autonomy can be measured as
+the time interval between battery fully charged and safely discharged (the car
+stops), by fixating the car to a supporting structure with free moving wheels,
+and imposing the aforementioned conditions.
 
-The velocity of the conveyor belt can be measured internally to the system ---
-measuring the induced voltage at the generator and converting to its physical
-representation --- or externally using an tachometer for instantaneous value or
-measuring the travel time and dividing by the conveyor length to obtain the
-average velocity.
-
-\uline{Internally}: The motor drives the conveyor belt at one end, also driving the
-generator at the other end, due to their coupling. Thus, disregarding slip and
-friction losses, the angular velocity of the motor and the generator are
-identical. As \(\omega_m\) = \(\omega_g\) and \(v = \omega \cdot r\), the linear velocity of the conveyor can determined based on the angular velocity of the generator, which induces a proportional voltage at the terminals of the generator. Thus, by measuring this voltage, the linear velocity of the conveyor can be determined.
-
-Using an oscilloscope to display the measured voltage at the generator and the
-reference voltage, one will have the electrical representation of both the
-desired velocity (physical representation of the reference voltage) and the
-current velocity (physical representation of the voltage at the generator). 
-One should see them as very similar, within a previously agreed upon range of
-difference, accordingly to the type of controller used. This can be be used for
-transient analysis of the conveyor's behaviour.
-
-\uline{Externally} (instantaneous value): This first method will make use of the
-physical relation between the linear velocity, v, the angular velocity,
-\(\omega\), and the radius of the axis, r: \(v = \omega \cdot r\); and the previously
-stated assumption that the conveyor’s linear velocity and the generator’s
-angular velocity are directly proportional.
-
-Using a tachometer to measure the motor's angular
-velocity \(\omega\), the linear velocity of the conveyor belt can be determined,
-through \(v= \omega \cdot r\), where \(r\) is the radius of the axis. 
-
-Then through a comparison of the measured velocity and the physical representation of the reference voltage the outcome of the trial will be clear: if the velocities are similar within a range of difference that was agreed upon, it should be considered a success.
-
-\uline{Externally} (average value): measuring the travel time (see Section
-\ref{sec:org20789b4}) of a part in the conveyor and
-dividing by the conveyor length, the average velocity of the conveyor can be
-determined. This can only be used for steady state analysis of the conveyor's
-behaviour. Thus, if the average velocity is within the boundaries of the desired
-velocity and the respective margin of error, the trial is considered a success.
-
-For maximum assurance one should at least measure the velocity through the
-internal method and one of the external followed by a comparison. This
-comparison takes into account that for this procedure we agreed upon a 5\% margin
-of error when comparing the measured and the reference velocities. It also
-should consider the overshoot that will occur when the load is first placed,
-which was agreed to be 10\%, therefore at any given time the conveyor’s velocity
-should never surpass \texttt{0.2 m/s} (the agreed upon maximum velocity) \(\pm\) 10\%.
-
-\subsubsection{Travel Time}
+\subsubsection{Velocity}%
 \label{sec:org20789b4}
-The time it takes a certain load with a constant mass to travel the full length
-of the conveyor can be measured by a simple series of measurements using a
-chronometer and the calculation of the average.
+The vehicle must be operated within a safe range of velocity, while also not
+increasing excessively the power consumption. Thus, these velocity boundaries
+should be tested in the absence of an external load and in the presence of the
+maximum load. It is important to define these boundaries as follows:
+\begin{itemize}
+\item minimum velocity: minimum velocity defined for the vehicle, which must be
+  attained even in the condition of maximum load. This value must be selected to
+  assure safe motor operation.
+\item maximum velocity (no load): maximum velocity for the vehicle in the
+  absence of an external load. This is the absolute maximum velocity for the
+  vehicle.
+\item maximum velocity (maximum load): maximum velocity for the vehicle in the
+  presence of the maximum load. This value must be selected to prevent excessive
+  power consumption and motor overheating.
+\end{itemize}
+The aforementioned velocities should be tested in the designed conditions,
+within a sufficiently long distance to assure velocity reach and stabilization,
+and compared to the ones provided in the foreseen specifications.
 
-It should be noted that during the external measurement of velocity, the travel time was measured, there is a direct correlation between the two as such at assurance’s behest one should make sure that the results obtained during the velocity trial are in accordance with the values obtained in this procedure.
-
-\subsubsection{Settling time}
+\subsubsection{Safety}%
 \label{sec:orgf4c025f}
-The time that it takes the system to react to the presence of a load with a
-constant mass and achieve a steady state.
+Safety is paramount in product design, especially considering the vehicle is to
+be remotely operated. Safety can be analysed in two ways, considering the
+preservation of people and goods. For the former, it is important to assure safe
+user operation as well as safe human interaction --- the vehicle may encounter
+several people along its path, but it must not inflict any damage. For the
+latter, the vehicle under operating conditions must not inflict any damage to
+goods.
 
-The small scale of the conveyor and, consequently, its settling time (0.6
-seconds minimum for the maximum velocity) dictate that the easiest method to
-measure the conveyor velocity is by measuring the induced voltage in the
-conveyor, capturing this data using the oscilloscope, this taking into account,
-once again, the relation between the induced voltage at the generator and the
-conveyor’s current velocity, as such by observing the induced voltage’s behavior
-one can draw a conclusion regarding the settling time.
+To test human safety, it is important to identify the interactions between the
+user and the product, and which are the most prevalent and dangerous. Even so,
+the exhaustive test is outside the scope of the present work; a small set of
+features will be tested accordingly to the devised user manual, containing the
+safety measures. For example, battery installation and conditions should be
+tested, eventually leading to the posterior incorporation of safety measures in
+the product.
 
-With the induced voltage at the generator captured by an oscilloscope,
-specifically using the “single mode” present in these measuring instruments one
-can observe the change that will occur in the generator’s voltage, more
-specifically the moment a load is placed upon the running conveyor a change will
-occur, the time it takes from this moment until the voltage returns to previous
-value will be the settling time.
+To test goods safety, it is reasonable to assume the operating conditions of the
+vehicle. Under these it is important to consider the most critical ones that
+concern the moments when the vehicle is left to be controlled locally, instead
+of user controlled operation. The critical conditions for local operations are
+divided into two sets:
+\begin{itemize}
+\item processing of user commands and vehicle operation: user commands can
+  conflict with safety measures and, thus, should be overriden locally.
+\item communication loss: the vehicle is left to odometric navigation,
+  preserving the safety of people and goods.
+\end{itemize}
+To test these two scenarios, they should be replicated, observing the system
+response and tolerance.%DONE
 
-\subsubsection{Overshoot}
+\subsubsection{Image acquisition}%
 \label{sec:orgb1f5c2a}
-An overshoot occurs when the output in a control system exceeds its final,
-steady state value generally caused by a sudden change in the system, in this
-case specifically, the placement of a load upon the conveyor will cause an
-overshoot in the latter’s velocity which must be controlled lest it cause
-problems.
+The vehicle is equipped with a camera to assist the user in its navigation,
+thus, requiring it to be feed to the user's platform within proper conditions.
+The following variables are to be tested: frame rate, range, and resolution.
 
-An overshoot will occur during the settling time, as such, using the same
-considerations taken in its measurement, it can be measured by observing the
-induced voltage at the generator (an overshoot in the conveyor’s velocity will
-correspond to a peak in the generator’s voltage).
+\paragraph{Frame rate}%
+\label{sec:frame-rate-test}
+The frame rate is the rate at which the user platform screen is updated with new
+image information. It should be maintained within acceptable boundaries to serve
+the purpose of assisting the user in the vehicle's navigation. To test it, the
+number of frame displayed per second in the user screen must be updated and
+checked against the defined boundaries.
 
-Using an oscilloscope to display the induced voltage at the generator and making
-use of the “single mode” present in these measuring instruments one can observe
-the change that will occur in the generator’s induced voltage, the peak voltage
-that will be seen when the load is placed upon the running conveyor is the
-electrical representation of the overshoot of velocity, then either by
-converting it to its physical representation or comparing it to the reference
-voltage one can arrive at a conclusion. It was agreed that the overshoot
-velocity should be \(V_{ss} \pm 10\%\), where \(V_{ss}\) is the stedy state velocity.
+\paragraph{Range}%
+\label{sec:range-test}
+The range is the maximum distance the camera can clearly effectively capture an
+image without losing resolution. To test this, an object must be captured at
+increasing distances, until the image resolution is lost.
 
-\subsection{Validation tests}
+\paragraph{Resolution}%
+\label{sec:resolution-test}
+The image resolution quantifies how close lines can be to each other and still
+be visibly resolved, giving an information on the its detail. The minimum
+resolution should be tested as providing the least amount of information
+required for the user, while minimizing data transfer and processing overhead.
+
+\subsubsection{Communication reliability}%
+\label{sec:comm-reli}
+A communication is reliable if it guarantees measures to deliver the data
+conveyed in the communication link. As reliability imposes these measures, it
+also adds overhead to the communication protocol, which must be considered
+depending on the case. For example, for the devised product, an user command
+must be acknowledged to be processed, otherwise, the user must be informed; on
+the other hand, loosing frames from the video feed is not so critical --- user
+can still observe conveniently the field of vision if the frame rate is within
+acceptable boundaries. 
+
+Thus, given the critical nature of user commands issued, the focus will be on
+this communication link. To test the reliability dummy packets should be sent
+from the user platform to the vehicle and be acknowledged and parsed correctly.
+
+\subsubsection{Closed loop error (Control loops)}%
+\label{sec:closed-loop-error}
+The velocity, direction and distance to obstacles must be continuosly monitored
+to ensure proper vehicle operation. The closed loop error must then be checked
+mainly in three situations as a response to an user command:
+\begin{itemize}
+\item velocity: the user issued an command with a given mean velocity, which
+  should be compared with the steady-state mean velocity of the vehicle. This
+  can be tested by comparing the user defined velocity and the vehicle's;
+\item direction: the user issued an command with a given direction, which should
+  be compared to the vehicle direction. This can be tested by measuring the
+  angle between final and initial points and comparing it with the user defined
+  direction.
+\item distance to obstacles: the user issued an command with a given direction
+  and velocity which can cause it to crash. The local control must take over
+  control, preventing this to happen, and the final distance to the obstacles
+  must be assessed and compared to the defined one.
+\end{itemize}
+
+%An overshoot occurs when the output in a control system exceeds its final,
+%steady state value generally caused by a sudden change in the system, in this
+%case specifically, the placement of a load upon the conveyor will cause an
+%overshoot in the latter’s velocity which must be controlled lest it cause
+%problems.
+%
+%An overshoot will occur during the settling time, as such, using the same
+%considerations taken in its measurement, it can be measured by observing the
+%induced voltage at the generator (an overshoot in the conveyor’s velocity will
+%correspond to a peak in the generator’s voltage).
+%
+%Using an oscilloscope to display the induced voltage at the generator and making
+%use of the “single mode” present in these measuring instruments one can observe
+%the change that will occur in the generator’s induced voltage, the peak voltage
+%that will be seen when the load is placed upon the running conveyor is the
+%electrical representation of the overshoot of velocity, then either by
+%converting it to its physical representation or comparing it to the reference
+%voltage one can arrive at a conclusion. It was agreed that the overshoot
+%velocity should be \(V_{ss} \pm 10\%\), where \(V_{ss}\) is the stedy state
+%velocity.
+
+\subsection{Validation tests}%
 \label{sec:orgff1a37d}
 The validation tests should be performed by the client using the product’s
 manual, so it is expected that a user without prior experience with the product
-should be able to use it correctly and safely. 
-For this purpose, a laboratory guide will be produced to work similarly to the
-product’s manual, so the user can use the product also as a didactic kit. However, in this stage of the project, the laboratory guide hasn’t been prepared yet, but it’s already possible to have an idea about the type of tests and steps that will be necessary, such as:
-\begin{itemize}
-\item Motor tests;
-\item Generator tests;
-\item System parameter determination by measurements;
-\item Tests using another controller;
-\item Tests varying the load;
-\item Tests changing slope levels;
-\end{itemize}
+should be able to use it correctly and safely. On the present abnormal
+circumstances, with limited access to the physical modules, specially for an
+external agent, the validation is severely limited.
+Thus, it should be limited to user interface validation.
 
-
+For this purpose, an external agent will be provided with the software
+application and the respective installation and usage manuals, and the feedback
+will be collected and processed to further improve the product.
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../Phase1"
