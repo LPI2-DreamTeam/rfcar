@@ -64,26 +64,36 @@ The velocity, direction and distance to obstacles must be continuosly monitored 
 Table \ref{tab:specs-init} lists the foreseen product specifications.
 
 % Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
 \begin{table}[!hbt]
 \centering
 \caption{Specifications}
 \label{tab:specs-init}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lll}
+
+\begin{tabular}{
+>{\columncolor[HTML]{FFFFFF}}l 
+>{\columncolor[HTML]{FFFFFF}}l 
+>{\columncolor[HTML]{FFFFFF}}l }
 \hline
- & Values & Explanation \\ \hline
-Max Velocity & 0.2 m/s & Maximum velocity of the conveyor belt in steady state \\ \hline
-Dimensions & 60x30x30 cm & Dimensions of the conveyor belt in cm {[}l w h{]} \\ \hline
-Time Min & 3 s & \begin{tabular}[c]{@{}l@{}}Time taken to transport a load the full extent \\ of the conveyor belt at maximum velocity\end{tabular} \\ \hline
-Max Load & 1 Kg & \begin{tabular}[c]{@{}l@{}}Load the belt can hold without causing any \\ harm to the product\end{tabular} \\ \hline
-Max slope & 15$^\circ$ & \begin{tabular}[c]{@{}l@{}}Maximum slope in which the conveyor belt can \\ operate at nominal conditions\end{tabular} \\ \hline
-Slope levels & {[}0,5,10,15{]}$^\circ$ & Different levels of slope manually handled \\ \hline
-Settling time & 0.2 $\cdot$ T & \begin{tabular}[c]{@{}l@{}}This means that it takes up to 20\% of the full \\ travel time to reach steady velocity\end{tabular} \\ \hline
-Overshoot & 110\% Vss & \begin{tabular}[c]{@{}l@{}}Maximum velocity the conveyor belt reaches \\ before settling time\end{tabular} \\ \hline
-Margin of error & 95\%-105\% of Vss & Admissible error in steady velocity \\ \hline
-Power supply & 12V batteries, 6W & The main power supply will be 12V batteries \\ \hline
-\end{tabular}%
-}
+                  & Values     & Explanation                                                                                                  \\ \hline
+Autonomy          & 4 h        & \begin{tabular}[c]{@{}l@{}}Time interval between battery fully \\ charged and safely discharged\end{tabular} \\ \hline
+Minimum Velocity  & 0.1 m/s    & \begin{tabular}[c]{@{}l@{}}Minimum velocity at which the car \\ can operate safely\end{tabular}              \\ \hline
+Maximum Velocity  & 1 m/s      & \begin{tabular}[c]{@{}l@{}}Maximum velocity at which the car\\ can operate safely\end{tabular}               \\ \hline
+Maximum Load      & 0.5 kg     & Maximum load the car can safely carry                                                                        \\ \hline
+Frame Rate        & 60 fps     & \begin{tabular}[c]{@{}l@{}}Frequency at which independent still \\ images appear on the screen\end{tabular}  \\ \hline
+Camera Range      & 20 m       & \begin{tabular}[c]{@{}l@{}}How far can the camera capture images\\ without loosing resolution\end{tabular}   \\ \hline
+Camera resolution & 480p       & Amount of detail that the camera can capture                                                                 \\ \hline
+Comunication Range & 50 m & \begin{tabular}[c]{@{}l@{}}Maximum distance between the car and the\\ smarphone without losing connection\end{tabular} \\ \hline
+Velocity Error    & 5 \%       & \begin{tabular}[c]{@{}l@{}}Maximum difference between desired \\ and real velocity\end{tabular}              \\ \hline
+Direction Error   & 5\%        & \begin{tabular}[c]{@{}l@{}}Maximum difference between desired\\  and real direction\end{tabular}             \\ \hline
+Distance Error     & 5 \% & \begin{tabular}[c]{@{}l@{}}Maximum difference between desired\\ and real distance to the obstacle\end{tabular}         \\ \hline
+Dimensions        & 20x12x5 cm & Dimensions of the car                                                                                        \\ \hline
+Weight            & 0.5 kg     & Weight of the car                                                                                            \\ \hline
+\end{tabular}
 \end{table}
 
 %%% Local Variables:
