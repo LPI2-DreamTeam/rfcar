@@ -1,12 +1,12 @@
-\section{Tests}
+\section{Tests}%
 \label{sec:org3e2776f}
-\subsection{Verifications tests}
+\subsection{Verifications tests}%
 \label{sec:orge9c79e2}
 The verifications tests are tests performed internally by the design team to
 check the compliance of the foreseen specifications. These tests are done after
 the prototype alpha is concluded.
 
-\subsubsection{Maximum velocity}
+\subsubsection{Maximum velocity}%
 \label{sec:org532616f}
 The maximum velocity must be tested to ensure integrity of the
 system. Furthermore, the degree of linearity of the velocity is respect to user
@@ -46,8 +46,7 @@ through \(v= \omega \cdot r\), where \(r\) is the radius of the axis.
 
 Then through a comparison of the measured velocity and the physical representation of the reference voltage the outcome of the trial will be clear: if the velocities are similar within a range of difference that was agreed upon, it should be considered a success.
 
-\uline{Externally} (average value): measuring the travel time (see Section
-\ref{sec:org20789b4}) of a part in the conveyor and
+\uline{Externally} (average value): measuring the travel time (see Section~\ref{sec:org20789b4}) of a part in the conveyor and
 dividing by the conveyor length, the average velocity of the conveyor can be
 determined. This can only be used for steady state analysis of the conveyor's
 behaviour. Thus, if the average velocity is within the boundaries of the desired
@@ -61,7 +60,7 @@ should consider the overshoot that will occur when the load is first placed,
 which was agreed to be 10\%, therefore at any given time the conveyor’s velocity
 should never surpass \texttt{0.2 m/s} (the agreed upon maximum velocity) \(\pm\) 10\%.
 
-\subsubsection{Travel Time}
+\subsubsection{Travel Time}%
 \label{sec:org20789b4}
 The time it takes a certain load with a constant mass to travel the full length
 of the conveyor can be measured by a simple series of measurements using a
@@ -69,7 +68,7 @@ chronometer and the calculation of the average.
 
 It should be noted that during the external measurement of velocity, the travel time was measured, there is a direct correlation between the two as such at assurance’s behest one should make sure that the results obtained during the velocity trial are in accordance with the values obtained in this procedure.
 
-\subsubsection{Settling time}
+\subsubsection{Settling time}%
 \label{sec:orgf4c025f}
 The time that it takes the system to react to the presence of a load with a
 constant mass and achieve a steady state.
@@ -89,7 +88,7 @@ specifically the moment a load is placed upon the running conveyor a change will
 occur, the time it takes from this moment until the voltage returns to previous
 value will be the settling time.
 
-\subsubsection{Overshoot}
+\subsubsection{Overshoot}%
 \label{sec:orgb1f5c2a}
 An overshoot occurs when the output in a control system exceeds its final,
 steady state value generally caused by a sudden change in the system, in this
@@ -111,21 +110,18 @@ converting it to its physical representation or comparing it to the reference
 voltage one can arrive at a conclusion. It was agreed that the overshoot
 velocity should be \(V_{ss} \pm 10\%\), where \(V_{ss}\) is the stedy state velocity.
 
-\subsection{Validation tests}
+\subsection{Validation tests}%
 \label{sec:orgff1a37d}
 The validation tests should be performed by the client using the product’s
 manual, so it is expected that a user without prior experience with the product
-should be able to use it correctly and safely. 
-For this purpose, a laboratory guide will be produced to work similarly to the
-product’s manual, so the user can use the product also as a didactic kit. However, in this stage of the project, the laboratory guide hasn’t been prepared yet, but it’s already possible to have an idea about the type of tests and steps that will be necessary, such as:
-\begin{itemize}
-\item Motor tests;
-\item Generator tests;
-\item System parameter determination by measurements;
-\item Tests using another controller;
-\item Tests varying the load;
-\item Tests changing slope levels;
-\end{itemize}
+should be able to use it correctly and safely. On the present abnormal
+circumstances, with limited access to the physical modules, specially for an
+external agent, the validation is severely limited.
+Thus, it should be limited to user interface validation.
+
+For this purpose, an external agent will be provided with the software
+application and the respective installation and usage manuals, and the feedback
+will be collected and processed to further improve the product.
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../Phase1"
