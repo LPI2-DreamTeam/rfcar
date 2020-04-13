@@ -1,4 +1,4 @@
-\section{Foreseen product specifications}
+\section{Foreseen product specifications}%
 \label{sec:org31f7574}
 The foreseen product specifications are listed as topics below (sketch).
 
@@ -25,9 +25,9 @@ the communication between user and system is lost.
 \end{itemize}
 \item Human: Due to the odometric sensors safely fixed in the car, crashes will not occur, making it much harder for the car to hit a person or for any part of the car to jump and cause harm to the user or anyone around.
 \end{itemize}
-\subsection{Image acquisition}
+\subsection{Image acquisition}%
 \label{sec:orgb6a5f66}
-\subsubsection{Frame rate}
+\subsubsection{Frame rate}%
 \label{sec:org5adf4ee}
 Frame rate refers to the frequency at which independent still images appear on the screen. The higher the frame rate, a better image quality is obtained but the processing overhead increases as well, so a compromise must be achieved between the quality of the image and the processing overhead required.
 \subsubsection{Range}
@@ -48,25 +48,25 @@ The amount of detail that the camera can capture. It is measured in pixels. The 
 \item User-friendly interface
 \item User interface responsiveness
 \end{itemize}
-\subsection{Load}
+\subsection{Load}%
 \label{sec:orgca6a690}
 The remote control car can be used 
 \subsection{Overall System latency/responsivess}
 \label{sec:org7fd1829}
 The overall system latency is the sum of all systems' latencies, which must be
 under a maximum tolerated value for the user.
-\subsection{Communication}
+\subsection{Communication}%
 \label{sec:org4241610}
-\subsubsection{Reliability}
+\subsubsection{Reliability}%
 \label{sec:orgdcb920d}
 Packet must be delivered (reliable, e.g. TCP) or not (e.g. UDP)
-\subsubsection{Range}
+\subsubsection{Range}%
 \label{sec:org447a205}
 The communication protocols have a limited range of operation, and, as such, regarding the environment on which the car is used the range can be changed.
 The range refers to the maximum distance allowed between user and system for communication purposes.
 \subsubsection{Transmission rate / throughput}
 \label{sec:org10e75a5}
-\subsubsection{Redundancy}
+\subsubsection{Redundancy}%
 \label{sec:orgc5933fc}
 The communication protocols are not flawless and the car relies on them to be controlled. If the communication is lost, the car cannot be controlled. A possible solution for this issue is using more communication protocols (e.g Wi-fi and bluetooth), so when one protocol fails, the car can still be controlled by the other.
 \subsection{Sensibility}
@@ -78,24 +78,24 @@ x10 y20 v10
 t5 v5
 
 \noindent\rule{\textwidth}{0.5pt}
-\subsection{Closed loop error (Control team)}
+\subsection{Closed loop error (Control team)}%
 \label{sec:org436f732}
 The closed loop control assures that upon the loss of communication or a command from the user that can cause harm to the car or anyone, the car will not crash. To do so, the velocity, direction and distance to objects must be controlled. The control consists on the comparation of the desired position with the current position, thus generation the error.
 \subsubsection{PI}
 \label{sec:org9859444}
 \subsubsection{PID}
 \label{sec:org352c4d4}
-\subsubsection{PD}
+\subsubsection{PD}%
 \label{sec:org0d324c4}
 
-\subsection{Summary}
+\subsection{Summary}%
 \label{sec:org1f95256}
-Table \ref{tab:specs-init} lista the foreseen product specifications.
+Table~\ref{tab:specs-init} lista the foreseen product specifications.
 
 % Please add the following required packages to your document preamble:
 \begin{table}[!hbt]
 \centering
-\caption{Specifications}
+\caption{Specifications}%
 \label{tab:specs-init}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lll}
