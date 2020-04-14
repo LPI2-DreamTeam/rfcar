@@ -1,6 +1,7 @@
 \section{Foreseen product specifications}%
 \label{sec:org31f7574}
-\subsection{QFD --- Quality Function Deployment}
+\subsection{QFD --- Quality Function Deployment}%
+\label{sec:qfd}
 The use of a QFD `Quality House' was opted as it is an efficient method of defining requirements laid out for the project and convert them into somewhat detailed engineering specifications in order to fullfill those requirements, along with several tools that allow to define the relations existing between the latter and the former.
 
 The QFD works by using a matrix where the project requirements will be laid out as rows and the engineering specifications as columns; in the intersections lie a number representing the strength of the relationship requirement-specification.
@@ -16,10 +17,10 @@ Figure~\ref{fig:QFD} shows the `Quality House' for the RF CAR containing:
 \item The Intersection Values (referencing the strength of the
   requirement-specification correlation):
   \begin{itemize}
-  \item 0 --- No Relation.
-  \item 1 --- Weak Relation.
-  \item 3 --- Moderate Relation.
-  \item 9 --- Strong Relation.
+  \item 0: No Relation.
+  \item 1: Weak Relation.
+  \item 3: Moderate Relation.
+  \item 9: Strong Relation.
   \end{itemize}
 \item The Analytical Results, depicting, quantifiably, the relevance of each
   entity:
@@ -55,6 +56,15 @@ the priorities can be changed if deemed appropriate.
 \newpage
 The foreseen product specifications are listed as topics below.
 
+\subsection{Cost}%
+\label{sec:cost-specs}
+The QFD method used pointed out the cost of the product as the most relevant
+aspect for the design team (see Section~\ref{sec:qfd}). Obviously, without the
+desired functionality, the cost is irrelevant. Nonetheless, it is important to
+estimate the product cost to evaluate its viability and, consequently, of this
+project. For the product's cost estimation should be taken into account the
+development effort (man hours), the components' cost, manufacturing and
+assembling cost, and the shipment cost.
 \subsection{Autonomy}%
 \label{sec:autonomy-specs}
 The vehicle is operated off-the-grid, thus, a portable power source must be included. The autonomy referes to the time interval between battery fully charged and safely discharged and should be observed for the following scenarios:
@@ -65,19 +75,27 @@ The vehicle is operated off-the-grid, thus, a portable power source must be incl
 \item maixmum load and vehicle operating at mean speed.
 \end{itemize}
 \subsection{Velocity}%
-\label{sec:org08718bc}
+\label{sec:velocity-tests}
 The vehicle must be operated within a safe range of velocity, while also not increasing excessively the power consumption. Thus, these velocity boundaries should be tested in the absence of an external load and in the presence of the maximum load.
 \subsection{Safety}%
 \label{sec:org83942c3}
-For a remote controlled car, safety concerns not only the car itself and all of the equipment, but also the humans that interact with the car:
-\begin{itemize}
-\item Car: If the user issues a command that would cause damage to the system, the
-system should take corrective measures to prevent it. The same holds true if
-the communication between user and system is lost. The system uses odometric navigation.
-\item Human: Due to the odometric sensors safely fixed in the car, crashes will not occur, making it much harder for the car to hit a person or for any part of the car to jump and cause harm to the user or anyone around.
-\end{itemize}
+Safety is paramount in product design, especially considering the vehicle is to
+be remotely operated. Safety can be analysed in two ways, considering the
+preservation of people and goods. For the former, it is important to assure safe
+user operation as well as safe human interaction --- the vehicle may encounter
+several people along its path, but it must not inflict any damage. For the
+latter, the vehicle under operating conditions must not inflict any damage to
+goods. Thus, in the presence of conflicting user commands violating the safety
+of people and goods, the local system should override them, taking corrective
+measures to prevent it. The same holds true if the communication between user
+and system is lost.
+%The system uses odometric navigation.
+%\item Human: Due to the odometric sensors safely fixed in the car, crashes will not occur, making it much harder for the car to hit a person or for any part of the car to jump and cause harm to the user or anyone around.
+%\end{itemize}
 \subsection{Image acquisition}%
-\label{sec:orgb6a5f66}
+\label{sec:image-acquisit}
+The vehicle is equipped with a camera to assist the user in its navigation,
+thus, requiring it to be fed to the user's platform appropriately.
 \subsubsection{Frame rate}%
 \label{sec:org5adf4ee}
 Frame rate refers to the frequency at which independent still images appear on the screen. The higher the frame rate, a better image quality is obtained but the processing overhead increases as well, so a compromise must be achieved between the quality of the image and the processing overhead required. The minimum frame rate defined must be such that allows a clear view of the video.
@@ -88,9 +106,9 @@ How far can the camera capture images without loosing resolution and record them
 \label{sec:orgba87554}%
 The amount of detail that the camera can capture. It is measured in pixels. The quality of the aquired image is proportional to the number os pixels but a greater resolution requires a greater data transfer and processing overhead, thus, a compromise must be achieved. The minimum resolution must be such that provides the least amount of information required for the user. 
 \subsection{Load}%
-\label{sec:orgca6a690}
-The remotely controlled vehicle can be used in applications involving load
-carrying (besides its own), e.g., packet delivery. For this purpose it is
+\label{sec:load-specs}
+The remotely controlled vehicle can be used in applications involving external
+load carrying, e.g., packet delivery. For this purpose it is
 important to determine the maximum load the vehicle can carry safely at the
 minimum velocity deﬁned. As the load increases, also increases the power
 consumption, diminishing the autonomy. Thus, a compromise between safe motor
@@ -118,7 +136,7 @@ The range refers to the maximum distance allowed between user and system for com
 \label{sec:org622e63a}
 The movement of the car will be determined by the tilt movement of the smartphone. Sensibility refers to the responsiveness of the car on the minimum smartphone tilt movement. The sensibility must be in an range of values in which small unintentional movements will be enough to change the state of the car and it does not take big smartphone tilts for the car to move.
 \subsection{Closed loop error}%
-\label{sec:org436f732}
+\label{sec:closed-loop-error-specs}
 The velocity, direction and distance to obstacles must be continuosly monitored to ensure proper vehicle operation. The closed loop error must then be checked mainly in three situations as a response to an user command:
 \begin{itemize}
 \item velocity: the user issued an command with a given mean velocity, which should be compared with the steady-state mean velocity of the vehicle.

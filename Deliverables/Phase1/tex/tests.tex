@@ -23,12 +23,9 @@ signaled in each endpoint hit, and the vehicle should move to that place.
 
 \subsubsection{Maximum Load}%
 \label{sec:load}
-The remotely controlled vehicle can be used in applications involving load
-carrying (besides its own, obviously), e.g., packet delivery. For this purpose
-it is important to determine the maximum load the vehicle can carry safely at
-the minimum velocity defined. As the load increases, also increases the power
-consumption, diminishing the autonomy. Thus, two alternative definitions, and
-consequently, tests arise for the maximum load determination:
+As mentioned in Section~\ref{sec:load-specs}, the maximum load can be defined
+for the minimum velocity (safe motor operation) and for maximum power consuptiom
+increase. Thus, two alternative definitions, and consequently, tests arise for the maximum load determination:
 \begin{enumerate}
 \item maximum load (at minimum velocity): maximum load the vehicle can carry
   safely at the minimum velocity defined.
@@ -61,10 +58,8 @@ conditions in Section~\ref{sec:autonomy-specs}.
 
 \subsubsection{Velocity}%
 \label{sec:org20789b4}
-The vehicle must be operated within a safe range of velocity, while also not
-increasing excessively the power consumption. Thus, these velocity boundaries
-should be tested in the absence of an external load and in the presence of the
-maximum load. It is important to define these boundaries as follows:
+The vehicle must be operated within a safe range of velocity, as mentioned in
+Section~\ref{velocity-tests}. It is important to define these boundaries as follows:
 \begin{itemize}
 \item minimum velocity: minimum velocity defined for the vehicle, which must be
   attained even in the condition of maximum load. This value must be selected to
@@ -82,13 +77,8 @@ and compared to the ones provided in the foreseen specifications.
 
 \subsubsection{Safety}%
 \label{sec:orgf4c025f}
-Safety is paramount in product design, especially considering the vehicle is to
-be remotely operated. Safety can be analysed in two ways, considering the
-preservation of people and goods. For the former, it is important to assure safe
-user operation as well as safe human interaction --- the vehicle may encounter
-several people along its path, but it must not inflict any damage. For the
-latter, the vehicle under operating conditions must not inflict any damage to
-goods.
+As mentioned in Section~\ref{sec:safety-tests}, safety can be analysed in two
+ways, considering the preservation of people and goods.
 
 To test human safety, it is important to identify the interactions between the
 user and the product, and which are the most prevalent and dangerous. Even so,
@@ -115,29 +105,22 @@ response and tolerance.
 \subsubsection{Image acquisition}%
 \label{sec:orgb1f5c2a}
 The vehicle is equipped with a camera to assist the user in its navigation,
-thus, requiring it to be feed to the user's platform within proper conditions.
-The following variables are to be tested: frame rate, range, and resolution.
+thus, requiring the following variables to be tested: frame rate, range, and resolution.
 
 \paragraph{Frame rate}%
 \label{sec:frame-rate-test}
-The frame rate is the rate at which the user platform screen is updated with new
-image information. It should be maintained within acceptable boundaries to serve
-the purpose of assisting the user in the vehicle's navigation. To test it, the
-number of frame displayed per second in the user screen must be updated and
-checked against the defined boundaries.
+To test frame rate, the user screen must be updated with the number of frames
+received from the camera per second and checked against the defined boundaries.
 
 \paragraph{Range}%
 \label{sec:range-test}
-The range is the maximum distance the camera can clearly effectively capture an
-image without losing resolution. To test this, an object must be captured at
+To test camera's range, an object must be captured at
 increasing distances, until the image resolution is lost.
 
 \paragraph{Resolution}%
 \label{sec:resolution-test}
-The image resolution quantifies how close lines can be to each other and still
-be visibly resolved, giving an information on the its detail. The minimum
-resolution should be tested as providing the least amount of information
-required for the user, while minimizing data transfer and processing overhead.
+The minimum resolution should be tested as providing the least amount of
+information required for the user, while minimizing data transfer and processing overhead.
 
 \subsubsection{Communication reliability}%
 \label{sec:comm-reli}
@@ -154,24 +137,12 @@ Thus, given the critical nature of user commands issued, the focus will be on
 this communication link. To test the reliability dummy packets should be sent
 from the user platform to the vehicle and be acknowledged and parsed correctly.
 
-\subsubsection{Closed loop error (Control loops)}%
+\subsubsection{Closed loop error}%
 \label{sec:closed-loop-error}
-The velocity, direction and distance to obstacles must be continuosly monitored
+As mentioned in Section~\ref{sec:closed-loop-error-specs} the velocity, direction and distance to obstacles must be continuosly monitored
 to ensure proper vehicle operation. The closed loop error must then be checked
-mainly in three situations as a response to an user command:
-\begin{itemize}
-\item velocity: the user issued an command with a given mean velocity, which
-  should be compared with the steady-state mean velocity of the vehicle. This
-  can be tested by comparing the user defined velocity and the vehicle's;
-\item direction: the user issued an command with a given direction, which should
-  be compared to the vehicle direction. This can be tested by measuring the
-  angle between final and initial points and comparing it with the user defined
-  direction.
-\item distance to obstacles: the user issued an command with a given direction
-  and velocity which can cause it to crash. The local control must take over
-  control, preventing this to happen, and the final distance to the obstacles
-  must be assessed and compared to the defined one.
-\end{itemize}
+and tested for these three variables, as the difference between reference
+(setpoint) and output (real) values, and comparing them to the specifications.
 
 %An overshoot occurs when the output in a control system exceeds its final,
 %steady state value generally caused by a sudden change in the system, in this
