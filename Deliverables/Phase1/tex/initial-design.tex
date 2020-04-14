@@ -1,7 +1,7 @@
 \section{Initial design}%
 \label{sec:org68fdd80}
 
-Following an analysis of the product’s family tree (remote controlled cars) and the state of the art, an initial design of the product itself can be produced (fig.~\ref{fig:initial-design}).
+Following an analysis of the product’s family tree (remote controlled cars), the state of the art and the QFD matrix in fig.~\ref{fig:QFD}, an initial design of the product itself can be produced (fig.~\ref{fig:initial-design}).
 The selected approach was top-down, in the sense that the requirements and specifications were addressed and that resulted in a general diagram of the product concept. Some macro-level decisions were made in this stage to narrow the problem’s solutions pool, as follows:
 
 \begin{itemize}
@@ -31,13 +31,21 @@ fig.~\ref{fig:initial-design}, comprised of:
 
 \item \textbf{Actuators}: DC Motors that control the car´s movement and headlights for nocturnal or low light conditions;
 
-\item \textbf{Sensors}: Odometric sensors that support the detection of obstacles and luminosity sensors;
+\item \textbf{Sensors}: Odometric sensors that supin this senseport the detection of obstacles and luminosity sensors;
 
 \item \textbf{Camera}: Device connected to the Raspberry Pi that allows the live stream of the car´s surrounding environment;
 
 \item \textbf{Smartphone}: Grant visual feedback from the camera´s live feed also allowing the user to control the movement of the vehicle intuitively;
 
 \end{itemize}
+
+Due to the extraordinary conditions imposed by the recently enacted confinement measures, the need rose to create a non-physical connection between both modules of the Rover. For that purpose, a network comprised of two computers communicating over a TCP/IP connection served as the intermediary (fig.~\ref{fig:initial-design-2})
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=1.0\textwidth]{./sec/img/initial_design_diagram_2.png}
+\caption{\label{fig:initial-design-2}Initial design: Block diagram view considering the extraordinary conditions}
+\end{figure}
 
 %%% Local Variables:
 %%% mode: latex
