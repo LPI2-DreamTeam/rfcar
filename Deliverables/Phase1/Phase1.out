@@ -1,32 +1,30 @@
-\BOOKMARK [1][-]{section.1}{Product concept: Radio Frequency Camera Assisted Rover \(RFCAR\)}{}% 1
-\BOOKMARK [1][-]{section.2}{Foreseen product specifications}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{QFD \204 Quality Function Deployment}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Cost}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Autonomy}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.4}{Velocity}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.5}{Safety}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.6}{Image acquisition}{section.2}% 8
-\BOOKMARK [3][-]{subsubsection.2.6.1}{Frame rate}{subsection.2.6}% 9
-\BOOKMARK [3][-]{subsubsection.2.6.2}{Range}{subsection.2.6}% 10
-\BOOKMARK [3][-]{subsubsection.2.6.3}{Resolution}{subsection.2.6}% 11
-\BOOKMARK [2][-]{subsection.2.7}{Load}{section.2}% 12
-\BOOKMARK [2][-]{subsection.2.8}{Overall System latency/responsivess}{section.2}% 13
-\BOOKMARK [2][-]{subsection.2.9}{Communication}{section.2}% 14
-\BOOKMARK [3][-]{subsubsection.2.9.1}{Reliability}{subsection.2.9}% 15
-\BOOKMARK [3][-]{subsubsection.2.9.2}{Range}{subsection.2.9}% 16
-\BOOKMARK [2][-]{subsection.2.10}{Sensibility}{section.2}% 17
-\BOOKMARK [2][-]{subsection.2.11}{Closed loop error}{section.2}% 18
-\BOOKMARK [2][-]{subsection.2.12}{Summary}{section.2}% 19
-\BOOKMARK [1][-]{section.3}{Planning}{}% 20
-\BOOKMARK [1][-]{section.4}{Tests}{}% 21
-\BOOKMARK [2][-]{subsection.4.1}{Verifications tests}{section.4}% 22
-\BOOKMARK [3][-]{subsubsection.4.1.1}{Functionality}{subsection.4.1}% 23
-\BOOKMARK [3][-]{subsubsection.4.1.2}{Maximum Load}{subsection.4.1}% 24
-\BOOKMARK [3][-]{subsubsection.4.1.3}{Autonomy}{subsection.4.1}% 25
-\BOOKMARK [3][-]{subsubsection.4.1.4}{Velocity}{subsection.4.1}% 26
-\BOOKMARK [3][-]{subsubsection.4.1.5}{Safety}{subsection.4.1}% 27
-\BOOKMARK [3][-]{subsubsection.4.1.6}{Image acquisition}{subsection.4.1}% 28
-\BOOKMARK [3][-]{subsubsection.4.1.7}{Communication reliability}{subsection.4.1}% 29
-\BOOKMARK [3][-]{subsubsection.4.1.8}{Closed loop error}{subsection.4.1}% 30
-\BOOKMARK [2][-]{subsection.4.2}{Validation tests}{section.4}% 31
-\BOOKMARK [1][-]{section.5}{Initial design}{}% 32
+\BOOKMARK [1][-]{section.1}{Product\040concept:\040Radio\040Frequency\040Camera\040Assisted\040Rover\040\(RFCAR\)}{}% 1
+\BOOKMARK [1][-]{section.2}{Foreseen\040product\040specifications}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{QFD — Quality Function Deployment}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Vehicle\040Autonomy}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Speed}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Safety}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Image\040acquisition}{section.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Frame\040rate}{subsection.2.5}% 8
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Range}{subsection.2.5}% 9
+\BOOKMARK [3][-]{subsubsection.2.5.3}{Resolution}{subsection.2.5}% 10
+\BOOKMARK [2][-]{subsection.2.6}{Communication}{section.2}% 11
+\BOOKMARK [3][-]{subsubsection.2.6.1}{Reliability}{subsection.2.6}% 12
+\BOOKMARK [3][-]{subsubsection.2.6.2}{Redundancy}{subsection.2.6}% 13
+\BOOKMARK [3][-]{subsubsection.2.6.3}{Range}{subsection.2.6}% 14
+\BOOKMARK [2][-]{subsection.2.7}{Responsiveness}{section.2}% 15
+\BOOKMARK [2][-]{subsection.2.8}{Closed\040loop\040error}{section.2}% 16
+\BOOKMARK [2][-]{subsection.2.9}{Summary}{section.2}% 17
+\BOOKMARK [1][-]{section.3}{Planning}{}% 18
+\BOOKMARK [1][-]{section.4}{Tests}{}% 19
+\BOOKMARK [2][-]{subsection.4.1}{Verifications\040tests}{section.4}% 20
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Functionality}{subsection.4.1}% 21
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Maximum\040Load}{subsection.4.1}% 22
+\BOOKMARK [3][-]{subsubsection.4.1.3}{Autonomy}{subsection.4.1}% 23
+\BOOKMARK [3][-]{subsubsection.4.1.4}{Velocity}{subsection.4.1}% 24
+\BOOKMARK [3][-]{subsubsection.4.1.5}{Safety}{subsection.4.1}% 25
+\BOOKMARK [3][-]{subsubsection.4.1.6}{Image\040acquisition}{subsection.4.1}% 26
+\BOOKMARK [3][-]{subsubsection.4.1.7}{Communication\040reliability}{subsection.4.1}% 27
+\BOOKMARK [3][-]{subsubsection.4.1.8}{Closed\040loop\040error}{subsection.4.1}% 28
+\BOOKMARK [2][-]{subsection.4.2}{Validation\040tests}{section.4}% 29
+\BOOKMARK [1][-]{section.5}{Initial\040design}{}% 30
