@@ -1,25 +1,37 @@
 \section{Tests}%
 \label{sec:org3e2776f}
-Tests are generally considered as those performed over any physical
-component or prototype. Here, however, it is used in a broader sense, to reflect the tests
-conducted into the system and the several prototypes, under the abnormal present
-circumstances. The tests are divided into verification and validation tests.
-\subsection{Verifications tests}%
+Tests are generally regarded as those performed over any physical
+component or prototype. Here, however, a broader sense is used, to reflect the
+tests conducted into the system and the several prototypes, under the abnormal
+present circumstances.
+Moreover, as indicated in the design, the current development
+strategy encompasses the virtualization of all hardware components, enclosed
+in a single virtual environment.
+
+Thus, it does not make sense to perform
+hardware related tests such as velocity measurements, autonomy, safety, etc. As
+such, the focus is shifted towards software and control verification,
+encompassing the following tests: functionality, image acquisition,
+communication, and control algorithms correctness.
+
+The tests are divided into verification and validation tests.
+\subsection{Verification tests}%
 \label{sec:orge9c79e2}
-The verifications tests are tests performed internally by the design team to
+The verification tests are tests performed internally by the design team to
 check the compliance of the foreseen specifications. These tests are done after
 the prototype alpha is concluded.
 
 \subsubsection{Functionality}%
 \label{sec:functionality}
 The remotely operated vehicle is composed of several modules distributed along
-several different platforms, some of which distanced from each other. In the
-present abnormal circumstances, this is even more true. Thus, the proposed sets
-of functionalities should be tested in the integrated system, by tracking and
-analysing the user commands issued along the way until it finally reaches the
-vehicle, assessing if it is correctly processed. For example, if the user issues
-the vehicle to move to a given place, the message sent to the vehicle must be
-signaled in each endpoint hit, and the vehicle should move to that place.
+several different platforms, some of which distanced from each other. Thus, the
+proposed sets of functionalities should be tested in the integrated system, by
+tracking and analysing the user commands issued along the way until it finally
+reaches the vehicle (in the virtual environment), assessing if it is correctly
+processed. For example, if the user issues the vehicle to move to a given place
+(via smartphone interaction), the message sent to the vehicle must be signaled
+in each endpoint hit, and the vehicle should move to that place, symbolically
+detected by the modification of its virtual coordinates.
 
 %\subsubsection{Maximum Load}%
 %\label{sec:load}
@@ -105,7 +117,10 @@ signaled in each endpoint hit, and the vehicle should move to that place.
 \subsubsection{Image acquisition}%
 \label{sec:orgb1f5c2a}
 The vehicle is equipped with a camera to assist the user in its navigation,
-thus, requiring the following variables to be tested: frame rate, range, and resolution.
+thus, requiring the following variables to be tested: frame rate, range, and
+resolution. In the current scenario, the virtual environment should provide
+access to a built-in or external camera, with the former being fairly common
+nowadays in every personal computer, thus, enabling easy testing.
 
 \paragraph{Frame rate}%
 \label{sec:frame-rate-test}
@@ -114,35 +129,52 @@ received from the camera per second and checked against the defined boundaries.
 
 \paragraph{Range}%
 \label{sec:range-test}
-To test camera's range, an object must be captured at
-increasing distances, until the image resolution is lost.
+To test camera's range, an object must be captured at increasing distances, until the image resolution is lost.
 
 \paragraph{Resolution}%
 \label{sec:resolution-test}
 The minimum resolution should be tested as providing the least amount of
 information required for the user, while minimizing data transfer and processing overhead.
 
-\subsubsection{Communication reliability}%
-\label{sec:comm-reli}
-A communication is reliable if it guarantees measures to deliver the data
-conveyed in the communication link. As reliability imposes these measures, it
-also adds overhead to the communication protocol, which must be considered
-depending on the case. For example, for the devised product, an user command
-must be acknowledged to be processed, otherwise, the user must be informed; on
-the other hand, loosing frames from the video feed is not so critical --- user
-can still observe conveniently the field of vision if the frame rate is within
-acceptable boundaries. 
+\subsubsection{Communication}%
+\label{sec:comm-tests}
+The communication tests are performed in compliance to the specifications
+provided in Section~\ref{sec:org4241610}, namely reliability and redundancy.
 
-Thus, given the critical nature of user commands issued, the focus will be on
-this communication link. To test the reliability dummy packets should be sent
-from the user platform to the vehicle and be acknowledged and parsed correctly.
+\paragraph{Reliability}%
+\label{sec:comm-reliability-test}
+To test communication reliability, the most critical communication link is
+chosen, namely the wireless communication between user's platform (smartphone)
+and vehicle's platform (virtual environment). Then, the communication link and
+protocol selected are tested by monitoring the ratio of dropped packets versus
+total packets, using an appropriate tool on both directions for transmission and reception.
 
-\subsubsection{Closed loop error}%
-\label{sec:closed-loop-error}
-As mentioned in Section~\ref{sec:closed-loop-error-specs} the speed, direction and distance to obstacles must be continuosly monitored
-to ensure proper vehicle operation. The closed loop error must then be checked
-and tested for these three variables, as the difference between reference
-(setpoint) and output (real) values, and comparing them to the specifications.
+\paragraph{Redundancy}%
+\label{sec:redundancy-test}
+To test communication redundancy, one communication channel should be turned
+off, verifying if the communication between nodes is still possible through
+another communication channel. For example, in the communication between host
+(user's platform) and remote (virtual environment) systems, the priority
+communication is performed between host and high-level subsystem. However, if
+this is turned off, the host must also be able to communicate with the remote
+system via low-level subsystem.
+
+\subsubsection{Correctness of the control algorithms}%
+\label{sec:correct-control-algorithms-test}
+As previously mentioned, the speed and position must be continuosly monitored
+to ensure proper vehicle operation. Under the current circumstances, it is
+difficult to properly and realistically stimulate the control loops, as both
+sensor and actuator data are not available. The solution could reside in the
+physical modeling of both actuator and sensor (the plant), as well of
+controller's logic modeling, and perform formal verification
+using model-checking and finite automata. Later on, those models could be tested
+using software-in-loop (and hardware-in-loop, if hardware was available). 
+
+However, physical modeling is not trivial, and it may still produce unrealistic
+data. Thus, the solution found resides in external stimulation of the control
+loops through input files containing the relevant data. Then, the behaviour of
+the system can be analysed and verified for some cornercase situations,
+assessing the control algorithms correctness.
 %
 %An overshoot occurs when the output in a control system exceeds its final,
 %steady state value generally caused by a sudden change in the system, in this
