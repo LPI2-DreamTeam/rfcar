@@ -136,20 +136,28 @@ To test camera's range, an object must be captured at increasing distances, unti
 The minimum resolution should be tested as providing the least amount of
 information required for the user, while minimizing data transfer and processing overhead.
 
-\subsubsection{Communication reliability}%
-\label{sec:comm-reli}
-A communication is reliable if it guarantees measures to deliver the data
-conveyed in the communication link. As reliability imposes these measures, it
-also adds overhead to the communication protocol, which must be considered
-depending on the case. For example, for the devised product, an user command
-must be acknowledged to be processed, otherwise, the user must be informed; on
-the other hand, loosing frames from the video feed is not so critical --- user
-can still observe conveniently the field of vision if the frame rate is within
-acceptable boundaries. 
+\subsubsection{Communication}%
+\label{sec:comm-tests}
+The communication tests are performed in compliance to the specifications
+provided in Section~\ref{sec:org4241610}, namely reliability and redundancy.
 
-Thus, given the critical nature of user commands issued, the focus will be on
-this communication link. To test the reliability dummy packets should be sent
-from the user platform to the vehicle and be acknowledged and parsed correctly.
+\paragraph{Reliability}%
+\label{sec:comm-reliability-test}
+To test communication reliability, the most critical communication link is
+chosen, namely the wireless communication between user's platform (smartphone)
+and vehicle's platform (virtual environment). Then, the communication link and
+protocol selected are tested by monitoring the ratio of dropped packets versus
+total packets, using an appropriate tool on both directions for transmission and reception.
+
+\paragraph{Redundancy}%
+\label{sec:redundancy-test}
+To test communication redundancy, one communication channel should be turned
+off, verifying if the communication between nodes is still possible through
+another communication channel. For example, in the communication between host
+(user's platform) and remote (virtual environment) systems, the priority
+communication is performed between host and high-level subsystem. However, if
+this is turned off, the host must also be able to communicate with the remote
+system via low-level subsystem.
 
 \subsubsection{Correctness of the control algorithms}%
 \label{sec:correct-control-algorithms-test}
