@@ -1,52 +1,46 @@
 \section{Foreseen product specifications}%
 \label{sec:org31f7574}
-\subsection{QFD --- Quality Function Deployment}%
+In this section the foreseen product specifications of the system to be developed are provided. Such specifications were obtained through the intersection of customer, functional requirements and project restrictions.
+\subsection{Quality Function Deployment}%
 \label{sec:qfd}
-The use of a QFD `Quality House' was opted as it is an efficient method of defining requirements laid out for the project and convert them into somewhat detailed engineering specifications in order to fullfill those requirements, along with several tools that allow to define the relations existing between the latter and the former.
+The customer requirements are usually abstract and can collide with the functional requirements, compromising the fulfillment of the project. Thus, it raises the need of a methodology which converts abstract requirements into a series of concrete engineering specifications.
 
-The QFD works by using a matrix where the project requirements will be laid out as rows and the engineering specifications as columns; in the intersections lie a number representing the strength of the relationship requirement-specification.
-
-Along with the requirements, the importance given to each is also specified, ranging from 1 (lowest importance) to 5 (highest importance) these, along with the number at each intersection, will be used to calculate the Weighted Score of each requirement and the Technical Importance Score of each specification. These results will in turn be used to calculate the importance of each specification and thus assign priorities for the Design Team.
-
-Figure~\ref{fig:QFD} shows the `Quality House' for the RF CAR containing:
-\begin{itemize}
-\item Customer Requirements: Safe to Operate, Obstacle Avoidant, Fast, and so
-  on.
-\item Functional Requirements: Cost of Production, Maximum speed, Engine
-  Power, amongst others.
-\item The Intersection Values (referencing the strength of the
-  requirement-specification correlation):
-  \begin{itemize}
-  \item 0: No Relation.
-  \item 1: Weak Relation.
-  \item 3: Moderate Relation.
-  \item 9: Strong Relation.
-  \end{itemize}
-\item The Analytical Results, depicting, quantifiably, the relevance of each
-  entity:
-  \begin{itemize}
-  \item Weighted Score, for the Requirements.
-  \item Technical Importance Score, for the Specifications.
-  \item Importance and Priority Rank, which are the main conclusion for which
-    the QFD was used.
-  \end{itemize}
-\end{itemize}
+An efficient quality assessment methodology is the use of a Quality House. In this method, the desired requirements are laid out as rows and the engineering specifications/restrictions as columns. In the intersections lies a symbol representing the strength (weak, moderate or strong --- Figure~\ref{fig:QFD-R} ) of the relationship requirement-specification. This symbol is one of the many tools that permit the quantification of relations existing between the customer requirements and engineering specifications.
 For instance, the `engine power' specification and the `fast' requirement have a
 very strong correlation (9) since the power of the engine is directly
 responsible for the speed of the car.
 
-With the QFD, the priorities ranks were obtained supplying the Design Team with a
-straightfoward guideline. For instance, the cost of production should be
-prioritized over all other specifications, followed by the maximum speed,
-Ramp-Up Speed Time and so on.  On the other hand, the engine expectancy is of
-little to no consequence (note that the importance added up to a mere 3\%),
-followed by most of the camera-related specifications, this could be regarded as
-a point of discussion, which should be prioritized? The functionality of the car
-or the the feedback provided by the camera?
+Along with the requirements, the importance given to each is also specified, ranging from 1 (lowest importance) to 5 (highest importance) these, along with the number at each intersection, will be used to calculate the importance of each specification and thus assign priorities for the Design Team.
 
-With the last point in mind, the QFD has the advantage of allowing further
-discussion, simply by changing the importance of a requirement the priority ranking will change, ergo
-the priorities can be altered, easily and efficiently, if deemed appropriate.
+Lastly, the triangle shape (the `roof' within the house metaphor) serves as another way of measuring relationships, this time between each specification: such is achieved by placing a symbol (ranging from very negative to very positive, see Figure~\ref{fig:QFD-Roof}) in the diagonal intersection of two specifications. 
+I.e., the battery life will have a very negative correlation with the battery temperature, due to the fact that the increase of the temperature will cause a decrease in life time. As such a `very negative' correlation was placed in the diagonal intersection betwixt `Battery Life' and `Battery Temperature'. 
+\begin{figure}[!htbp]
+   \centering
+       \includegraphics[page=1,width=0.5\textwidth]{sec/img/Roof_Symbols.png} 
+ \caption{Quality House - Specification Correlation Strength Symbols}%
+\label{fig:QFD-Roof}
+\end{figure}
+
+Figure~\ref{fig:QFD} shows the `Quality House' for the RF CAR containing:
+\begin{itemize}
+\item \textbf{Customer Requirements}: Vehicle Integrity; Obstacle Avoidant; Reliable Feedback; Fast Response; Fast; Budget Friendly; Low Consumption; Small.
+\item \textbf{Functional Requirements or Restrictions}: Autonomy; Battery Temperature; Minimum Distance to Obstacle; Maximum Velocity; Motor Expectancy; Cost of Production; Motor Power; Ramp-Up Speed Time; Frame Rate; Camera Range; Resolution; Communication Range; Communication Speed; Dimensions; Mass.
+\item \textbf{Intersection Values} (referencing the strength of the requirement-specification correlation) --- see Figure~\ref{fig:QFD-R}.
+\item \textbf{Analytical Data}, depicting, in a quantifiable manner, the aims of the project and the relevance of each
+  entity:
+  \begin{itemize}
+  \item Target or Limit Value: The metrics the design team will be based on, white spaces are left for either further discussion and refinement.
+  \item Difficulty: Allows a subjective input to be added so that `importance' can be changed to balance unforeseen circumstances.
+  \item Importance and Relative Weight: The main conclusion for which the QFD was used, it assigns the priorities for the design team in an objective manner.
+  \end{itemize}
+\end{itemize}
+%
+\begin{figure}[!htbp]
+   \centering
+       \includegraphics[page=1,width=0.5\textwidth]{sec/img/Relationship_Symbols.png} 
+ \caption{Quality House - Relationship Strength Symbols}%
+\label{fig:QFD-R}
+\end{figure}
 %
 \begin{figure}[!htbp]
    \centering
@@ -54,9 +48,21 @@ the priorities can be altered, easily and efficiently, if deemed appropriate.
  \caption{Project Study --- RF Car Quality House}%
 \label{fig:QFD}
 \end{figure}
-\newpage
-The foreseen product specifications are listed as topics below.
+%
+With the QFD, the prioritized ranks and specification targets were obtained and diffused within the Design Team with a
+straightfoward guideline. For instance, the low cost requirement should be
+prioritized over all other specifications, followed by the maximum speed,
+Ramp-Up Speed Time and so on.  On the other hand, the engine expectancy is of
+little to no consequence (note that the importance added up to a mere 3\%),
+followed by the camera-related specifications. This could be regarded as
+a point of discussion, which should be prioritized? The functionality of the car
+or the the feedback provided by the camera?
 
+With the last point in mind, the QFD has the advantage of promoting further
+discussion, simply by changing the importance of a requirement the priority ranking will change, ergo
+the priorities can be altered, easily and efficiently, if deemed appropriate.
+\newpage
+%
 \subsection{Vehicle Autonomy}%
 \label{sec:autonomy-specs}
 The vehicle is operated in wireless mode, thus, a portable power source must be included. The autonomy referes to the time interval between battery fully charged and safely discharged and should be observed for the following scenarios:
