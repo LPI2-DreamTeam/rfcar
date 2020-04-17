@@ -21,86 +21,86 @@ vehicle, assessing if it is correctly processed. For example, if the user issues
 the vehicle to move to a given place, the message sent to the vehicle must be
 signaled in each endpoint hit, and the vehicle should move to that place.
 
-\subsubsection{Maximum Load}%
-\label{sec:load}
-As mentioned in Section~\ref{sec:load-specs}, the maximum load can be defined
-for the minimum velocity (safe motor operation) and for maximum power consuptiom
-increase. Thus, two alternative definitions, and consequently, tests arise for the maximum load determination:
-\begin{enumerate}
-\item maximum load (at minimum velocity): maximum load the vehicle can carry
-  safely at the minimum velocity defined.
-\item maximum load (at 50\% over the mean power consumption): maximum load which
-  causes a 50\% increase in the mean power consumption, i.e., while operating at
-  mean velocity.
-\end{enumerate}
+%\subsubsection{Maximum Load}%
+%\label{sec:load}
+%As mentioned in Section~\ref{sec:load-specs}, the maximum load can be defined
+%for the minimum speed (safe motor operation) and for maximum power consuptiom
+%increase. Thus, two alternative definitions, and consequently, tests arise for the maximum load determination:
+%\begin{enumerate}
+%\item maximum load (at minimum speed): maximum load the vehicle can carry
+%  safely at the minimum speed defined.
+%\item maximum load (at 50\% over the mean power consumption): maximum load which
+%  causes a 50\% increase in the mean power consumption, i.e., while operating at
+%  mean speed.
+%\end{enumerate}
+%
+%To test the former, load should be increased slowly, measuring the vehicle
+%mean speed, until the minimum speed defined is achieved. To test the
+%latter, load should be increased slowly, measuring the power consumption, until
+%a 50\% increase over the mean power power consumption is detected, while
+%operating at the mean speed.
+%
+%The maximum load can then be defined as the minimum one the vehicle can carry
+%while observing both criteria.
+%
+%\subsubsection{Autonomy}%
+%\label{sec:org532616f}
+%The autonomy is related to product's power consumption and the capacity of the
+%battery chosen. Under the present abnormal circumstances is not reasonable to
+%expect the product's power consumption to match the real one, thus, for all
+%purposes, this will be considered as the one drawn by the car module itself,
+%namely, the installed motors and sensors.
+%
+%Then, the autonomy can be measured as the time interval between battery fully
+%charged and safely discharged (the car stops), by fixating the car to a
+%supporting structure with free moving wheels, and imposing the aforementioned
+%conditions in Section~\ref{sec:autonomy-specs}.
+%
+%\subsubsection{Vehicle's Speed}%
+%\label{sec:org20789b4}
+%The vehicle must be operated within a safe range of speed, as mentioned in
+%Section~\ref{speed-tests}.
+%The optimum speed maximizes the energy efficiency, increasing battery's life and
+%autonomy. The optimum speed must be previously defined through extensive
+%vehicle's model simulation. Then, it can be tested experimentally: the vehicle
+%must complete a trial track with a sufficiently long
+%distance to assure speed reaching and stabilization. The experimental speed is
+%then compared to the theorethical speed to measure the error.
+%
+%and compared to the ones provided in the foreseen specifications.
+%The optimum speed maximizes the energy efficiency,
+%accounting for the power losses associated with vehicle's dynamics (rolling
+%friction, drag, etc.), as well as the increased temperature operation in the
+%electronics components
+%within a sufficiently long distance to assure speed reach and stabilization,
+%and compared to the ones provided in the foreseen specifications.
 
-To test the former, load should be increased slowly, measuring the vehicle
-mean velocity, until the minimum velocity defined is achieved. To test the
-latter, load should be increased slowly, measuring the power consumption, until
-a 50\% increase over the mean power power consumption is detected, while
-operating at the mean velocity.
-
-The maximum load can then be defined as the minimum one the vehicle can carry
-while observing both criteria.
-
-\subsubsection{Autonomy}%
-\label{sec:org532616f}
-The autonomy is related to product's power consumption and the capacity of the
-battery chosen. Under the present abnormal circumstances is not reasonable to
-expect the product's power consumption to match the real one, thus, for all
-purposes, this will be considered as the one drawn by the car module itself,
-namely, the installed motors and sensors.
-
-Then, the autonomy can be measured as the time interval between battery fully
-charged and safely discharged (the car stops), by fixating the car to a
-supporting structure with free moving wheels, and imposing the aforementioned
-conditions in Section~\ref{sec:autonomy-specs}.
-
-\subsubsection{Velocity}%
-\label{sec:org20789b4}
-The vehicle must be operated within a safe range of velocity, as mentioned in
-Section~\ref{velocity-tests}. It is important to define these boundaries as follows:
-\begin{itemize}
-\item minimum velocity: minimum velocity defined for the vehicle, which must be
-  attained even in the condition of maximum load. This value must be selected to
-  assure safe motor operation.
-\item maximum velocity (no load): maximum velocity for the vehicle in the
-  absence of an external load. This is the absolute maximum velocity for the
-  vehicle.
-\item maximum velocity (maximum load): maximum velocity for the vehicle in the
-  presence of the maximum load. This value must be selected to prevent excessive
-  power consumption and motor overheating.
-\end{itemize}
-The aforementioned velocities should be tested in the designed conditions,
-within a sufficiently long distance to assure velocity reach and stabilization,
-and compared to the ones provided in the foreseen specifications.
-
-\subsubsection{Safety}%
-\label{sec:orgf4c025f}
-As mentioned in Section~\ref{sec:safety-tests}, safety can be analysed in two
-ways, considering the preservation of people and goods.
-
-To test human safety, it is important to identify the interactions between the
-user and the product, and which are the most prevalent and dangerous. Even so,
-the exhaustive test is outside the scope of the present work; a small set of
-features will be tested accordingly to the devised user manual, containing the
-safety measures. For example, battery installation and conditions should be
-tested, eventually leading to the posterior incorporation of safety measures in
-the product.
-
-To test goods safety, it is reasonable to assume the operating conditions of the
-vehicle. Under these it is important to consider the most critical ones that
-concern the moments when the vehicle is left to be controlled locally, instead
-of user controlled operation. The critical conditions for local operations are
-divided into two sets:
-\begin{itemize}
-\item processing of user commands and vehicle operation: user commands can
-  conflict with safety measures and, thus, should be overriden locally.
-\item communication loss: the vehicle is left to odometric navigation,
-  preserving the safety of people and goods.
-\end{itemize}
-To test these two scenarios, they should be replicated, observing the system
-response and tolerance.
+%\subsubsection{Safety}%
+%\label{sec:orgf4c025f}
+%As mentioned in Section~\ref{sec:safety-tests}, safety can be analysed in two
+%ways, considering the preservation of people and goods.
+%
+%To test human safety, it is important to identify the interactions between the
+%user and the product, and which are the most prevalent and dangerous. Even so,
+%the exhaustive test is outside the scope of the present work; a small set of
+%features will be tested accordingly to the devised user manual, containing the
+%safety measures. For example, battery installation and conditions should be
+%tested, eventually leading to the posterior incorporation of safety measures in
+%the product.
+%
+%To test goods safety, it is reasonable to assume the operating conditions of the
+%vehicle. Under these it is important to consider the most critical ones that
+%concern the moments when the vehicle is left to be controlled locally, instead
+%of user controlled operation. The critical conditions for local operations are
+%divided into two sets:
+%\begin{itemize}
+%\item processing of user commands and vehicle operation: user commands can
+%  conflict with safety measures and, thus, should be overriden locally.
+%\item communication loss: the vehicle is left to odometric navigation,
+%  preserving the safety of people and goods.
+%\end{itemize}
+%To test these two scenarios, they should be replicated, observing the system
+%response and tolerance.
 
 \subsubsection{Image acquisition}%
 \label{sec:orgb1f5c2a}
@@ -139,31 +139,31 @@ from the user platform to the vehicle and be acknowledged and parsed correctly.
 
 \subsubsection{Closed loop error}%
 \label{sec:closed-loop-error}
-As mentioned in Section~\ref{sec:closed-loop-error-specs} the velocity, direction and distance to obstacles must be continuosly monitored
+As mentioned in Section~\ref{sec:closed-loop-error-specs} the speed, direction and distance to obstacles must be continuosly monitored
 to ensure proper vehicle operation. The closed loop error must then be checked
 and tested for these three variables, as the difference between reference
 (setpoint) and output (real) values, and comparing them to the specifications.
-
+%
 %An overshoot occurs when the output in a control system exceeds its final,
 %steady state value generally caused by a sudden change in the system, in this
 %case specifically, the placement of a load upon the conveyor will cause an
-%overshoot in the latter’s velocity which must be controlled lest it cause
+%overshoot in the latter’s speed which must be controlled lest it cause
 %problems.
 %
 %An overshoot will occur during the settling time, as such, using the same
 %considerations taken in its measurement, it can be measured by observing the
-%induced voltage at the generator (an overshoot in the conveyor’s velocity will
+%induced voltage at the generator (an overshoot in the conveyor’s speed will
 %correspond to a peak in the generator’s voltage).
 %
 %Using an oscilloscope to display the induced voltage at the generator and making
 %use of the “single mode” present in these measuring instruments one can observe
 %the change that will occur in the generator’s induced voltage, the peak voltage
 %that will be seen when the load is placed upon the running conveyor is the
-%electrical representation of the overshoot of velocity, then either by
+%electrical representation of the overshoot of speed, then either by
 %converting it to its physical representation or comparing it to the reference
 %voltage one can arrive at a conclusion. It was agreed that the overshoot
-%velocity should be \(V_{ss} \pm 10\%\), where \(V_{ss}\) is the stedy state
-%velocity.
+%speed should be \(V_{ss} \pm 10\%\), where \(V_{ss}\) is the stedy state
+%speed.
 
 \subsection{Validation tests}%
 \label{sec:orgff1a37d}
