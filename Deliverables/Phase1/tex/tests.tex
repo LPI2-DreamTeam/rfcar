@@ -29,7 +29,7 @@ proposed sets of functionalities should be tested in the integrated system, by
 tracking and analysing the user commands issued along the way until it finally
 reaches the vehicle (in the virtual environment), assessing if it is correctly
 processed. For example, if the user issues the vehicle to move to a given place
-(via smartphone interaction), the message sent to the vehicle must be signaled
+(via smartphone interaction), the message sent to the vehicle must be signalled
 in each endpoint hit, and the vehicle should move to that place, symbolically
 detected by the modification of its virtual coordinates.
 
@@ -161,19 +161,19 @@ system via low-level subsystem.
 
 \subsubsection{Correctness of the control algorithms}%
 \label{sec:correct-control-algorithms-test}
-As previously mentioned, the speed and position must be continuosly monitored
+As previously mentioned, the speed and position must be continuously monitored
 to ensure proper vehicle operation. Under the current circumstances, it is
 difficult to properly and realistically stimulate the control loops, as both
 sensor and actuator data are not available. The solution could reside in the
-physical modeling of both actuator and sensor (the plant), as well of
-controller's logic modeling, and perform formal verification
+physical modelling of both actuator and sensor (the plant), as well of
+controller's logic modelling, and perform formal verification
 using model-checking and finite automata. Later on, those models could be tested
 using software-in-loop (and hardware-in-loop, if hardware was available). 
 
-However, physical modeling is not trivial, and it may still produce unrealistic
+However, physical modelling is not trivial, and it may still produce unrealistic
 data. Thus, the solution found resides in external stimulation of the control
 loops through input files containing the relevant data. Then, the behaviour of
-the system can be analysed and verified for some cornercase situations,
+the system can be analysed and verified for some corner case situations,
 assessing the control algorithms correctness.
 %
 %An overshoot occurs when the output in a control system exceeds its final,
