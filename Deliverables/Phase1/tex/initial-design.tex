@@ -39,12 +39,21 @@ fig.~\ref{fig:initial-design}, comprised of:
 
 \end{itemize}
 
-Due to the extraordinary conditions imposed by the recently enacted confinement measures, the need rose to create a non-physical connection between both modules of the Rover. For that purpose, a network comprised of two computers communicating over a TCP/IP connection served as the intermediary, one being the Raspberry Pi module and another being a computer connected to the STM32 module via RS232 (fig.~\ref{fig:initial-design-2})
+Due to the extraordinary conditions imposed by the recently enacted confinement measures, the need rose to create a non-physical connection between both modules of the Rover, which is depicted in fig.~\ref{fig:initial-design-2}.
+\par
+For that purpose, a virtual environment will be created to simulate the Rover's various subsystems. This solution allows for integrated testing without the need to deploy it to the hardware. 
+\par
+The first of said subsystems is the Physical Environment Virtual Subsystem, which simulates the Rover,  the physical environment and receives actuator inputs from the second one, the Firmware Virtual Subsystem, for which it generates the sensor readings. 
+\par
+The Interface and Processing Virtual Subsystem interfaces with the computer's Web Camera, which is meant to simulate the onboard camera of the Rover. It also exchanges that information, as well as the Rover's status and the user's commands with the Smartphone module through a Wi-Fi communication channel, which separates it from the non-simulated environment. 
+\par
+Moreover, one redundant connection is established using the GSM network, to ensure proper feedback in case of failure in the Wi-Fi communications. Additionally, one more connection is established between the FVS and the Smartphone to ensure minimal communication between the Rover and the Smartphone in case of IPVS's integral failure.
 
+\clearpage
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./sec/img/initial_design_diagram_2.png}
-\caption{\label{fig:initial-design-2}Initial design: Block diagram view considering the extraordinary conditions}
+\includegraphics[width=0.85\textwidth]{./sec/img/initial_design_diagram_2.png}
+\caption{\label{fig:initial-design-2}Initial design: Virtual environment block diagram view}
 \end{figure}
 
 %%% Local Variables:
