@@ -1,3 +1,4 @@
+\newpage
 \section{Initial design}%
 \label{sec:org68fdd80}
 
@@ -9,9 +10,9 @@ The selected approach was top-down, in the sense that the requirements and speci
 
 \item The device used to control the car should ideally be one already owned by the user, with an integrated screen (e.g. smartphone), as it would make it more affordable and have a more straightforward interface.
 
-\item The protocol for communication between the controlling device and the Rover should be chosen from within the pool of those readily available to smartphones (e.g. Wi-Fi, GPRS) to keep the price of the overall product down and make it as practical as possible.
+\item The protocols for communication between the controlling device and the Rover should be chosen from within the pool of those readily available to smartphones (e.g. Wi-Fi, GPRS, Bluetooth) to keep the price of the overall product down and make it as practical as possible.
 
-\item  The control and communication unit for the car should be divided into two modules: one which can interface directly with the camera module and manage data transmission and reception at the applicational level of the TCP/IP protocol stack, with enough throughput for the specified video resolution and framerate. And another one which can measure and process sensor inputs and control the actuators in real-time.
+\item  The control and communication unit for the car should be divided into two modules: one which can measure and process sensor inputs and control the actuators in real-time, as well as communicate with the user-operated device through a low-latency connection. And another one which can interface directly with the camera module and manage data transmission to the user at the applicational level of the TCP/IP protocol stack, with enough throughput for the specified video resolution and framerate. The latter should also exchange sensor reading values and commands with the user-controlled device, introducing redundancy to the controls and thus allowing for more reliable operation.
 
 \end{itemize}
 
@@ -25,29 +26,27 @@ Thus, summarising, the initial design yields the system illustrated in
 fig.~\ref{fig:initial-design}, comprised of:
 
 \begin{itemize}
-\item \textbf{ Raspberry Pi}: Interfaces with the camera directly, transmitting the information it receives to the smartphone. Receives user commands and sends sensorial information back to it;
+\item \textbf{ Raspberry Pi}: Interfaces with the camera directly, streaming that information to the smartphone. It also receives user commands and sends sensorial information it receives from the STM32 module back to the Smartphone, all through redundant Wi-Fi and GPRS connections.
 
-\item \textbf{STM32}: Sends sensorial information to the Raspberry Pi module and receives commands from it. Controls the actuators according to the given instructions and sensor readings;
+\item \textbf{STM32}: Receives user commands and sends back sensorial information through a Bluetooth connection, information it also uses to control the actuators.
 
-\item \textbf{Actuators}: DC Motors that control the car´s movement and headlights for nocturnal or low light conditions;
+\item \textbf{Actuators}: DC Motors that control the Rover's movement and headlights for nocturnal or low light conditions;
 
-\item \textbf{Sensors}: Odometric sensors that supin this senseport the detection of obstacles and luminosity sensors;
+\item \textbf{Sensors}: Odometric sensors that support the detection of obstacles and luminosity sensors;
 
 \item \textbf{Camera}: Device connected to the Raspberry Pi that allows the live stream of the car´s surrounding environment;
 
-\item \textbf{Smartphone}: Grant visual feedback from the camera´s live feed also allowing the user to control the movement of the vehicle intuitively;
+\item \textbf{Smartphone}: Grant visual feedback from the camera's live feed also allowing the user to control the movement of the vehicle intuitively;
 
 \end{itemize}
 
-Due to the extraordinary conditions imposed by the recently enacted confinement measures, the need rose to create a non-physical connection between both modules of the Rover, which is depicted in fig.~\ref{fig:initial-design-2}.
+For simulation purposes and in conformance with the extraordinary conditions imposed by the recently enacted confinement measures, the need rose to create a virtual environment to simulate the Rover's various subsystems. This solution allows for integrated testing without the need to deploy it to the hardware, as illustrated in fig.~\ref{fig:initial-design-2}.
 \par
-For that purpose, a virtual environment will be created to simulate the Rover's various subsystems. This solution allows for integrated testing without the need to deploy it to the hardware. 
+The first of said subsystems is the Physical Environment Virtual Subsystem, which simulates the Rover and the physical environment, also receiving actuator inputs from the Control Virtual Subsystem, for which it generates the sensor readings. The latter also exchanges that information, as well as the Rover's status and the user's commands with the Smartphone module through a Bluetooth connection, which separates it from the non-simulated environment.
 \par
-The first of said subsystems is the Physical Environment Virtual Subsystem, which simulates the Rover,  the physical environment and receives actuator inputs from the second one, the Firmware Virtual Subsystem, for which it generates the sensor readings. 
+The Interface Virtual Subsystem interfaces with the computer's Web Camera, which is meant to simulate the onboard camera of the Rover. Moreover, it can also communicate through Wi-Fi and GPRS, thus ensuring that communication is kept despite any failure from the Firmware Virtual Subsystem. 
 \par
-The Interface and Processing Virtual Subsystem interfaces with the computer's Web Camera, which is meant to simulate the onboard camera of the Rover. It also exchanges that information, as well as the Rover's status and the user's commands with the Smartphone module through a Wi-Fi communication channel, which separates it from the non-simulated environment. 
-\par
-Moreover, one redundant connection is established using the GSM network, to ensure proper feedback in case of failure in the Wi-Fi communications. Additionally, one more connection is established between the FVS and the Smartphone to ensure minimal communication between the Rover and the Smartphone in case of IPVS's integral failure.
+The RS232 connection between both controlling subsystems ensures proper synchronism and cooperation between them.
 
 \clearpage
 \begin{figure}[!ht]
