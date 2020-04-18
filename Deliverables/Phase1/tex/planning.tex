@@ -1,6 +1,6 @@
 \section{Planning}%
 \label{sec:orga82318d}
-In fig.~\ref{fig:gantt-diag-orig} is illustrated the Gantt diagram for the project, containing the tasks' descriptions. It should be noted
+In fig.~\ref{fig:gantt-diag-orig} is illustrated the Gantt chart for the project, containing the tasks' descriptions. It should be noted
 that the project tasks of Analysis, Design, Implementation and Tests are
 performed in two distinct iterations as corresponding to the Waterfall project
 methodology.
@@ -28,7 +28,7 @@ characteristics are identified.
 results of the state of the art. It should yield the specifications document,
 containing the requisites and restrictions to the project/product, on a
 quantifiable basis as required to initiate the design; for example, the
-car maximum velocity must be, at maximum, \texttt{2 m/s}. The second stage --- Analysis 2
+vehicle's desired speed should be, at maximum, \texttt{2 m/s}. The second stage --- Analysis 2
 --- contains the analysis of the first iteration of the development cycle.
 \item \uline{Design}: it is done in two segments: modules design --- where the modules are
 designed; integration design --- where the interconnections between modules is
@@ -37,50 +37,40 @@ design}.
 \begin{itemize}
 \item In the conceptual design, several problem solutions are identified,
 quantifying its relevance for the project through a measuring scale,
-inserted into an evaluation matrix, for example, Quality Function Deployment
-(QFD).
+inserted into an evaluation matrix, for example, QFD.%
 \item In the solution design, the selected solution is developed. It must include
 the solution modelling, e.g.:
 \begin{itemize}
-\item \uline{Control system design}: analytically and using simulation;
+\item \uline{Control system}: analytically and using simulation;
 \item \underline{Transducer design}: circuit design and simulation;
-\item \underline{Power system design}: power supply, motors actuation and
+\item \uline{Power system}: power supply, motors actuation and
   respective circuitry design and simulation;
-\item \underline{Communications design}: communication protocols evaluation and selection;
-\item \underline{Software design}: for all required modules, and considering its
+\item \uline{Communications middleware}: communication protocols evaluation and
+  selection;
+\item \uline{Software layers}: for all required modules, and considering its
   interconnections, at distinct levels:
   \begin{itemize}
-  \item \uline{front end level}: user interface software, providing a easy and convenient
+  \item \uline{front end layer}: user interface software, providing a easy and convenient
     way for the user to control and manage the system.
-  \item \uline{framework level}: software required to emulate/simulate and test the
+  \item \uline{framework layer}: software required to emulate/simulate and test the
     required system behaviour, providing seamless interfaces for the dependents
     modules
-  \item \uline{back end level}: software running \emph{behind the scenes}, handling user
+  \item \uline{back end layer}: software running \emph{behind the scenes}, handling user
     commands received, system monitoring and control.
   \end{itemize}
 \end{itemize}
 \end{itemize}
-\item \uline{Implementation}: product implementation which is done by \uline{modules} and
-\uline{integrated}. Once again, it should be noted that the implementation is
-mostly done in simulation and coding stages, due to the aforementioned
-constraints. In the first stage, the implementation is done in a prototyping
+\item \uline{Implementation}: product implementation which is done by
+  \uline{modular integration}. In the first stage, the implementation is done in a prototyping
 environment --- the assisting framework developed, yielding version alpha; in the second stage
 it must include the coding on the final target modules, yielding
 prototype beta.
-\item \uline{Tests}: unit tests --- \uline{by modules} --- and integrated tests are
-performed. Tests are generally considered as those performed over any physical
+\item \uline{Tests}: modular tests and integrated tests are performed. Tests are generally considered as those performed over any physical
 component or prototype. Here, it is used as a broader term, to reflect the tests
 conducted into the system and the several prototypes.
-\item \uline{Verification/Validation}: in normal circumstances, after the alpha
-  prototype is built the specifications listed in the analysis must be verified
-  and the prototype validated by an external agent (an external user to the
-  group). Due to abnormal circumstances, the verification must now be performed,
-  not on the physical prototype, but over the chain of modules developed,
-  checking their performance against the specifications listed, i.e., subsystem
-  verification. System verification may be performed to validate overall
+\item \uline{Functional Verification/Validation}: System verification may be performed to validate overall
   function, but not for quantifiable measurement, due to the latencies
-  involved. Regarding validation, once again, there is limited access to the
-  physical modules, specially for an external agent, thus, it should be limited
+  involved. Regarding validation, specially for an external agent, thus, it should be limited
   to user interface validation.
 \item \uline{Delivery}: --- project closure encompassing:
 \begin{enumerate}
@@ -103,13 +93,13 @@ conducted into the system and the several prototypes.
 %\caption{\label{fig:gantt-tasks}Project planning: tasks}
 % \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\includepdf[pages=-]{sec/pdf/gantt-diag-orig.pdf}
-\begin{figure}[!htbp]
-   \centering
-       \includegraphics[page=1,width=1.0\textwidth]{sec/pdf/gantt-diag-orig.pdf} 
- \caption{Project planning --- Gantt diagram}%
-\label{fig:gantt-diag-orig}
-\end{figure}
+% \includepdf[pages=-]{sec/pdf/gantt-diag-orig.pdf}
+\begin{sidewaysfigure}[!htbp]
+  \centering
+  \includegraphics[page=1,width=1.0\textwidth]{sec/pdf/gantt-diag-orig.pdf} 
+  \caption{Project planning --- Gantt diagram}%
+  \label{fig:gantt-diag-orig}
+\end{sidewaysfigure}
 % 
 %%% Local Variables:
 %%% mode: latex
