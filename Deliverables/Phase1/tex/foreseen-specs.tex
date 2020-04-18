@@ -65,7 +65,7 @@ the priorities can be altered, easily and efficiently, if deemed appropriate.
 %
 \subsection{Vehicle Autonomy}%
 \label{sec:autonomy-specs}
-The vehicle is operated in wireless mode, thus, a portable power source must be included. The autonomy refers to the time interval between battery fully charged and safely discharged and should be observed for the following scenarios:
+The vehicle is operated in wireless mode, thus, a portable power source must be included. The autonomy refers to the vehicle operating hours since the battery is fully charged and safely discharged and should be observed for the following scenarios:
 \begin{itemize}
 \item No load and vehicle operating at maximum speed;
 \item No load and vehicle operating at mean speed;
@@ -78,9 +78,9 @@ The vehicle must be operated within a safe range of speed, while also not increa
 \subsection{Safety}%
 \label{sec:org83942c3}
 Vehicle self integrity protection is a requirement in product design, especially considering the vehicle is to
-be remotely operated. The safety of operation can be analysed in two ways, and considers the
+be remotely operated. The safety in the operation can be analysed in two ways, and considers the
 preservation of people and goods. For the former, it is important to assure safe interaction as well as user operation --- the vehicle may encounter
-several people along its path, but it must not inflict any damage. For the
+several obstacles along its path, but it must not inflict any damage. For the
 latter, the vehicle under operating conditions must not inflict any damage to
 goods. Thus, in the presence of conflicting user commands violating the safety
 of people and goods, the local system should override them, taking corrective
@@ -92,20 +92,21 @@ and system is lost.
 \subsection{Image acquisition}%
 \label{sec:image-acquisit}
 The vehicle is equipped with a camera to assist in its navigation,
-thus, requiring it to be fed to the user's platform appropriately.
+thus, requiring it to be fed to the user's platform appropriately. To do so, several functionalities details need to be addressed efficiently. It was selected the most relevant three and these include the frame rate, the resolution and the image range.
 \subsubsection{Frame rate}%
 \label{sec:org5adf4ee}
-Frame rate refers to the frequency at which independent still images appear on the screen. A better image quality is the result of a higher frame rate but the processing overhead increases as well, so a compromise must be achieved between the quality of the image and the increased processing overhead required. The minimum frame rate defined must be such that allows a clear view of the navigation.
+Frame rate refers to the frequency at which independent still images appear on the screen. A better image motion is the result of a higher frame rate but the processing overhead increases as well, so a compromise must be achieved between the quality of the image and the increased processing overhead required. The minimum frame rate defined must be such that allows a clear view of the navigation.
 \subsubsection{Range}%
 \label{sec:orgecb044c}
-How far can the camera capture images without loosing resolution and record them. The range must be such that allows the user to see the obstacles when the car is heading to them and provide enough time to change the direction.
+How far can the camera capture images without being distorted or unseen by the user. The range must be such that allows the user to see the obstacles when the car is heading to them and provide enough time to change the direction.
 \subsubsection{Resolution}%
 \label{sec:orgba87554}%
-The amount of detail that the camera can capture. It is measured in pixels. The quality of the acquired image is proportional to the number of pixels but a greater resolution requires a greater data transfer and processing overhead, thus, a compromise must be achieved. The minimum resolution must be such that provides the least amount of information required for the user. 
+The amount of detail that the camera can capture. It is measured in pixels. The quality of the acquired image is proportional to the number of pixels but a increased resolution requires a greater data transfer and processing overhead, thus, a compromise must be achieved. The minimum resolution must be such that provides the least amount of information required for the user. 
 \subsection{Communication}%
 \label{sec:org4241610}
+For the implementation of the communication, several stages must be considered: Reliability, redundancy and communication range.
 \subsubsection{Reliability}%
-\label{sec:orgdcb920d}
+\label{sec:orgdcb920d}	
 A communication is reliable if it guarantees measures to deliver the data
 conveyed in the communication link. As reliability imposes these measures, it
 also increases memory footprint, which must be considered
@@ -116,14 +117,14 @@ still observe conveniently the ﬁeld of vision if the frame rate is within
 acceptable boundaries.
 \subsubsection{Redundancy}
 \label{sec:orgc5933fc}
-The communication protocols are not flawless and the car relies on them to be controlled. If the communication is lost, the car cannot be controlled. A possible solution for this issue is using more communication protocols (e.g Wi-Fi and Bluetooth), so when one protocol fails, the car can still be controlled by the other.
+The communication protocols are not flawless and the car relies on them to be controlled. If the communication is lost, the car cannot be controlled. A possible solution for this issue is using redundancy in the communication protocols (e.g Wi-Fi and GPRS), so if one protocol fails, the car will still be controlled using the other.
 \subsubsection{Range}%
 \label{sec:org447a205}
 The communication protocols have a limited range of operation, and, as such, regarding the environment on which the car is used the range can be changed.
-The range refers to the maximum distance allowed between user and system for communication purposes.
+The range established the maximum distance allowed between user and system for communication purposes.
 \subsection{Responsiveness}%
 \label{sec:org622e63a}
-The movement of the car will be determined by the tilt movement of the smartphone. Sensibility refers to the responsiveness of the car on the minimum smartphone tilt movement. The sensibility must be in an range of values in which small unintentional movements will be enough to change the state of the car and it does not take big smartphone tilts for the car to move.
+The movement of the car will be determined by the tilt movement of the smartphone. Sensibility refers to the responsiveness of the car on the minimum smartphone tilt movement. The sensibility must be in an range of values in which small unintentional movements will not be enough to change the state of the car and it does not take big smartphone tilts for the car to move.
 \subsection{Closed loop error}%
 \label{sec:closed-loop-error-specs}
 The speed, direction and safe distance to avoid collisions must be continuously monitored to ensure proper vehicle operation. The closed loop error must then be checked mainly in three situations as a response to an user command:
