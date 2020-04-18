@@ -1,6 +1,6 @@
-\section{Tests}%
+\section{Functional testing}%
 \label{sec:org3e2776f}
-Tests are generally regarded as those performed over any physical
+The functional testing is generally regarded as those performed over any physical
 component or prototype. Here, however, a broader sense is used, to reflect the
 tests conducted into the system and the several prototypes, under the abnormal
 present circumstances.
@@ -24,7 +24,8 @@ the prototype alpha is concluded.
 \subsubsection{Functionality}%
 \label{sec:functionality}
 The remotely operated vehicle is composed of several modules distributed along
-several different platforms, some of which distanced from each other. Thus, the
+several different platforms, some of which distanced from each other.
+In doing so, the
 proposed sets of functionalities should be tested in the integrated system, by
 tracking and analysing the user commands issued along the way until it finally
 reaches the vehicle (in the virtual environment), assessing if it is correctly
@@ -113,14 +114,13 @@ detected by the modification of its virtual coordinates.
 %\end{itemize}
 %To test these two scenarios, they should be replicated, observing the system
 %response and tolerance.
-
+%
 \subsubsection{Image acquisition}%
 \label{sec:orgb1f5c2a}
-The vehicle is equipped with a camera to assist the user in its navigation,
+The vehicle is equipped with remote vision to assist the user in its navigation,
 thus, requiring the following variables to be tested: frame rate, range, and
 resolution. In the current scenario, the virtual environment should provide
-access to a built-in or external camera, with the former being fairly common
-nowadays in every personal computer, thus, enabling easy testing.
+access to a integrated camera, being fairly common nowadays in every modular component, thus, enabling easy testing.
 
 \paragraph{Frame rate}%
 \label{sec:frame-rate-test}
@@ -129,7 +129,8 @@ received from the camera per second and checked against the defined boundaries.
 
 \paragraph{Range}%
 \label{sec:range-test}
-To test camera's range, an object must be captured at increasing distances, until the image resolution is lost.
+To test camera's range, an object must be captured at increasing distances,
+until the object resolution fades or is unclear.
 
 \paragraph{Resolution}%
 \label{sec:resolution-test}
@@ -154,7 +155,7 @@ total packets, using an appropriate tool on both directions for transmission and
 To test communication redundancy, one communication channel should be turned
 off, verifying if the communication between nodes is still possible through
 another communication channel. For example, in the communication between host
-(user's platform) and remote (virtual environment) systems, the priority
+(user's platform) and remote (virtual environment) guest systems, the priority
 communication is performed between host and high-level subsystem. However, if
 this is turned off, the host must also be able to communicate with the remote
 system via low-level subsystem.
@@ -162,18 +163,10 @@ system via low-level subsystem.
 \subsubsection{Correctness of the control algorithms}%
 \label{sec:correct-control-algorithms-test}
 As previously mentioned, the speed and position must be continuously monitored
-to ensure proper vehicle operation. Under the current circumstances, it is
-difficult to properly and realistically stimulate the control loops, as both
-sensor and actuator data are not available. The solution could reside in the
-physical modelling of both actuator and sensor (the plant), as well of
-controller's logic modelling, and perform formal verification
-using model-checking and finite automata. Later on, those models could be tested
-using software-in-loop (and hardware-in-loop, if hardware was available). 
-
-However, physical modelling is not trivial, and it may still produce unrealistic
-data. Thus, the solution found resides in external stimulation of the control
-loops through input files containing the relevant data. Then, the behaviour of
-the system can be analysed and verified for some corner case situations,
+to ensure proper vehicle operation. Under the current circumstances, where the
+sensors and actuators are virtualized, the control loops can be externally
+stimulated through input files containing the relevant data. Then, the behaviour
+of the system can be analysed and verified for some cornercase situations,
 assessing the control algorithms correctness.
 %
 %An overshoot occurs when the output in a control system exceeds its final,
@@ -201,10 +194,8 @@ assessing the control algorithms correctness.
 \label{sec:orgff1a37d}
 The validation tests should be performed by the client using the product’s
 manual, so it is expected that a user without prior experience with the product
-should be able to use it correctly and safely. On the present abnormal
-circumstances, with limited access to the physical modules, specially for an
-external agent, the validation is severely limited.
-Thus, it should be limited to user interface validation.
+should be able to use it correctly and safely. On the current circumstances,
+validation tests should be limited to user interface validation.
 
 For this purpose, an external agent will be provided with the software
 application and the respective installation and usage manuals, and the feedback
