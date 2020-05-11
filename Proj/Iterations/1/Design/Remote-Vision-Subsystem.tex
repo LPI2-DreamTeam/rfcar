@@ -1,0 +1,107 @@
+% Created 2020-05-11 Mon 06:21
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{José Miguel Alves Pires\thanks{a50178@alunos.uminho.pt}}
+\date{\textit{<2020-05-11 Mon>}}
+\title{Remote-Vision-Subsystem}
+\hypersetup{
+ pdfauthor={José Miguel Alves Pires},
+ pdftitle={Remote-Vision-Subsystem},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Functionalities}
+\label{sec:org659fa89}
+\begin{enumerate}
+\item \textbf{Communication}
+\begin{enumerate}
+\item \uline{Wifi}: Android
+\begin{enumerate}
+\item Discover network
+\item Open: Connect to Wifi
+\begin{enumerate}
+\item Config
+\item Authenticate
+\end{enumerate}
+\item Ping device
+\item Send/Write
+\item Receive/Read
+\item Close
+\end{enumerate}
+\item \uline{GPRS}: Android
+\begin{enumerate}
+\item Discover network
+\item Open: Connect to GPRS
+\begin{enumerate}
+\item Config
+\item Authenticate
+\end{enumerate}
+\item Ping device
+\item Send/Write
+\item Receive/Read
+\item Close
+\end{enumerate}
+\item \uline{RS232}: Navigation system
+\begin{enumerate}
+\item Open: Connect to Navigation
+\begin{enumerate}
+\item Config
+\item Authenticate
+\end{enumerate}
+\item Ping device
+\item Send/Write
+\item Receive/Read
+\item Close
+\end{enumerate}
+\item \uline{Sensors}: eventually on a I2C network 
+\begin{enumerate}
+\item Open
+\begin{itemize}
+\item Discover Device
+\end{itemize}
+\item Send/Write
+\item Receive/Read
+\item Close
+\end{enumerate}
+\end{enumerate}
+\item \textbf{Image acquisition}
+\begin{enumerate}
+\item Start
+\item Read
+\item Stop
+\item Set frame rate
+\end{enumerate}
+\item \textbf{Processing}
+\begin{enumerate}
+\item User commands
+\item Telemetry: statistical data about navigation:
+\begin{enumerate}
+\item Distance
+\item Max velocity
+\item Operation time, etc.
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+\section{FSM}
+\label{sec:org81c4aeb}
+\end{document}
