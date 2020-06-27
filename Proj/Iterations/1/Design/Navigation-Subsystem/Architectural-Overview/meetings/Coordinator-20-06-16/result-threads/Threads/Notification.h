@@ -3,8 +3,11 @@
 
 #include "main.h"
 
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
+#if defined(__PLATFORM_WINDOWS__)
 #include <condition_variable>
+
+using NativeNotification = std::condition_variable;
+
 #endif
 
 
@@ -12,9 +15,7 @@ class Notification {
 
 private:	// Private members
 	
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
-	std::condition_variable condition;
-#endif
+	NativeNotification condition;
 	bool awaiting_notification;
 
 public:		// Public methods
@@ -23,20 +24,11 @@ public:		// Public methods
 
 	~Notification();
 
-	inline void notifyOne() {
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
-		condition.notify_one();
-#endif
-	}
+	void notifyOne();
 
+	void notifyAll();
 
-	inline void wait() {
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
-		std::mutex mut;
-  		std::unique_lock<std::mutex> lock(mut);
-		condition.wait(lock);
-#endif
-	}
+	void wait();
 };
 
 

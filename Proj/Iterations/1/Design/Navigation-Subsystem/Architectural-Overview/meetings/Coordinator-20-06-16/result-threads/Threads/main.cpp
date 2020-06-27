@@ -5,7 +5,7 @@
 // - A way to assign an anonymous function as a secondary trigger for breaking the notification waits, as in line 92 of example.cpp
 
 // FUTURE CORRECTIONS:
-// - Some inlined functions have come to take too big of a size to be inline anymore.
+// - DONE Some inlined functions have come to take too big of a size to be inline anymore.
 // - Some types and enumerations could be declared inside classes to reaffirm their scope.
 // - Since all the code would be shared between platforms, the platform-specific functions in Thread could be platform-agnostic 
 // and simplty not do anything in certain platforms

@@ -29,34 +29,13 @@ public:		// Public methods
 	~Mutex();
 
 	// Lock mutex if not locked
-	inline bool tryLock() {
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
-		if (self.try_lock()) {
-			owner = Thread::currentThreadID();
-			return true;
-		}
-
-		return false;
-#endif
-	}
+	bool tryLock();
 
 	// Lock mutex
-	inline void lock() {
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
-		self.lock();
-		owner = Thread::currentThreadID();
-#endif
-	}
+	void lock();
 
 	// Unlock mutex
-	inline void unlock() {
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
-		if (owner == Thread::currentThreadID()) {
-			owner = empty_thread_id;
-			self.unlock();
-		}
-#endif
-	}
+	void unlock();
 };
 
 

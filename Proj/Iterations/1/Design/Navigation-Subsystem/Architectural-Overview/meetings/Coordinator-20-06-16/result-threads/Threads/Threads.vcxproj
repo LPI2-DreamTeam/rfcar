@@ -121,7 +121,6 @@
     <ClCompile Include="Notification.cpp" />
     <ClCompile Include="SharedMemory.cpp" />
     <ClCompile Include="Thread.cpp" />
-    <ClCompile Include="ThreadPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -129,7 +128,6 @@
     <ClInclude Include="Notification.h" />
     <ClInclude Include="SharedMemory.h" />
     <ClInclude Include="Thread.h" />
-    <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="rubbish.txt" />

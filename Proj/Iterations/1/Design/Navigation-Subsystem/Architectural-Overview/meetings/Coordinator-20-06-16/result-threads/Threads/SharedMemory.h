@@ -7,26 +7,15 @@
 
 #if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
 #include <list>
-#endif
-
 
 template<class T>
 class SharedMemory {
 
-////////////////////////////// PLATFORM-SPECIFIC //////////////////////////////
-
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
 
 private:	// Private members
 
 	// Linked list of associated threads. Implemented as an STL structure in Windows/Linux for simplicity of operation
 	std::list<Thread*> threads;
-
-#endif
-
-////////////////////////////// PLATFORM-AGNOSTIC //////////////////////////////
-
-private:	// Private members
 
 	// Mutex that will help manage access to the memory
 	Mutex mutex;
@@ -50,16 +39,13 @@ public:		// Public methods
 
 	// Add thread to list of threads with access to the memory
 	inline void addThread(Thread* thread) {
-	#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
 		threads.push_back(thread);
 		threads.unique();
-	#endif
 	}
 
 	// Request access to memory. This has to be done by a thread in order to access the memory and when it is done, only release() 
 	// may free it for another one
 	inline bool grab() {
-	#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
 		mutex.lock();
 		if (authorized_thread == empty_thread_id) {
 			for (auto thread : threads) {
@@ -71,15 +57,12 @@ public:		// Public methods
 			}
 		}
 		mutex.unlock();
-	#endif
 		
 		return false;
 	}
 
 	// grab() but in a non-blocking fashion
 	inline bool grab_non_blocking() {
-
-	#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
 		for (auto thread : threads) {
 			if (thread->ownID() == authorized_thread) {
 				if (mutex.try_lock()) {
@@ -89,7 +72,6 @@ public:		// Public methods
 				break;
 			}
 		}
-	#endif
 		// return false if the thread is not authorized, the mutex is locked or the function is not implemented for the specific platform
 		return false;
 	}
@@ -121,5 +103,7 @@ public:		// Public methods
 
 
 };
+
+#endif
 
 #endif // !SHARED_MEMORY_H
