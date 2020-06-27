@@ -6,30 +6,37 @@
 #if defined(__PLATFORM_WINDOWS__)
 #include <condition_variable>
 
-using NativeNotification = std::condition_variable;
+typedef std::condition_variable native_notification;
 
 #endif
 
 
-class Notification {
+namespace OS {
 
-private:	// Private members
-	
-	NativeNotification condition;
-	bool awaiting_notification;
+	class Notification {
 
-public:		// Public methods
+	public:
 
-	Notification();
+		typedef native_notification Native;
 
-	~Notification();
+	private:	// Private members
 
-	void notifyOne();
+		Native condition;
+		bool awaiting_notification;
 
-	void notifyAll();
+	public:		// Public methods
 
-	void wait();
-};
+		Notification();
+
+		~Notification();
+
+		void notifyOne();
+
+		void notifyAll();
+
+		void wait();
+	};
+}
 
 
 #endif

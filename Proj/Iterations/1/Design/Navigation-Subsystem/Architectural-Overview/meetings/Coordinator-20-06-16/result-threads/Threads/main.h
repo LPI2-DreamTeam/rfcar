@@ -8,5 +8,3 @@
 #undef __PLATFORM_WINDOWS__
 #endif
 #endif
-
-int main(int argc, char * argv[]);

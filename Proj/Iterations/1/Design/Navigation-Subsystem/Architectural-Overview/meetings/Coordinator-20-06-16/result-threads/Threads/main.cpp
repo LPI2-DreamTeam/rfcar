@@ -6,7 +6,7 @@
 
 // FUTURE CORRECTIONS:
 // - DONE Some inlined functions have come to take too big of a size to be inline anymore.
-// - Some types and enumerations could be declared inside classes to reaffirm their scope.
+// - DONE Some types and enumerations could be declared inside classes to reaffirm their scope.
 // - Since all the code would be shared between platforms, the platform-specific functions in Thread could be platform-agnostic 
 // and simplty not do anything in certain platforms
 // - There is redundancy in SharedMemory: each SharedMemory object has an 'authorized_thread' variable and its own 'mutex' variable 
@@ -24,11 +24,12 @@
 #include "SharedMemory.h"
 #include "Notification.h"
 
+using namespace OS;
 
 #define LIST_LEN		250
 #define SIZE_THRESHOLD	3
 
-using ThreadIDIntPair = std::pair<ThreadID, uint32_t>;
+using ThreadIDIntPair = std::pair<Thread::ID, uint32_t>;
 using ThreadIDIntPairList = std::list<ThreadIDIntPair>;
 using IntList = std::list<uint32_t>;
 
@@ -158,7 +159,7 @@ int main(int argc, char* argv[]) {
 
 
 /////////////////////////////////// TESTING ///////////////////////////////////
-	std::map<ThreadID, std::pair<std::string, uint32_t>> id_name_map;
+	std::map<Thread::ID, std::pair<std::string, uint32_t>> id_name_map;
 
 	id_name_map.insert({ p1.ownID(), std::pair<std::string, uint32_t>("P1", 0) } );
 	id_name_map.insert({ p2.ownID(), std::pair<std::string, uint32_t>("P2", 0) });

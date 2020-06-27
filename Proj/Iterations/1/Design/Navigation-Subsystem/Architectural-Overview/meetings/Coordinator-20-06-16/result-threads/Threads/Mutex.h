@@ -8,35 +8,39 @@
 
 #include <mutex>
 
-using NativeMutex = std::mutex;
-
+typedef std::mutex native_mutex ;
 #endif 
 
-class Mutex {
 
+namespace OS {
 
-private:	// Private members
+	class Mutex {
 
-	NativeMutex self;
-	ThreadID owner;
+		typedef native_mutex Native;
+	
+	private:	// Private members
 
-public:		// Public methods
+		Native self;
+		Thread::ID owner;
 
-	// Constructor
-	Mutex();
+	public:		// Public methods
 
-	// Destructor
-	~Mutex();
+		// Constructor
+		Mutex();
 
-	// Lock mutex if not locked
-	bool tryLock();
+		// Destructor
+		~Mutex();
 
-	// Lock mutex
-	void lock();
+		// Lock mutex if not locked
+		bool tryLock();
 
-	// Unlock mutex
-	void unlock();
-};
+		// Lock mutex
+		void lock();
+
+		// Unlock mutex
+		void unlock();
+	};
+}
 
 
 #endif // !MUTEX_H
