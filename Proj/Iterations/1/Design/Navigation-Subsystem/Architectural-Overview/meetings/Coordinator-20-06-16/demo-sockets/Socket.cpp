@@ -1,6 +1,4 @@
 
-#define __MSVC__
-#define _CRT_SECURE_NO_WARNINGS
 #include "Socket.hpp"
 
 #include <iostream>
