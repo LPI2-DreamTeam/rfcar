@@ -2,12 +2,10 @@
 #define THREAD_H
 #include "main.hpp"
 
-#if defined(__WINDOWS__)
+#ifdef _LINUX_
 
 #include <thread>
 #include <functional>
-#include <windows.h>
-#include <processthreadsapi.h>
 #include <inttypes.h>
 
 namespace OS {
@@ -137,6 +135,6 @@ namespace OS {
 }
 
 
-#endif // defined(__PLATFORM_WINDOWS__)
+#endif // _LINUX_
 
 #endif // !THREAD_H

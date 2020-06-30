@@ -1,8 +1,10 @@
 #include "Thread.hpp"
 
-#if defined(__WINDOWS__)
+#ifdef _LINUX_
+
 #include <iostream>
 #include <string>
+#include <cstring>
 
 
 namespace OS {
@@ -15,7 +17,7 @@ namespace OS {
 
 		start = false;
 		this->method = method;
-		memcpy(this->name, name, 20);
+		std::memcpy(this->name, name, 20);
 
 		// In windows we ignore priority and stack size altogether
 		this->priority = priority;
@@ -80,4 +82,4 @@ namespace OS {
 
 }
 
-#endif
+#endif	 // _LINUX_

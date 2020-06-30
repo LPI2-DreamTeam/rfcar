@@ -1,7 +1,7 @@
-#include "Notification.h"
+#include "Notification.hpp"
 
 
-#if defined(__PLATFORM_WINDOWS__)
+#ifdef _LINUX_
 
 namespace OS {
 
@@ -27,4 +27,4 @@ namespace OS {
 	}
 }
 
-#endif
+#endif	 // _LINUX_

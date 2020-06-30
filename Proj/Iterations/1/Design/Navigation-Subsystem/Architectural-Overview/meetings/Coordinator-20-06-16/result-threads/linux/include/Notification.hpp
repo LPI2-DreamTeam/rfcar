@@ -1,14 +1,15 @@
 #ifndef NOTIFICATION_H
 #define NOTIFICATION_H
 
-#include "main.h"
+#include "main.hpp"
 
-#if defined(__PLATFORM_WINDOWS__)
+#ifdef _LINUX_
+
 #include <condition_variable>
 
 typedef std::condition_variable native_notification;
 
-#endif
+#endif	 // _LINUX_
 
 
 namespace OS {

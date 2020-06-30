@@ -63,14 +63,14 @@
 PROJ=threads
 
 # File Paths
-SRC_DIR=${SRC_DIR}/source
+SRC_DIR=.
 BIN_DIR=${SRC_DIR}/bin
 
 #CC=clang++ #defining the compiler; bad pratice to define it (not portable)
 CC=g++
 
 # Pre-processor (CPP), Compiler (CXX) and Linker (LD) settings
-CPPFLAGS = -I '${SRC_DIR}/include'
+CPPFLAGS = -I${SRC_DIR}/include
 #CXXFLAGS = -Wall #-Werror  # e.g (-W -ansi -pedantic)
 # changed CXXFLAGS and CC because of tuple
 # src: https://github.com/rogual/neovim-dot-app/issues/46#issuecomment-90966755

@@ -1,16 +1,10 @@
 #include "Mutex.hpp"
 
-#if defined(__WINDOWS__)
+#ifdef _LINUX_
 
 namespace OS {
 
 	Mutex::Mutex() : self(), owner(empty_thread_id) {}
-
-	Mutex::Mutex(const Mutex& other_mutex) {
-	
-		memcpy(&(this->self), &(other_mutex.self), sizeof(this->self));
-		this->owner = other_mutex.owner;
-	}
 
 	Mutex::~Mutex() {}
 
@@ -38,4 +32,4 @@ namespace OS {
 	}	
 }
 
-#endif
+#endif	 // _LINUX_

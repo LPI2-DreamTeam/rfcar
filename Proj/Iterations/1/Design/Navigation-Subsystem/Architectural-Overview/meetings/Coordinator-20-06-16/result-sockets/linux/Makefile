@@ -63,7 +63,7 @@
 PROJ=com_ll
 
 # File Paths
-SRC_DIR=${SRC_DIR}/source
+SRC_DIR=.
 BIN_DIR=${SRC_DIR}/bin
 
 #CC=clang++ #defining the compiler; bad pratice to define it (not portable)

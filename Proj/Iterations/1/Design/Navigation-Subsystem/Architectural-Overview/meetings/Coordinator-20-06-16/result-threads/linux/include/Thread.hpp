@@ -1,13 +1,11 @@
 #ifndef THREAD_H
 #define THREAD_H
-#include "main.h"
+#include "main.hpp"
 
-#if defined(__PLATFORM_WINDOWS__)
+#ifdef _LINUX_
 
 #include <thread>
 #include <functional>
-#include <windows.h>
-#include <processthreadsapi.h>
 #include <inttypes.h>
 
 namespace OS {
@@ -137,6 +135,6 @@ namespace OS {
 }
 
 
-#endif // defined(__PLATFORM_WINDOWS__)
+#endif // _LINUX_
 
 #endif // !THREAD_H

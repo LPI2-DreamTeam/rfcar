@@ -4,7 +4,7 @@
 #include "main.hpp"
 #include "Thread.hpp"
 
-#if defined(__WINDOWS__) || defined(__LINUX__)
+#ifdef _LINUX_
 
 #include <mutex>
 
@@ -42,6 +42,9 @@ namespace OS {
 
 		// Unlock mutex
 		void unlock();
+
+		// Native mutex reference
+		Native& native();
 	};
 }
 

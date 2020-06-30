@@ -2,19 +2,19 @@
 #define COM_LL_H
 
 #include "main.hpp"
-
-#ifdef __WINDOWS__
-
-#include <WinSock2.h>
-#include <windows.h>
-#include <ws2tcpip.h>
-
-#include <string>
-#include <iostream>
-
-#endif
-
 #include "Mutex.hpp"
+
+#ifdef _LINUX_
+
+#include <arpa/inet.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <memory>
 
 namespace COM {
 
@@ -24,7 +24,7 @@ namespace COM {
 	} Protocol;
 
 	typedef enum Error_T {
-		OK = 0, INVALID_PROTOCOL, SERIAL_OPEN_CONNECTION_FAIL
+		OK = 0, DEAD, NOT_CONNECTED, READ_FAIL, WRITE_FAIL, CLOSE_FAIL, OPEN_FAIL
 	} Error;
 
 
@@ -38,12 +38,13 @@ namespace COM {
 		
 		LL();
 		virtual ~LL();
-		virtual Error read(char* p_buff, int len) = 0;
-		virtual Error write(const char* p_buff, int len) = 0;
+		virtual Error read_str(char* p_buff, uint32_t len) = 0;
+		virtual Error write_str(const char* p_buff, uint32_t len) = 0;
 		virtual bool isConnected(void) = 0;
-		virtual bool kill(void) = 0;
+		virtual void kill(void) = 0;
 		virtual Error closeConnection(void) = 0;
 		virtual Error getLastError(std::string& emsg) = 0;
+		virtual Error getLastError() = 0;
 	};
 
 
@@ -57,12 +58,16 @@ namespace COM {
 		OS::Mutex mutex;
 		bool connected;
 		Error last_error;
+		std::string last_error_str;
 		std::string ip_address;
+		bool dead;
 
-#ifdef __WINDOWS__
-		std::string port;
-		SOCKET connect_socket;
-		struct addrinfo hints;
+#ifdef _LINUX_
+		uint32_t sock_type;
+		uint32_t sock_family;
+		uint32_t sock_fd = -1;
+		uint32_t sock_port = -1;
+		struct sockaddr_in serv_addr;
 #endif
 
 	public:		// Public methods: override
@@ -70,16 +75,16 @@ namespace COM {
 		LL();
 		~LL() override;
 
-		Error read(char* p_buff, int len) override;
-		Error write(const char* p_buff, int len) override;
+		Error read_str(char* p_buff, uint32_t len) override;
+		Error write_str(const char* p_buff, uint32_t len) override;
 
 		bool isConnected(void) override;
 		Error closeConnection(void) override;
 
-		bool kill(void) override;
+		void kill(void) override;
 
 		Error getLastError(std::string& emsg) override;
-
+		Error getLastError() override;
 
 	public:		// Public methods: override
 
@@ -99,13 +104,17 @@ namespace COM {
 		OS::Mutex mutex;
 		bool connected;
 		Error last_error;
+		std::string last_error_str;
 		std::string ip_address;
+		bool dead;
 
-#ifdef __WINDOWS__
-		std::string port;
-		SOCKET client_socket;
-		SOCKET listen_socket;
-		struct addrinfo hints;
+#ifdef _LINUX_
+		uint32_t sock_type;
+		uint32_t sock_family;
+		uint32_t sock_fd = -1;
+		uint32_t Sock_port = -1;
+		struct sockaddr_in serv_addr;
+		uint32_t opt;
 #endif
 
 	public:		// Public methods: override
@@ -113,16 +122,17 @@ namespace COM {
 		LL();
 		~LL() override;
 
-		Error read(char* p_buff, int len) override;
-		Error write(const char* p_buff, int len) override;
+		Error read_str(char* p_buff, uint32_t len) override;
+		Error write_str(const char* p_buff, uint32_t len) override;
 
 		bool isConnected(void) override;
 		Error closeConnection(void) override;
 
-		bool kill(void) override;
+		void kill(void) override;
 
 		Error getLastError(std::string& emsg) override;
-	
+		Error getLastError() override;
+
 	public:		// Public methods: specific
 		
 		Error getClientIP(std::string& ip);
@@ -133,5 +143,6 @@ namespace COM {
 
 }
 
+#endif		// _LINUX_
 
 #endif

@@ -1,11 +1,12 @@
 #ifndef SHARED_MEMORY_H
 #define SHARED_MEMORY_H
 
-#include "main.h"
-#include "Mutex.h"
-#include "Thread.h"
+#include "main.hpp"
+#include "Mutex.hpp"
+#include "Thread.hpp"
 
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
+#ifdef _LINUX_
+
 #include <list>
 
 namespace OS {
@@ -67,7 +68,7 @@ namespace OS {
 		inline bool grab_non_blocking() {
 			for (auto thread : threads) {
 				if (thread->ownID() == authorized_thread) {
-					if (mutex.try_lock()) {
+					if (mutex.tryLock()) {
 						authorized_thread = Thread::currentThreadID();
 						return true;
 					}
@@ -108,6 +109,6 @@ namespace OS {
 
 }
 
-#endif
+#endif	 // _LINUX_
 
 #endif // !SHARED_MEMORY_H

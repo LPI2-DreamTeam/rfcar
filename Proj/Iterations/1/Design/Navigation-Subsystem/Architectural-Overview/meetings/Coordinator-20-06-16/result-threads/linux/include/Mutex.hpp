@@ -1,15 +1,16 @@
 #ifndef MUTEX_H
 #define MUTEX_H
 
-#include "main.h"
-#include "Thread.h"
+#include "main.hpp"
+#include "Thread.hpp"
 
-#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
+#ifdef _LINUX_
 
 #include <mutex>
 
-typedef std::mutex native_mutex ;
-#endif 
+typedef std::mutex native_mutex;
+
+#endif 	 // _LINUX_
 
 
 namespace OS {
