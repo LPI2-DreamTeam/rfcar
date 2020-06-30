@@ -1,4 +1,4 @@
-% Created 2020-06-30 Tue 06:27
+% Created 2020-06-30 Tue 07:07
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -35,8 +35,8 @@
 \tableofcontents
 
 
-\section{Modular design}
-\label{sec:org8053dba}
+\section{Modular design\hfill{}\textsc{Important}}
+\label{sec:org400fc2f}
 Modular design is useful to separate logical units inside the \LaTeX{} environment.
 \begin{itemize}
 \item \texttt{dissertation.tex}: main document that defines all the formatting and includes
@@ -66,8 +66,45 @@ Regarding \texttt{.tex} documents, they can be included as follows (the extensio
 end.
 \end{itemize}
 
+\section{Styling guides\hfill{}\textsc{Important}}
+\label{sec:orga642a07}
+\begin{enumerate}
+\item Don't use \texttt{\textbackslash{}newpage}, \texttt{\textbackslash{}clearpage}, or any other section break command. This
+is done natively by the \TeX{} engine; it should be done last and only if REALLY
+required
+\item To separate paragraphs use one blank line; any additional blank lines MUST BE
+AVOIDED anywhere in the document. If you want to separate anything visually,
+use a comment \texttt{\%}.
+\begin{itemize}
+\item Example:
+\lstset{language=[LaTeX]TeX,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+%
+\section{Product concept}%
+\label{sec:product-concept}
+\input{./tex/Chap/Analysis/prod-concept}
+%
+\section{Foreseen specifications}%
+\label{sec:fores-spec}
+\input{./tex/Chap/Analysis/foreseen-specs}
+\end{lstlisting}
+\end{itemize}
+\item If adding a figure, table, listing, acronym/symbol or citation, or any
+sectioning command, please add a label so it can be referenced later. Check
+the appropriate section for more info.
+\item When adding the reference for the label (see \hyperref[sec:org4434181]{here} for more info), use
+appropriate reference designator before referencing using an non-breaking
+space in between.
+\begin{itemize}
+\item Example:
+\lstset{language=[LaTeX]TeX,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+Fig.~\ref{fig:initial-design}
+\end{lstlisting}
+\end{itemize}
+\end{enumerate}
 \section{Sectioning}
-\label{sec:org3020630}
+\label{sec:orgceb07cf}
 Sectioning is used to define the logical structure of the document. The most
 relevant commands are:
 \begin{enumerate}
@@ -79,10 +116,17 @@ relevant commands are:
 \item \texttt{\textbackslash{}subparagraph}: subparagraph
 \end{enumerate}
 
+Example:
+\lstset{language=[LaTeX]TeX,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+\section{Product concept}%
+\label{sec:product-concept}
+\input{./tex/Chap/Analysis/prod-concept}
+\end{lstlisting}
 \section{Floats}
-\label{sec:org97c1215}
+\label{sec:org291797e}
 \subsection{Figures}
-\label{sec:org515f4f5}
+\label{sec:orgb6187de}
 \lstset{language=[LaTeX]TeX,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 \begin{figure}[!ht]
@@ -98,7 +142,7 @@ relevant commands are:
 \caption{\label{fig:initial-design}Initial design: Block diagram view}
 \end{figure}
 \subsection{Tables}
-\label{sec:org333b62a}
+\label{sec:orgd573a75}
 \begin{enumerate}
 \item Construction: Tables can be created using an online tool
 (\url{https://www.tablesgenerator.com/}) and then copied, as illustrated in
@@ -133,7 +177,7 @@ Weight            & 0.5 kg     & Weight of the car                              
 \end{tabular}
 \end{table}
 \end{lstlisting}
-\item \textbf{Result}: Table\textasciitilde{}\ref{tab:specs-init} lists the foreseen product
+\item \textbf{Result}: Table \ref{tab:specs-init} lists the foreseen product
 specifications.
 \begin{table}[!hbt]
 \centering
@@ -159,11 +203,9 @@ Dimensions        & 20x12x5 cm & Dimensions of the car                          
 Weight            & 0.5 kg     & Weight of the car                                                                                            \\ \hline
 \end{tabular}
 \end{table}
-\#+end\textsubscript{src}
 \end{enumerate}
-
 \section{Referencing}
-\label{sec:org4dd53de}
+\label{sec:org4434181}
 To reference the relevant items such as figures, tables, sections (chapter,
 section, subsection), etc., one needs:
 \begin{enumerate}
@@ -173,7 +215,7 @@ e.g. \texttt{\textbackslash{}label\{ch:analysis\}}
 e.g. Chapter\textasciitilde{}\ref{ch:analysis}
 \end{enumerate}
 \section{Bibliography}
-\label{sec:org6b2f0b5}
+\label{sec:orge62b455}
 Bibliography management is composed of 2 parts:
 \begin{enumerate}
 \item A Bibliography database, generally a \texttt{.bib} file, located at
@@ -208,9 +250,9 @@ et. al=\textasciitilde{}\cite{harashima1996mechatronics}=
 \end{itemize}
 \end{enumerate}
 \section{Enviroments}
-\label{sec:orgd96ea1a}
+\label{sec:org4102c27}
 \subsection{Itemize}
-\label{sec:orga57400f}
+\label{sec:org574551c}
 \lstset{language=[LaTeX]TeX,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 \begin{itemize}
@@ -225,7 +267,7 @@ et. al=\textasciitilde{}\cite{harashima1996mechatronics}=
 \end{itemize}
 
 \subsection{Enumerate}
-\label{sec:org56418de}
+\label{sec:org9d11cf3}
 \lstset{language=[LaTeX]TeX,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 \begin{enumerate}
@@ -238,9 +280,8 @@ et. al=\textasciitilde{}\cite{harashima1996mechatronics}=
 \item \textbf{Item 1}: this is an enumerated item
 \item \textbf{Item 2}: this is another enumerated item
 \end{enumerate}
-
 \section{Glossary}
-\label{sec:org4fa9b69}
+\label{sec:org8845f59}
 Glossaries are useful to input \uline{acronyms} and \uline{symbols}.
 \begin{itemize}
 \item Acronyms: common use words, often abbreviated.
@@ -261,7 +302,7 @@ the glossary database file.
 referencing (no need to worry about this, the makefile will handle it).
 \end{enumerate}
 \subsection{Acronyms}
-\label{sec:org00ca075}
+\label{sec:orgc5e2914}
 \begin{itemize}
 \item Definition (\texttt{./sec/acronyms.tex}):
 \lstset{language=[LaTeX]TeX,label= ,caption= ,captionpos=b,numbers=none}
@@ -273,7 +314,7 @@ referencing (no need to worry about this, the makefile will handle it).
 \end{itemize}
 
 \subsection{Symbols}
-\label{sec:org33b2693}
+\label{sec:orgd66ae0b}
 \begin{itemize}
 \item Definition (\texttt{./sec/symbols.tex}):
 \lstset{language=[LaTeX]TeX,label= ,caption= ,captionpos=b,numbers=none}
@@ -291,7 +332,7 @@ referencing (no need to worry about this, the makefile will handle it).
 \end{itemize}
 
 \section{Listings}
-\label{sec:orga636528}
+\label{sec:org52673a7}
 \begin{itemize}
 \item Styling: Listings can be formatted using different styles, as presented in
 \texttt{./sty/listing.sty} for any programming/markup language required.
@@ -345,7 +386,7 @@ UINT MMSLSDlg::ThreadSerialRx(LPVOID param)
 }
 \end{lstlisting}
 \section{PDF inclusion}
-\label{sec:org738167b}
+\label{sec:orgd6f8882}
 \begin{itemize}
 \item Include all pages from \texttt{anexo3-license}. Be careful of file path. It's
 relative to the main file.
@@ -355,7 +396,7 @@ relative to the main file.
 \end{lstlisting}
 \end{itemize}
 \section{Appendices}
-\label{sec:org04315bb}
+\label{sec:org8624020}
 Appendices can be added in the appropriate section (\texttt{./tex/Append/}):
 \begin{itemize}
 \item as text: with figures, tables, etc.
