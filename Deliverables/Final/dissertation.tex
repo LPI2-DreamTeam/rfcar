@@ -1,0 +1,265 @@
+% MAIN DOC
+% Example for dissertation.sty
+\documentclass[
+  % Replace oneside by twoside if you are printing your thesis on both sides
+  % of the paper, leave as is for single sided prints or for viewing on screen.
+  % oneside,
+  twoside=false,
+  fontsize=12pt,% NewsGotT
+  paper=a4,
+  footinclude=true,
+  headinclude=true,
+  cleardoublepage=empty,
+  headsepline=true,
+  headheight=20pt,
+  footheight=20pt,
+  automark,
+  markcase=upper,
+  bibliography=totoc,
+  %appendix=totoc
+  %pagestyle=myheadings
+  %footsepline=true,
+]{scrbook}
+
+% use the formatting style defined (this file should include all other packages)
+%\usepackage{./sty/dissertation}% pdflatex
+\usepackage{./sty/dissertation-xelatex}% xelatex
+
+% fixing \vbox and \hbox underfull and overfull
+% src: https://tex.stackexchange.com/a/387912
+\raggedbottom%
+
+%\addtokomafont{section}{\clearpage}
+\addtokomafont{caption}{\small}
+
+%this shall be the last thing in the acronym configuration!!
+\makeglossaries%
+
+%% **MORE INFO** %%
+%to add the acronyms list add the following where you want to print it:
+%\printglossary[type=\acronymtype]
+%\clearpage
+%\thispagestyle{empty}
+
+%to use an acronym:
+%\gls{qps}
+
+% Reverse side notes
+% How to generate 2 different files based on conditionals
+% https://tex.stackexchange.com/a/220101
+% see also makefile rule all-comm
+\ifdef{\comm}{\reversemarginpar}
+
+% ------------------------------------------------------------------------
+% Title
+\mytitle% defined in .sty file
+
+% Glossaries & Acronyms
+%\makeglossaries  %  either use this ...
+%\makeindex	   % ... or this
+
+% Define Acronyms
+%\input{sec/acronyms}
+%\glsaddall[types={\acronymtype}]
+
+\begin{document}
+	% Cover page ---------------------------------------
+%	\umfrontcover%	
+	\umtitlepage%
+%
+%\input{./tex/Pre_Chap/Title.tex}
+%\maketitle % should use a customized title creation
+% see: https://en.wikibooks.org/wiki/LaTeX/Title_Creation
+  % Add dedication
+%  \include{./tex/Pre_Chap/Dedication}
+%%
+%% ----------License------
+%  \includepdf[pages=-]{anexo3-license}
+%  \cleardoublepage%
+%%---------------------
+%	% Add acknowledgements ----------------------------
+%  \include{./tex/Pre_Chap/Acknowledgements}
+%  %\chapter*{Acknowledgements}
+%  %	Write acknowledgements here
+%  \cleardoublepage%
+%%---------------------
+%  %
+%  \KOMAoption{fontsize}{11.5pt}%
+%	% Add abstracts (en,pt) ---------------------------
+%  \include{./tex/Pre_Chap/Abstract}
+%  %\chapter*{Abstract}
+%	%Write abstract here (en) or import corresponding file	
+%  \cleardoublepage%
+%%
+%  \KOMAoption{fontsize}{11pt}%
+%  \include{./tex/Pre_Chap/Resumo}
+%  %\chapter*{Resumo}
+%	%Escrever aqui resumo (pt), ou importar respectivo ficheiro,
+%  \cleardoublepage%
+	% Summary Lists ------------------------------------
+  % add toc and lists to TOC
+  % src: https://tex.stackexchange.com/a/74440
+%  \KOMAoption{fontsize}{12pt}%
+  % TOC
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{Contents}
+  \tableofcontents%
+  \cleardoublepage%
+  % List of Figs
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{List of Figures}
+  \listoffigures%
+  \cleardoublepage%
+  % List of Tables
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{List of Tables}
+  \listoftables
+  \cleardoublepage%
+  % List of listings
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{List of Listings}
+  \lstlistoflistings%
+  \cleardoublepage%
+  % list of Acronyms
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{List of Abbreviations}
+  \listofacronyms%
+  \cleardoublepage%
+    %\printglossary[type=\acronymtype]%
+    %\printglossary[type=\acronymtype]%
+ %   \listofabbreviations%
+  % List of symbols
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{List of Symbols}
+  \listofsymbols%
+  \cleardoublepage%
+%
+	\thispagestyle{empty}
+  %\newpage
+	\pagenumbering{arabic}
+  %\newpage
+  %\setcounter{page}{0}
+  %\pagenumbering{arabic}
+  %\setcounter{page}{1}
+ % 
+  % making chapter pages with no header and footer
+  \renewcommand*{\chapterpagestyle}{empty}
+  %-------------- MAIN BODY CHAPTERS----------------------------------
+  % Include the other files (\include adds a blank page between files)
+  % - does not need the file extension
+%  \KOMAoption{fontsize}{12pt}%
+  \setlength{\unitlength}{1mm}
+  %% 1,5 line spacing
+  \renewcommand{\baselinestretch}{1.5}
+%
+  \include{./tex/Chap/Intro/INTRO}
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+%
+  \include{./tex/Chap/State-Art/STATE-ART}
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+  %
+  \include{./tex/Chap/Theor-Found/THEOR-FOUND}
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+  %
+%  \include{./tex/Chap/Prob-Chal/PROB-CHALLENGE}
+  \include{./tex/Chap/Analysis/ANALYSIS}
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+  %
+  \include{./tex/Chap/Design/DESIGN}
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+  %\include{./tex/Chap/Devel/DEVELOPMENT}
+  \include{./tex/Chap/Implem/IMPLEM}
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+  %
+  %\include{./tex/Chap/Applic/APPLICATION}
+  \include{./tex/Chap/Testing/TESTING}
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+  %
+  %\include{./tex/Chap/Applic/APPLICATION}
+  \include{./tex/Chap/Verif-Valid/VERIF-VALID}
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+  %
+  \include{./tex/Chap/Concl/CONCLUSION}
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+  % -----------------------------------------------------------------
+  %
+	\bookmarksetup{startatroot} % Ends last part.
+	%\addtocontents{toc}{\bigskip} % Making the table of contents look good.
+	%\cleardoublepage
+%
+	%- Bibliography (needs bibtex) -%
+  % Using relative paths: 
+  % src: https://tex.stackexchange.com/questions/38287/creating-a-central-bibliography
+  %\addcontentsline{toc}{chapter}{Bibliography}
+  \bibliography{./bib/dissert}
+%
+  % bibliography - tutorial: 
+  % https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
+  %\clearpage %see what this means
+  %\include{./tex/mybibliography}
+%
+  % ---------------------- APPENDIX ------------------------------------
+  % renew figures and tables to use Alphabetic numbering and set counter to zero
+  % src: https://tex.stackexchange.com/questions/118606/numbering-tables-a1-a2-etc-in-latex#comment862599_311998
+  \setcounter{table}{0}
+  \setcounter{figure}{0}
+  \renewcommand{\thetable}{\Alph{chapter}.\arabic{table}}  
+  \renewcommand{\thefigure}{\Alph{chapter}.\arabic{figure}}
+ %
+  % Adding a page to separate appendices from the other chapters
+  \chapter*{Appendices}%
+\label{ch:Append}
+  \addcontentsline{toc}{chapter}{\normalfont\scshape{Appendices}}
+  \cleardoublepage%
+%
+  %\appendix % this is the normal appendix; we use a custom one
+  \umappendix{Appendix}
+%
+  % Appendix chapters inclusion
+  \include{./tex/Append/APPENDICES}
+%
+	%\chapter{Support material}
+	%Auxiliary results which are not main-stream; or
+%
+	%\chapter{Details of results}
+	%Details of results whose length would compromise readability of main text; or
+%
+	%\chapter{Listings}
+	%Specifications and Code Listings: should this be the case; or
+%
+	%\chapter{Tooling}
+	%Tooling: Should this be the case.
+%
+	%Anyone using \Latex\ should consider having a look at \TUG,
+	%the \tug{\TeX\ Users Group}
+%
+	% Back Cover -------------------------------------------
+%	\umbackcover{
+%%	NB: place here information about funding, FCT project, etc in which the
+%%	work is framed. Leave empty otherwise.
+%         % The author gratefully acknowledges the financial support of ``Fundação
+%         % para a Ciência e Tecnologia'' (FCT – Portugal), through the research
+%         % project PTDC/ECM/108146/2008 (“Generalised Beam Theory (GBT) –
+%         % Development, Application and Dissemination”).
+%         % HAMaBICo --- Hybrid Additive Manufacturing for Bio Inspired Component
+%         % through the research project  NORTE-01-0145-FEDER-000018.
+%          The author gratefully acknowledges the financial support of this
+%          project through the research projects NORTE-01-0145-FEDER-000018
+%          (HAMaBICo --- Hybrid Additive Manufacturing for Bio Inspired
+%          Component) and POCI-01-0145-FEDER-030498 (FunImp --- Design and
+%          Fabrication of MultiFunctional Implants).
+%	}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

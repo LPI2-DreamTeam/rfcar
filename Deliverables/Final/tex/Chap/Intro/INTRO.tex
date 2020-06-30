@@ -1,0 +1,37 @@
+% !TEX root = ../dissertation.tex
+
+% For VIM to recognize the document syntax \begin{document} and \end{document}
+% - However, the compilation will fail!! So don't forget to comment the
+%   directives before compiling!!'
+
+%\begin{document}
+
+% CHAPTER - Introduction -------------------------
+\chapter{Introduction}
+
+% To correctly add a marginpar, \mbox needs to be added and a blank line is also
+% needed
+\ifdef{\comm}{\mbox{}\marginpar{Intro}}
+
+One of the ultimate goals of engineering is the ability to provide sustained 
+development, by efficiently using the available resources --- materials, energy,
+knowledge, time. This is a ``Sisyphus's stone''\footnote{King of Ephyra,
+condemned to push a stone uphill for eternity --- immortalised in ``The Myth of
+Sisyphus'' by Albert Camus}, a perpetual quest for optimisation of efforts and
+resources. One such example in the engineering field is the ability to produce
+components with the minimum amount of material needed for its function, i.e.,
+functional design of components without restrictions to geometry or type and
+number of different materials; instead the focus should be on the desired
+properties of such components, customising them for the specific field of
+application. 
+
+\input{./tex/Chap/Intro/context}
+\input{./tex/Chap/Intro/motivation}
+\input{./tex/Chap/Intro/main-obj}
+%\input{./tex/ChapIntro1/research-hypot}
+\input{./tex/Chap/Intro/thesis-organization}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../dissertation"
+%%% End:

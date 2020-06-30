@@ -1,0 +1,42 @@
+%
+\setcounter{table}{0}
+\setcounter{figure}{0}
+% the appendix no longer requires the prefix Appendix <Letter>
+\chapter{Use cases (Detailed description)}%
+\label{ch:append-UseCases}
+In this section, the main use cases are described extensively. As many uses
+cases are similar, only changing the parameter to which they refer to, the
+Lighting subsystem was used as an example for the Manage<Parameter> use case,
+where <Parameter> is Temperature, DoorBell, DateAndTime and SystemNotifications.
+
+\begin{table}
+  \captionsetup{justification=raggedright, singlelinecheck=false}
+  \caption{Use case LoadGeometryFile}
+  \centering
+  \begin{tabular}{p{0.26\textwidth}p{0.64\textwidth}}
+    \hline
+    Use case name & \textbf{LoadGeometryFile} \\ \hline
+     Participating actors      & Initiated by the User \\ \hline
+     Flow of events & \begin{enum-c}
+     \item The User selects the load geometry file option.
+     \item The User selects the geometry file to load from a list.
+     \item If the file is successfully loaded, the filename is displayed,
+       and the file previewed (include \underline{PreviewGeometryFile} use
+       case).
+     \item Otherwise, an error message is displayed to the user.
+     \end{enum-c}\\ \hline 
+     Entry conditions       & The User has started the MMSLS machine control
+     software and has previously generated a valid geometry file. \\ \hline 
+      Exit conditions & The file is successfully loaded, previewed and with the
+      filename displayed or an error message is displayed to the User.\\ \hline 
+      Quality requirements &  Feedback must be given to the user within 2
+      seconds; if files are ``heavy'', display an ongoing processing.\\ \hline 
+  \end{tabular}%
+\label{tab:us-load-geom}
+\end{table}
+%\input{./tex/append-UseCases}
+%\input{./tex/append-SeqDiag}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "Report"
+%%% End:

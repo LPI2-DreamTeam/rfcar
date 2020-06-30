@@ -1,0 +1,52 @@
+% src: http://texdoc.net/texmf-dist/doc/latex/listings/listings.pdf
+% c/c++
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  %frame=L,%lines, whole
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\scriptsize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+  numberstyle={\tiny},
+  numbers=left,
+  numberblanklines=false,
+  stepnumber=5,
+  backgroundcolor=\color{yellow!10}, 
+  frame=tlb
+}
+\lstset{escapechar=@,style=customc}
+% ASM
+\lstdefinestyle{customasm}{
+  belowcaptionskip=1\baselineskip,
+  frame=L,
+  xleftmargin=\parindent,
+  language=[x86masm]Assembler,
+  basicstyle=\footnotesize\ttfamily,
+  commentstyle=\itshape\color{purple!40!black},
+}
+% MATLAB: src: https://tex.stackexchange.com/a/75124
+\definecolor{greenmb}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{lilasmb}{RGB}{170,55,241}
+\lstdefinestyle{custom-matlab}{
+  % \lstset{language=Matlab,%
+  language=Matlab,
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{lilasmb},
+    commentstyle=\color{greenmb},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
