@@ -1,33 +1,35 @@
-- [Gestão do Projecto](#orge73444c)
-  - [Filesystem: Directórios](#org1f40c06)
-  - [Horas do Projecto](#org1708059)
-  - [Contactos](#org3bc03a6)
-- [Tools](#orga475971)
-  - [Team conversation](#orgc6d78b0)
-  - [Diagrama de Gantt](#org0ae3751)
-  - [Get Things Done](#org5437ba1)
-  - [Documentation + Tracking Project](#org3bc523d)
-    - [Workflow](#org9f2d0a5)
-  - [Git](#orgf9b0f53)
-    - [Workflow](#orge14e813)
-    - [Commits' policy](#org18db6dc)
-- [Project](#org66ccb6b)
-  - [RFCAR - Radio Frequency Camera Assisted Rover](#org7c62af3)
-    - [Motivation](#org23e6968)
-    - [Description](#org74e2480)
-    - [Technologies](#org19c85fa)
-  - [Workgroups](#orge94468d)
-  - [Meetings](#org6f3333d)
-    - [2 &#x2014; Planeamento](#orgeb5c9d6)
+- [Gestão do Projecto](#org98c96cf)
+  - [Filesystem: Directórios](#orga86a7b2)
+  - [Horas do Projecto](#org747f80a)
+  - [Contactos](#org82e2359)
+- [Tools](#org6aa926b)
+  - [Team conversation](#org10edcbd)
+  - [Diagrama de Gantt](#org93a89a9)
+  - [Get Things Done](#org14b7505)
+  - [Documentation + Tracking Project](#orgee8c8e0)
+    - [Workflow](#org3e417a6)
+  - [Git](#org65367be)
+    - [Workflow](#orgadbf1e7)
+    - [Commits' policy](#org0e80b1c)
+- [Project](#org99f6ced)
+  - [RFCAR - Radio Frequency Camera Assisted Rover](#org24ef7d0)
+    - [Motivation](#orgbe2221f)
+    - [Description](#orgc787168)
+    - [Technologies](#org5e324c5)
+  - [Workgroups](#org581ba80)
+  - [Meetings](#org4c42bbd)
+    - [2 &#x2014; Planeamento](#orgb0bba2f)
+- [[Cheatsheet](/Users/zemiguel/Documents/Univ/MI_Electro/Sem6/LPI2/PI/github/Deliverables/Final/sec/cheatsheet.pdf::3)](#org43ae3c3)
+- [Write Document <code>[5/11]</code>](#orgf140147)
 
 
 
-<a id="orge73444c"></a>
+<a id="org98c96cf"></a>
 
 # Gestão do Projecto
 
 
-<a id="org1f40c06"></a>
+<a id="orga86a7b2"></a>
 
 ## Filesystem: Directórios
 
@@ -62,14 +64,14 @@
 -   [./HW/](HW): HW desenvolvido para o projecto decomposto pelas várias vertentes.
 
 
-<a id="org1708059"></a>
+<a id="org747f80a"></a>
 
 ## Horas do Projecto
 
 Cada elemento do grupo deverá adicionar o nr. de horas dedicado ao projecto no ficheiro [ProjHours.xlsx](ProjManag/ProjHours.xlsx).Basta duplicar a folha inicial.
 
 
-<a id="org3bc03a6"></a>
+<a id="org82e2359"></a>
 
 ## Contactos
 
@@ -86,19 +88,19 @@ Aqui estão os contactos de todos os elementos do grupo. Sintam-se à vontade pa
 | José Pires     | 50178     | a50178@alunos.uminho.pt     | 911 901290 |
 
 
-<a id="orga475971"></a>
+<a id="org6aa926b"></a>
 
 # Tools
 
 
-<a id="orgc6d78b0"></a>
+<a id="org10edcbd"></a>
 
 ## Team conversation
 
 A ferramenta [Twist](https://twist.com) foi escolhida por fornecer agrupamento de conversas em tópicos
 
 
-<a id="org0ae3751"></a>
+<a id="org93a89a9"></a>
 
 ## Diagrama de Gantt
 
@@ -110,7 +112,7 @@ Será usado o [Gantter](https://www.gantter.com/) para elaboração do diagrama 
 O mapa de Gantt original deverá ser preservado, como constando da etapa 1, mas deverá ser actualizado ao longo do projecto.
 
 
-<a id="org5437ba1"></a>
+<a id="org14b7505"></a>
 
 ## Get Things Done
 
@@ -122,7 +124,7 @@ O diagrama de Gantt deverá ser usado numa macro-escala para gestão do projecto
 Cada elemento do grupo deverá adicionar o nr. de horas dedicado ao projecto no ficheiro [ProjHours.xlsx](ProjManag/ProjHours.xlsx).Basta duplicar a folha inicial.
 
 
-<a id="org3bc523d"></a>
+<a id="orgee8c8e0"></a>
 
 ## Documentation + Tracking Project
 
@@ -133,13 +135,13 @@ Existe um grande fluxo de informação associado ao projeto. Para gerir melhor e
 -   *gestão de projecto*: usando o Trello para adicionar tarefas e atribuí-las aos diferentes membros da equipa.
 
 
-<a id="org9f2d0a5"></a>
+<a id="org3e417a6"></a>
 
 ### Workflow
 
 Para a gestão da informação relacionada com o projecto será necessário adoptar algumas normas e convenções para utilização adequada e conveniente do repositório.
 
-1.  **Filesystem**: Será criado um *filesystem*, cuja raiz é o directório actual e cujas paths devem ser relativas. Para armazenamento do *filesystem* será usada o github. Para visualizar e navegar pelo conteúdo basta replicar o *filesystem* em qq directório. O *filesystem* será navegável através dos links indicados neste readme file na secção [Directórios](#org1f40c06) deste documento.
+1.  **Filesystem**: Será criado um *filesystem*, cuja raiz é o directório actual e cujas paths devem ser relativas. Para armazenamento do *filesystem* será usada o github. Para visualizar e navegar pelo conteúdo basta replicar o *filesystem* em qq directório. O *filesystem* será navegável através dos links indicados neste readme file na secção [Directórios](#orga86a7b2) deste documento.
 2.  **Estrutura**:
     1.  Existirá um ficheiro readme `rd.tex` por cada directório que deve conter a informação essencial a esse tópico e permite a navegação para os restantes subtópicos através de links.
     2.  Cada pasta deve conter um directório `./sec/img/` aonde serão armazenadas as imagens relevantes para o tópico.
@@ -159,14 +161,14 @@ Para a gestão da informação relacionada com o projecto será necessário adop
     -   Compilar o ficheiro `.tex` e gerar o respectivo PDF.
 
 
-<a id="orgf9b0f53"></a>
+<a id="org65367be"></a>
 
 ## Git
 
 Git is a version control tool, providing easy management of a distributed document source between the several elements of the team.
 
 
-<a id="orge14e813"></a>
+<a id="orgadbf1e7"></a>
 
 ### Workflow
 
@@ -198,7 +200,7 @@ Git is a version control tool, providing easy management of a distributed docume
     3.  **merge** the branch again to master remote, effectively adding the functionalities to the core.: `git merge <branchName> <remoteName>`
 
 
-<a id="org18db6dc"></a>
+<a id="org0e80b1c"></a>
 
 ### Commits' policy
 
@@ -214,31 +216,31 @@ For this purpose, a set of thumb rules and tags are used to enforce this policy 
 **Example**: `ADD: Git Workflow and Commit Policies to add consistency`
 
 
-<a id="org66ccb6b"></a>
+<a id="org99f6ced"></a>
 
 # Project
 
 
-<a id="org7c62af3"></a>
+<a id="org24ef7d0"></a>
 
 ## RFCAR - Radio Frequency Camera Assisted Rover
 
 
-<a id="org23e6968"></a>
+<a id="orgbe2221f"></a>
 
 ### Motivation
 
 This project is being developed in the scope of the integrator project of LPI2. It aims to develop skills in the software engineering area and digital design, wireless communication protocols, odometric vehicle navigation, etc.
 
 
-<a id="org74e2480"></a>
+<a id="orgc787168"></a>
 
 ### Description
 
 The project consists of a remote controlled car used to assist exploration and maintenance domains. For this purpose, the vehicle should contain a remotely operated camera feeding back video to the user. Additionally, the vehicle must contain odometric sensors to assist in driving and prevent crashes when user is not in control, e.g., when connection is lost. The vehicle can be used for exploration of unaccessible areas to human operators like fluid pipelines and other hazardous sites.
 
 
-<a id="org19c85fa"></a>
+<a id="org5e324c5"></a>
 
 ### Technologies
 
@@ -252,7 +254,7 @@ The project consists of a remote controlled car used to assist exploration and m
     -   GPRS
 
 
-<a id="orge94468d"></a>
+<a id="org581ba80"></a>
 
 ## Workgroups
 
@@ -279,12 +281,12 @@ The project consists of a remote controlled car used to assist exploration and m
 5.  **PCBs**: Hugo Carvalho, Hugo Ferreira
 
 
-<a id="org6f3333d"></a>
+<a id="org4c42bbd"></a>
 
 ## Meetings
 
 
-<a id="orgeb5c9d6"></a>
+<a id="orgb0bba2f"></a>
 
 ### 2 &#x2014; Planeamento
 
@@ -340,3 +342,33 @@ The project consists of a remote controlled car used to assist exploration and m
         -   <span class="underline">Actuação</span>: **João Faria**, Nuno Rodrigues
         -   <span class="underline">Controlo</span>: **João Carvalho**, Nuno Rodrigues
             -   Estas equipas poderão sofrer alterações conforme o projecto assim o exija.
+
+
+<a id="org43ae3c3"></a>
+
+# [Cheatsheet](/Users/zemiguel/Documents/Univ/MI_Electro/Sem6/LPI2/PI/github/Deliverables/Final/sec/cheatsheet.pdf::3)
+
+
+<a id="orgf140147"></a>
+
+# ▭▭ IN-PROGRESS Write Document <code>[5/11]</code>
+
+1.  [X] Introduction
+2.  [X] State of the Art
+3.  [-] Theorethical Foundations <code>[1/2]</code>
+    1.  [X] Project methodologies
+    2.  [ ] Communications
+        1.  [ ] Bluetooth
+        2.  [ ] Wi-Fi
+        3.  [ ] GPRS
+        4.  [ ] Network Programmings - Sockets
+        5.  [ ] Client-Server Architecture
+4.  [X] Requirements Elicitation and Specifications Definition
+5.  [X] Analysis
+6.  [ ] Design
+7.  [ ] Implementation
+8.  [ ] Testing
+9.  [ ] Verification and Validation
+10. [ ] Conclusions
+11. [X] Appendices <code>[1/1]</code>
+    -   [X] Planning
