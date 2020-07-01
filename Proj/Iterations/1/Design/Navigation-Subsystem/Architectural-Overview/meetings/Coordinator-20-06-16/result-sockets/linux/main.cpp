@@ -9,37 +9,97 @@
 #include "Thread.hpp"
 #include "COM_LL.hpp"
 
-void producerFun(OS::Thread*) {
+void socketServerTest(OS::Thread*) {
 
-	return;
+	std::string error_str;
+	COM::LL<COM::Protocol::SERIAL_SERVER> server("Server 1");
+	char buffer[30];
+
+	std::cout << "Started socketServerTest\n";
+
+	if (server.listenConnection() != COM::Error::OK) {
+		server.getLastError(error_str);
+		std::cout << "ERROR\n";
+		std::cout << error_str;
+		return;
+	}
+
+	std::cout << "NO ERROR\n";
+
+	if (server.acceptConnection() != COM::Error::OK) {
+		server.getLastError(error_str);
+		std::cout << error_str;
+		server.closeConnection();
+		return;
+	}
+
+	std::cout << "SERVER: connected\n";
+
+	while(1) {
+
+		if (server.readStr(buffer, 50) != COM::Error::OK) {
+			if (buffer[0] != '\0') {
+				std::cout << "SERVER: ";
+				std::cout << buffer;
+				server.closeConnection();
+				return;
+			}
+		} else {
+			server.getLastError(error_str);
+			std::cout << error_str;
+			server.closeConnection();
+			return;
+		}
+	}
+}
+
+
+void socketClientTest(OS::Thread*) {
+
+	std::string error_str;
+	COM::LL<COM::Protocol::SERIAL_CLIENT> client;
+	char buffer[30] = "This is a message";
+
+	std::cout << "Started socketClientTest\n";
+
+	if (client.openConnection("Server 1") != COM::Error::OK) {
+		client.getLastError(error_str);
+		std::cout << error_str;
+		return;
+	}
+
+	std::cout << "CLIENT: connected\n";
+
+	if (client.writeStr(buffer, sizeof(buffer)) != COM::Error::OK) {
+		client.getLastError(error_str);
+		std::cout << error_str;
+		return;
+	}
+
+	std::cout << "CLIENT: sent message\n";
 }
 
 
 
 int main(int argc, char* argv[]) {
 
-	OS::Thread p1("Producer 1", producerFun);
-	OS::Thread p2("Producer 2", producerFun);
-	OS::Thread p3("Producer 3", producerFun);
-	COM::LL<COM::Protocol::SERIAL_CLIENT> serial1;
+	using namespace std::chrono_literals;
+	OS::Thread server_thread("Socket server test", socketServerTest);
+	OS::Thread client_thread("Socket client test", socketClientTest);
 
-	serial1.openConnection("");
-
-	std::cout << p1.name << ": " << p1.ownID() << std::endl;
-	std::cout << p2.name << ": " << p2.ownID() << std::endl;
-	std::cout << p3.name << ": " << p3.ownID() << std::endl;
+	std::cout << server_thread.name << ": " << server_thread.ownID() << std::endl;
+	std::cout << client_thread.name << ": " << client_thread.ownID() << std::endl;
 	std::cout << "Working..." << std::endl;
 
 
 	// Set the tasks running
-	p1.run();
-	p2.run();
-	p3.run();
+	server_thread.run();
+	std::this_thread::sleep_for(1s);
+	client_thread.run();
 
 	// Synchronize the tasks
-	p1.join();
-	p2.join();
-	p3.join();
+	server_thread.join();
+	client_thread.join();
 	std::cout << "Joined!" << std::endl;
 
 	while (1);

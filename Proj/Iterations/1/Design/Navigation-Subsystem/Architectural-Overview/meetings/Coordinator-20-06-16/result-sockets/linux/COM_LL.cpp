@@ -16,6 +16,7 @@
 namespace COM {
 
 	uint8_t checksum_calc(void* pbuff, uint32_t len) {
+		
 		uint16_t result = 0;
 		uint8_t ret;
 		uint8_t* puint = (uint8_t*)pbuff;
@@ -56,9 +57,6 @@ namespace COM {
 
 		this->connected = false;
 		this->dead = false;
-		this->sock_family = -1;
-		this->sock_type = -1;
-		this->ip_address = "";
 	}
 
 	LL<SERIAL_CLIENT>::~LL() {
@@ -66,21 +64,21 @@ namespace COM {
 
 	}
 
-	Error LL<SERIAL_CLIENT>::read_str(char * p_buff, uint32_t len) {
+	Error LL<SERIAL_CLIENT>::readStr(char * p_buff, uint32_t len) {
 
 		std::unique_lock<std::mutex>lock(this->mutex.native());
 
 		if (!this->connected) {
 			last_error = NOT_CONNECTED;
-			last_error_str = "Not connected\n";
+			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
 
 		} else if (this->dead) {
 			last_error = DEAD;
-			last_error_str = "Connection shut down\n";
+			last_error_str = "ERROR[DEAD]: Connection shut down\n";
 			
 		} else if (read(this->sock_fd, p_buff, len) < 0) {
 			last_error = READ_FAIL;
-			last_error_str = "Failed reading from socket\n";
+			last_error_str = "ERROR[READ_FAIL]: Failed reading from socket\n";
 		
 		} else {
 			last_error = OK;
@@ -90,21 +88,21 @@ namespace COM {
 		return last_error;
 	}
 
-	Error LL<SERIAL_CLIENT>::write_str(const char * p_buff, uint32_t len) {
+	Error LL<SERIAL_CLIENT>::writeStr(const char * p_buff, uint32_t len) {
 		
 		std::unique_lock<std::mutex>lock(this->mutex.native());
 
 		if (!this->connected) {
 			last_error = NOT_CONNECTED;
-			last_error_str = "Not connected\n";
+			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
 
 		} else if (this->dead) {
 			last_error = DEAD;
-			last_error_str = "Connection shut down\n";
+			last_error_str = "ERROR[DEAD]: Connection shut down\n";
 			
 		} else if (write(this->sock_fd, p_buff, len) < 0) {
 			last_error = WRITE_FAIL;
-			last_error_str = "Failed writing to socket\n";
+			last_error_str = "ERROR[WRITE_FAIL]: Failed writing to socket\n";
 		
 		} else {
 			last_error = OK;
@@ -137,7 +135,7 @@ namespace COM {
 
 			if (close(this->sock_fd) < 0) {
 				last_error = CLOSE_FAIL;
-				last_error_str = "Failed closing connection\n";
+				last_error_str = "ERROR[CLOSE_FAIL]: Failed closing connection\n";
 				return CLOSE_FAIL;
 			}
 		}
@@ -151,36 +149,29 @@ namespace COM {
 
 	bool LL<SERIAL_CLIENT>::openConnection(std::string port) {
 
+		std::string server_path = "/tmp/servers/" + port.replace(port.begin(), port.end(), ' ', '_');
 		std::unique_lock<std::mutex>lock(this->mutex.native());
 
 		if (this->sock_fd > 0)
 			return true;
 
 
-		this->sock_fd = socket(this->sock_family, this->sock_type, 0);
+		this->sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
 
 		if (this->sock_fd < 0) {
 			last_error = OPEN_FAIL;
-			last_error_str = "Failed to open socket\n";
+			last_error_str = "ERROR[OPEN_FAIL]: Failed to open socket\n";
 			return false;
 		}
 
 		std::fill_n((char*)& this->serv_addr, sizeof(this->serv_addr), 0);
 
-		this->serv_addr.sin_family = this->sock_family;
-		serv_addr.sin_port = htons(this->sock_port);
-
-
-		if (inet_pton(this->sock_family, this->ip_address.c_str(), &serv_addr.sin_addr) <= 0)
-		{
-			last_error = OPEN_FAIL;
-			last_error_str = "Invalid address/ Address not supported \n";
-			return false;
-		}
-
+		this->serv_addr.sun_family = AF_UNIX;
+		strcpy(this->serv_addr.sun_path, server_path.c_str());
 
 		if (connect(this->sock_fd, (struct sockaddr*) & this->serv_addr, sizeof(this->serv_addr)) < 0) {
-			last_error_str = "Failed connecting\n";
+			last_error = OPEN_FAIL;
+			last_error_str = "ERROR[OPEN_FAIL]: Failed connecting\n";
 			return false;
 		}
 
@@ -205,9 +196,20 @@ namespace COM {
 
 namespace COM {
 	
-	LL<SERIAL_SERVER>::LL() {
+	LL<SERIAL_SERVER>::LL(std::string name) {
+		
+		this->connected = false;
+		this->dead = false;
+		this->opt = 1;
 
+		this->name = name;
+	}
 
+	LL<SERIAL_SERVER>::LL() : LL("default server") {
+		
+		this->connected = false;
+		this->dead = false;
+		this->opt = 1;
 	}
 
 	LL<SERIAL_SERVER>::~LL() {
@@ -215,49 +217,170 @@ namespace COM {
 
 	}
 
-	Error LL<SERIAL_SERVER>::read_str(char * p_buff, uint32_t len) {
-		return OK;
-	}
+	Error LL<SERIAL_SERVER>::readStr(char * p_buff, uint32_t len) {
+		
+		std::unique_lock<std::mutex>lock(this->mutex.native());
 
-	Error LL<SERIAL_SERVER>::write_str(const char * p_buff, uint32_t len) {
-		return OK;
-	}
+		if (!this->connected) {
+			last_error = NOT_CONNECTED;
+			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
 
-	bool LL<SERIAL_SERVER>::isConnected(void) {
-		return false;
-	}
+		} else if (this->dead) {
+			last_error = DEAD;
+			last_error_str = "ERROR[DEAD]: Connection shut down\n";
+			
+		} else if (read(this->sock_fd, p_buff, len) < 0) {
+			last_error = READ_FAIL;
+			last_error_str = "ERROR[READ_FAIL]: Failed reading from socket\n";
+		
+		} else {
+			last_error = OK;
+			last_error_str = "";
+		}
 
-	void LL<SERIAL_SERVER>::kill(void) {
-		return;
-	}
-
-	Error LL<SERIAL_SERVER>::closeConnection(void) {
-		return OK;
-	}
-
-	Error LL<SERIAL_SERVER>::getLastError(std::string & emsg) {
-		return OK;
-	}
-
-	Error LL<SERIAL_CLIENT>::getLastError() {
 		return last_error;
 	}
 
-	Error LL<SERIAL_SERVER>::getClientIP(std::string & ip) {
-		return Error();
+	Error LL<SERIAL_SERVER>::writeStr(const char * p_buff, uint32_t len) {
+		
+		std::unique_lock<std::mutex>lock(this->mutex.native());
+
+		if (!this->connected) {
+			last_error = NOT_CONNECTED;
+			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
+
+		} else if (this->dead) {
+			last_error = DEAD;
+			last_error_str = "ERROR[DEAD]: Connection shut down\n";
+			
+		} else if (write(this->sock_fd, p_buff, len) < 0) {
+			last_error = WRITE_FAIL;
+			last_error_str = "ERROR[WRITE_FAIL]: Failed writing to socket\n";
+		
+		} else {
+			last_error = OK;
+			last_error_str = "";
+		}
+
+		return last_error;
 	}
 
-	Error LL<SERIAL_SERVER>::getConnectionPort(std::string & port) {
-		return Error();
+	bool LL<SERIAL_SERVER>::isConnected(void)  {
+
+		std::unique_lock<std::mutex>lock(this->mutex.native());
+
+		return this->connected;
 	}
 
-	bool LL<SERIAL_SERVER>::listenConnection(void) {
-		return false;
+	void LL<SERIAL_SERVER>::kill(void) {
+
+		std::unique_lock<std::mutex>lock(this->mutex.native());
+
+		shutdown(this->sock_fd, SHUT_RDWR);
+		this->dead = true;
 	}
 
-	void LL<SERIAL_SERVER>::acceptConnection(void) {
+	Error LL<SERIAL_SERVER>::closeConnection(void) {
+
+		std::unique_lock<std::mutex>lock(this->mutex.native());
+
+		if (this->connected) {
+
+			if (close(this->sock_fd) < 0) {
+				last_error = CLOSE_FAIL;
+				last_error_str = "ERROR[CLOSE_FAIL]: Failed closing connection\n";
+				return CLOSE_FAIL;
+			}
+		}
+
+		this->connected = false;
+		last_error = OK;
+		last_error_str = "";
+
+		return last_error;
+	}
+
+	Error LL<SERIAL_SERVER>::getLastError(std::string& error_message) {
+		error_message = last_error_str;
+		return last_error;
+	}
+
+	Error LL<SERIAL_SERVER>::getLastError() {
+		return last_error;
+	}
+
+	Error LL<SERIAL_SERVER>::listenConnection(void) {
+
+		std::string server_path = "/tmp/servers/" + this->name.replace(this->name.begin(), this->name.end(), ' ', '_');
+		std::string command = "mkdir -p ";
+		std::unique_lock<std::mutex>lock(this->mutex.native());
 
 		
+		// There is already a socket atributed
+		if (this->sock_fd > 0)
+			return last_error;
+
+		// Request an endpoint for communication
+		this->sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
+		
+		// If the socket fails to open
+		if (this->sock_fd < 0) {
+			last_error = OPEN_FAIL;
+			last_error_str = "ERROR[OPEN_FAIL]: Failed to open socket";
+			return last_error;
+		}
+
+		std::fill_n((char*)& this->serv_addr, sizeof(this->serv_addr), 0);
+		
+		command.append(server_path);
+		system(command.c_str());
+
+		this->serv_addr.sun_family = AF_UNIX;
+		strcpy(this->serv_addr.sun_path, server_path.c_str());
+
+		if (bind(this->sock_fd, (struct sockaddr*) & this->serv_addr, SUN_LEN(&this->serv_addr)) < 0) {
+			last_error = OPEN_FAIL;
+			last_error_str = "ERROR[OPEN_FAIL]: Failed to bind";
+			return last_error;
+		}
+
+		if (listen(this->sock_fd, 5) < 0) {
+			last_error = OPEN_FAIL;
+			last_error_str = "ERROR[OPEN_FAIL]: Failed to listen";
+			return last_error;
+		}
+
+		this->connected = true;
+		last_error = OK;
+		last_error_str = "";
+
+		return last_error;
+	}
+
+	Error LL<SERIAL_SERVER>::acceptConnection(void) {
+
+		socklen_t clilen;
+
+		
+		if (this->connected == false) {
+			last_error = ACCEPT_FAIL;
+			last_error_str = "ERROR[ACCEPT_FAIL]: Should listen before accepting";
+			return last_error;
+		}
+
+		clilen = sizeof(this->serv_addr);
+
+		this->sock_fd2 = accept(this->sock_fd, (struct sockaddr*) &this->serv_addr2, &clilen);
+		
+		if (this->sock_fd2 <= 0) {
+			last_error = ACCEPT_FAIL;
+			last_error_str = "ERROR[ACCEPT_FAIL]: Failed acceptance";
+			return last_error;
+		}
+
+		last_error = OK;
+		last_error_str = "";
+		return last_error;
 	}
 
 
