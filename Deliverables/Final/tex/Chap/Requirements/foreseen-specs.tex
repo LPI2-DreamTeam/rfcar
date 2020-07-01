@@ -1,11 +1,14 @@
 %\section{Foreseen product specifications}%
 %\label{sec:org31f7574}
 In this section the foreseen product specifications of the system to be developed are provided. Such specifications were obtained through the intersection of customer, functional requirements and project restrictions.
-\subsection{Quality Function Deployment}%
+\subsection{Quality Function Deployment --- QFD}%
 \label{sec:qfd}
 The customer requirements are usually abstract and can collide with the functional requirements, compromising the fulfilment of the project. Thus, it raises the need of a methodology which converts abstract requirements into a series of concrete engineering specifications.
 
-An efficient quality assessment methodology is the use of a Quality House (QFD). In this method, the desired requirements are laid out as rows and the engineering specifications/restrictions as columns. In the intersections lies a symbol representing the strength (weak, moderate or strong --- Figure~\ref{fig:QFD-R} ) of the relationship requirement-specification. This symbol is one of the many tools that allow the quantification of relations existing between the customer requirements and engineering specifications.
+An efficient quality assessment methodology is the use of a Quality House
+(\gls{qfd}). In this method, the desired requirements are laid out as rows and
+the engineering specifications/restrictions as columns. In the intersections
+lies a symbol representing the strength (weak, moderate or strong --- Figure~\ref{fig:QFD-R}) of the relationship requirement-specification. This symbol is one of the many tools that allow the quantification of relations existing between the customer requirements and engineering specifications.
 For instance, the `engine power' specification and the `fast' requirement have a
 very strong correlation (9) since the power of the engine is directly
 responsible for the speed of the car.
@@ -17,7 +20,7 @@ I.e., the battery life will have a very negative correlation with the battery te
 \begin{figure}[!htbp]
    \centering
        \includegraphics[page=1,width=0.5\textwidth]{sec/img/Roof_Symbols.png} 
- \caption{Quality House - Specification Correlation Strength Symbols}%
+ \caption{Quality House --- Specification Correlation Strength Symbols}%
 \label{fig:QFD-Roof}
 \end{figure}
 
@@ -38,7 +41,7 @@ Figure~\ref{fig:QFD} shows the `Quality House' for the RF CAR containing:
 \begin{figure}[!htbp]
    \centering
        \includegraphics[page=1,width=0.5\textwidth]{sec/img/Relationship_Symbols.png} 
- \caption{Quality House - Relationship Strength Symbols}%
+ \caption{Quality House --- Relationship Strength Symbols}%
 \label{fig:QFD-R}
 \end{figure}
 %
@@ -115,7 +118,7 @@ must be acknowledged to be processed, otherwise, the user must be informed; on
 the other hand, loosing frames from the video feed is not so critical — user can
 still observe conveniently the ﬁeld of vision if the frame rate is within
 acceptable boundaries.
-\subsubsection{Redundancy}
+\subsubsection{Redundancy}%
 \label{sec:orgc5933fc}
 The communication protocols are not flawless and the car relies on them to be controlled. If the communication is lost, the car cannot be controlled. A possible solution for this issue is using redundancy in the communication protocols (e.g Wi-Fi and GPRS), so if one protocol fails, the car will still be controlled using the other.
 \subsubsection{Range}%
@@ -160,15 +163,15 @@ Frame Rate        & 60 fps     & \begin{tabular}[c]{@{}l@{}}Frequency at which i
 Camera Range      & 20 m       & \begin{tabular}[c]{@{}l@{}}How far can the camera capture images\\ without loosing resolution\end{tabular}   \\ \hline
 Camera resolution & 480p       & Amount of detail that the camera can capture                                                                 \\ \hline
 Communication Range & 50 m & \begin{tabular}[c]{@{}l@{}}Maximum distance between the car and the\\ smarphone without losing connection\end{tabular} \\ \hline
-speed Error    & 5 \%       & \begin{tabular}[c]{@{}l@{}}Maximum difference between desired \\ and real speed\end{tabular}              \\ \hline
+Speed Error    & 5 \%       & \begin{tabular}[c]{@{}l@{}}Maximum difference between desired \\ and real speed\end{tabular}              \\ \hline
 Direction Error   & 5\%        & \begin{tabular}[c]{@{}l@{}}Maximum difference between desired\\  and real direction\end{tabular}             \\ \hline
 Distance Error     & 5 \% & \begin{tabular}[c]{@{}l@{}}Maximum difference between desired\\ and real distance to the obstacle\end{tabular}         \\ \hline
 Dimensions        & 20x12x5 cm & Dimensions of the car                                                                                        \\ \hline
 Weight            & 0.5 kg     & Weight of the car                                                                                            \\ \hline
 \end{tabular}
 \end{table}
-
+%
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../Phase1"
+%%% TeX-master: "../../../dissertation"
 %%% End:
