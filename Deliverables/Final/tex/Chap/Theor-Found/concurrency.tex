@@ -1,0 +1,31 @@
+%      % Concurrency
+\section{Concurrency}%
+\label{sec:concurrency}
+Concurrency is used to refer to things that appear to happen at the same time,
+but which may occur serially~\cite{buttlar1996pthreads}, like the case of a multithreaded execution in
+a single processor system.
+Two concurrent tasks may start, execute and finish in overlapping instants of
+time, without the two being executed at the same time.
+As defined in POSIX, a concurrent execution requires that a function that
+suspends the calling thread shall not suspend other threads, indefinitely.
+
+This concept is different from parallelism. Parallelism refers to the
+simultaneous execution of tasks, like the one of a multithreaded program in a
+multiprocessor system.
+Two parallel tasks are executed at the same time and, as such, they require
+the execution in exclusivity in independent processors.
+
+Every concurrent system provides three important facilities~\cite{buttlar1996pthreads}:
+\begin{itemize}
+\item \textbf{Execution Context}: refers to the concurrent entity state. It
+  allows the context switch and it must maintain the entities states,
+  independently.
+\item \textbf{Scheduling}: in a concurrent system, the scheduling decides what
+  context should execute at any given time.
+\item \textbf{Synchronisation}: this allows the management of shared resources
+  between the concurrent execution contexts.
+\end{itemize}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../dissertation"
+%%% End:

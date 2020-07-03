@@ -2,10 +2,8 @@
 \begin{theglossary}\glossaryheader
 \glsgroupheading{O}\relax \glsresetentrylist %
 \glossentry{omega}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{vi}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{2}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{vi}}}\glsgroupskip
 \glsgroupheading{P}\relax \glsresetentrylist %
 \glossentry{pi}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{vi}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{2}}}%
+		\setentrycounter[]{page}\glsnumberformat{vi}}}%
 \end{theglossary}\glossarypostamble
