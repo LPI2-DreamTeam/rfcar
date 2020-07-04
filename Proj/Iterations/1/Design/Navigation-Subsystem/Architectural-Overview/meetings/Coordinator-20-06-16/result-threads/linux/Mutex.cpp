@@ -2,9 +2,17 @@
 
 #ifdef _LINUX_
 
+#include <cstring>
+
 namespace OS {
 
 	Mutex::Mutex() : self(), owner(empty_thread_id) {}
+
+	Mutex::Mutex(const Mutex& other_mutex) {
+	
+		memcpy(&(this->self), &(other_mutex.self), sizeof(this->self));
+		this->owner = other_mutex.owner;
+	}
 
 	Mutex::~Mutex() {}
 
@@ -30,6 +38,12 @@ namespace OS {
 			self.unlock();
 		}
 	}	
+
+
+	Mutex::Native& Mutex::native() {
+
+		return self;
+	}
 }
 
-#endif	 // _LINUX_
+#endif	// _LINUX_

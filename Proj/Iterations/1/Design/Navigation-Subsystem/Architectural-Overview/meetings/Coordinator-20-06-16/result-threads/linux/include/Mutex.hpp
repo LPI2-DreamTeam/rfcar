@@ -8,9 +8,8 @@
 
 #include <mutex>
 
-typedef std::mutex native_mutex;
-
-#endif 	 // _LINUX_
+typedef std::mutex native_mutex ;
+#endif 
 
 
 namespace OS {
@@ -29,6 +28,9 @@ namespace OS {
 		// Constructor
 		Mutex();
 
+		// Copy constructor
+		Mutex(const Mutex& other_mutex);
+
 		// Destructor
 		~Mutex();
 
@@ -40,6 +42,9 @@ namespace OS {
 
 		// Unlock mutex
 		void unlock();
+
+		// Native mutex reference
+		Native& native();
 	};
 }
 
