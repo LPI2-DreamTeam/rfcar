@@ -1,0 +1,769 @@
+%!TEX root = ../dissertation.tex
+
+% source:
+% https://tex.stackexchange.com/questions/12267/using-subfiles-package-with-sty-files
+\ProvidesPackage{./sty/dissertation-xelatex}
+
+\usepackage{textcomp} % for registered and trademark symbols
+\usepackage[percent]{overpic}
+%\usepackage{marginnote}
+% Color setup
+%\usepackage{color}
+\usepackage[dvipsnames,rgb,table]{xcolor}
+%\usepackage[utf8x]{inputenc}
+%\usepackage[linedheaders,parts,pdfspacing]
+\usepackage{amsmath}
+%\usepackage{acronym}
+\usepackage{a4wide} % Setup for fullpage
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{comment}
+\usepackage{pdfcomment}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{pifont}
+%\usepackage[xindy,order=letter,nomain,acronym]{glossaries}
+\usepackage{makeidx}
+\usepackage{tikz}
+%\usepackage{lipsum}
+%\usepackage{amsthm}
+%\usepackage{scrpage2}
+%\usepackage{times}
+%\usepackage{etex}
+%\usepackage{moresize}
+%\usepackage{imakeidx}
+%\usepackage{datatool}
+%\usepackage{glossaries}
+%\usepackage{nomencl}
+%\usepackage{etoolbox}
+%\usepackage{dtklogos}
+%--------------------------------------
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+%--------------------------------------
+%Portuguese-specific commands
+%--------------------------------------
+% src: https://www1.essex.ac.uk/linguistics/external/clmt/latex4ling/babel/
+\usepackage[portuguese, english]{babel}
+\selectlanguage{english}
+%--------------------------------------
+% ---------- Hyphenations -----------
+% exceptions to hyphenation
+% src: https://tex.stackexchange.com/questions/171084/why-does-usepackagebritishbabel-hyphenate-the-word-alternate-incorrectly
+\babelhyphenation[english]{os-teo-in-te-gra-tion}
+
+% src: https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+\usepackage{listings}
+\input{./sty/listing.sty}
+
+% src: https://tex.stackexchange.com/a/51871
+\usepackage{scrhack}
+
+% Blind Text
+\usepackage{blindtext}
+%\renewcommand\pagemark{{%
+%  \usekomafont{pagenumber}\thepage
+%}}
+% ----------------------- Customizing Headers and Footers-------------------
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhf{}
+%\fancyhead[LE,RO]{\thepage}
+%\fancyhead[RE]{\textit{ \nouppercase{\leftmark}} }
+%\fancyhead[LO]{\textit{ \nouppercase{\rightmark}} }
+%\fancyfoot[CE,CO]{}
+%\fancyfoot[LE,RO]{}
+%
+%\renewcommand{\headrulewidth}{1pt}
+%\renewcommand{\footrulewidth}{1pt}
+%\renewcommand*{\chapterpagestyle}{empty}
+
+% enumitem manual: \newlist{<name>}{<type>}{<max-depth>}
+% src: http://www.bakoma-tex.com/doc/latex/enumitem/enumitem.pdf
+\newlist{enum-c}{enumerate}{1}
+\setlist[enum-c,1]{labelindent=\parindent, label=\arabic*., nolistsep,
+align=left, leftmargin=*} %,label=$\star$
+
+\newlist{item-c}{itemize}{1}
+\setlist[item-c,1]{labelindent=\parindent, label=\textbullet, nolistsep,
+align=left, leftmargin=*} %,label=$\star$
+
+\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}  
+\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
+%
+% 
+\usepackage{ulem}%\uline
+%----------------- Using makeidx ----------------------------------------------%
+
+% own macro commands
+\newcommand{\uminho}[1]{
+     \href{http://www.uminho.pt}{#1}%
+     \index{UM!University of Minho}}
+\newcommand{\UM}{
+	\uminho{\textsc{u.m.}}}
+%\def\Bibtex{
+%	\href{http://www.bibtex.org/}{Bib\TeX}
+%	\index{\LaTeX!Tool!\texttt{bibtex}}}
+%\def\LNCS{
+%	\href{http://www.springer.com/computer/lncs?SGWID=0-164-0-0-0}{LNCS}
+%	\index{LNCS!\uk{Lecture Notes in Computer Science}}}
+%\def\Latex{
+%	\href{http://www.latex-project.org/}{\LaTeX}
+%	\index{\LaTeX}}
+%\def\Makeindex{
+%	\href{http://www.ctan.org/pkg/makeindex}{\texttt{makeindex}}
+%	\index{\LaTeX!Tool!\texttt{makeindex}}}
+%\newcommand{\tug}[1]{
+%	\href{http://tug.org/}{#1}
+%	\index{TeX!TeX Users Group (TUG)}}
+%\newcommand{\TUG}{
+%	\tug{TUG}}
+%\newcommand{\conexp}[1]{
+%	\href{http://sourceforge.net/projects/conexp}{#1}
+%	\index{FCA!Tools!Conexp}}
+\newcommand{\mei}[1]{
+	\href{http://mei.di.uminho.pt}{#1}%
+	\index{UM!Master courses!MEI}}
+\newcommand{\MEI}{
+	\mei{\includegraphics[width=0.05\textwidth]{img/mei-logo-03.jpg}}}
+%------------------------------------------------------------------------------%
+
+% Margin Setup
+\setlength\oddsidemargin{0.3in}
+\setlength\evensidemargin{-0.3in}
+\setlength\headsep{15pt}
+\setlength\headheight{20pt}
+\setlength\footheight{20pt}
+\setlength\footskip{30pt}
+
+%Line Spacing
+% src: https://tex.stackexchange.com/a/820
+\usepackage{setspace}
+%\doublespacing
+\onehalfspacing%
+
+%\usepackage[automark,markcase=upper,headsepline]{scrlayer-scrpage}
+\usepackage{scrlayer-scrpage}
+%\automark[chapter]{\MakeMarkcase{chapter}}
+%\automark*[section]{}
+%\clearpairofpagestyles
+%\lohead{\thechapter. \MakeMarkcase\leftmark}
+%\rehead{\MakeMarkcase\rightmark}
+%\ofoot[\pagemark]{\pagemark}
+%\lohead*{John Doe}
+%\rohead*{Page style with \KOMAScript}
+%\pagestyle{scrheadings}
+%\ihead{\headmark} 
+%\ohead[\pagemark]{\pagemark}
+%\chead{} 
+%\cfoot[]{}
+% layout settings
+%\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+%\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\chaptername\ \thechapter.\ #1}}{}}
+\usepackage{xltxtra,fontspec,xunicode}
+%\defaultfontfeatures{Scale=MatchLowercase}
+%\setromanfont{NewsGotT}%
+\setmainfont{NewsGotT}%
+\setromanfont{NewsGotT}%
+\setmonofont{NewsGotTMed}%{News Gothic MT}
+%\setsansfont{NewsGotT}%News Gothic MT
+\addtokomafont{section}{\rmfamily}
+\addtokomafont{disposition}{\rmfamily}
+
+\renewcommand{\headfont}{\bfseries\fontsize{9}{11}\selectfont}
+\renewcommand{\pnumfont}{\bfseries\fontsize{9}{11}\selectfont}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ \MakeMarkcase{#1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+%
+%% Redefine section and description fonts to the normal font
+\renewcommand{\sectfont}{\scshape\normalfont\bfseries}
+\renewcommand{\descfont}{\normalfont\bfseries\MakeUppercase}
+
+% GraphicX package
+\usepackage{graphicx}
+\usepackage{pdfpages}
+
+% Defining extra colors
+\definecolor{dark-blue}{cmyk}{1.0,1.0,0.0,0.1}
+\definecolor{dark-green}{cmyk}{1.0,0,1.0,0.65}
+\definecolor{dark-red}{cmyk}{0,1.0,1.0,0.3}
+\definecolor{navy-blue}{cmyk}{1.0,1.0,0.0,0.5}
+\definecolor{grey}{rgb}{0.6,0.6,0.6}
+\definecolor{eng}{cmyk}{0.14,0.71,1,0.03}
+\definecolor{um}{cmyk}{0.25,1.00,1.00,0.22}
+\definecolor{lightGray}{gray}{0.92}
+\definecolor{verylightgray}{cmyk}{0,0,0,0.05}
+
+% Default UM logo colors
+\gdef\umc{um}
+\gdef\engc{eng}
+
+% UM_ENg Logo
+\def\UMEng[#1]#2{\begin{tikzpicture}[
+	% bars styling,
+	bar/.style={rectangle,fill=white,rounded corners=0.08cm,minimum width=0.16cm,inner sep=0pt},
+	umBig/.style={minimum height=0.74cm},
+	umSmall/.style={minimum height=0.48cm},
+	engBar/.style={minimum height=0.86cm},
+	umLogoPosition/.style={xshift=1.3cm,yshift=1.3cm},
+	engLogoPosition/.style={xshift=3.9cm,yshift=1.3cm}]
+	
+	% Uminho logo
+	\fill[fill=#1] (0,0) -- (2.6,0) -- (2.6,2.6) -- (0,2.6) -- cycle;
+	\foreach \i in {1,...,3}{
+		\node at (\i*120+30:0.45)[bar,umBig,umLogoPosition,rotate=\i*120-60]{};
+		\node at (\i*120+90:0.60)[bar,umSmall,umLogoPosition,rotate=\i*120]{};
+	}
+	% EngUminho logo
+	\fill[fill=#2] (2.6,0) -- (5.2,0) -- (5.2,2.6) -- (2.6,2.6) -- cycle;
+	\foreach \i in {1,...,5}
+		\node at (\i*72-90:0.74)[bar,engBar,engLogoPosition,rotate=\i*72-90]{};
+\end{tikzpicture}}
+
+% Wrap text around figures
+\usepackage{wrapfig}
+
+% Professional looking tables
+\usepackage{booktabs}
+
+%Caption formatting
+\usepackage[small]{caption}
+% src: https://tex.stackexchange.com/a/72981
+%\usepackage[skip=0cm,list=true,labelfont=it]{subcaption}
+\usepackage[list=true,labelfont=it,font=small]{subcaption}
+
+% Source code inputing
+\usepackage{listings}
+\renewcommand{\lstlistlistingname}{List of Listings}
+
+% Settings for Listings
+\lstset{ %
+	language=PHP,							% choose the language of the code
+	basicstyle=\ttfamily\footnotesize,		% the size of the fonts that are used for the code
+	keywordstyle=\bfseries,					% set the keyword style
+	%numbers=left,							% where to put the line-numbers
+	numberstyle=\scriptsize,				% the size of the fonts that are used for the line-numbers
+	stepnumber=2,							% the step between two line-numbers. If it's 1 each line
+											% will be numbered
+	numbersep=5pt,							% how far the line-numbers are from the code
+	backgroundcolor=\color{lightGray},			% choose the background color. You must add \usepackage{color}
+	showspaces=false,						% show spaces adding particular underscores
+	showstringspaces=false,					% underline spaces within strings
+	showtabs=false,							% show tabs within strings adding particular underscores
+	frame=single,								% adds a frame around the code
+	framerule=0pt,
+	abovecaptionskip=.7em,
+	belowcaptionskip=.7em,
+	tabsize=2,								% sets default tabsize to 2 spaces
+	captionpos=b,							% sets the caption-position to bottom
+	breaklines=true,						% sets automatic line breaking
+	breakatwhitespace=false,				% sets if automatic breaks should only happen at whitespace
+	title=\lstname,							% show the filename of files included with \lstinputlisting;
+											% also try caption instead of title
+	escapeinside={\%*}{*)},					% if you want to add a comment within your code
+	morekeywords={*,...}					% if you want to add more keywords to the set
+}
+
+% Setting up snippet environment
+\lstnewenvironment{snippet}[1][]
+    {\lstset{float=htpb,#1}}
+    {}
+
+% Arrow diagrams
+%\usepackage[all]{xy}  % de-comment if you need diagrams
+
+% Use dot within TeX
+%\usepackage{dot2texi}
+%\setoutputdir{dot/}
+%\usetikzlibrary{shapes,arrows}
+
+% ========================= Bibliography ============================
+% Better looking bibliography references
+\usepackage[square, numbers]{natbib}
+\usepackage{notoccite}
+\bibliographystyle{unsrtnat}
+%\bibliographystyle{unsrt}
+
+% Customize Bibliography Ch. name:  https://tex.stackexchange.com/a/12598
+\renewcommand{\bibname}{References} 
+% ===================================================================
+
+% Getting things done in LaTeX
+\setlength{\marginparwidth}{2cm}
+\usepackage{todonotes}
+
+% Better list handling
+\usepackage{enumitem}
+
+% Hyperlinks and Bookmarks setup
+\usepackage{hyperref}
+\usepackage{bookmark}
+
+% Default Hyperlink and Bookmark settings
+\hypersetup{
+	bookmarksnumbered=true,
+	plainpages=false,					 	
+	%bookmarks=true,			% show bookmarks bar?
+	%pdfstartview={FitW},		% fits the width of the page to the window
+	unicode=true,				% non-Latin characters in Acrobat’s bookmarks
+	pdffitwindow=true,			% window fit to page when opened
+	pdfnewwindow=true,			% links in new window
+	colorlinks=true,				% false: boxed links; true: colored links
+	linkcolor=navy-blue,			% color of internal links
+	citecolor=dark-green,		% color of links to bibliography
+	filecolor=dark-red,			% color of file links
+	urlcolor=navy-blue,			% color of external links
+  %pdfpagelabels=true % source: http://www.tex.ac.uk/FAQ-pdfpagelabels.html
+	%pdfkeywords={\@keywords},	% list of keywords
+}
+
+
+\makeatletter
+
+% ==================== Format table of contents =============================
+
+% ======================== Acronyms and Symbols ======================
+% these could go in an acronyms.tex file, and loaded with:
+% \loadglsentries[\acronymtype]{Parts/Definitions/acronyms}
+% when using this, you may want to remove 'nomain' from the package options
+
+%import the necessary package with some options
+% nopostdot does not work in the end of the \usepackage definition (WHY?)
+\usepackage{siunitx}% SI units
+\usepackage[symbols,acronyms,nopostdot,automake]{glossaries}
+\loadglsentries[\acronymtype]{./sec/acronyms}
+
+% For the list of symbols
+% Source: http://texdoc.net/texmf-dist/doc/latex/glossaries/glossariesbegin.pdf
+% (ch 6)
+% \newglossary*{symbols}{List of symbols}
+% add Unit key to Symbols table
+\glsaddkey{unit}{}{\glsentryunit}{\Glsentryunit}{\glsunit}{\Glsunit}{\GLSunit}
+\loadglsentries[symbols]{./sec/symbols}
+
+%enable the following to avoid links from the acronym usage to the list
+\glsdisablehyper%
+
+%displays the first use of an acronym in italic
+%\defglsdisplayfirst[\acronymtype]{\emph{#1#4}}
+% src : https://tex.stackexchange.com/a/254657
+\setacronymstyle{long-short-desc}
+\defglsentryfmt[acronym]
+{%
+  \ifglsused{\glslabel}
+    {\glsgenentryfmt}
+  {% Typeset first use
+    \textit{\glsgenentryfmt}% 
+  }%
+}
+
+% the style of the Glossary
+% http://www.dickimaw-books.com/gallery/glossaries-styles/#long4col-style
+% this is set individually for each glossary in the .sty file (see listofsymbols)
+%\setglossarystyle{long4colheader}
+\setglossarystyle{long3colheader}%
+
+\newglossarystyle{symbunitlong}{%
+\setglossarystyle{long3col}% base this style on the list style
+\renewenvironment{theglossary}{% Change the table type --> 3 columns
+  \begin{longtable}{lp{0.9\glsdescwidth}>{\centering\arraybackslash}p{7cm}}}%
+  {\end{longtable}}%
+%
+\renewcommand*{\glossaryheader}{%  Change the table header
+  \bfseries Symbol & \bfseries Description & \bfseries Unit \\
+  %\hline
+  \endhead}
+\renewcommand*{\glossentry}[2]{%  Change the displayed items
+\glstarget{##1}{\glossentryname{##1}} %
+& \glossentrydesc{##1}% Description
+& \glsunit{##1}  \tabularnewline%
+}
+}
+ 
+% set the name for the acronym entries page
+% \renewcommand{\glossaryname}{List of Abbreviations}
+%
+\newcommand{\listofabbreviations}{
+	\chapter*{List of Abbreviations}
+	\printglossary[type=\acronymtype]
+	\cleardoublepage%
+}
+%
+\newcommand{\listofacronyms}{
+%	\chapter*{List of Abbreviations}
+        % \printglossary[type=\acronymtype, style=long2colheader]
+%  \printglossary[title=List of Abbreviations,type=\acronymtype]%
+\printglossary[title=List of Abbreviations, type=\acronymtype,toctitle=List of Abbreviations]%
+% \printglossary[type=\acronymtype]%
+	\cleardoublepage%
+}
+%
+% My command: a list of symbols 
+\newcommand{\listofsymbols}{
+ % \chapter*{List of Symbols}
+  \printglossary[type=symbols, style=symbunitlong]
+  \cleardoublepage%
+}
+%
+% ==============================================================================
+\usepackage{tocloft}
+
+% List of listings without dots
+% src: https://tex.stackexchange.com/a/27648
+%\makeatletter
+%\begingroup\let\newcounter\@gobble\let\setcounter\@gobbletwo
+%  \globaldefs\@ne \let\c@loldepth\@ne
+%  \newlistof{listings}{lol}{\lstlistlistingname}
+%\endgroup
+%\let\l@lstlisting\l@listings
+%%\AtBeginDocument{\addtocontents{lol}{\protect\addvspace{10\p@}}}
+%\makeatother
+%\renewcommand{\lstlistoflistings}{\listoflistings}
+%\renewcommand{\cftlistingsleader}{\cftdotfill{\cftnodots}}
+
+\renewcommand{\cftpartleader}{\cftdotfill{\cftnodots}} % for parts
+\renewcommand{\cftchapleader}{\cftdotfill{\cftnodots}} % for chapters
+\renewcommand{\cftsecleader}{\cftdotfill{\cftnodots}} % for sections
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftnodots}} % for subsections
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftnodots}} % for subsubsections
+\renewcommand{\cftfigleader}{\cftdotfill{\cftnodots}} % for figures
+\renewcommand{\cfttableader}{\cftdotfill{\cftnodots}} % for tables
+% ============================================================================
+
+
+% Create better looking section cross-reference links
+\usepackage[capitalise]{cleveref}
+
+\newcommand\fancyref[1]{ %
+  \hyperref[#1]{\cref*{#1}: \nameref*{#1}}
+}
+
+
+% Index of terms and acronyms
+%%\renewcommand{\glossarymark}[1]{\markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}}
+%%\renewcommand{\glsclearpage}{\cleardoublepage}
+%%\setlength{\glspagelistwidth}{\textwidth}
+%%\setlength{\glslistdottedwidth}{.75\hsize}
+%%\let\glsdoifexists\glsdoifexistsorwarn
+%%
+%%\newglossarystyle{dottedlocations}{%
+%%  \glossarystyle{list}%
+%%  \renewcommand*{\glossaryentryfield}[5]{%
+%%    \item[\glsentryitem{##1}\glstarget{##1}{##2}] \emph{##3}%
+%%      \unskip\leaders\hbox to 2.9mm{\hss.}\hfill##5}%
+%%  \renewcommand*{\glsgroupskip}{}%
+%%}
+%%
+%%\newglossarystyle{mylist}{%
+%%  \setglossarystyle{list}% base this style on the list style
+%%  \renewcommand*{\glossentry}[2]{%
+%%    \item[\glsentryitem{##1}\glstarget{##1}{\glossentryname{##1}}]
+%%  \glossentrydesc{##1}\glspostdescription\space see p.\space ##2}%
+%%}
+%%
+%%%\renewcommand{\glossentry}[1]{{\item#1}}
+%%%\renewcommand{\glsgroupskip}[1]{{#1}}
+%%%\renewcommand{\glsgroupheading}{}
+%%%\renewcommand{\glossarypostamble}{}
+%%
+\newcommand{\reminder}[1]{\fbox{{\color{blue} #1}}}
+
+\def\myear{\ifcase\month\or
+ January\or February\or March\or April\or May\or June\or
+ July\or August\or September\or October\or November\or December\fi
+ \space\number\year}
+
+\newenvironment{backcover}{\begin{titlepage}}{\end{titlepage}}
+
+\newenvironment{frontcover}{\begin{titlepage}}{\end{titlepage}}
+
+% src: https://tex.stackexchange.com/a/167529
+\newenvironment{dedicat}
+{    
+  \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{1}}% some space at the top
+   \itshape%             % the text is in italics
+   \raggedleft%          % flush to the right margin
+}
+{
+   \par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+   \clearpage           % finish off the page
+}
+
+% Override Metadata Settings
+\newcommand{\ummetadata}{
+\def\@producer{\@author\ @ \@department\ --- \@school\ --- \@university}
+\def\@documentsubject{\@subtitleA \@subtitleB}
+\def\@documenttitle{\@titleA \@titleB}
+
+\hypersetup{
+	pdftitle={\@documenttitle},				% title
+	pdfauthor={\@author},					% author
+	pdfsubject={\@documentsubject},			% subject of the document
+	pdfcreator={\@author},					% creator of the document
+	pdfproducer={\@producer},				% producer of the document
+}
+}
+
+% Extra commands
+\newcommand\ackname{Acknowledgements}
+\if@titlepage%
+  \newenvironment{acknowledgements}{%
+      \titlepage%
+      \null\vfil
+      \@beginparpenalty\@lowpenalty%
+      \begin{center}%
+        \bfseries \ackname%
+        \@endparpenalty\@M%
+      \end{center}}%
+     {\par\vfil\null\endtitlepage}
+\else
+  \newenvironment{acknowledgements}{ %
+      \if@twocolumn%
+        \section*{\ackname}%
+      \else
+        \small
+        \begin{center}%
+          {\bfseries \ackname\vspace{-.5em}\vspace{\z@}}%
+        \end{center}%
+        \quotation%
+      \fi}
+      {\if@twocolumn\else\endquotation\fi}
+\fi
+\renewenvironment{description}% Taken from article.cls
+               {\list{}{\labelwidth\z@ \itemindent-\leftmargin\let\makelabel\descriptionlabel}}{\endlist}
+\renewcommand*\descriptionlabel[1]{
+	\hspace\labelsep\normalfont{\scriptsize\bfseries\uppercase{#1}\enspace}}
+\setlength{\labelsep}{.5em}% Also taken from article.cls
+
+
+% Thesis authoring
+\gdef\@supervisor{}
+\gdef\@cosupervisor{}
+\gdef\@titleA{}
+\gdef\@titleB{}
+\gdef\@subtitleA{}
+\gdef\@subtitleB{}
+
+% Default Department
+%\gdef\@department{Departamento de Inform\'{a}tica}
+\gdef\@department{Departamento de Engenharia Eletr\'{o}nica}
+\gdef\@school{Escola de Engenharia}
+\gdef\@university{Universidade do Minho}
+%\gdef\@masterdegree{Computer Science}
+\gdef\@masterdegree{Mechatronics Engineering}
+
+% Authoring Macros
+\def\supervisor#1{\gdef\@supervisor{#1}}
+\def\cosupervisor#1{\gdef\@cosupervisor{#1}}
+\def\titleA#1{\gdef\@titleA{#1}}
+\def\titleB#1{\gdef\@titleB{#1}}
+\def\subtitleA#1{\gdef\@subtitleA{#1}}
+\def\subtitleB#1{\gdef\@subtitleB{#1}}
+\def\school#1{\gdef\@school{#1}}
+\def\department#1{\gdef\@department{#1}}
+\def\university#1{\gdef\@university{#1}}
+\def\masterdegree#1{\gdef\@masterdegree{#1}}
+
+% cover layout
+\newcommand{\printcover}{
+\def\withnewsgott##1{\fontfamily{phv}\fontseries{mc}\selectfont ##1}
+\def\optionalwithnewsgott##1{\ifnum\hide=1\relax\else\withnewsgott{##1}\fi}
+\def\withboldnewsgott##1{\fontfamily{phv}\fontseries{mc}\fontseries{b}\selectfont ##1}
+\def\optionalwithboldnewsgott##1{\ifnum\hide=1\relax\else\withboldnewsgott{##1}\fi}
+~\vskip-2cm\rule{4cm}{0pt}\begin{tabular}{l}
+\UMEng[\umc]{\engc}
+\\\withboldnewsgott{\@university}\rule{0pt}{1cm}
+\\\withnewsgott{\@school}
+\\\withnewsgott{\@department}
+%\\\rule{0pt}{0.5cm}
+\\\withboldnewsgott{{Laborat\'{o}rios e Pr\'{a}ticas Integradas 2}}
+\\\rule{0pt}{1cm}
+\\\withboldnewsgott{\large{Integrator Project: Final Report}}
+\\\rule{0pt}{1cm}
+%\\\withboldnewsgott{\Large\@titleA}
+%\\\withboldnewsgott{\Large\@titleB}
+\\\withboldnewsgott{\Large{Radio Frequency Camera}}
+\\\withboldnewsgott{\Large{Assisted Rover (RFCAR)}}
+\\\rule{0pt}{1cm}
+\\\withboldnewsgott{\hspace{2cm}\large{Group 7}}
+\\\rule{0pt}{0.1cm}
+\\\withnewsgott{\large\@author}
+%\\\rule{0pt}{0.3cm}
+%\\\withboldnewsgott{\large\@subtitleA}
+%\\\withboldnewsgott{\large\@subtitleB}
+%\\\rule{0pt}{1.2cm}
+%\\\optionalwithnewsgott{\large Master dissertation}
+%\\\optionalwithnewsgott{\large Master Degree in \@masterdegree}
+\\\rule{0pt}{10mm}
+\\\optionalwithnewsgott{Supervised by:}
+\\\optionalwithboldnewsgott{\@supervisor}\rule{0pt}{4mm}
+%\\\optionalwithboldnewsgott{\@cosupervisor}
+\\\rule{0pt}{1cm}
+\\\withnewsgott{{\small\@date}}
+\end{tabular}
+}
+
+% Dissertation  commands
+\newcommand{\@coverstyle}[2]{ \thispagestyle{empty} \pagecolor{#1} \textcolor{#2}}
+
+\newcommand{\umtitlepage}{
+	\begin{titlepage}
+%		\gdef\umc{grey}\gdef\engc{lightgray}\gdef\hide{0}
+	 	%\@coverstyle{white}{grey}\printcover%
+          \gdef\hide{0}\@coverstyle{white}{black}\printcover%
+		\end{titlepage}
+	\normalfont\rmfamily\cleardoublepage\pagenumbering{roman}
+}
+
+\newcommand{\umfrontcover}{
+	\begin{frontcover}
+%		\gdef\hide{1} \@coverstyle{grey}{white} \printcover
+          \gdef\hide{1}\@coverstyle{white}{black}\printcover%
+	\end{frontcover}
+}
+
+\newcommand{\umbackcover}[1]{
+	\begin{backcover}
+%		\if@twoside \@coverstyle{grey}{white} \cleardoubleevenemptypage \fi
+		\if@twoside \@coverstyle{white}{black} \cleardoubleevenemptypage \fi
+%		\@coverstyle{grey}
+		\@coverstyle{white}{black}
+		{\fontfamily{phv}\fontseries{mc}\selectfont ~\vfill \noindent #1 \vfill ~}
+	\end{backcover}
+}
+
+% ============== My command: Customized Title ====================
+\newcommand{\mytitle}{
+% Title
+\titleA{Development of a multimaterial}
+\titleB{laser sintering/melting equipment} % (if any)
+%\subtitleA{First Part of Subtitle}
+%\subtitleB{Second part of Subtitle} % (if any)
+%
+% Author
+\author{%
+  \begin{tabular}{ll}
+  Nuno Rodrigues & A85207\\
+  Hugo Carvalho & A85156\\
+  Hugo Ferreira & A80665\\
+  João Faria & A85632\\
+  João de Carvalho & A83564\\
+  José Mendes & A85951\\
+  José Pires & A50178
+  \end{tabular}%
+  %\vspace{1cm}
+}
+%
+% Supervisor(s)
+\supervisor{Professor Doutor Vitor Silva}
+%
+% University (uncomment if you need to change default values)
+% \def\school{Escola de Engenharia}
+% \def\department{Departamento de Inform\'{a}tica}
+% \def\university{Universidade do Minho}
+% \def\masterdegree{Computer Science}
+%
+% Date
+\selectlanguage{english}
+\date{\today} % change to text if date is not today
+}
+% =================================================================
+\newcommand{\umappendix}[1]{\appendix\renewcommand\chaptername{#1}}
+
+
+% Implicit commands whenever possible
+\let\original@tableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{\original@tableofcontents \cleardoublepage}
+
+\let\original@listoffigures\listoffigures
+\renewcommand{\listoffigures}{\original@listoffigures \cleardoublepage}
+
+\let\original@listoftables\listoftables
+\renewcommand{\listoftables}{\original@listoftables\cleardoublepage}
+
+\let\original@lstlistoflistings\lstlistoflistings%
+\renewcommand{\lstlistoflistings}{\original@lstlistoflistings\cleardoublepage}
+
+\newenvironment{abstracten}{\chapter*{Abstract}}{\cleardoublepage}
+\newenvironment{abstractpt}{\chapter*{Resumo}}{\cleardoublepage}
+
+\let\originalbibliography\bibliography%
+\renewcommand{\bibliography}[1]{
+	\bookmarksetup{startatroot} % Ends last part.
+	\addtocontents{toc}{\bigskip} % Making the table of contents look good.
+	\cleardoublepage%
+	\originalbibliography{#1}
+}
+
+% ===================== Sectioning ====================================
+% src: https://tex.stackexchange.com/a/186982
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{5}
+% src: https://tex.stackexchange.com/a/318635
+\RedeclareSectionCommands[
+  afterskip=1sp, % 1 line spacing after title
+  font=\normalfont\itshape% small caps text
+]{paragraph}
+\RedeclareSectionCommands[
+  afterskip=1sp, % 1 line spacing after title
+  font=\itshape\bfseries% small caps text
+]{subparagraph}
+% =====================================================================
+
+% =================================== Floats ===================================
+% Customize tables
+% https://tex.stackexchange.com/a/27100
+% https://tex.stackexchange.com/questions/6573/table-captions-are-always-placed-below
+\usepackage{floatrow}
+\DeclareFloatFont{small}{\small}% "scriptsize" is defined by floatrow, "tiny" not
+\floatsetup[table]{font=small,capposition=top}
+% ==============================================================================
+
+\makeatother
+
+% ================================ Algorithmic ===============================
+% algorithms and pseudocode
+\usepackage{algorithm}
+%\usepackage[noend]{algpseudocode}
+\usepackage[end]{algpseudocode}
+% src: https://tex.stackexchange.com/a/328067
+\algdef{SE}[VARIABLES]{Variables}{EndVariables}
+   {\algorithmicvariables}
+   {\algorithmicend\ \algorithmicvariables}
+   \algnewcommand{\algorithmicvariables}{\textbf{variables declaration}}
+
+   % src:
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+% https://tex.stackexchange.com/a/33798 
+\algnewcommand{\algorithmicgoto}{\textbf{go to}}%
+\algnewcommand{\Goto}{\algorithmicgoto\xspace}%
+\algnewcommand{\Label}{\State\unskip}%
+% ============================================================================
+% used to input pdfs
+% src:
+% https://tex.stackexchange.com/questions/105589/insert-pdf-file-in-latex-document
+% src: https://tex.stackexchange.com/a/208020
+\pagecolor{green}
+\usepackage{pdfpages}
+%
+% euro symbol
+% src: https://tex.stackexchange.com/a/109260
+% not working
+% \usepackage{textcomp}%encoding
+% ============================ Keywords =====================================
+% src:https://pt.overleaf.com/latex/templates/abstract-keywords-and-references/xsfshwnhyynd
+% Keywords command
+\providecommand{\keywords}[1]
+{
+  \small	
+  \textbf{\textit{Keywords ---}} #1
+}%
+\providecommand{\keywordspt}[1]
+{
+  \small	
+  \textbf{\textit{Palavras-chave ---}} #1
+}%

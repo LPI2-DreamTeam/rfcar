@@ -1,0 +1,75 @@
+\message{ !name(../../../dissertation.tex)}% MAIN DOC
+% Example for dissertation.sty
+\documentclass[
+  % Replace oneside by twoside if you are printing your thesis on both sides
+  % of the paper, leave as is for single sided prints or for viewing on screen.
+  % oneside,
+  twoside=false,
+  fontsize=12pt,% NewsGotT
+  paper=a4,
+  footinclude=true,
+  headinclude=true,
+  cleardoublepage=empty,
+  headsepline=true,
+  headheight=20pt,
+  footheight=20pt,
+  automark,
+  markcase=upper,
+  bibliography=totoc,
+  %appendix=totoc
+  %pagestyle=myheadings
+  %footsepline=true,
+]{scrbook}
+
+% use the formatting style defined (this file should include all other packages)
+%\usepackage{./sty/dissertation}% pdflatex
+\usepackage{./sty/dissertation-xelatex}% xelatex
+
+% fixing \vbox and \hbox underfull and overfull
+% src: https://tex.stackexchange.com/a/387912
+\raggedbottom%
+
+%\addtokomafont{section}{\clearpage}
+\addtokomafont{caption}{\small}
+
+%this shall be the last thing in the acronym configuration!!
+\makeglossaries%
+
+%% **MORE INFO** %%
+%to add the acronyms list add the following where you want to print it:
+%\printglossary[type=\acronymtype]
+%\clearpage
+%\thispagestyle{empty}
+
+%to use an acronym:
+%\gls{qps}
+
+% Reverse side notes
+% How to generate 2 different files based on conditionals
+% https://tex.stackexchange.com/a/220101
+% see also makefile rule all-comm
+\ifdef{\comm}{\reversemarginpar}
+
+% ------------------------------------------------------------------------
+% Title
+\mytitle% defined in .sty file
+
+% Glossaries & Acronyms
+%\makeglossaries  %  either use this ...
+%\makeindex	   % ... or this
+
+% Define Acronyms
+%\input{sec/acronyms}
+%\glsaddall[types={\acronymtype}]
+
+\begin{document}
+
+\message{ !name(tex/Chap/Theor-Found/bluetooth.tex) !offset(52) }
+
+\message{ !name(../../../dissertation.tex) !offset(193) }
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
