@@ -9,11 +9,11 @@
 #include "Thread.hpp"
 #include "COM_LL.hpp"
 
-void socketServerTest(OS::Thread*) {
+void bluetoothSocketServerTest(OS::Thread*) {
 
 	COM::Error error;
 	std::string error_str;
-	COM::LL<COM::Protocol::SERIAL, COM::Role::SERVER> server(1);
+	COM::LL<COM::Protocol::BLUETOOTH, COM::Role::SERVER> server(1);
 	char buffer[30];
 
 	std::cout << "FUN[socketServerTest]: STARTED\n";
@@ -33,7 +33,7 @@ void socketServerTest(OS::Thread*) {
 
 	// If there was an error during acceptance, return immediately.
 	// The rest has been taked care of by the socket.
-	if (error)
+	if (/*error*/1)
 		return;
 
 
@@ -65,11 +65,73 @@ void socketServerTest(OS::Thread*) {
 }
 
 
+void socketServerTest(OS::Thread*) {
+
+	COM::Error error;
+	std::string error_str;
+	COM::LL<COM::Protocol::SERIAL, COM::Role::SERVER> server(1);
+	char buffer[30];
+
+	// Serves to demonstrate that a pointer to the generic class can be used to access methods methods from the specialized classes
+	COM::LL<>* server_ptr = &server;
+	COM::LL<COM::Protocol::SERIAL, COM::Role::SERVER>* server_ptr2 = \
+		static_cast<COM::LL<COM::Protocol::SERIAL, COM::Role::SERVER>*>(server_ptr);
+
+	std::cout << "FUN[socketServerTest]: STARTED\n";
+	
+	// Create socket, bind and listen for connection
+	error = server_ptr2->listenConnection();
+	server_ptr->getLastError(error_str);
+	std::cout << "SERVER   " << error_str;
+
+	if (error)
+		return;
+
+	// Accept connection
+	error = server.acceptConnection();	
+	server_ptr->getLastError(error_str);
+	std::cout << "SERVER   " << error_str;
+
+	// If there was an error during acceptance, return immediately.
+	// The rest has been taked care of by the socket.
+	if (error)
+		return;
+
+
+	while(1) {
+
+		char temp_buffer[6];
+		
+		// Read string into temporary buffer to demonstrate how a message could be read continuously
+		server_ptr->readStr(temp_buffer, 5);
+		error = server_ptr->getLastError(error_str);
+		std::cout << "SERVER   " << error_str;
+
+		if (error)
+			break;
+
+		// Concatenate temporary string with permanent one
+		strcat(buffer, (const char*)temp_buffer);
+
+		// Check for reception of the message termination character
+		if (strchr(buffer, '\n') != NULL) {
+			// When finished, ptint the message and close the connection
+			std::cout << "FUN[socketServerTest]: Message received: " << buffer;
+			break;
+		} 
+	}
+
+	server.closeConnection();
+	return;
+}
+
+
 void socketClientTest(OS::Thread*) {
 
 	COM::Error error;
 	std::string error_str;
 	COM::LL<COM::Protocol::SERIAL, COM::Role::CLIENT> client(1);
+	COM::LL<>* client_ptr = &client;
 	
 	char buffer[30] = "This is a message\n";
 
@@ -82,15 +144,15 @@ void socketClientTest(OS::Thread*) {
 
 	// Open connection
 	client.openConnection();
-	error = client.getLastError(error_str);
+	error = client_ptr->getLastError(error_str);
 	std::cout << "CLIENT   " << error_str;
 
 	if (error)
 		return;
 
 	// Send message
-	client.writeStr(buffer, sizeof(buffer));
-	error = client.getLastError(error_str);
+	client_ptr->writeStr(buffer, sizeof(buffer));
+	error = client_ptr->getLastError(error_str);
 	std::cout << "CLIENT   " << error_str;
 }
 
@@ -99,8 +161,9 @@ void socketClientTest(OS::Thread*) {
 int main(int argc, char* argv[]) {
 
 	using namespace std::chrono_literals;
-	OS::Thread server_thread("Socket server test", socketServerTest);
-	OS::Thread client_thread("Socket client test", socketClientTest);
+	//OS::Thread server_thread("Socket server test", socketServerTest);
+	OS::Thread server_thread("Bluetooth socket server test", bluetoothSocketServerTest);
+	//OS::Thread client_thread("Socket client test", socketClientTest);
 
 	std::cout << "\n---------------------------\n";
 	std::cout << "Working...\n\n";
@@ -110,12 +173,12 @@ int main(int argc, char* argv[]) {
 	server_thread.run();
 	// Wait for the server to configure. Anothr option would be to make 
 	// the client try to establish a connection indefinitely.
-	std::this_thread::sleep_for(1s);
-	client_thread.run();
+	//std::this_thread::sleep_for(1s);
+	//client_thread.run();
 
 	// Synchronize the tasks
 	server_thread.join();
-	client_thread.join();
+	//client_thread.join();
 	std::cout << "Joined!" << std::endl;
 
 	return 0;
