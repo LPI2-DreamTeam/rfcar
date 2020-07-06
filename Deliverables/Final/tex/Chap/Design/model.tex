@@ -9,27 +9,27 @@ The objective of the control module is to be capable of, with an input reference
 \label{fig:kinModel}
 \end{figure}
 
-Considering the kinematic model of a four-wheel vehicle with a wheelbase length $\ell$, a linear velocity v(t) and an angular velocity $\omega(t)$ the following situation will occur: since the rear wheels will remain in the same position no matter where the car is facing towards, they will be facing whatever orientation, $\phi$, the car is facing, however, in order for the car to be capable of moving into wherever the user tells it to, the front wheels must turn, ergo a steering angle $\psi$, must be considered. The resulting direction the car will be going in is $\phi + \psi$. With these considerations, a desired angle of direction $\Delta steer$ and considering that $\phi=0$, in other words, that whatever direction the car is told to face, it will be relative to its current direction, the following model is obtained:
+Considering the kinematic model of a four-wheel vehicle with a wheelbase length $\ell$, a linear velocity v(t) and an angular velocity $\omega(t)$ the following situation will occur: since the rear wheels will remain in the same position no matter where the car is facing towards, they will be facing whatever orientation, $\phi$, the car is facing, however, in order for the car to be capable of moving into wherever the user tells it to, the front wheels must turn, ergo a steering angle $\psi$, must be considered. The resulting direction the car will be going in is $\phi + \psi$. With these considerations, a desired angle of tilt $\theta$ and considering that $\phi=0$, in other words, that whatever direction the car is told to face, it will be relative to its current direction, the following model is obtained:
 \begin{align}
 \dot{x}&=v(t) cos(\psi)\\
 \dot{y}&=v(t) sin(\psi)\\
-\dot{\psi}&=\omega(t)=\frac{v(t)}{\ell}\Delta steer
+\dot{\psi}&=\omega(t)=\frac{v(t)}{\ell}\theta
 \end{align}
-However this model is not enough for simulation purposes. The simulation has the objective of granting the designers clear ideas of the response of the systems towards given inputs, therefore, for implementation purposes, the simulation must give feedback on the position of the car, its heading and the linear velocity of the right rear wheel (vr), and the left rear wheel (vl) therefore the model will have to changed with these details in mind, which can be achieved considering that:
+However this model is not enough for simulation purposes. The simulation has the objective of granting the designers clear ideas of the response of the systems towards given inputs, therefore, for implementation purposes, the simulation must give feedback on the position of the car, its heading and the linear velocity of the right rear wheel ($v_r$), and the left rear wheel ($v_l$) therefore the model will have to changed with these details in mind, which can be achieved considering that:
 \begin{align}
-\omega(t)&=\frac{vr(t)-vl(t)}{\ell}\\
-v(t)&=\frac{1}{2}(vr(t)+vl(t))
+\omega(t)&=\frac{v_r(t)-v_l(t)}{\ell}\\
+v(t)&=\frac{1}{2}(v_r(t)+v_l(t))
 \end{align}
-Solving the system above for vr and vl:
+Solving the system above for $v_r$ and $v_l$:
 \begin{align}
-vr(t)&=v(t)+ \frac{\omega(t)\ell}{2}\\
-vl(t)&=v(t)-\frac{\omega(t)\ell}{2}
+v_ r(t)&=v(t)+ \frac{\omega(t)\ell}{2}\\
+v_l(t)&=v(t)-\frac{\omega(t)\ell}{2}
 \end{align}
 Returning the model in order to $\dot{x}$ and $ \dot{y}$:
 \begin{align}
 \dot{x}&=v(t) cos(\psi)-\frac{\ell}{2}\omega(t) sin(\psi)\\
 \dot{y}&=v(t) sin(\psi)+\frac{\ell}{2}\omega(t) cos(\psi)\\
-\dot{\psi}&=\omega(t)=\frac{v(t)}{\ell}\Delta steer
+\dot{\psi}&=\omega(t)=\frac{v(t)}{\ell}\theta
 \end{align}
 \subsubsection{Simulink Model}
 Converting the model calculated in~\ref{sec:concep} into a simulink subsystem:
