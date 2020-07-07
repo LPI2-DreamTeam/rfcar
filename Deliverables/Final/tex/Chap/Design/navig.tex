@@ -1,0 +1,12 @@
+The Navigation subsystem hosts the core of the system functionality-wise, which is the control routine. This means that it should strive to not only make accurate readings and calculations but also be as efficient as possible in managing those processes in order to introduce very little delay and meet timing requirements. 
+
+To meet these requirements as best as possible it should be capable of :
+
+\begin{itemize}
+    \item Gathering information from the physical domain at equally distant instants $kT_s$ and output an electrical representation of the command variable at equally distant instants $kT_o$;
+    \item Acquiring commands from the Smartphone and Remote Vision Subsystems, identifying matches that will allow it to validate those commands and feeding them into the control rule in a useful format;
+    \item Providing real-time feedback to the user about its status.
+\end{itemize}
+
+
+The first task should be idealizing the control system itself, understanding what inputs are needed to control the machine and then how it could be used to manipulate the wheels of the car. After that, the rest of system should be designed to fit the needs of the control rules and algorithms and use them to react as fast and consistently as possible within its own constraints and those of the other subsystems.
