@@ -1,0 +1,133 @@
+
+// threads and sleep test
+
+void threadFun(void* p_thread) {
+
+	Thread* thread_ptr = static_cast<Thread*>(p_thread);
+
+	// Wait for the thread pointer to be assigned. This is equivalent to a departure signal
+	while (thread_ptr == nullptr);
+
+	thread_ptr->keepCurrentTimestamp();
+
+	// Start counter
+	auto start = std::chrono::system_clock::now();
+
+	while (i1-- >= 0) {
+
+		thread_ptr->sleepUntilElapsed(20);
+		thread_ptr->keepCurrentTimestamp();
+	}	
+
+	// End counter
+	auto end = std::chrono::system_clock::now();
+
+	// Output calculated duration. This might yield an unpredictable value, presumably due to the thread or program not being 
+	// given high enough priority for the thread to be able to wake up immediately after each sleep cycle.
+	std::cout << std::endl <<std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+
+}
+
+
+
+
+
+
+
+
+typedef enum SharedMemoryPrivileges_T {
+	READ = 0, WRITE, READWRITE
+} SharedMemoryPrivileges;
+
+typedef struct ThreadPrivilegePair {
+
+private:
+	
+	Thread* thread;
+	SharedMemoryPrivileges privilege;
+
+public:
+
+	ThreadPrivilegePair(Thread* thread, SharedMemoryPrivileges privilege = SharedMemoryPrivileges::READ) : 
+		thread(thread), privilege(privilege) {}
+
+	inline void updatePrivilege(SharedMemoryPrivileges privilege) {
+		this->privilege = privilege;
+	}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+#ifndef MUTEX_H
+#define MUTEX_H
+
+#include "main.h"
+#include "Thread.h"
+
+#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
+
+#include <mutex>
+
+using NativeMutex = std::mutex;
+
+#endif 
+
+class Mutex {
+
+
+private:	// Private members
+
+	NativeMutex self;
+	ThreadID owner;
+
+public:		// Public methods
+
+	// Constructor
+	Mutex();
+
+	// Destructor
+	~Mutex();
+
+	// Lock mutex if not locked
+	inline bool try_lock() {
+#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
+		if (self.try_lock()) {
+			owner = Thread::currentThreadID();
+			return true;
+		}
+
+		return false;
+#endif
+	}
+
+	// Lock mutex
+	inline void lock() {
+#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
+		self.lock();
+		owner = Thread::currentThreadID();
+#endif
+	}
+
+	// Unlock mutex
+	inline void unlock() {
+#if defined(__PLATFORM_WINDOWS__) || defined(__PLATFORM_LINUX__)
+		if (owner == Thread::currentThreadID()) {
+			self.unlock();
+			owner = empty_thread_id;
+		}
+			
+#endif
+	}
+};
+
+
+#endif // !MUTEX_H
