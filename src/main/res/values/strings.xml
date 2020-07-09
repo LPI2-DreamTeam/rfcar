@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AndroidAccelerometerTest</string>
+    <string name="x_string">\"X: \"</string>
+</resources>
