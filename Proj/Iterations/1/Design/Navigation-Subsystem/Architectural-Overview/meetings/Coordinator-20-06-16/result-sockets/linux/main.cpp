@@ -13,11 +13,12 @@ void bluetoothSocketServerTest(OS::Thread*) {
 
 	COM::Error error;
 	std::string error_str;
-	COM::LL<COM::Protocol::BLUETOOTH, COM::Role::SERVER> server(1);
-	char buffer[30];
+	COM::LL<COM::Protocol::BLUETOOTH, COM::Role::SERVER> server(4);
+	// char buffer[30] = "AT+PSWD=1234\r\n";
+	char buffer[30] = "AT+PSWD?\r\n";
 
 	std::cout << "FUN[socketServerTest]: STARTED\n";
-	
+
 	// Create socket, bind and listen for connection
 	error = server.listenConnection();
 	server.getLastError(error_str);
@@ -31,36 +32,36 @@ void bluetoothSocketServerTest(OS::Thread*) {
 	server.getLastError(error_str);
 	std::cout << "SERVER   " << error_str;
 
-	// If there was an error during acceptance, return immediately.
-	// The rest has been taked care of by the socket.
-	if (/*error*/1)
-		return;
 
+	// server.writeStr(buffer, sizeof(buffer));
+	// error = server.getLastError(error_str);
+	// std::cout << "SERVER   " << error_str;
+	memset(buffer, '\0', sizeof(buffer));
 
-	while(1) {
+	std::cout << "SERVER   Waiting..." << std::endl;
 
-		char temp_buffer[6];
+	while (1) {
+
+		server.readStr(buffer, 30);
 		
-		// Read string into temporary buffer to demonstrate how a message could be read continuously
-		server.readStr(temp_buffer, 5);
-		error = server.getLastError(error_str);
-		std::cout << "SERVER   " << error_str;
-
-		if (error)
+		if (server.getLastError(error_str) != COM::Error::OK) {
+			std::cout << "SERVER   " << error_str;
 			break;
+		}
 
-		// Concatenate temporary string with permanent one
-		strcat(buffer, (const char*)temp_buffer);
-
-		// Check for reception of the message termination character
-		if (strchr(buffer, '\n') != NULL) {
-			// When finished, ptint the message and close the connection
-			std::cout << "FUN[socketServerTest]: Message received: " << buffer;
+		if (std::string(buffer) != "") {
+			std::cout << "SERVER   " << error_str;
+			std::cout << "Received: " << buffer << std::endl;
+			server.writeStr(buffer, strlen(buffer));
+			server.getLastError(error_str);
+			std::cout << "SERVER   " << error_str;
 			break;
-		} 
+		}
 	}
 
 	server.closeConnection();
+
+
 	return;
 }
 

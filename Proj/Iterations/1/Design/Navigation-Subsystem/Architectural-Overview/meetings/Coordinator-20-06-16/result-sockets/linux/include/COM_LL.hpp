@@ -5,7 +5,7 @@
 #include "Mutex.hpp"
 
 #define SERIAL_AVAILABLE_PORTS 5
-#define BLUETOOTH_AVAILABLE_PORTS 2
+#define BLUETOOTH_AVAILABLE_PORTS 4
 
 #ifdef _LINUX_
 
@@ -66,7 +66,7 @@ namespace COM {
 	*	They update after each function call for all functions but the constructors, destructors and getLastError()
 	*/
 	typedef enum Error_T {
-		OK=0, DEAD, NOT_CONNECTED, READ_FAIL, WRITE_FAIL, CLOSE_FAIL, OPEN_FAIL, ACCEPT_FAIL, ALREADY_OPEN, ALREADY_CLOSED, INVALID_PORT
+		OK=0, INVALID_CONFIG, DEAD, NOT_CONNECTED, READ_FAIL, WRITE_FAIL, CLOSE_FAIL, OPEN_FAIL, ACCEPT_FAIL, ALREADY_OPEN, ALREADY_CLOSED, INVALID_PORT
 	} Error;
 
 
@@ -263,12 +263,8 @@ namespace COM {
 							*   unique. Must be between 1 and SERIAL_AVAILABLE_PORTS */
 
 #ifdef _LINUX_
-		int32_t listen_socket_fd = -1;	/*! File descriptor for the socket */
-		int32_t connect_socket_fd = -1;	/*! File descriptor for the socket */
-		struct sockaddr_rc local_address;		/*! Local MAC address */
-		struct sockaddr_rc client_address;		/*! Client's MAC address*/
-		bool listened;					/*! Whether or not listenConnection() has been called */
-
+		int32_t serial_fd = -1;	/*! File descriptor for the socket */
+		bool listened;			/*! Whether or not listenConnection() has been called */
 #endif
 
 	public:		// Public methods: override
