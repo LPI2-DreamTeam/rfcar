@@ -17,6 +17,8 @@
 *.org
 *.gz
 *.out
+*.gls
+*.glg
 # ignore the designated subfolders
 auto/
 
