@@ -258,13 +258,14 @@ namespace COM {
 		Error last_error;	/*! Result from the execution of the last function */
 		std::string last_error_str;	/*! Result from the execution of the last function */
 		bool dead;			/*! True kill() has been called or the object was poorly configured*/
-
+		bool listened;			/*! Whether or not listenConnection() has been called */
+		
 		uint32_t port;		/*! Number that identifies the object in light of what hardware it is using. As such, it must be 
 							*   unique. Must be between 1 and SERIAL_AVAILABLE_PORTS */
+		
 
 #ifdef _LINUX_
 		int32_t serial_fd = -1;	/*! File descriptor for the socket */
-		bool listened;			/*! Whether or not listenConnection() has been called */
 #endif
 
 	public:		// Public methods: override
