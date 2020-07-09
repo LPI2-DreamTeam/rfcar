@@ -19,6 +19,7 @@
 *.out
 *.gls
 *.glg
+*.slo
 # ignore the designated subfolders
 auto/
 
