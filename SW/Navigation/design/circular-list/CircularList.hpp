@@ -2,7 +2,6 @@
 #define CIRCULAR_LIST_H
 
 #include "main.hpp"
-#include "MEM.hpp"
 
 #ifdef _LINUX_
 #include <list>
@@ -17,6 +16,24 @@
 #endif
 
 namespace MEM {
+
+	/*! @brief Blocking modes in read/write operations when the buffer is empty/full
+	*	
+	*	In BLOCKING	mode the operation halts until the list is dead or ready to be read from / written to
+	*	In NON_BLOCKING mode the operation is stopped immediatley, irrespective oof the state of completion
+	*/
+	typedef enum BlockingMode_T {
+		NON_BLOCKING=0, BLOCKING
+	} BlockingMode;
+
+	/*! @brief Generic error codes
+	*
+	*	These codes convey a general message regarding the result of the lastly executed function.
+	*	They update after each function call for all functions but the constructors, destructors and getLastError()
+	*/
+	typedef enum Error_T {
+		OK=0, DEAD, FULL, EMPTY, INVALID_SIZE
+	} Error;
 
 	template <typename T, uint32_t max_size = 0>
 	class CircularList {
