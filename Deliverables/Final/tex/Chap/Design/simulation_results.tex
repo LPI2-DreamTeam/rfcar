@@ -1,24 +1,24 @@
 %SUBSECTION - control
 \subsubsection{Optimal control parameters determination}
-
 As the controller in use is a discrete PID, the first step is to find the optimal parameters.
 For the first set of simulations, the aim is to find the values for the PID gains. As purpose of the car is to explore hazardous areas, the parameter Kd will be set as 0 due to the noise. 
-For the first simulation, Kd=1, ki=1, Linear speed= 1m/s, teta=0rad:
+For the first simulation, $K_d = 1$, $K_i = 1$, Linear speed = 1 m/s, $\theta =
+0~\si{rad}$:
 \begin{figure}[!h]
 \centering
 \includegraphics[width=1.0\textwidth]{./img/pid11.png}
-\caption {\label{fig:pid1 - p1i1}Kp=1, Ki=1}
+\caption {\label{fig:pid1-p1i1}Kp=1, Ki=1}
 \end{figure}
 With this simulation, it is possible to see that the initial value of the velocity of the car is 0.5 m/s and it take about 7 seconds to reach steady state. 0.5m/s as an initial value for the linear velocity is a considerably high value and can cause the car to slide, therefore, the Kp value needs to get lower, for the initial value to get lower as well.
-\newpage
+%\newpage
 In this simulation, Kp will be set as 0.5 and Ki as 1.
 \begin{figure}[!h]
 \centering
 \includegraphics[width=1.0\textwidth]{./img/pid051.png}
-\caption {\label{fig:pid1 - p05i1}Kp=0.5, Ki=1}
+\caption {\label{fig:pid1-p05i1}Kp=0.5, Ki=1}
 \end{figure}
 Changing the value of Kp to half of the initial value, it is possible to see that the initial linear speed is now 0.3 m/s, making it harder for the car to slide. It takes nearly 6 seconds for the car to reach steady state, thus the Ki value must be increased.
-\newpage
+%\newpage
 In this simulation, Kp will be set as 0.5 and Ki as 2.
 \begin{figure}[!h]
 \centering
@@ -26,11 +26,13 @@ In this simulation, Kp will be set as 0.5 and Ki as 2.
 \caption {\label{fig:pid1 - p05i2}Kp=0.5, Ki=2}
 \end{figure}
 As the Kp value was not changed, the initial linear speed value remains the same. As for the time it takes the car to reach steady state, it was reduced to 3 seconds due to the increase of the Ki parameter.\\
-In ideal conditions, the aim would be for the car to reach the desired speed instantly, but due to the real limitations, such as wheel sliding, 3 seconds is a a safe value.
-\newline
+In ideal conditions, the aim would be for the car to reach the desired speed
+instantly, but due to the real limitations, such as wheel sliding, 3 seconds is
+a a safe value.
+%
 \subsubsection{Sample time determination}
 In order to choose the sample time, one needs to take in consideration that with the decrease of the sample time, the processing overhead will increase and with the increase of the sample time, the system response will have abrupt changes affecting the performance of the car. So, in order to accommodate both necessities, the sample time will be set to 50ms.
-\newpage
+%\newpage
 \subsubsection{System response}
 Having determined the parameters of the controller, the next step is to simulate the response of the system.
 In order to predict the behavior of the car to a linear speed reference and angle of tilt (teta), some simulations were necessary. The output of the simulation is the plot of the linear speed of the car, the linear speed of both wheels (left and right) and the position of the car.
@@ -62,4 +64,12 @@ In this simulation it can be observed that having a angle of tilt not equal to 0
 \includegraphics[width=1.0\textwidth]{./img/xy101.png}
 \caption {\label{fig:sim2 - pos}Linear speed v=1m/s, teta=0.1rad}
 \end{figure}
-With this figure \ref{fig:sim2 - pos} it is possible to observe that both the position of x and y of the car change with time. With a constant angle of tilt, the car will turn constantly in the same direction, eventually making a 360 degrees turn and as the car as small dimensions, it takes a very small time for it to do so, which is what is observed is this simulation.
+With this figure \ref{fig:sim2 - pos} it is possible to observe that both the
+position of x and y of the car change with time. With a constant angle of tilt,
+the car will turn constantly in the same direction, eventually making a 360
+degrees turn and as the car as small dimensions, it takes a very small time for
+it to do so, which is what is observed is this simulation.
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../dissertation"
+%%% End:
