@@ -18,11 +18,6 @@ namespace MEM {
 	} BlockingMode;
 
 
-	/*! @brief End positions for insertion of objects in lists 
-	*
-	*	FRONT refers to the first position
-	*	BACK refers to the last position
-	*/
 	typedef enum Position_T {
 		FRONT = 0, BACK
 	} Position;
