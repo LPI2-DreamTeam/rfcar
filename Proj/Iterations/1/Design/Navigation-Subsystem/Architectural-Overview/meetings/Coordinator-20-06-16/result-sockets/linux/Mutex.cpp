@@ -14,7 +14,9 @@ namespace OS {
 		this->owner = other_mutex.owner;
 	}
 
-	Mutex::~Mutex() {}
+	Mutex::~Mutex() {
+		self.unlock();
+	}
 
 
 	bool Mutex::tryLock() {

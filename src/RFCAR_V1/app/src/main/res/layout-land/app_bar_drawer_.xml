@@ -8,12 +8,25 @@
     android:background="#95FFE69A"
     tools:context="com.example.btapp.MainActivity">
 
+    <ImageButton
+        android:id="@+id/stream_btn"
+        android:layout_width="208dp"
+        android:layout_height="196dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.328"
+        app:srcCompat="@drawable/youtube_y1" />
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="391dp" />
+        app:layout_constraintGuide_percent="0.42898974" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -45,40 +58,54 @@
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/Youtube_display"
-        android:layout_width="match_parent"
-        android:layout_height="369dp"
+    <ImageButton
+        android:id="@+id/control_btn"
+        android:layout_width="209dp"
+        android:layout_height="190dp"
+        android:background="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.839"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.315"
+        app:srcCompat="@drawable/control" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/wifi_msg_read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accelerometer Values"
-        android:textAllCaps="true"
-        android:textStyle="bold"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Youtube_display" />
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/control_btn"
+        app:layout_constraintVertical_bias="0.641" />
 
-    <ImageButton
-        android:id="@+id/return_btn2"
-        android:layout_width="53dp"
-        android:layout_height="54dp"
-        android:background="#FFC107"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar_title"
-        app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
+    <Button
+        android:id="@+id/wifi_msg_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wifi msg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/wifi_msg_read"
+        app:layout_constraintHorizontal_bias="0.31"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/control_btn"
+        app:layout_constraintVertical_bias="0.703" />
+
+    <TextView
+        android:id="@+id/connection_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#8BC34A"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/stream_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
 
 </android.support.constraint.ConstraintLayout>
