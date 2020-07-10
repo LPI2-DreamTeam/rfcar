@@ -46,6 +46,75 @@ actor was named \emph{User}. Three main set of features were identified, namely:
   \caption{Use case for \acrshort{rvvs} subsystem}%
 \label{fig:rvvs-use-cases-diag}
 \end{figure}
+% Dynamic model
+\subsection{Dynamic model}%
+\label{sec:dynamic-model-rvvs}
+The dynamic model describes the internal behaviour of the system, represented in
+\gls{uml} by sequence, state-machine, and activity diagrams.
+
+The sequence
+diagram represents the sequence of events related to a particular use
+case. It aids to refine use cases and identify software objects (entity,
+boundary, control), providing a well-established path for the implementation of
+system's functionalities.
+
+On the other hand, state-machine diagrams provide an overview of the system
+functionalities and how they interact, i.e., the system's states, transitions,
+and response to stimulus, internal or external. This makes it an excellent tool
+for designing overall system behaviour. Fig.~\ref{fig:state-mach-diag-legend}
+identifies the main elements used in the state-machine diagram.
+
+The state-machine diagram for the \gls{rvvs} subsystem is depicted in
+Fig.~\ref{fig:rvvs-sync-state-diag}. On system startup is performed an
+initialization procedure, loading user-defined and machine settings and
+initializing the required hardware. After initialization is completed, four main
+processing units are executed in parallel until system is shutdown, namely:
+\begin{itemize}
+\item \textbf{Wi-Fi Manager}: manages Wi-Fi connection;
+\item \textbf{RS232 Manager}: manages RS232 connection;
+\item \textbf{Main}: idle processing unit; parses messages received through the
+  available communications channels and, if a
+  command is detected, pushes it to a command queue for later execution.
+\item \textbf{Scheduler}: periodically executed processing unit, responsible for
+  executing periodical tasks and spawning tasks as a response to issued
+  commands, with different priority levels.
+  \begin{itemize}
+  \item \textbf{Task}: spawned as a response to a command, performs the
+    required associated function and has a low expected lifetime. The commands
+    can be classified as user, \gls{nvs}, telemetry data, image acquisition, or
+    communications.
+  \end{itemize}
+\end{itemize}
+
+Lastly, an example of a more refined state-machine diagram, in this case for
+communications, is illustrated in Fig.~\ref{fig:rvvs-comm-state-diag}. In the
+initial state, a connection request is expected and if accepted, authentication
+is requested. If successfully authenticated, the Communication Manager is ready
+to communicate, handling incoming/outgoing data by notifying the relevant
+entities and performing the associated operations. The RS232 does not require
+connection and authentication management, thus yielding only the states
+\texttt{readyToCommunicate}, \texttt{MsgReceived}, and \texttt{MsgToSend}. 
+% State-machine diagram legend
+\begin{figure}[!hbt]
+\centering
+    \includegraphics[width=0.7\textwidth]{./img/state-diag-caption.png}
+  \caption{State-machine diagram}%
+\label{fig:state-mach-diag-legend}
+\end{figure}
+% State-machine diagram for Synchronization
+\begin{figure}[!hbt]
+\centering
+    \includegraphics[width=0.9\textwidth]{./img/rvvs-sync-state-diag.png}
+  \caption{\acrshort{rvvs} state-machine diagram}%
+\label{fig:rvvs-sync-state-diag}
+\end{figure}
+% State-machine diagram for Communication
+\begin{figure}[!hbt]
+\centering
+    \includegraphics[width=0.6\textwidth]{./img/rvvs-comm-state-diag.png}
+  \caption{Communication state-machine diagram}%
+\label{fig:rvvs-comm-state-diag}
+\end{figure}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../../dissertation"
