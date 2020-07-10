@@ -35,4 +35,17 @@
     <string name="bluetooth_discover">Bluetooth Discover</string>
     <string name="enable_wifi">Enable Wifi</string>
     <string name="bluetooth_connection">Bluetooth Connection</string>
+    <string name="wifi_devices">Wifi Devices</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="disc_start">WiFi Discovery Started</string>
+    <string name="disc_fail">WiFi Discovery Failed</string>
+    <string name="idle">Idle</string>
+    <string name="connected">\"Connected to \"</string>
+    <string name="not_connected">Not Connected</string>
+    <string name="host">Host</string>
+    <string name="client">Client</string>
+    <string name="dev_disc">Device Disconnected</string>
+    <string name="connection_fail">Connection Failed</string>
 </resources>

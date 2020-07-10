@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private void enter() {
        Intent intent = new Intent(this, Drawer_Activity.class);
        startActivity(intent);
-       showToast("Welcome to the RFCAR App",1,SHORT_TOAST);
+       //showToast("Welcome to the RFCAR App",1,SHORT_TOAST);
     }
 
     /*********************************************************************************************************

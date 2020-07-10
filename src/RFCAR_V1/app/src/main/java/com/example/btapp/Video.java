@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ public class Video extends YouTubeBaseActivity{
     private static final int RECOVERY_REQUEST = 1;
     YouTubePlayerView mYoutubePlayerView;
     YouTubePlayer.OnInitializedListener monInitializedListener;
-    //Button btnPlay;
+    ImageButton return_btn2;
     private MyPlayerStateChangeListener playerStateChangeListener;
     private MyPlaybackEventListener playbackEventListener;
 
@@ -32,7 +33,14 @@ public class Video extends YouTubeBaseActivity{
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.youtube_video);
-        //btnPlay = (Button) findViewById(R.id.start_yt);
+        return_btn2 = (ImageButton) findViewById(R.id.return_btn2);
+        return_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Drawer_Activity.class);
+                startActivity(intent);
+            }
+        });
         mYoutubePlayerView = (YouTubePlayerView) findViewById(R.id.Youtube_display);
         playerStateChangeListener = new MyPlayerStateChangeListener();
         playbackEventListener = new MyPlaybackEventListener();

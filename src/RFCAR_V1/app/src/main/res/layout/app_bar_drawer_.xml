@@ -70,33 +70,11 @@
         app:layout_constraintVertical_bias="0.685"
         app:srcCompat="@drawable/control" />
 
-    <TextView
-        android:id="@+id/wifi_msg_read"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.62"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/control_btn" />
-
-    <Button
-        android:id="@+id/wifi_msg_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wifi msg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/wifi_msg_read"
-        app:layout_constraintHorizontal_bias="0.136"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/control_btn"
-        app:layout_constraintVertical_bias="0.542" />
 
     <TextView
         android:id="@+id/connection_status"
-        android:layout_width="3dp"
-        android:layout_height="19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="#8BC34A"
         android:textSize="18sp"
         android:textStyle="bold"

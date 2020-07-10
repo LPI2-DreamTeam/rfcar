@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,14 +33,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
-
 //***** TEMPLATE *****/
 /*******************************************************************************************************
  NAME:			    FunctionName
@@ -113,17 +107,9 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
         private final static String seed = "C&F)J@NcRfUjXn2r4u7x!A%D*G-KaPdS"; //256-bits key
 
         private static final String TAG_A = "Drawer_Activity";
-        private TextView wifi_read_box;
         private TextView wifi_connection_status;
-        private Button send_wifi_msg;
-        private WifiConnectionManager wifiConnectionManager;
 
         WifiManager wifiManager;
-        WifiP2pManager mManager;
-        WifiP2pManager.Channel mChannel;
-
-        BroadcastReceiver mReceiver;
-        IntentFilter mIntentFilter;
 
         /*******************************************************************************************************
          NAME:			    initMsgList
@@ -218,107 +204,15 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
             }
         });
 
-
-    /****************
-     * WIFI HANDLER *
-     ****************/
-
-    static final int MESSAGE_READ_WIFI = 1;
-
-    Handler wifiHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            switch (msg.what){
-                case MESSAGE_READ_WIFI:
-                    byte[] readBuffer = (byte[]) msg.obj;
-                    String Msg = new String(readBuffer,0,msg.arg1);
-                    wifi_read_box.setText(Msg);
-                    break;
-
-            }
-            return true;
-        }
-    });
-
-    /***************************
-     * WIFI CONNECTION MANAGER *
-     ***************************/
-
-    private class WifiConnectionManager extends Thread{
-        private Socket wifiSocket;
-        private InputStream wifiInputStream;
-        private OutputStream wifiOutputStream;
-
-        //Constructor
-        public WifiConnectionManager(Socket paramSocket){
-            wifiSocket = paramSocket;
-
-            try {
-                wifiInputStream = wifiSocket.getInputStream();
-                wifiOutputStream = wifiSocket.getOutputStream();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.e(TAG, "WifiConnectionManager: Couldn't get Input/Output Stream");
-            }
-        }
-
-        @Override
-        public void run() {
-            super.run();
-            byte[] wifiBuff = new byte[1024];
-            int num_bytes_read;
-
-            while(wifiSocket != null){
-                try {
-                    num_bytes_read = wifiInputStream.read(wifiBuff); //-1 returned if there's no more data
-
-                    if(num_bytes_read>0){ //message valid
-                        wifiHandler.obtainMessage(MESSAGE_READ_WIFI,num_bytes_read,-1,wifiBuff).sendToTarget();
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "run: Failed Reading InputStream into wifi buffer");
-                }
-            }
-        }
-
-        public void sendWifiMessage(byte[] msgBytes){
-            try {
-                wifiOutputStream.write(msgBytes);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.e(TAG, "SendWifiMessage: Couldn't send message over Wifi");
-            }
-        }
-    }
-
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_drawer_);
 
-            wifi_read_box = (TextView) findViewById(R.id.wifi_msg_read);
             wifi_connection_status = (TextView) findViewById(R.id.connection_status);
-            send_wifi_msg = (Button) findViewById(R.id.wifi_msg_btn);
-            send_wifi_msg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String msg2send = "Hello World! - Android";
-                    wifiConnectionManager.sendWifiMessage(msg2send.getBytes());
-                }
-            });
 
             wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
-            mChannel = mManager.initialize(this,getMainLooper(),null);
-
-            mReceiver = new WifiDirectBroadcastReceiver(mManager,mChannel,this);
-            mIntentFilter = new IntentFilter();
-            mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
-            mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
-            mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
-            mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
+            wifi_connection_status.setText(R.string.idle);
 
             //////
 
@@ -406,7 +300,31 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
                 }
                 else{
                     wifiManager.setWifiEnabled(true);
-                    showToast("Acknowledge: Wifi is now enabled",3,SHORT_TOAST);
+                    showToast("Acknowledge: Wifi is enabled if permission granted", 3, Drawer_Activity.SHORT_TOAST);
+                }
+            }
+
+            /****************************
+             * ON WIFI DISCOVER PRESSED *
+             ****************************/
+            if(id == R.id.wifi_discover){
+
+                if(!wifiManager.isWifiEnabled()){
+                    //Closes the drawer
+                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);
+                    showToast("Error: Device disconnected, please enable android wifi",4,LONG_TOAST);
+                }
+                else {
+                    //Closes the drawer
+                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);
+
+                    Log.d(TAG, "onNavigationItemSelected: Try wifi discovery");
+                    Intent intent = new Intent(this, WifiActivity.class);
+                    startActivity(intent);
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,
+                    //new WifiFragment()).commit();
                 }
             }
 
@@ -683,18 +601,6 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
                 }
             }
         };
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(mReceiver, mIntentFilter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(mReceiver);
-    }
 
         /**************************************
          * GENERIC ACTIVITY ON DESTROY METHOD *
