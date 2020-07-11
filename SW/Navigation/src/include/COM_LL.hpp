@@ -19,12 +19,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <memory>
-#include <bluetooth/bluetooth.h>
-#include <bluetooth/rfcomm.h>
-
-
-#include <bluetooth/hci.h>
-#include <bluetooth/hci_lib.h>
 #include <fcntl.h>
 
 // AF_UNIX is used for communication between processes in the same machine efficiently
