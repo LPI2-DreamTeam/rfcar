@@ -1,0 +1,58 @@
+%SUBSECTION - control
+\subsubsection{Discrete PID}
+
+To control the system, a PID controller was used for the reason that it is the most used of all controllers in this type of cases and also leads to better system behavior because of the following statements : the proportional action defines the velocity of approach to the value in steady state; the integral action reduces the error in steady state by integrating the error; the derivative action anticipates the response, deriving the error, allowing to reduce the oscillatory behavior of the system response and its integration in the controller should always be analysed, principally in systems with a lot of noise, to avoid instability in the system.\\
+The PID controller can be implemented either in analog or digital, however, the implementation it is usually digital using a system with a microprocessor associated. This method can also improve the performance by allowing control of actuator saturation(wind-up), even in systems with a lot of noise in the measured variables. Thus, the digital control system performs the sampling of inputs of interest, calculates the value of the control variable and then, if necessary, convert it to an analog value. The sampling introduces a delay in the system and keep the entry value between consecutive samples, leading to the concept of retainer. Normally, the Zero Order Holder (ZOH) is selected to model this effect in the control.\\
+
+The analog PID controller equation is given by Eq. \ref{equ:pid-analog}:
+\begin{equation}
+\label{equ:pid-analog}
+C(t) = C_{est} + K_c\bigg(e(t) + \frac{1}{\tau_i} \int e(t')dt' + \tau_d \frac{de(t)}{dt}\bigg)
+\end{equation}
+\begin{itemize}
+\item C(t): control action
+\item \(C_{est}\): control action in steady state;
+\item \(K_c\): proportional controller gain;
+\item \(\tau_i\): integral time constant;
+\item \(\tau_d\): derivative time constant;
+\item \(r(t) = y_r(t) - y(t)\): error, given by the difference between reference and the output of the system.
+\end{itemize}
+
+The discrete PID controller equation is obtained by discretizing the Eq. \ref{equ:pid-analog} term to term in moments \(n\) and \(n-1\), resulting in
+Eq. \ref{equ:pid-discrete}, called position algorithm:
+\begingroup
+\small
+\begin{equation}
+\label{equ:pid-discrete}
+C[n] = C_{est} {+} K_c\bigg(e[n] {+} \frac{T}{\tau_i} \sum_{i=0}^n e[i] + \tau_d \frac{e[n]{-}e[n {-} 1]}{T}\bigg)
+\end{equation}
+\endgroup
+\begin{itemize}
+\item C[n]: control action
+\item \(C_{est}\): control action in steady state;
+\item \(K_c\): proportional controller gain;
+\item \(\tau_i\): integral time constant [s];
+\item \(\tau_d\): derivative time constant [s];
+\item \(e[n] = y_r[n] - y[n]\): error, given by the difference between reference and the output of the system for instant n.
+\item \(e[n{-}1]\): error for instant n-1.
+\item \(T\): sampling period [s]
+\end{itemize}
+Determing the equivalences for the controller’s earnings in the most conventional one: 
+\begin{equation}
+\label{equ:pid-discrete-params}
+K_p = K_c;~K_i = K_c\frac{T}{\tau_i};~K_d = K_c \frac{\tau_d}{T}
+\end{equation}
+
+There are other algorithms for PID control, namely the speed algorithm and the modified ones (position and speed). The speed algorithm calculates the variation of the controller output signal in relation to the immediately previous moment, presenting advantages over position algorithm as it does not need initialization and protects against eventual saturation of the controller (wind-up) and against computational failures. The modified algorithms aim to mitigate the derivate jump when there is an abrupt change in the error, by applying the derivate action to the measured variable instead of the error.\\
+
+To the modified speed algorithm will then come:
+\begin{equation}
+\label{equ:pid-discrete-veloc-modif}
+\begin{split}
+C[n] = C[n-1] + K_c\bigg((y_m[n{-}1]-y_m[n]) + \frac{T}{\tau_i} e[n] \\ + \tau_d \frac{{-} y_m[n] {+} 2 y_m[n{-}1] {-} y_m[n{-}2] }{T}\bigg)
+\end{split}
+\end{equation}
+
+
+
+	
