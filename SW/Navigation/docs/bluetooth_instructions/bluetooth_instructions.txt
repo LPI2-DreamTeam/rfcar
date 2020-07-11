@@ -1,0 +1,78 @@
+# comentario
+> acao generica
+$ comando
+
+
+NO WINDOWS
+
+> Verificar se existe uma COM port associada ao bluetooth em [Device manager -> 
+Ports (COM & LPT)]
+
+SE NAO existe:
+	
+	> Ir a [Settings(Windows 10 app) -> Bluetooth & other devices -> More
+	Bluetooth options > COM ports]
+	> Add -> Incoming -> OK(uma porta é atribuída automaticamente)
+	
+	SE queremos mudar a porta:
+
+	> Ir a [Device manager ->  Ports (COM & LPT)]
+	> Double click na porta que queremos mudar
+	> Port Settings -> Advanced... -> COM port number -> escolher porta 
+
+
+> Ir a VirtualBox -> Settings(da maquina virtual) -> Serial Ports
+> No primeiro drop-down: Selecionar a porta (COM1->COM4) do GUEST (linux, neste 
+caso)
+	# Tabela de correspondências:
+	# (WINDOWS)COM1 -> (LINUX)/dev/ttyS0
+	# (WINDOWS)COM2 -> (LINUX)/dev/ttyS1
+	# (WINDOWS)COM3 -> (LINUX)/dev/ttyS2
+	# (WINDOWS)COM4 -> (LINUX)/dev/ttyS3
+	# Para efeito de exemplo, suponhamos que queremos aceder ao módulo bluetooth
+	# pelo ficheiro /dev/ttyS3 no nosso GUEST. Nesse caso, selecionaríamos a 
+	# porta COM4  
+> No segundo drop-down: Selecionar "Host device"
+> Na checkbox: Selecionar
+> Escrever nome da porta do HOST (windows, neste caso) associada ao dispositivo 
+bluetooth (formato \\.\[COM1->COM256])
+
+> Lançar a máquina virtual
+
+
+
+NO LINUX
+
+# Adicionar utilizador ao dialout group
+$ sudo usermod -a -G dialout $USER
+
+> Log out e log in novamente
+
+
+FIM
+
+
+TESTE:
+LINUX 
+
+
+# Para testar conectar o telefone com uma aplicação tal como Serial Bluetooth 
+# Terminal (https://play.google.com/store/apps/details?id=de.kai_morich.serial_bluetooth_terminal&hl=pt_PT)
+# (é importante para funcionar que a porta COM do HOST associada ao dispositivo 
+# bluetooth esteja aberta - por exemplo, simplesmente lançando a maquina virtual 
+# depois de fazer a configuração inicial, como já deve ter sido feito se já 
+# chegamos a este ponto, ou lançando um programa como o Termite e ligando a essa 
+# mesma porta)
+
+# Num qualquer terminal 1
+$ cat -v < [porta certa da tabela de correspondencias]
+
+> Mandar uma mensagem do telefone para o computador. Esta mensagem deve 
+aparecer no terminal 1 e ser ecoada de volta para o telefone.
+
+# Num qualquer terminal 2
+$ echo "Hello, world!\n" > [porta certa da tabela de correspondencias]
+
+# Hello, world! deve aparecer no telefone
+
+
