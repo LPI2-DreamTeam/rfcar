@@ -31,18 +31,20 @@ Returning the model in order to $\dot{x}$ and $ \dot{y}$:
 \dot{y}&=v(t) sin(\psi)+\frac{\ell}{2}\omega(t) cos(\psi)\\
 \dot{\psi}&=\omega(t)=\frac{v(t)}{\ell}\theta
 \end{align}
-\subsubsection{Simulink Model}
-Converting the model calculated in~\ref{sec:concep} into a simulink subsystem:
+\subsubsection{Simulation Model}
+The mathematical model determined in Section~\ref{sec:concep} was simulated in
+the Matlab/Simulink environment. Converting the mathematical model into a
+simulink subsystem yields (Fig.~\ref{fig:carModel}):
 \begin{figure}[!htbp]
 \centering
        \includegraphics[page=1,width=1\textwidth]{img/subsystem.png} 
 \caption{Car Model in a Simulink Subsystem}
-\label{img:carModel}
+\label{fig:carModel}
 \end{figure}
-After obtaining the model of the car, the control simulations of the system may begin:
+The objective of the control module is making sure that the linear velocities of the right and left wheels achieve the desired values, consequently controlling the linear velocity of the rover and its steering angle. Therefore that is what the simulation model takes into account, two controllers, one for each, wheel will make sure that both the steeting angle and the linear velocity reach the desired values. This results in the schematic obtained in Fig.~\ref{fig:simSche}.
 \begin{figure}[!htbp]
 \centering
        \includegraphics[page=1,width=1\textwidth]{img/system.png} 
 \caption{Simulation Schematic}
+\label{fig:simSche}
 \end{figure}\\
-The simulation schematic uses the model in figure~\ref{img:carModel} within the "Car Model" subsystem to simulate the response of the system to a step reference of the desired velocity and a constant reference of the angle to which the car should turn towards. It calculates the norm of the velocity vector, returns it as feedback and also uses it to pass through subsystem1 that will return the different velocities at which each of the rear wheels must turn in order to achieve said angle.
