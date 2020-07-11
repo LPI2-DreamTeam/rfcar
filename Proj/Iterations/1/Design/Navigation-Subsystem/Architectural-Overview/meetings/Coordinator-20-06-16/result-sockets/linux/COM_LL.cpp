@@ -8,6 +8,9 @@
 #include <algorithm>
 #include <thread>
 #include <cerrno>
+#include <unistd.h>
+
+#include <termios.h> // Contains POSIX terminal control definitions
 
 // AF_UNIX is used for communication between processes in the same machine efficiently
 #define SERIAL_SOCKET_FAMILY	AF_UNIX
@@ -63,17 +66,17 @@ namespace COM {
 			if (port_occupation[port] == true) {
 				this->dead = true;
 				last_error = INVALID_PORT;
-				last_error_str = "The object was given an valid port number that was already taken\n";
+				last_error_str = "ERROR[INVALID_CONFIG]: The object was given an valid port number that was already taken\n";
 			} else {
 				this->dead = false;
 				last_error = OK;
-				last_error_str = "The object was correctly configured\n";
+				last_error_str = "OK: The object was correctly configured\n";
 				port_occupation[port] = true;
 			}
 		} else {
 			this->dead = true;
 			last_error = INVALID_PORT;
-			last_error_str = "The object was given an invalid port number\n";
+			last_error_str = "ERROR[INVALID_CONFIG]: The object was given an invalid port number\n";
 		}
 
 		this->connected = false;
@@ -246,18 +249,18 @@ namespace COM {
 			if (port_occupation[port] == true) {
 				this->dead = true;
 				last_error = INVALID_PORT;
-				last_error_str = "The object was given an valid port number that was already taken\n";
+				last_error_str = "ERROR[INVALID_CONFIG]: The object was given an valid port number that was already taken\n";
 			} else {
 				this->dead = false;
 				last_error = OK;
-				last_error_str = "The object was correctly configured\n";
+				last_error_str = "OK: The object was correctly configured\n";
 				port_occupation[port] = true;
 			}
 		} else {
 
 			this->dead = true;
 			last_error = INVALID_PORT;
-			last_error_str = "The object was given an invalid port number\n";
+			last_error_str = "ERROR[INVALID_CONFIG]: The object was given an invalid port number\n";
 		}
 		
 		this->connected = false;	
@@ -429,7 +432,7 @@ namespace COM {
 
 		listened = true;
 		last_error = OK;
-		last_error_str = "OK: Listen for connection\n";
+		last_error_str = "OK: Listening for connection\n";
 
 		return last_error;
 	}
@@ -460,7 +463,7 @@ namespace COM {
 		// Signal connection established
 		this->connected = true;
 		last_error = OK;
-		last_error_str = "OK: Accept connection\n";
+		last_error_str = "OK: Acepted connection\n";
 
 		return last_error;
 	}
@@ -484,23 +487,21 @@ namespace COM {
 			if (port_occupation[port] == true) {
 				this->dead = true;
 				last_error = INVALID_PORT;
-				last_error_str = "The object was given an valid port number that was already taken\n";
+				last_error_str = "ERROR[INVALID_CONFIG]: The object was given an valid port number that was already taken\n";
 			} else {
 				this->dead = false;
 				last_error = OK;
-				last_error_str = "The object was correctly configured\n";
+				last_error_str = "OK: The object was correctly configured\n";
 				port_occupation[port] = true;
 			}
 		} else {
 
 			this->dead = true;
 			last_error = INVALID_PORT;
-			last_error_str = "The object was given an invalid port number\n";
+			last_error_str = "ERROR[INVALID_CONFIG]: The object was given an invalid port number\n";
 		}
 		
 		this->connected = false;
-		this-> local_address = { 0 };
-		this-> client_address = { 0 };
 		this->listened = false;
 		
 	}
@@ -512,83 +513,83 @@ namespace COM {
 
 	Error LL<BLUETOOTH, SERVER>::readStr(char * p_buff, uint32_t len) {
 		
-		// std::unique_lock<std::mutex>lock(this->mutex.native());
+		std::unique_lock<std::mutex>lock(this->mutex.native());
 
-		// if (!this->connected) {
-		// 	last_error = NOT_CONNECTED;
-		// 	last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
+		if (!this->connected) {
+			last_error = NOT_CONNECTED;
+			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
 
-		// } else if (this->dead) {
-		// 	last_error = DEAD;
-		// 	last_error_str = "ERROR[DEAD]: Object is dead\n";
+		} else if (this->dead) {
+			last_error = DEAD;
+			last_error_str = "ERROR[DEAD]: Object is dead\n";
 			
-		// } else if (read(this->connect_socket_fd, p_buff, len) < 0) {
-		// 	last_error = READ_FAIL;
-		// 	last_error_str = "ERROR[READ_FAIL]: Failed reading from socket\n";
+		} else if (read(this->serial_fd, p_buff, len) < 0) {
+			last_error = READ_FAIL;
+			last_error_str = "ERROR[READ_FAIL]: Failed reading from socket\n";
 		
-		// } else {
-		// 	last_error = OK;
-		// 	last_error_str = "OK: Read string\n";
-		// }
+		} else {
+			last_error = OK;
+			last_error_str = "OK: Read string\n";
+		}
 
 		return last_error;
 	}
 
 	Error LL<BLUETOOTH, SERVER>::writeStr(const char * p_buff, uint32_t len) {
-		
-		// std::unique_lock<std::mutex>lock(this->mutex.native());
 
-		// if (!this->connected) {
-		// 	last_error = NOT_CONNECTED;
-		// 	last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
+		std::unique_lock<std::mutex>lock(this->mutex.native());
 
-		// } else if (this->dead) {
-		// 	last_error = DEAD;
-		// 	last_error_str = "ERROR[DEAD]: Object is dead\n";
+		if (!this->connected) {
+			last_error = NOT_CONNECTED;
+			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
+
+		} else if (this->dead) {
+			last_error = DEAD;
+			last_error_str = "ERROR[DEAD]: Object is dead\n";
 			
-		// } else if (write(this->connect_socket_fd, p_buff, len) < 0) {
-		// 	last_error = WRITE_FAIL;
-		// 	last_error_str = "ERROR[WRITE_FAIL]: Failed writing to socket\n";
+		} else if (write(this->serial_fd, p_buff, len) < 0) {
+			last_error = WRITE_FAIL;
+			last_error_str = "ERROR[WRITE_FAIL]: Failed writing to socket\n";
 		
-		// } else {
-		// 	last_error = OK;
-		// 	last_error_str = "OK: Write string\n";
-		// }
+		} else {
+			last_error = OK;
+			last_error_str = "OK: Write string\n";
+		}
 
 		return last_error;
 	}
 
 	bool LL<BLUETOOTH, SERVER>::isConnected(void)  {
 
-		// std::unique_lock<std::mutex>lock(this->mutex.native());
+		std::unique_lock<std::mutex>lock(this->mutex.native());
 
 		return this->connected;
 	}
 
 	void LL<BLUETOOTH, SERVER>::kill(void) {
 
-		// std::unique_lock<std::mutex>lock(this->mutex.native());
+		std::unique_lock<std::mutex>lock(this->mutex.native());
 
-		// shutdown(this->listen_socket_fd, SHUT_RDWR);
-		// this->dead = true;
+		shutdown(this->serial_fd, SHUT_RDWR);
+		this->dead = true;
 	}
 
 	Error LL<BLUETOOTH, SERVER>::closeConnection(void) {
 
-		// std::unique_lock<std::mutex>lock(this->mutex.native());
+		std::unique_lock<std::mutex>lock(this->mutex.native());
 
-		// if (this->connected) {
+		if (this->connected) {
 
-		// 	if (close(this->listen_socket_fd) < 0) {
-		// 		last_error = CLOSE_FAIL;
-		// 		last_error_str = "ERROR[CLOSE_FAIL]: Failed closing connection\n";
-		// 		return CLOSE_FAIL;
-		// 	}
-		// }
+			if (close(this->serial_fd) < 0) {
+				last_error = CLOSE_FAIL;
+				last_error_str = "ERROR[CLOSE_FAIL]: Failed closing connection\n";
+				return CLOSE_FAIL;
+			}
+		}
 
-		// this->connected = false;
-		// last_error = OK;
-		// last_error_str = "OK: Close connection\n";
+		this->connected = false;
+		last_error = OK;
+		last_error_str = "OK: Close connection\n";
 
 		return last_error;
 	}
@@ -607,78 +608,71 @@ namespace COM {
 	Error LL<BLUETOOTH, SERVER>::listenConnection(void) {
 
 		std::unique_lock<std::mutex>lock(this->mutex.native());
+		std::string serial_port = "/dev/ttyS" + std::to_string(port - 1);
 
-		int dev_id, sock;
-		hci_dev_info dev_info;
+		this->serial_fd = open(serial_port.c_str(), O_RDWR);
 
-		dev_id = hci_get_route(NULL);
-		if (dev_id < 0) {
+		// Check for errors
+		if (serial_fd < 0) {
 			last_error = OPEN_FAIL;
-			last_error_str = "No Bluetooth adapter available\n";
+			last_error_str = "ERROR[OPEN_FAIL]: Failed to open " + serial_port + "\n";
 			return last_error;
 		}
 
-		if (hci_devinfo(dev_id, &dev_info) < 0) {
+		// Create new termios struct, we call it 'tty' for convention
+		struct termios tty;
+		memset(&tty, 0, sizeof tty);
+
+		// Read in existing settings, and handle any error
+		if(tcgetattr(serial_fd, &tty) != 0) {
 			last_error = OPEN_FAIL;
-			last_error_str = "Can't get device info\n";
+			last_error_str = "ERROR[OPEN_FAIL]: Failed to get port attributes\n";
 			return last_error;
 		}
 
-		sock = hci_open_dev( dev_id );
-		if (sock < 0) {
-			last_error = OPEN_FAIL;
-			last_error_str = "HCI device open failed\n";
-			return last_error;
-		}
+		tty.c_cflag &= ~PARENB; // Disable parity
+		tty.c_cflag &= ~CSTOPB; // One stop bit 
+		tty.c_cflag |= CS8; 	// 8 bits per bytetty.c_cflag |= CS8; // 8 bits per byte
+		tty.c_cflag &= ~CRTSCTS; // Disable RTS/CTS hardware flow control
+		tty.c_cflag |= CREAD | CLOCAL; // Turn on READ & ignore ctrl lines
 
+		tty.c_lflag &= ~ICANON; // DIsable canonical mode (not wait for \n)
+		tty.c_lflag &= ~ECHO; // Disable echo
+		tty.c_lflag &= ~ECHOE; // Disable erasure
+		tty.c_lflag &= ~ECHONL; // Disable new-line echo
+		tty.c_lflag &= ~ISIG; // Disable interpretation of INTR, QUIT and SUSP
 
-		// There is already a socket file descriptor atributed
-		if (this->listen_socket_fd > 0) {
-			last_error = ALREADY_OPEN;
-			last_error_str = "ERROR[ALREADY_OPEN]: There is already a socket file descriptor atributed\n";
-			return last_error;
-		}
-
-		// Request an endpoint for communication
-		this->listen_socket_fd = socket(BLUETOOTH_SOCKET_FAMILY, BLUETOOTH_SOCKET_TYPE, BTPROTO_RFCOMM);
+		tty.c_iflag &= ~(IXON | IXOFF | IXANY); // Turn off s/w flow ctrl
+		tty.c_iflag &= ~(IGNBRK|BRKINT|PARMRK|ISTRIP|INLCR|IGNCR|ICRNL); // Disable any special handling of received bytes
 		
-		// If the socket fails to open
-		if (this->listen_socket_fd < 0) {
-		 	last_error = OPEN_FAIL;
-			last_error_str = "ERROR[OPEN_FAIL]: Failed to open socket\n";
-			return last_error;
-		}
+		tty.c_oflag &= ~OPOST; // Prevent special interpretation of output bytes (e.g. newline chars)
+		tty.c_oflag &= ~ONLCR; // Prevent conversion of newline to carriage return/line feed
 
-		this->local_address.rc_family = BLUETOOTH_SOCKET_FAMILY;
-		this->local_address.rc_bdaddr = {0, 0, 0, 0, 0, 0};
-		this->local_address.rc_channel = htons(this->port);
+		tty.c_cc[VTIME] = 0; 
+		tty.c_cc[VMIN] = 0;
 
-		int opt = sizeof(this->local_address);
-		
-		// Assign the address specified by addr to the socket referred to by the file descriptor sockfd
-		if (bind(this->listen_socket_fd, (struct sockaddr*) & this->local_address, opt) < 0) {
-			
-			// Error feedback
+		// Set in/out baud rate to be 115200
+		cfsetispeed(&tty, B115200);
+		cfsetospeed(&tty, B115200);
+
+		// Save tty settings, also checking for error
+		if (tcsetattr(serial_fd, TCSANOW, &tty) != 0) {
 			last_error = OPEN_FAIL;
-			last_error_str = "ERROR[OPEN_FAIL]: Failed to bind\n";
+			last_error_str = "ERROR[OPEN_FAIL]: Failed to Set desired port attributes\n";
 			return last_error;
 		}
 
-		if (listen(this->listen_socket_fd, 1) < 0) {
-			// Error feedback
-			last_error = OPEN_FAIL;
-			last_error_str = "ERROR[OPEN_FAIL]: Failed to listen\n";
-			return last_error;
-		}
-		
 		listened = true;
 		last_error = OK;
-		last_error_str = "OK: Listen for connection\n";
+		last_error_str = "OK: Listening for connection\n";
 
 		return last_error;
+		
 	}
 
 	Error LL<BLUETOOTH, SERVER>::acceptConnection(void) {
+
+		std::unique_lock<std::mutex>lock(this->mutex.native());
 
 		// Make sure the listen() operation has been executed
 		if (this->listened == false) {
@@ -687,22 +681,12 @@ namespace COM {
 			return last_error;
 		}
 
-		socklen_t opt = sizeof(this->client_address);
-
-		this->connect_socket_fd = accept(this->listen_socket_fd, (struct sockaddr*) &this->client_address, &opt);
-		
-
-		// Check if accept() returned a valid file descriptor
-		if (this->connect_socket_fd <= 0) {
-			last_error = ACCEPT_FAIL;
-			last_error_str = "ERROR[ACCEPT_FAIL]: Failed acceptance (invalid file descriptor)\n";
-			return last_error;
-		}
+		// HANDSHAKE
 
 		// Signal connection established
 		this->connected = true;
 		last_error = OK;
-		last_error_str = "OK: Accept connection\n";
+		last_error_str = "OK: Acepted connection\n";
 
 		return last_error;
 	}

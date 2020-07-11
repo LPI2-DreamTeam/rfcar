@@ -1,0 +1,22 @@
+\subsection{Bluetooth Connection}%
+\label{sec:bluetooth-connection}
+As aforementioned earlier in this dissertation, an initial approach consisted of an android that interacted with a RaspberryPi and the STM board.
+%
+However, due to the extraordinary conditions, one can only rely on the virtualization of the latter two for the perpetuation of the following project.
+Specifically, the STM board was simulated on a virtual machine with an 18.04 Lubuntu image, a lightweight Linux distribution based on Ubuntu that provides more freedom, simplicity and compatibility as opposed to other operating systems like Windows 10.
+%
+Starting from the design and reusing previous Java code made on other course units, the Bluetooth setup was implemented on Android Studio and then deployed in a smartphone, the code is depicted in Fig. xx.
+%
+Note that the following code has threads to simulate parallelism computing since the app should be able to send data while also listening to the paired device for receiving data as well.
+%
+Notice also that it was necessary to make some includes in the Bluetooth app as well as virtualize some ports to interface the virtual machine with the smartphone connected to the pc, more thoroughly explained in the testing section.
+%
+Finally, from the smartphone point of view, the protocol purpose was to transmit commands to control the vehicle, via sending phone accelerometers' values and receive its message warnings on screen. 
+%
+So for that reason, an app was made to access the accelerometers. Those values serve as an input, changing a ball direction and velocity controlled this way by the tilting angle of the phone, code shown in Fig. ss.
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../dissertation"
+%%% End:
+
+

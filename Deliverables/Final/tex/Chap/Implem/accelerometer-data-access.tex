@@ -1,0 +1,13 @@
+\subsection{Accelerometer Interaction}%
+\label{sec:accelerometer-access}
+%
+The smartphone has a built-in MEMS accelerometer, this means that at micro-level it can measure acceleration values through capacitance changes in multiple capacitors as a result of its internal assembly (calibration mass and spring contacts) displacement. With at least a MEMS system in each plane (x,y,z), one can measure the acceleration per axis. 
+\subsubsection{Accelerometer Data Retrieval}
+\label{sec:accelerometer-data}
+%
+The code in listing \ref{lst:get_accelerometer_vals} represents the retrieval of the linear acceleration for each plane.
+In the first place, the definition of the sensor type is crucial to access its values. \textbf{SensorManager} grants access to the sensors of the android device. Following, one must create a listener that check the sensors values at a determined sampling frequency using the SensorManager's method \textbf{registerListener}. Upon doing so, one overwrites the \textbf{onSensorChanged} method so the pretended variables that hold the values of the sensor can only be updated on smartphone movement.
+An acceleration sensor measures the acceleration applied to the device but regarding the force of gravity. For this reason, the values retrieved do not represent the linear accelerations for each plane. To resolve this problem, a low pass filter can be used to isolate the force of gravity in each axis and then remove its contibution from the acceleration values.
+
+%\lstinputlisting[language=Java,caption={Accelerometer data retrieval},label=lst:get_accelerometer_vals,style=custom-java]{.listing/accelerometerAccess.java}
+%

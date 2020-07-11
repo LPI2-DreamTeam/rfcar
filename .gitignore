@@ -17,6 +17,11 @@
 *.org
 *.gz
 *.out
+*.gls
+*.glg
+*.slo
 # ignore the designated subfolders
 auto/
 
+
+Deliverables/Final/dissertation.pdf
