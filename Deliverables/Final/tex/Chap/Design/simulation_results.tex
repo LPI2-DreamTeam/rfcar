@@ -23,15 +23,15 @@ In this simulation, Kp will be set as 0.5 and Ki as 2.
 \begin{figure}[!h]
 \centering
 \includegraphics[width=1.0\textwidth]{./img/pid052.png}
-\caption {\label{fig:pid1 - p05i2}Kp=0.5, Ki=2}
+\caption {\label{fig:pid1-p05i2}Kp=0.5, Ki=2}
 \end{figure}
 As the Kp value was not changed, the initial linear speed value remains the same. As for the time it takes the car to reach steady state, it was reduced to 3 seconds due to the increase of the Ki parameter.\\
 In ideal conditions, the aim would be for the car to reach the desired speed
 instantly, but due to the real limitations, such as wheel sliding, 3 seconds is
 a a safe value.
 %
-\subsubsection{Sample time determination}
-In order to choose the sample time, one needs to take in consideration that with the decrease of the sample time, the processing overhead will increase and with the increase of the sample time, the system response will have abrupt changes affecting the performance of the car. So, in order to accommodate both necessities, the sample time will be set to 50ms.
+\subsubsection{Sampling time determination}
+In order to choose the sampling time, one needs to take in consideration that with the decrease of the sampling time, the processing overhead will increase and with the increase of the sampling time, the system response will have abrupt changes affecting the performance of the car. So, in order to accommodate both necessities, the sampling time will be set to 50ms.
 %\newpage
 \subsubsection{System response}
 Having determined the parameters of the controller, the next step is to simulate the response of the system.
