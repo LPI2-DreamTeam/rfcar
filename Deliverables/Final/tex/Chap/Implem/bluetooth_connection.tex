@@ -1,19 +1,29 @@
-\subsection{Bluetooth Connection}%
-\label{sec:bluetooth-connection}
+\subsection{Bluetooth}%
+\label{sec:bluetooth-implem}
+%
 As aforementioned earlier in this dissertation, an initial approach consisted of an android that interacted with a RaspberryPi and the STM board.
 %
 However, due to the extraordinary conditions, one can only rely on the virtualization of the latter two for the perpetuation of the following project.
-Specifically, the STM board was simulated on a virtual machine with an 18.04 Lubuntu image, a lightweight Linux distribution based on Ubuntu that provides more freedom, simplicity and compatibility as opposed to other operating systems like Windows 10.
+Specifically, the STM board was simulated on a virtual machine with an \textbf{18.04 Lubuntu image}, a lightweight Linux distribution based on Ubuntu that provides more freedom, simplicity and compatibility as opposed to other operating systems like Windows 10.
 %
-Starting from the design and reusing previous Java code made on other course units, the Bluetooth setup was implemented on Android Studio and then deployed in a smartphone, the code is depicted in Fig. xx.
+This change implied some modifications in the smartphone Bluetooth module when interfacing with a virtual device rather than a physical one.
 %
-Note that the following code has threads to simulate parallelism computing since the app should be able to send data while also listening to the paired device for receiving data as well.
+\subsubsection{Bluetooth Connection Setup}
+\label{sec:bluetooth-connection-setup}
+Starting from the design and reusing previous Java code made on other course units (based on \cite{btchatsrc}), the Bluetooth setup was implemented on Android Studio and then deployed in a smartphone, the code is depicted in listing \ref{lst:bt-setup}.
 %
-Notice also that it was necessary to make some includes in the Bluetooth app as well as virtualize some ports to interface the virtual machine with the smartphone connected to the pc, more thoroughly explained in the testing section.
+Note that the forementioned code has \textbf{threads} to simulate parallelism computing since the app should be able to send data to the paired device and receive data from it.
 %
-Finally, from the smartphone point of view, the protocol purpose was to transmit commands to control the vehicle, via sending phone accelerometers' values and receive its message warnings on screen. 
+In lines 10, 11 and 12, are represented the three thread classes used for the Bluetooth connection setup. These classes inherit from the \textbf{Thread class} (\underline{extends Thread} - line 114), considering it must exist \textbf{concurrency} and \textbf{resource sharing} for the application to send and receive data simultaneously. 
 %
-So for that reason, an app was made to access the accelerometers. Those values serve as an input, changing a ball direction and velocity controlled this way by the tilting angle of the phone, code shown in Fig. ss.
+The \textbf{AcceptThread} (line 10) it's related to the discovery of new connections since it plays an important role in the creation of a \textbf{BluetoothServerSocket} that allows two intended devices to find and accept each other as a part of the initial device inquiry prior to the connection stage. Line 11 represents the \textbf{ConnectThread} responsible for managing the connection between two devices. This thread starts as soon as the two devices accept each other and then proceeds to create a \textbf{RfcommSocket} and connect the devices (pair) when the user clicks on an unpaired device from the list presented. Finally, the \textbf{IOThread} assures the message exchange between devices by accessing the input and output streams of the \textbf{Bluetooth Socket}.
+%
+As stated earlier, it was necessary to make some includes in the Bluetooth app as well as virtualize some ports in order to interface the \gls{pc} virtual machine with the smartphone, this will be more thoroughly explained in the testing section (\ref{sec:bt-connection-test}).
+%
+Finally, from the smartphone point of view, the protocol purpose was to transmit commands to control the vehicle by sending the phone accelerometers' values and receive its message warnings on screen.\\
+%
+\lstinputlisting[language=Java,caption={Code for bluetooth connection setup},label=lst:bt-setup,style=custom-java]{listing/btSetup.java}
+%
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../../dissertation"

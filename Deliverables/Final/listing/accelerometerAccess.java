@@ -3,12 +3,12 @@ private float sensorX, sensorY, sensorZ;
 
 ...
 
- Log.d(TAG, "onCreate: Initializing Sensor Services");
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+Log.d(TAG, "onCreate: Initializing Sensor Services");
+sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        Log.d(TAG, "onCreate: Registered accelerometer listener");
+accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+Log.d(TAG, "onCreate: Registered accelerometer listener");
 		
 ...
 
