@@ -1,11 +1,11 @@
-\subsection{Bluetooth Connection and UI}%
+\subsection{Bluetooth Connection}%
 \label{sec:bluetooth-connection}
 As aforementioned earlier in this dissertation, an initial approach consisted of an android that interacted with a RaspberryPi and the STM board.
 %
 However, due to the extraordinary conditions, one can only rely on the virtualization of the latter two for the perpetuation of the following project.
 Specifically, the STM board was simulated on a virtual machine with an 18.04 Lubuntu image, a lightweight Linux distribution based on Ubuntu that provides more freedom, simplicity and compatibility as opposed to other operating systems like Windows 10.
 %
-Starting from the design and reusing previous Java code made on other course units, both the Bluetooth setup and \gls{ui} were implemented accordingly on Android Studio deployed in a smartphone, code and \gls{ui} depicted in Fig. xx and yy, respectively.
+Starting from the design and reusing previous Java code made on other course units, the Bluetooth setup was implemented on Android Studio and then deployed in a smartphone, the code is depicted in Fig. xx.
 %
 Note that the following code has threads to simulate parallelism computing since the app should be able to send data while also listening to the paired device for receiving data as well.
 %
