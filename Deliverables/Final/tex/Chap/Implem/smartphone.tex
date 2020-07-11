@@ -1,5 +1,8 @@
 %\section{Smartphone}
 %\label{sec:smartphone-implem}
-The mobile \gls{os} chosen for this project was Android. This section gives an introduction to some android concepts to take into account in section \ref{sec:smartphone-design}. 
+The mobile \gls{os} chosen for this project was \textbf{Android}. Usually, android apps can be implemented using Kotlin, Java and C++. For the \gls{rfcar} project, the language chosen was \textbf{Java} due to the knowledge gained in prior course years where the need to implement android-targeted applications rose. Additionally, the code was conceived using the \textbf{Android Studio} \gls{ide}. One must notice that despite the user-friendliness of the development environment through context-sensitive guidelines and code suggestions, this language and \gls{ide} are not the best in terms of full system control due to the multiple abstraction layers preemptively defined. Therefore, one might wonder why the C++ route with a cross-platform framework like QT wasn't selected. Multiple options were taken into account at this stage and its a fact that the one that ended up being selected might not deliver as much implementation freedom as the second option forementioned. However, it allowed deadline fulfilment and code reuse notwithstanding the additional effort put into delving deeper within some contexts.
+%
+\input{./tex/Chap/Implem/accelerometer-data-access}
 %
 \input{./tex/Chap/Implem/bluetooth_connection}
+%
