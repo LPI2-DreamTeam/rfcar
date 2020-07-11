@@ -1,0 +1,16 @@
+\subsubsection{Bluetooth Connection}%
+\label{sec:bluetooth-connection}
+After effectively changing the direction of a ball according to the accelerometer's state in the test app, one could only need to merge its code developed with the Bluetooth setup, so that, instead of sending plain text messages, one can transfer contents of the phone.
+%
+However, to prove this new compound functionality, the receiving device should also have Bluetooth drivers (setup) and also specific hardware to use that protocol.
+%
+An initial test was made with the HC-05 Bluetooth module inserted on the STM board. That approach only allows system engineers who have access to that module to fully test both Bluetooth client and server. 
+%
+Fortunately, a new solution was found where instead of having to own more hardware, one could run server Bluetooth app in a virtual machine using, for example, COM6 port to communicate, and then redirecting to that port another one (COM9) for the establishment of the phone connection, since the former port was already used by the STM virtualization.
+%
+As depicted in Fig. zz, there is a bidirectional exchange of information proving the android-STM communication functionality.
+%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../dissertation"
+%%% End:
