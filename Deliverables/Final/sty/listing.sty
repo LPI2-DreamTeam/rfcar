@@ -53,7 +53,7 @@
 % Java: src: 
 \lstdefinestyle{custom-java}{
 	language=Java,
-	tabsize = 4, %% set tab space width
+	tabsize = 2, %% set tab space width
 	showstringspaces = false, %% prevent space marking in strings, string is defined as the text that is generally printed directly to the console
 	numbers = left, %% display line numbers on the left
 	commentstyle = \itshape\color{purple!40!black}, %% set comment color
@@ -61,10 +61,11 @@
 	identifierstyle=\color{blue},
 	stringstyle = \color{orange}, %% set string color
 	rulecolor = \color{black}, %% set frame color to avoid being affected by text color
-	basicstyle = \footnotesize\ttfamily , %% set listing font and size
+	basicstyle = \scriptsize\ttfamily, %% set listing font and size
 	breaklines = true, %% enable line breaking
 	numberstyle = \tiny,
-	stepnumber=1,
+%        firstnumber=1,
+	stepnumber=5,
 	xleftmargin=\parindent,
 	backgroundcolor=\color{yellow!10}, 
     frame=L,
