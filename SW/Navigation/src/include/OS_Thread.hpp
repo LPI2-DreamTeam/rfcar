@@ -10,9 +10,6 @@
 
 namespace OS {
 
-	typedef std::chrono::time_point<std::chrono::system_clock> Time;
-	typedef std::chrono::milliseconds TimeUnit;
-
 	class Thread {
 
 	public:
