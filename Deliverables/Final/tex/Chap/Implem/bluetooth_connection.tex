@@ -1,18 +1,13 @@
 \subsection{Bluetooth}%
 \label{sec:bluetooth-implem}
 %
-As aforementioned earlier in this dissertation, an initial approach consisted of an android that interacted with a RaspberryPi and the STM board.
-%
-However, due to the extraordinary conditions, one can only rely on the virtualization of the latter two for the perpetuation of the following project.
-Specifically, the STM board was simulated on a virtual machine with an \textbf{18.04 Lubuntu image}, a lightweight Linux distribution based on Ubuntu that provides more freedom, simplicity and compatibility as opposed to other operating systems like Windows 10.
-%
-This change implied some modifications in the smartphone Bluetooth module when interfacing with a virtual device rather than a physical one.
+Bluetooth is one of the (redundancy) communication technologies specified in the project analysis (section \ref{ch:analysis}), hence it is important to assure the data flow between the smartphone and the \gls{nvs} on another redundancy communication failure like Wi-Fi. 
 %
 \subsubsection{Bluetooth Connection Setup}
 \label{sec:bluetooth-connection-setup}
 Starting from the design and reusing previous Java code made on other course units (based on \cite{btchatsrc}), the Bluetooth setup was implemented on Android Studio and then deployed in a smartphone, the code is depicted in listing \ref{lst:bt-setup}.
 %
-Note that the forementioned code has \textbf{threads} to simulate parallelism computing since the app should be able to send data to the paired device and receive data from it.
+Note that the forementioned code has \textbf{threads} to simulate parallel computing since the app should be able to send data to the paired device and receive data from it.
 %
 In lines 10, 11 and 12, are represented the three thread classes used for the Bluetooth connection setup. These classes inherit from the \textbf{Thread class} (\underline{extends Thread} - line 114), considering it must exist \textbf{concurrency} and \textbf{resource sharing} for the application to send and receive data simultaneously. 
 %
