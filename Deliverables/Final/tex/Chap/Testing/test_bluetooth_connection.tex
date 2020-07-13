@@ -16,7 +16,7 @@ However, to prove this new compound functionality, the device to be paired shoul
 %
 However, despite both devices having the forementioned drivers and hardware for the connection to succeed, that didn't happen. After some research on the topic, one can assume that the problem was caused by \textbf{android version mismatching}. Meaning that the \underline{HC-05 only recognised older android versions (prior to 4.2)}.
 %
-Fortunately, a new solution was found where one could run the server Bluetooth app in a virtual machine using, for example, COM6 port to communicate, and then redirect that port to another one (COM9) establishing the connection with the phone. In other words, the android app and bluetooth server app can be connected to different ports and still comunicate, due to the foresaid redirection represented in figure \ref{fig:port-red}. As an advantage, this method requires less hardware resources.\\
+Fortunately, a new solution was found where one could run the server Bluetooth app in a virtual machine using, for example, COM6 port to communicate, and then redirect that port to another one (COM9) establishing the connection with the phone. In other words, the android app and bluetooth server app can be connected to different ports and still comunicate, due to the foresaid redirection represented in figure \ref{fig:port-red}. As an advantage, this method requires less hardware resources.
 %
 \begin{figure}[!ht]
 \centering
@@ -24,6 +24,73 @@ Fortunately, a new solution was found where one could run the server Bluetooth a
 \caption{\label{fig:port-red}Port redirection}
 \end{figure}
 %
+After turning on Bluetooth on both android (ram) and PC devices (JOAO F), as depicted in figure \ref{fig:bt_app_pc}, one could then open the android app and see in main menu its initial functionalities, figure \ref{fig:bt_intro_main}. The app manually requests Bluetooth enabling if it isn't in the beginning.
+%
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{img/bt_app_pc.png}
+\caption{\label{fig:bt_app_pc}Smartphone as "ram" and PC as "JOAOF" with Bluetooth on}
+\end{figure}
+%
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.5\textwidth]{img/bt_intro_main.png}
+\caption{\label{fig:bt_intro_main}BTapp: Initial and main activities, accordingly}
+\end{figure}
+%
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.7\textwidth]{img/bt_disc_list_setup.png}
+\caption{\label{fig:bt_disc_list_setup}BTapp: Discoverable, Start Listening and Connection Setup activities, respectively}
+\end{figure}
+%
+To make an initial connection from square one, the smartphone should be discoverable and then be able to start listening, so that one could configure its connection setup. To do that, the options available in the main menu were clicked in that sequence, and when making it discoverable (even if only for 300 seconds) one should accept, figure \ref{fig:bt_disc_list_setup}.
+%
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.4\textwidth]{img/bt_con_scan_pair_suc.png}
+\caption{\label{fig:bt_con_scan_pair_suc}BTapp and PC: Pressed Scan Devices button, target device pressed and paired successfull message on PC. A PIN number given by the PC must be inserted on app to conclude the pair phase}
+\end{figure}
+%
+\begin{figure}[!hbt]
+\centering
+\includegraphics[width=0.4\textwidth]{img/bt_failed_pair.png}
+\caption{\label{fig:bt_failed_pair}BTapp: Pair failed examples: Wrong pin number or already paired device}
+\end{figure}
+%
+\begin{figure}[!hbt]
+\centering
+\includegraphics[width=0.5\textwidth]{img/bt_sequence_connect.png}
+\caption{\label{fig:bt_sequence_connect}BTapp: Connect phases: List devices pressed, target deviced pressed and successfull display of connection establish toast}
+\end{figure}
+%
+\begin{figure}[!hbt]
+\centering
+\includegraphics[width=0.5\textwidth]{img/bt_sendapp_recpc.png}
+\caption{\label{fig:bt_sendapp_recpc}BTapp and PC BT server: Successfull message exchanged from android to pc and android echo}
+\end{figure}
+%
+\begin{figure}[!hbt]
+\centering
+\includegraphics[width=0.5\textwidth]{img/bt_sendPC_recAPP.png}
+\caption{\label{fig:bt_sendPC_recAPP}BTapp and PC BT server: Successfull message exchanged from pc to android}
+\end{figure}
+%
+\begin{figure}[!hbt]
+\centering
+\includegraphics[width=0.3\textwidth]{img/bt_resending_rereceiving.png}
+\caption{\label{fig:bt_resending_rereceiving}BTapp: It's possible to resend and receive more than once}
+\end{figure}
+%
+When on the connection setup phase, the scan button was clicked to show the PC to connect as a discoverable device and following that, that same device detected was clicked to pair up with the smartphone. When the pairing phase is completed, one out of two outputs happen. The PC device pairs, as proven in last capture of figure \ref{fig:bt_con_scan_pair_suc}, or doesn't as depicted in figure \ref{fig:bt_failed_pair}, as an example. Error messages would pop up whether the PIN introduced on the PC was mismatched or it was already paired in the first place, accordingly. On the former alternative, the connection was possible after pressing list devices button and clicking on the same target device as when pairing, sequence of events displayed in figure \ref{fig:bt_sequence_connect}.
+
+Lastly, after opening output log terminals to receive app messages on the personal computer virtual machine guest operative system, on the principal menu, in the Enter message section, the messages were typed and then sent via clicking the adjacent send button. The message was then echoed on the phone and conveyed to the target (JOAO F) device, where they were displayed. Figure \ref{fig:bt_sendapp_recpc} show app and PC terminal points of view. Regarding figure \ref{fig:bt_sendPC_recAPP}, the message was written on the terminal and received on the smartphone, respectively. Figure \ref{fig:bt_resending_rereceiving} display final state on the app log after resending a different message as well as obtaining another one via the same source. Note that the PC terminal images already depicts all messages exchanged and show the initial command configuration needed for the test to happen.
+
+On one hand, in the receiving terminal, the first command: \textit{$cd$} \textit{$/media/sf\_ze\_bt\_server$}
+changed the directory to where the server app is located. The second: \textit{$make$} \textit{$all$} \textit{$\&\&$ $./com\_ll$} compile all the source files and run \textit{$com\_ll$}.
+
+On the other hand, in the sending terminal, the current directory was changed to \textit{\textit{$/dev$}} with the command: \textit{$cd$} \textit{$/dev$}
+to navigate to where virtual COM4 (ttyS3) so that messages could be sent through, as exemplified in the instruction: \textit{$echo$ $Msg$ $da$ $VM$} \textit{$> ttyS3$}. 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../../dissertation"
