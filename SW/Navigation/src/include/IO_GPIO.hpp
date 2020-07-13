@@ -37,7 +37,7 @@ namespace IO {
 
 	private:	// Private static members
 
-		static States global_states;
+		static IO::GPIO::States global_states;
 
 	public: 
 		
@@ -46,16 +46,16 @@ namespace IO {
 		/**
 		 * @param config Configuraton structure
 		 */
-		Error configure(IO::Config* config, IO::GPIO::Mode mode);
+		IO::Error configure(IO::Config* config, IO::GPIO::Mode mode);
 			
 		void run();
 			
 		/**
 		 * @param value Value to be  inserted in the buffer
 		 */
-		Error insertNewConversion(number value);
+		IO::Error insertNewConversion(number value);
 			
-		Error fetchLastConversions(number& value);
+		IO::Error fetchLastConversions(number& value);
 			
 		bool isConfigured();
 			
@@ -65,22 +65,25 @@ namespace IO {
 
 		void kill();
 
-		void timeElapsedCallback(void*);
+		void timeElapsedCallback(void* arg);
 
 	private: 
+
+		IO::Error last_error;
+
+		MEM::CircularList<number, IO_MAX_BUFFER_SIZE> conversion_buffer;
+		CLK::Timer timer;
+		
+		IO::GPIO::Mode mode;
+		uint32_t update_period_ms;
+		IO::ConvCpltCallback* conv_cplt_callback;
+		uint32_t id;
+		
 
 #ifdef _LINUX_
 		uint32_t last_line_id;
 		std::string filename;
 #endif
-		CLK::Timer timer;
-		IO::Error last_error;
-		uint32_t id;
-		IO::GPIO::Mode mode;
-		uint32_t update_period_ms;
-		ConvCpltCallback* conv_cplt_callback;
-		MEM::CircularList<number, IO_MAX_BUFFER_SIZE> conversion_buffer;
-
 	};
 
 }

@@ -45,7 +45,7 @@ namespace IO {
 		return last_error;
 	}
 
-	void GPIO::timeElapsedCallback(void*) {
+	void GPIO::timeElapsedCallback(void* arg) {
 
 		number conversion;
 		
