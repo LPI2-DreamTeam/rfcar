@@ -9,12 +9,11 @@ namespace IO {
 
 	typedef struct Config_T {
 		uint32_t update_period;
-		uint32_t no_of_conversions;
-		ConvCpltCallback conv_cplt_callback;
+		ConvCpltCallback* conv_cplt_callback;
 	} Config;
 
 	typedef enum Error_t {
-		OK=0
+		OK=0, NULL_CONFIG, OBJECT_UNAVAILABLE, INVALID_OPERATION, BUFFER_FULL, BUFFER_EMPTY
 	} Error;
 
 }
