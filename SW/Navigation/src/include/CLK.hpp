@@ -12,7 +12,7 @@ namespace CLK {
 	typedef void *(TimeElapsedCallback)(void*);
 
 	typedef enum Error_T {
-		OK=0, NOT_CONFIG
+		OK=0, NOT_CONFIG, STILL_RUNNING
 	} Error;
 }
 

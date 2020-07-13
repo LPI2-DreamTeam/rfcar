@@ -22,13 +22,13 @@ namespace OS {
 
 		// Enumeration of possible thread priosities
 		typedef enum Priority_T {
-			IDLE = 1,
-			LOW = 6,
-			BELOW_NORMAL = 7,
-			NORMAL = 8,
-			ABOVE_NORMAL = 9,
-			HIGH = 10,
-			REAL_TIME = 15
+			IDLE = 12,
+			LOW = 10,
+			BELOW_NORMAL = 8,
+			NORMAL = 6,
+			ABOVE_NORMAL = 4,
+			HIGH = 2,
+			REAL_TIME = 0
 		} Priority;
 
 		// Enumeration of possible stack sizes

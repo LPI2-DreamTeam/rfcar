@@ -11,16 +11,12 @@ namespace CLK {
 	private:
 
 		static uint32_t next_id;
-	
-	private:
-
-		OS::Thread::Method thread_method;
 
 	public: 	// Public methods
 		
 		Timer();
-
-		static CLK::Time currentTime();
+		
+		Timer(CLK::TimeElapsedCallback* time_elapsed_callback);
 			
 		void start();
 			
@@ -29,12 +25,12 @@ namespace CLK {
 		/**
 		 * @param arr
 		 */
-		void setAutoReload(Time arr);
+		CLK::Error setAutoReload(uint32_t arr);
 			
 		/**
 		 * @param cnt
 		 */
-		void setCounter(Time cnt);
+		CLK::Error setCounter(uint32_t cnt);
 			
 		bool isDone();
 			
@@ -42,20 +38,33 @@ namespace CLK {
 		 * @param tim_ov
 		 * @param isr_done
 		 */
-		void waitNotification(bool tim_ov, bool isr_done);
-			
+		void waitNotification(bool isr_done = false, bool tim_ov = true);
+		
+		void threadMethod(OS::Thread* thread);
+
 		CLK::Error getLastError();
 		
 
 	private: 	// Private members
 
+		Error last_error;
+		bool done;
+		bool stop_order;
 		uint32_t id;
-		CLK::TimeElapsedCallback isr;
-		OS::Thread thread;
+
 		OS::Notification notification_tim_ov;
 		OS::Notification notification_isr_done;
-		bool done;
-		Error last_error;
+
+		CLK::TimeElapsedCallback* isr;
+		OS::Thread thread;
+
+		uint32_t counter;
+		uint32_t auto_reload;
+
+#ifdef _LINUX_
+		std::mutex mutex;					/*! Mutex for use with std::unique_lock in managing accesses and operations */
+		std::condition_variable condition;	/*! Condition variable for use in waits (see waiting_data: bool) */
+#endif
 	};
 }
 
