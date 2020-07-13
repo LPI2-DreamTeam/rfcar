@@ -13,7 +13,7 @@ In lines 10, 11 and 12, are represented the three thread classes used for the Bl
 %
 The \textbf{AcceptThread} (line 10) it's related to the discovery of new connections since it plays an important role in the creation of a \textbf{BluetoothServerSocket} that allows two intended devices to find and accept each other as a part of the initial device inquiry prior to the connection stage. Line 11 represents the \textbf{ConnectThread} responsible for managing the connection between two devices. This thread starts as soon as the two devices accept each other and then proceeds to create a \textbf{RfcommSocket} and connect the devices (pair) when the user clicks on an unpaired device from the list presented. Finally, the \textbf{IOThread} assures the message exchange between devices by accessing the input and output streams of the \textbf{Bluetooth Socket}.
 %
-As stated earlier, it was necessary to make some includes in the Bluetooth app as well as virtualize some ports in order to interface the \gls{pc} virtual machine with the smartphone, this will be more thoroughly explained in the testing section (\ref{sec:bt-connection-test}).
+As stated earlier, it was necessary to make some includes in the Bluetooth app as well as virtualize some ports in order to interface the \gls{pc} virtual machine with the smartphone, this will be more thoroughly explained in the testing section (\ref{sec:bluetooth-phone-nvs}).
 %
 Finally, from the smartphone point of view, the protocol purpose was to transmit commands to control the vehicle by sending the phone accelerometers' values and receive its message warnings on screen.\\
 %
