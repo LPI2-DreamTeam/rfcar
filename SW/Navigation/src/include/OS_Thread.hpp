@@ -1,17 +1,15 @@
 #ifndef THREAD_H
 #define THREAD_H
+
 #include "main.hpp"
+#include "CLK.hpp"
 
 #ifdef _LINUX_
 
 #include <thread>
 #include <functional>
-#include <inttypes.h>
 
 namespace OS {
-
-	typedef std::chrono::time_point<std::chrono::system_clock> Time;
-	typedef std::chrono::milliseconds TimeUnit;
 
 	class Thread {
 
@@ -52,8 +50,8 @@ namespace OS {
 
 	private:	// Private members
 
-		ID parent_id;
 		Native self;
+		ID parent_id;
 
 		// Thread's priority for use in preferential scheduling in certain platforms
 		Priority priority;
@@ -62,7 +60,7 @@ namespace OS {
 		StackSize stack_size;
 
 		// Timestamp used for using sleep functions as timing base for the thread's execution
-		Time last_timestamp;
+		CLK::Time last_timestamp;
 
 		// signal forthe main method to start execution
 		bool start;

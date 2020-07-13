@@ -1,4 +1,5 @@
 #include "OS_Thread.hpp"
+#include "CLK.hpp"
 
 #ifdef _LINUX_
 
@@ -45,13 +46,13 @@ namespace OS {
 	void Thread::sleepUntilElapsed(uint32_t time_ms) {
 		// Check if it is the thread itself calling
 		if (std::this_thread::get_id() == self.get_id())
-			std::this_thread::sleep_until(this->last_timestamp + TimeUnit(time_ms));
+			std::this_thread::sleep_until(this->last_timestamp + CLK::TimeUnit(time_ms));
 	}
 
 	void Thread::sleepFor(uint32_t time_ms) {
 		// Check if it is the thread itself calling
 		if (std::this_thread::get_id() == self.get_id())
-			std::this_thread::sleep_for(static_cast<TimeUnit>(time_ms));
+			std::this_thread::sleep_for(static_cast<CLK::TimeUnit>(time_ms));
 	}
 
 
