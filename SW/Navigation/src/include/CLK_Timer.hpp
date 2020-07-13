@@ -1,18 +1,26 @@
-/**
- * Project Untitled
- */
-
-
 #ifndef _CLK_TIMER_H
 #define _CLK_TIMER_H
+
+#include "OS_Notification.hpp"
+#include "OS_Thread.hpp"
 
 namespace CLK {
 
 	class Timer {
+	
+	private:
+
+		static uint32_t next_id;
+	
+	private:
+
+		OS::Thread::Method thread_method;
 
 	public: 	// Public methods
 		
-		static Time currentTime();
+		Timer();
+
+		static CLK::Time currentTime();
 			
 		void start();
 			
@@ -36,12 +44,13 @@ namespace CLK {
 		 */
 		void waitNotification(bool tim_ov, bool isr_done);
 			
-		Error getLastError();
+		CLK::Error getLastError();
 		
 
 	private: 	// Private members
 
-		TimeElapsedCallback isr;
+		uint32_t id;
+		CLK::TimeElapsedCallback isr;
 		OS::Thread thread;
 		OS::Notification notification_tim_ov;
 		OS::Notification notification_isr_done;

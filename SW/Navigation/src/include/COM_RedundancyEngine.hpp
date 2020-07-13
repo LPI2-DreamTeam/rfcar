@@ -1,6 +1,8 @@
 #ifndef _COM_REDUNDANCY_ENGINE_H
 #define _COM_REDUNDANCY_ENGINE_H
 
+#include "COM.hpp"
+
 namespace COM {
 
 	class RedundancyEngine {
@@ -21,14 +23,14 @@ namespace COM {
 		/**
 		 * @param config
 		 */
-		RedundancyEngine(COM::RedundancyEngine::Config* config)
+		RedundancyEngine(COM::RedundancyEngine::Config* config);
 			
 		/**
 		 * @param payload
 		 * @param size
 		 * @param packet_id
 		 */
-		void insertLine(char* payload, uint32 size, uint32 packet_id);
+		void insertLine(char* payload, uint32_t size, uint32_t packet_id);
 			
 		Error getLastError();
 

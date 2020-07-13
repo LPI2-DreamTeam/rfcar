@@ -2,13 +2,15 @@
 
 namespace IO {
 
-	void GPIO::GPIO() {
+	GPIO::States GPIO::global_states = {0, 0, 0};
+
+	GPIO::GPIO() {
 
 	}
 
 
-	Error GPIO::configure(GPIOConfig* config) {
-		return null;
+	Error GPIO::configure(Config* config) {
+		return OK;
 	}
 
 
@@ -18,12 +20,12 @@ namespace IO {
 
 
 	Error GPIO::insertNewConversion(number value) {
-		return null;
+		return OK;
 	}
 
 
 	Error GPIO::fetchLastConversion() {
-		return null;
+		return OK;
 	}
 
 
@@ -41,17 +43,12 @@ namespace IO {
 		return false;
 	}
 
-	void GPIO::Operation1() {
-
+	GPIO* GPIO::grabAvailableObject() {
+		return nullptr;
 	}
 
 
-	static GPIO* GPIO::grabAvailableObject() {
-		return null;
-	}
-
-
-	static GPIO* GPIO::releaseObject() {
-		return null;
+	GPIO* GPIO::releaseObject() {
+		return nullptr;
 	}
 }

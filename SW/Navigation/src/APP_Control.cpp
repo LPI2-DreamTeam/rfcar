@@ -3,11 +3,11 @@
 
 namespace APP {
 
-	void Control::Control() {
+	Control::Control() {
 
 	}
 
-	void Control::Operation1() {
+	Control::~Control() {
 
 	}
 
@@ -24,7 +24,7 @@ namespace APP {
 	 * @param config
 	 * @return bool
 	 */
-	bool Control::configIRSensor(IO.IRSensor.Position position, IRSensorConfig* config) {
+	bool Control::configIRSensor(IO::Entity<IO::Types::IR_SENSOR>::Position position, IO::Config* config) {
 		return false;
 	}
 
@@ -33,7 +33,7 @@ namespace APP {
 	 * @param config
 	 * @return bool
 	 */
-	bool Control::configMotor(IO.Motor.Position position, MotorConfig* config) {
+	bool Control::configMotor(IO::Entity<IO::Types::MOTOR>::Position position, IO::Config* config) {
 		return false;
 	}
 

@@ -2899,7 +2899,7 @@
 											"font": "Roboto;13;1",
 											"left": 2501,
 											"top": 2343,
-											"width": 294.44873046875,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "CLK.Timer"
 										},
@@ -2940,7 +2940,7 @@
 									"font": "Roboto;13;0",
 									"left": 2496,
 									"top": 2336,
-									"width": 304.44873046875,
+									"width": 344.57861328125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFyhSQWRLLXsgA="
@@ -2979,7 +2979,7 @@
 											"font": "Roboto;13;0",
 											"left": 2501,
 											"top": 2366,
-											"width": 294.44873046875,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "-isr: CLK.TimeElapsedCallback",
 											"horizontalAlignment": 0
@@ -2998,7 +2998,7 @@
 											"font": "Roboto;13;0",
 											"left": 2501,
 											"top": 2381,
-											"width": 294.44873046875,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "-thread: OS.Thread",
 											"horizontalAlignment": 0
@@ -3017,7 +3017,7 @@
 											"font": "Roboto;13;0",
 											"left": 2501,
 											"top": 2396,
-											"width": 294.44873046875,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "-notification_tim_ov: OS.Notification",
 											"horizontalAlignment": 0
@@ -3036,7 +3036,7 @@
 											"font": "Roboto;13;0",
 											"left": 2501,
 											"top": 2411,
-											"width": 294.44873046875,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "-notification_isr_done: OS.Notification",
 											"horizontalAlignment": 0
@@ -3055,7 +3055,7 @@
 											"font": "Roboto;13;0",
 											"left": 2501,
 											"top": 2426,
-											"width": 294.44873046875,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "-done: bool",
 											"horizontalAlignment": 0
@@ -3074,9 +3074,28 @@
 											"font": "Roboto;13;0",
 											"left": 2501,
 											"top": 2441,
-											"width": 294.44873046875,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "-last_error: CLK.Error",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFzR4AEmJwYwh0=",
+											"_parent": {
+												"$ref": "AAAAAAFyhSQWRLLbgCg="
+											},
+											"model": {
+												"$ref": "AAAAAAFzR4AEPJwSUCc="
+											},
+											"lineColor": "#0e8088",
+											"fillColor": "#b0e3e6",
+											"font": "Roboto;13;0",
+											"left": 2501,
+											"top": 2456,
+											"width": 334.57861328125,
+											"height": 13,
+											"text": "-thread_method: OS.Thread.Method",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3085,8 +3104,8 @@
 									"font": "Roboto;13;0",
 									"left": 2496,
 									"top": 2361,
-									"width": 304.44873046875,
-									"height": 98
+									"width": 344.57861328125,
+									"height": 113
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -3111,8 +3130,8 @@
 											"fillColor": "#b0e3e6",
 											"font": "Roboto;13;0",
 											"left": 2501,
-											"top": 2464,
-											"width": 294.44873046875,
+											"top": 2479,
+											"width": 334.57861328125,
 											"height": 13,
 											"underline": true,
 											"text": "+currentTime(): CLK.Time",
@@ -3131,8 +3150,8 @@
 											"fillColor": "#b0e3e6",
 											"font": "Roboto;13;0",
 											"left": 2501,
-											"top": 2479,
-											"width": 294.44873046875,
+											"top": 2494,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "+start(): void",
 											"horizontalAlignment": 0
@@ -3150,8 +3169,8 @@
 											"fillColor": "#b0e3e6",
 											"font": "Roboto;13;0",
 											"left": 2501,
-											"top": 2494,
-											"width": 294.44873046875,
+											"top": 2509,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "+stop(): void",
 											"horizontalAlignment": 0
@@ -3169,8 +3188,8 @@
 											"fillColor": "#b0e3e6",
 											"font": "Roboto;13;0",
 											"left": 2501,
-											"top": 2509,
-											"width": 294.44873046875,
+											"top": 2524,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "+setAutoReload(arr: CLK.Time): void",
 											"horizontalAlignment": 0
@@ -3188,8 +3207,8 @@
 											"fillColor": "#b0e3e6",
 											"font": "Roboto;13;0",
 											"left": 2501,
-											"top": 2524,
-											"width": 294.44873046875,
+											"top": 2539,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "+setCounter(cnt: CLK.Time): void",
 											"horizontalAlignment": 0
@@ -3207,8 +3226,8 @@
 											"fillColor": "#b0e3e6",
 											"font": "Roboto;13;0",
 											"left": 2501,
-											"top": 2539,
-											"width": 294.44873046875,
+											"top": 2554,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "+isDone(): bool",
 											"horizontalAlignment": 0
@@ -3226,8 +3245,8 @@
 											"fillColor": "#b0e3e6",
 											"font": "Roboto;13;0",
 											"left": 2501,
-											"top": 2554,
-											"width": 294.44873046875,
+											"top": 2569,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "+waitNotification(tim_ov: bool, isr_done: bool): void",
 											"horizontalAlignment": 0
@@ -3245,10 +3264,29 @@
 											"fillColor": "#b0e3e6",
 											"font": "Roboto;13;0",
 											"left": 2501,
-											"top": 2569,
-											"width": 294.44873046875,
+											"top": 2584,
+											"width": 334.57861328125,
 											"height": 13,
 											"text": "+getLastError(): CLK.Error",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFzR21g3ZGKZ5E=",
+											"_parent": {
+												"$ref": "AAAAAAFyhSQWRLLcwbw="
+											},
+											"model": {
+												"$ref": "AAAAAAFzR21ghpGEI2o="
+											},
+											"lineColor": "#0e8088",
+											"fillColor": "#b0e3e6",
+											"font": "Roboto;13;0",
+											"left": 2501,
+											"top": 2599,
+											"width": 334.57861328125,
+											"height": 13,
+											"text": "+setTimeElapsedCallback(TimeElapsedCallback callback)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3256,9 +3294,9 @@
 									"fillColor": "#b0e3e6",
 									"font": "Roboto;13;0",
 									"left": 2496,
-									"top": 2459,
-									"width": 304.44873046875,
-									"height": 128
+									"top": 2474,
+									"width": 344.57861328125,
+									"height": 143
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -3304,8 +3342,8 @@
 							"containerChangeable": true,
 							"left": 2496,
 							"top": 2336,
-							"width": 304.44873046875,
-							"height": 251,
+							"width": 344.57861328125,
+							"height": 281,
 							"nameCompartment": {
 								"$ref": "AAAAAAFyhSQWRLLWprQ="
 							},
@@ -6457,7 +6495,7 @@
 											"font": "Roboto;13;0",
 											"left": 3405,
 											"top": 1413,
-											"width": 112.759765625,
+											"width": 116.771484375,
 											"height": 13,
 											"text": "«enumeration»"
 										},
@@ -6472,7 +6510,7 @@
 											"font": "Roboto;13;1",
 											"left": 3405,
 											"top": 1428,
-											"width": 112.759765625,
+											"width": 116.771484375,
 											"height": 13,
 											"text": "IO.MOTOR.Position"
 										},
@@ -6513,7 +6551,7 @@
 									"font": "Roboto;13;0",
 									"left": 3400,
 									"top": 1408,
-									"width": 122.759765625,
+									"width": 126.771484375,
 									"height": 38,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFyh2Vp/M27CoE="
@@ -6624,7 +6662,7 @@
 											"font": "Roboto;13;0",
 											"left": 3405,
 											"top": 1451,
-											"width": 112.759765625,
+											"width": 116.771484375,
 											"height": 13,
 											"text": "RIGHT",
 											"horizontalAlignment": 0
@@ -6643,7 +6681,7 @@
 											"font": "Roboto;13;0",
 											"left": 3405,
 											"top": 1466,
-											"width": 112.759765625,
+											"width": 116.771484375,
 											"height": 13,
 											"text": "LEFT",
 											"horizontalAlignment": 0
@@ -6654,7 +6692,7 @@
 									"font": "Roboto;13;0",
 									"left": 3400,
 									"top": 1446,
-									"width": 122.759765625,
+									"width": 126.771484375,
 									"height": 38
 								}
 							],
@@ -6665,7 +6703,7 @@
 							"containerChangeable": true,
 							"left": 3400,
 							"top": 1408,
-							"width": 122.759765625,
+							"width": 126.771484375,
 							"height": 76,
 							"nameCompartment": {
 								"$ref": "AAAAAAFyh2Vp+826qwI="
@@ -6719,7 +6757,7 @@
 											"font": "Roboto;13;0",
 											"left": 2629,
 											"top": 1149,
-											"width": 171.5009765625,
+											"width": 176.62353515625,
 											"height": 13,
 											"text": "«enumeration»"
 										},
@@ -6734,7 +6772,7 @@
 											"font": "Roboto;13;1",
 											"left": 2629,
 											"top": 1164,
-											"width": 171.5009765625,
+											"width": 176.62353515625,
 											"height": 13,
 											"text": "IO.Entity.IR_SENSOR.Position"
 										},
@@ -6775,7 +6813,7 @@
 									"font": "Roboto;13;0",
 									"left": 2624,
 									"top": 1144,
-									"width": 181.5009765625,
+									"width": 186.62353515625,
 									"height": 38,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFyh2XY+9Y11hI="
@@ -6886,7 +6924,7 @@
 											"font": "Roboto;13;0",
 											"left": 2629,
 											"top": 1187,
-											"width": 171.5009765625,
+											"width": 176.62353515625,
 											"height": 13,
 											"text": "FRONT_RIGHT",
 											"horizontalAlignment": 0
@@ -6905,7 +6943,7 @@
 											"font": "Roboto;13;0",
 											"left": 2629,
 											"top": 1202,
-											"width": 171.5009765625,
+											"width": 176.62353515625,
 											"height": 13,
 											"text": "FRONT_LEFT",
 											"horizontalAlignment": 0
@@ -6924,7 +6962,7 @@
 											"font": "Roboto;13;0",
 											"left": 2629,
 											"top": 1217,
-											"width": 171.5009765625,
+											"width": 176.62353515625,
 											"height": 13,
 											"text": "BACK_RIGHT",
 											"horizontalAlignment": 0
@@ -6943,7 +6981,7 @@
 											"font": "Roboto;13;0",
 											"left": 2629,
 											"top": 1232,
-											"width": 171.5009765625,
+											"width": 176.62353515625,
 											"height": 13,
 											"text": "BACK_LEFT",
 											"horizontalAlignment": 0
@@ -6954,7 +6992,7 @@
 									"font": "Roboto;13;0",
 									"left": 2624,
 									"top": 1182,
-									"width": 181.5009765625,
+									"width": 186.62353515625,
 									"height": 68
 								}
 							],
@@ -6965,7 +7003,7 @@
 							"containerChangeable": true,
 							"left": 2624,
 							"top": 1144,
-							"width": 181.5009765625,
+							"width": 186.62353515625,
 							"height": 106,
 							"nameCompartment": {
 								"$ref": "AAAAAAFyh2XY+9Y0EcA="
@@ -26805,7 +26843,7 @@
 									"visible": false,
 									"font": "Roboto;13;0",
 									"left": 2601,
-									"top": 2598,
+									"top": 2613,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -26826,7 +26864,7 @@
 									"visible": null,
 									"font": "Roboto;13;0",
 									"left": 2586,
-									"top": 2598,
+									"top": 2613,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -26847,7 +26885,7 @@
 									"visible": false,
 									"font": "Roboto;13;0",
 									"left": 2630,
-									"top": 2599,
+									"top": 2614,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -26933,7 +26971,7 @@
 									"visible": false,
 									"font": "Roboto;13;0",
 									"left": 2601,
-									"top": 2605,
+									"top": 2635,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -26953,7 +26991,7 @@
 									"visible": false,
 									"font": "Roboto;13;0",
 									"left": 2587,
-									"top": 2608,
+									"top": 2638,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -26973,7 +27011,7 @@
 									"font": "Roboto;13;0",
 									"showShadow": false,
 									"left": 2625,
-									"top": 2592,
+									"top": 2622,
 									"width": 7.2998046875,
 									"height": 13,
 									"alpha": 0.7454197328793036,
@@ -27022,7 +27060,7 @@
 							"tail": {
 								"$ref": "AAAAAAFzOujnrEKS2bg="
 							},
-							"points": "2616:2624;2616:2586",
+							"points": "2616:2624;2616:2616",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFzPTCuH/wEgDg="
@@ -32317,6 +32355,18 @@
 							"type": {
 								"$ref": "AAAAAAFzPVrtjTKduEw="
 							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFzR4AEPJwSUCc=",
+							"_parent": {
+								"$ref": "AAAAAAFyhSQWRLLTDdY="
+							},
+							"name": "thread_method",
+							"visibility": "private",
+							"type": {
+								"$ref": "AAAAAAFy6JaMeNavDoc="
+							}
 						}
 					],
 					"operations": [
@@ -32514,6 +32564,25 @@
 										"$ref": "AAAAAAFzPVrtjTKduEw="
 									},
 									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFzR21ghpGEI2o=",
+							"_parent": {
+								"$ref": "AAAAAAFyhSQWRLLTDdY="
+							},
+							"name": "setTimeElapsedCallback",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFzR24TeJhoURw=",
+									"_parent": {
+										"$ref": "AAAAAAFzR21ghpGEI2o="
+									},
+									"name": "TimeElapsedCallback callback",
+									"type": ""
 								}
 							]
 						}

@@ -1,26 +1,41 @@
 #ifndef _COM_STREAM_H
 #define _COM_STREAM_H
 
+#include "COM_LL.hpp"
+#include "MEM_LinkedList.hpp"
+#include "MEM_CircularList.hpp"
+
 namespace COM{
 
 	class Stream {
+	
+	public:
+
+		typedef void *(ParserCallback)(uint32_t, uint8_t);
+
+		typedef struct Config_T {
+			COM::LL<>* device;
+			uint8_t id;
+			COM::Stream::ParserCallback parser;
+			COM::Direction direction;
+		} Config;
 
 	private: 	// Private members
 
-		LL* device;
-		uint8 id;
-		Stream.ParserCallback parser;
-		Direction direction;
-		MEM.LinkedList<MEM.CircularBuffer<char*>> buffer;
-		uint32 line_len;
-		Error last_error;
+		COM::LL<>* device;
+		uint8_t id;
+		COM::Stream::ParserCallback parser;
+		COM::Direction direction;
+		MEM::LinkedList<MEM::CircularList<char*>> buffer;
+		uint32_t line_len;
+		COM::Error last_error;
 	
 	public: 	// Private methods
 		
 		/**
 		 * @param config
 		 */
-		Stream(Stream.Config* config);
+		Stream(COM::Stream::Config* config);
 			
 		void clearBuffer();
 			
@@ -33,7 +48,7 @@ namespace COM{
 		 * @param size
 		 * @param packet_id
 		 */
-		void insertLine(char* payload, uint32 size, uint32 packet_id);
+		void insertLine(char* payload, uint32_t size, uint32_t packet_id);
 			
 		Error getLastError();
 

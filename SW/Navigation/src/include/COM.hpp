@@ -5,6 +5,10 @@
 
 namespace COM {
 
+	typedef enum Direction_T {
+		IN, OUT, BIDIRECTIONAL
+	} Direction;
+
 	/*! @brief Communication protocols */
 	typedef enum Protocol_T {
 		INTERFACE=0, SERIAL, BLUETOOTH
