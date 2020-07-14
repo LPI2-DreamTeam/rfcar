@@ -32,7 +32,7 @@ namespace APP {
 		 * @param config
 		 */
 		bool configIRSensor(IO::Entity<IO::Types::IR_SENSOR>::Position position, IO::Config* config);
-			
+
 		/**
 		 * @param position
 		 * @param config

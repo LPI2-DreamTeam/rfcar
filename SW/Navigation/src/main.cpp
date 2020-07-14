@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "main.hpp"	
+#include "APP_Control.hpp"
 #include "CLK_Timer.hpp"
 #include "IO_Entity.hpp"
 #include "IO_GPIO.hpp"
@@ -18,48 +19,68 @@ namespace DEBUG {
 	}
 }
 
-std::chrono::steady_clock::time_point begin;
 
-// IO::ConvCpltCallback convCpltCallback = [](number value) {
+void pcCallback(number value, void* p) {
 
-// 	std::cout << "Time difference = " << 
-// 		std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - begin).count() << 
-// 		"[µs]" << std::endl;
-// };	
+	IO::Entity<IO::MOTOR>* p_motor = reinterpret_cast<IO::Entity<IO::MOTOR>*>(p);
+	float angle;
+	uint32_t pulses = value._uint32;
 
-void* timeElapsedCallback (void* arg) {
+	// calculo do angulo
 
-	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() <<
-		"[ms]" << std::endl;
+	p_motor->setShaftAngle(angle);
+}
 
-	return nullptr;
-};	
+void pwmCallback(number value, void* p) {
+
+}
+
+
+void controlThread(OS::Thread* thread, void* arg) {
+
+//////////////////////////////// Motor implementation example ///////////////////////////////////
+
+	// Configure pwm to have an update rate of 2ms
+	IO::Config config_pwm = {.update_period = 2, (IO::ConvCpltCallback*)&pwmCallback, nullptr};
+	// Configure pulse counter to have a sample rate of 10ms
+	IO::Config config_pc = {.update_period = 10, (IO::ConvCpltCallback*)&pcCallback, nullptr};
+
+	IO::Entity<IO::MOTOR> motor_left(&config_pwm, &config_pc, IO::Entity<IO::MOTOR>::LEFT);
+	IO::Entity<IO::MOTOR> motor_right(&config_pwm, &config_pc, IO::Entity<IO::MOTOR>::RIGHT);
 	
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// motor_left.outputPulseWidth();
+	motor_left.inputShaftAngle();
+
+	// config ir sensors
+	// config motors
+	// config comms
+
+	while(1) {
+
+	}
+}
+
+void simulationThread(OS::Thread* thread, void* arg) {
+
+	while(1) {
+
+	}
+}
 
 int main(int argc, char* argv[]) {
 	
 	using namespace DEBUG;
 
-	// IO::GPIO gpio0;
-	// IO::Config gpio_config = {.update_period=500, .conv_cplt_callback=&convCpltCallback};
+	OS::Thread controlThread("Control Thread", 
+		controlThread, nullptr, OS::Thread::DONT_CARE, OS::Thread::HIGH);
+	OS::Thread simulationThread("Simulation Thread", 
+		simulationThread, nullptr, OS::Thread::DONT_CARE, OS::Thread::HIGH);
 
-	// gpio0.configure(&gpio_config, IO::GPIO::OUTPUT_PWM);
-	// gpio0.insertNewConversion((number){156});
-
-	// begin = std::chrono::steady_clock::now();
-
-	// gpio0.run();
-
-	CLK::Timer timer0(&timeElapsedCallback, nullptr);
-
-	begin = std::chrono::steady_clock::now();
-	timer0.setCounter(500);
-	timer0.setAutoReload(500);
-	timer0.start();
 
 	std::cin.get();
 
-	timer0.stop();
 
 	std::cout << "\nDone. Press ENTER to exit.\n";
 	std::cin.get();

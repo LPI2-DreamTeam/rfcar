@@ -46,6 +46,10 @@ namespace IO {
 				this->last_error = NULL_CONFIG;
 			
 			} else {
+				
+				config_pwm->callback_arg = this;
+				config_pc->callback_arg = this;
+
 				this->gpio_pwm.configure(config_pwm, GPIO::OUTPUT_PWM);
 				this->gpio_pwm.configure(config_pc, GPIO::INPUT_PULSE_COUNTING);
 				this->last_error = OK;
