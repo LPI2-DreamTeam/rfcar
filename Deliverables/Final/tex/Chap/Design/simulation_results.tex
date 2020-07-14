@@ -55,7 +55,7 @@ Sampling time & 50 ms  \\ \hline
 \subsubsection{System response}
 \label{sec:des-sim-res}
 Having determined the parameters of the controller, the next step is to simulate the response of the system.
-In order to predict the behavior of the car to a linear speed reference and angle of tilt (teta), some simulations were necessary. The output of the simulation is the plot of the linear speed of the car, the linear speed of both wheels (left and right) and the position of the car.
+In order to predict the behavior of the car to a linear speed reference and angle of tilt ($\theta$), some simulations were necessary. The output of the simulation is the plot of the linear speed of the car, the linear speed of both wheels (left and right) and the position of the car.
 In order to plot the position of the car the Cartesian referential is used.\\
 For the first simulation, the parameters were: Speed reference= 1m/s and $\theta = 0~\si{rad}$.\\
 \begin{figure}[!h]
@@ -70,15 +70,15 @@ For the first simulation, the parameters were: Speed reference= 1m/s and $\theta
 \includegraphics[width=1.0\textwidth]{./img/xy10.png}
 \caption {\label{fig:sim1 - pos}Car position(xy) with reference v=1m/s, $\theta = 0~\si{rad}$}
 \end{figure}
-As the teta is equal to 0 rad, only 1 coordinate of the car is moving, as the figure \ref{fig:sim1 - pos} demonstrates. The x coordinate is equal to 0 the entire simulation time, and the y coordinate is increasing with a linear scope equal to the linear velocity of the car. This implies that the car is indeed moving in a straight line.\\
+As the $\theta$ is equal to 0 rad, only 1 coordinate of the car is moving, as the figure \ref{fig:sim1 - pos} demonstrates. The x coordinate is equal to 0 the entire simulation time, and the y coordinate is increasing with a linear scope equal to the linear velocity of the car. This implies that the car is indeed moving in a straight line.\\
 \newpage
-Changing the teta to 0.1 rad to simulate constant tilt of the smart phone to the right, and maintaining the value of the speed reference in 1 m/s :\
+Changing the $\theta$ to 0.1 rad to simulate constant tilt of the smart phone to the right, and maintaining the value of the speed reference in 1 m/s :\
 \begin{figure}[!h]
 \centering
 \includegraphics[width=1.0\textwidth]{./img/vel101.png}
 \caption {\label{fig:sim2 - vel}Linear speed with reference v=1m/s,$\theta = 0.1~\si{rad}$}
 \end{figure}
-In the simulation figure \ref{fig:sim2 - vel} it can be observed that having a angle of tilt not equal to 0, causes the left and right wheels to have different velocities, in order to make the car turn. Running more simulations with different values of teta, the outcome shows that the bigger the module of the value of teta, the bigger the difference between the linear velocities of the wheels.
+In the simulation figure \ref{fig:sim2 - vel} it can be observed that having a angle of tilt not equal to 0, causes the left and right wheels to have different velocities, in order to make the car turn. Running more simulations with different values of $\theta$, the outcome shows that the bigger the module of the value of $\theta$, the bigger the difference between the linear velocities of the wheels.
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1.0\textwidth]{./img/xy101.png}
