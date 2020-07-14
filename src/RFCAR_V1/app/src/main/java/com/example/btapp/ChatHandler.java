@@ -57,7 +57,7 @@ public class ChatHandler {
     private static final String APP_NAME = "RFCAR App";
 
     // Unique UUID for this application
-    private static final UUID MY_UUID = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
+    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     private final BluetoothAdapter bluetoothAdapter;
     private final Handler handler;
@@ -260,7 +260,7 @@ public class ChatHandler {
             BluetoothSocket temp = null;
             try {
                 Log.d(TAG, "ConnectThread: Trying to create InsecureRfcommSocket using UUID: "+ MY_UUID );
-                temp = bluetoothDevice.createRfcommSocketToServiceRecord(MY_UUID);
+                temp = bluetoothDevice.createInsecureRfcommSocketToServiceRecord(MY_UUID);
 
             } catch (IOException e) {
                 e.printStackTrace();

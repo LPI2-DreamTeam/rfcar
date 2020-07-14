@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -352,19 +353,6 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
              * ON CONNECTION SETUP PRESSED *
              *******************************/
             else if (id == R.id.nav_scan) {
-
-                //Closes the drawer
-                DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
-
-                open_scan_devices_dialog();
-
-            }
-
-            /************************
-             * ON LISTENING PRESSED *
-             ************************/
-            else if (id == R.id.nav_paired) {
                 chatHandler = new ChatHandler(getApplicationContext(), handler);
 
                 //Closes the drawer
@@ -373,7 +361,24 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
 
                 showToast("Acknowledge: Device is now listening",3,LONG_TOAST);
                 chat_handler_created = true;
+
+                open_scan_devices_dialog();
+
             }
+
+            /************************
+             * ON LISTENING PRESSED *
+             ************************/
+            /*else if (id == R.id.nav_paired) {
+                chatHandler = new ChatHandler(getApplicationContext(), handler);
+
+                //Closes the drawer
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+
+                showToast("Acknowledge: Device is now listening",3,LONG_TOAST);
+                chat_handler_created = true;
+            }*/
 
             return true;
         }
@@ -601,6 +606,12 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
                 }
             }
         };
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // ignore orientation/keyboard change
+        super.onConfigurationChanged(newConfig);
+    }
 
         /**************************************
          * GENERIC ACTIVITY ON DESTROY METHOD *
