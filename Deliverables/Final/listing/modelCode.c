@@ -1,0 +1,15 @@
+		psi=psidot*0.05+aux_psi;
+		V_m= Uvr/2 + Uvl/2;
+    nVx = V_m* cos(psi) - L/2 * V_ref/L * teta * sin(psi);
+    nVy = V_m* sin(psi) - L/2 * V_ref/L * teta * cos(psi);
+		x=nVx*0.05 +aux_x;
+		y=nVy*0.05+aux_y;
+		aux_x=x;
+		aux_y=y;
+		aux_psi=psi;
+		norm=sqrt(pow(nVx,2)+pow(nVy,2));
+    psidot=V_m/L * teta;
+    Vr_m = norm + teta*V_m/2;
+    Vl_m = norm - teta*V_m/2;
+		x_buffer[uindex]=x;
+		y_buffer[uindex]=y;
