@@ -1,8 +1,9 @@
 #include <iostream>
 
-#include "main.hpp"
-#include "COM_LL.hpp"
-#include "MEM_CircularList.hpp"
+#include "main.hpp"	
+#include "CLK_Timer.hpp"
+#include "IO_Entity.hpp"
+#include "IO_GPIO.hpp"
 #include "OS_Mutex.hpp"
 #include "OS_Notification.hpp"
 #include "OS_SharedMemory.hpp"
@@ -17,43 +18,48 @@ namespace DEBUG {
 	}
 }
 
+std::chrono::steady_clock::time_point begin;
+
+// IO::ConvCpltCallback convCpltCallback = [](number value) {
+
+// 	std::cout << "Time difference = " << 
+// 		std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - begin).count() << 
+// 		"[µs]" << std::endl;
+// };	
+
+void* timeElapsedCallback (void* arg) {
+
+	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() <<
+		"[ms]" << std::endl;
+
+	return nullptr;
+};	
+	
+
 int main(int argc, char* argv[]) {
 	
 	using namespace DEBUG;
 
-	// Must be the same as chosen GUEST port (example: 4 for COM4(/dev/ttyS3))
-	COM::LL<COM::Protocol::BLUETOOTH, COM::Role::SERVER>bt(4);	
-	char buffer[30];
-	std::string error_str;
+	// IO::GPIO gpio0;
+	// IO::Config gpio_config = {.update_period=500, .conv_cplt_callback=&convCpltCallback};
 
-	bt.listenConnection();
-	bt.getLastError(error_str);
-	print_error("BT", error_str);
-	
-	bt.acceptConnection();
-	bt.getLastError(error_str);
-	print_error("BT", error_str);
+	// gpio0.configure(&gpio_config, IO::GPIO::OUTPUT_PWM);
+	// gpio0.insertNewConversion((number){156});
 
-	memset(buffer, '\0', sizeof(buffer));
+	// begin = std::chrono::steady_clock::now();
 
-	loop {
-		bt.readStr(buffer, 29);
-		
-		if (bt.getLastError(error_str) != COM::Error::OK) {
-			print_error("BT", error_str);
-			break;
-		}
+	// gpio0.run();
 
-		if (strlen(buffer) != 0) {
-			print_error("BT", error_str);
-			error_str = "Message received: " + std::string(buffer);
-			print_error("BT", error_str);
-			bt.writeStr(buffer, strlen(buffer));
-			bt.getLastError(error_str);
-			print_error("BT", error_str);
-			break;
-		}
-	}
+	CLK::Timer timer0(&timeElapsedCallback, nullptr);
+
+	begin = std::chrono::steady_clock::now();
+	timer0.setCounter(500);
+	timer0.setAutoReload(500);
+	timer0.start();
+
+	std::cin.get();
+
+	timer0.stop();
 
 	std::cout << "\nDone. Press ENTER to exit.\n";
 	std::cin.get();
