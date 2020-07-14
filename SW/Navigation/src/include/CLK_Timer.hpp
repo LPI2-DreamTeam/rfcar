@@ -8,15 +8,19 @@ namespace CLK {
 
 	class Timer {
 	
-	private:
+	private:	// Private static members
 
 		static uint32_t next_id;
 
-	public: 	// Public methods
+	private: 	// Private static methods		
 		
+		static void threadMethod(OS::Thread* thread, void* arg);
+		
+	public: 	// Public methods	
+
 		Timer();
 		
-		Timer(CLK::TimeElapsedCallback* time_elapsed_callback);
+		Timer(CLK::TimeElapsedCallback* time_elapsed_callback, void* callback_arg);
 			
 		void start();
 			
@@ -39,8 +43,6 @@ namespace CLK {
 		 * @param isr_done
 		 */
 		void waitNotification(bool isr_done = false, bool tim_ov = true);
-		
-		void threadMethod(OS::Thread* thread);
 
 		CLK::Error getLastError();
 		
@@ -56,10 +58,12 @@ namespace CLK {
 		OS::Notification notification_isr_done;
 
 		CLK::TimeElapsedCallback* isr;
+		void* isr_arg;
 		OS::Thread thread;
 
 		uint32_t counter;
 		uint32_t auto_reload;
+
 
 #ifdef _LINUX_
 		std::mutex mutex;					/*! Mutex for use with std::unique_lock in managing accesses and operations */
