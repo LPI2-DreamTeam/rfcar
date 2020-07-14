@@ -22,10 +22,6 @@
                 android:icon="@drawable/ic_bluetooth_black_24dp"
                 android:title="@string/bluetooth_discover" />
             <item
-                android:id="@+id/nav_paired"
-                android:icon="@drawable/ic_bluetooth_listening"
-                android:title="@string/start_listening" />
-            <item
                 android:id="@+id/nav_scan"
                 android:icon="@drawable/ic_bluetooth_connected_black_24dp"
                 android:title="@string/conection_setup" />

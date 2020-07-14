@@ -6,7 +6,7 @@
 namespace IO {
 
 	typedef enum Types_T {
-		VIRTUAL, IR_SENSOR, MOTOR
+		VIRTUAL=0, IR_SENSOR, MOTOR
 	} Types;
 
 	template <Types type = Types::VIRTUAL>
@@ -14,15 +14,7 @@ namespace IO {
 
 	public: 
 
-		Entity() {
-			
-		}
-
 		~Entity() {
-
-		}
-
-		virtual void kill() {
 
 		}
 
@@ -40,48 +32,72 @@ namespace IO {
 	public:
 		
 		typedef enum Position_T {
-			LEFT, RIGHT
+			LEFT=0, RIGHT
 		} Position;
 
-	public: 
+	public:
 
-		Entity()  {
 
-		}
+		Entity(IO::Config* config_pwm = nullptr, IO::Config* config_pc = nullptr,IO::Entity<MOTOR>::Position position = IO::Entity<MOTOR>::Position::RIGHT) {
+
+			this->position = position;
+
+			if (config_pwm == nullptr || config_pc == nullptr) {
+				this->last_error = NULL_CONFIG;
 			
-		/**
-		 * @param config
-		 */
-		Entity(Config* config, Entity<MOTOR>::Position position) {
+			} else {
+				
+				config_pwm->callback_arg = this;
+				config_pc->callback_arg = this;
+
+				this->gpio_pwm.configure(config_pwm, GPIO::OUTPUT_PWM);
+				this->gpio_pwm.configure(config_pc, GPIO::INPUT_PULSE_COUNTING);
+				this->last_error = OK;
+			}
 
 		}
 
-		~Entity() {
-
+		IO::Error getLastError() override {
+			return last_error;
 		}
 
-		void kill() override {
-
+		float inputShaftAngle() {
+			this->last_error = OK;
+			return this->shaft_angle;
 		}
 
-		Error getLastError() override {
-			return OK;
+		IO::Error setShaftAngle(float newAngle) {
+			
+			if (newAngle >= 0) {
+				this->shaft_angle = newAngle;
+				this->last_error = OK;
+			
+			} else {
+				this->last_error = INVALID_SIGN;
+			}
+
+			return this->last_error;
 		}
 
-		float lastCalculatedAngle() {
-			return angle;
+		void outputPulseWidth(float value) {
+			
+			number val;
+			val._float = value;
+
+			// Error treatment
+			this->gpio_pwm.insertNewConversion(val);
 		}
 		
 	private: 
 
-		bool dead;
-		Error last_error;
+		IO::Error last_error;
 
-		float angle;
-		float encoder_resolution;
-		GPIO gpio_pwm;
-		GPIO gpio_pulse_counter;
-		Entity<MOTOR>::Position position;
+		IO::Entity<MOTOR>::Position position;
+		IO::GPIO gpio_pwm;
+		IO::GPIO gpio_pulse_counter;
+
+		float shaft_angle;
+		
 	};
 
 
@@ -92,14 +108,10 @@ namespace IO {
 	public:
 
 		typedef enum Position_T {
-			FRONT_LEFT, FRONT_CENTER, FRONT_RIGHT, RIGHT_FRONT, RIGHT_BACK, BACK_RIGHT, BACK_LEFT, LEFT_BACK, LEFT_FRONT
+			FRONT_LEFT=0, FRONT_CENTER, FRONT_RIGHT, RIGHT_FRONT, RIGHT_BACK, BACK_RIGHT, BACK_LEFT, LEFT_BACK, LEFT_FRONT
 		} Position;
 
 	public: 
-
-		Entity() {
-
-		}
 
 		~Entity() {
 
@@ -111,30 +123,33 @@ namespace IO {
 		 * @param calc_distance
 		 * @param position
 		 */
-		Entity(Config* config, Entity<IR_SENSOR>::Position position) : position(position) {
-
+		Entity(IO::Config* config, IO::Entity<IR_SENSOR>::Position position) {
+			this->position = position;
 		}
 
-		Error getLastError() override {
-			return OK;
+		IO::Error getLastError() override {
+			last_error = OK;
+			return last_error;
 		}
 
-		void kill() override {
-			
-		}
 
-		float lastCalculatedDistance() {
+		float inputDistance() {
+			last_error = OK;
 			return distance;
+		}
+
+		IO::Error setDistance () {
+			
+			
 		}
 
 	private:
 
-		bool dead;
-		Error last_error; 
+		IO::Error last_error; 
 
 		float distance;
-		GPIO gpio_adc;
-		Entity<IR_SENSOR>::Position position;
+		IO::GPIO gpio_adc;
+		IO::Entity<IR_SENSOR>::Position position;
 	};
 
 }

@@ -15,7 +15,7 @@ namespace OS {
 
 	public:
 
-		typedef void(*Method)(Thread*);
+		typedef void(*Method)(Thread*, void* arg);
 
 		typedef std::thread::id ID;
 		typedef std::thread Native;
@@ -77,17 +77,17 @@ namespace OS {
 
 	private:	// Private methods
 
-		inline static void main_method(Thread* thread) {
+		inline static void main_method(Thread* thread, void* arg) {
 
 			while (!(thread->start && thread->method != nullptr));
 
-			thread->method(thread);
+			thread->method(thread, arg);
 		}
 
 	public:		// Public methods
 
 		// Constructor
-		Thread(const char name[20], Method method, StackSize stack_size = StackSize::DONT_CARE,
+		Thread(const char name[20], Method method, void* args, StackSize stack_size = StackSize::DONT_CARE,
 			Priority priority = Priority::NORMAL);
 
 		// Destructor

@@ -34,6 +34,7 @@ namespace IO {
 		static bool isConfigured(GPIO* obj);
 		static bool isRunning(GPIO* obj);
 		static bool isAssigned(GPIO* obj);
+		static void* timeElapsedCallback(void* arg);
 
 	private:	// Private static members
 
@@ -63,10 +64,7 @@ namespace IO {
 			
 		bool isRunning();
 
-		void kill();
-
-		void timeElapsedCallback(void* arg);
-
+		
 	private: 
 
 		IO::Error last_error;
@@ -77,8 +75,8 @@ namespace IO {
 		IO::GPIO::Mode mode;
 		uint32_t update_period_ms;
 		IO::ConvCpltCallback* conv_cplt_callback;
+		void* callback_arg;
 		uint32_t id;
-		
 
 #ifdef _LINUX_
 		uint32_t last_line_id;

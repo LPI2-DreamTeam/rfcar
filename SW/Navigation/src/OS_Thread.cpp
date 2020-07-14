@@ -12,9 +12,9 @@ namespace OS {
 
 	const Thread::ID empty_thread_id = Thread::ID();
 
-	Thread::Thread(const char name[20], Method method, StackSize stack_size, Priority priority) :
+	Thread::Thread(const char name[20], Method method, void* args, StackSize stack_size, Priority priority) :
 
-		self(&(Thread::main_method), this), parent_id(std::this_thread::get_id()) {
+		self(&(Thread::main_method), this, args), parent_id(std::this_thread::get_id()) {
 
 		start = false;
 		this->method = method;
