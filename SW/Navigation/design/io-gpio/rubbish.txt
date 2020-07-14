@@ -1,0 +1,11 @@
+std::ifstream conversions_file2(gpio_ptr->filename, std::ios::binary | std::ios::in | std::ios::ate);
+
+uint32_t a = 0;
+number b = { 0 };
+
+conversions_file2.seekg(-(int32_t)(sizeof(a) + sizeof(b)), std::ios_base::end);
+
+conversions_file2.read(reinterpret_cast<char*>(&a), sizeof(a));
+conversions_file2.read(reinterpret_cast<char*>(&b), sizeof(b));
+
+conversions_file.close();
