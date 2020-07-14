@@ -1,6 +1,7 @@
 %SUBSECTION - control
 \subsubsection{Discrete PID}
-\label{sec:PID}
+\label{sec:des-pid}
+
 To control the system, a PID controller was used for the reason that it is the most used of all controllers in this type of cases and also leads to better system behavior because of the following statements : the proportional action defines the velocity of approach to the value in steady state; the integral action reduces the error in steady state by integrating the error; the derivative action anticipates the response, deriving the error, allowing to reduce the oscillatory behavior of the system response and its integration in the controller should always be analysed, principally in systems with a lot of noise, to avoid instability in the system.\\
 The PID controller can be implemented either in analog or digital, however, the implementation it is usually digital using a system with a microprocessor associated. This method can also improve the performance by allowing control of actuator saturation(wind-up), even in systems with a lot of noise in the measured variables. Thus, the digital control system performs the sampling of inputs of interest, calculates the value of the control variable and then, if necessary, convert it to an analog value. The sampling introduces a delay in the system and keep the entry value between consecutive samples, leading to the concept of retainer. Normally, the Zero Order Holder (ZOH) is selected to model this effect in the control.\\
 

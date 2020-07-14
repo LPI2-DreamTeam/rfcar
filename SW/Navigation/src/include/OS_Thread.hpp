@@ -1,36 +1,34 @@
 #ifndef THREAD_H
 #define THREAD_H
+
 #include "main.hpp"
+#include "CLK.hpp"
 
 #ifdef _LINUX_
 
 #include <thread>
 #include <functional>
-#include <inttypes.h>
 
 namespace OS {
-
-	typedef std::chrono::time_point<std::chrono::system_clock> Time;
-	typedef std::chrono::milliseconds TimeUnit;
 
 	class Thread {
 
 	public:
 
-		typedef void(*Method)(Thread*);
+		typedef void(*Method)(Thread*, void* arg);
 
 		typedef std::thread::id ID;
 		typedef std::thread Native;
 
 		// Enumeration of possible thread priosities
 		typedef enum Priority_T {
-			IDLE = 1,
-			LOW = 6,
-			BELOW_NORMAL = 7,
-			NORMAL = 8,
-			ABOVE_NORMAL = 9,
-			HIGH = 10,
-			REAL_TIME = 15
+			IDLE = 12,
+			LOW = 10,
+			BELOW_NORMAL = 8,
+			NORMAL = 6,
+			ABOVE_NORMAL = 4,
+			HIGH = 2,
+			REAL_TIME = 0
 		} Priority;
 
 		// Enumeration of possible stack sizes
@@ -52,8 +50,8 @@ namespace OS {
 
 	private:	// Private members
 
-		ID parent_id;
 		Native self;
+		ID parent_id;
 
 		// Thread's priority for use in preferential scheduling in certain platforms
 		Priority priority;
@@ -62,7 +60,7 @@ namespace OS {
 		StackSize stack_size;
 
 		// Timestamp used for using sleep functions as timing base for the thread's execution
-		Time last_timestamp;
+		CLK::Time last_timestamp;
 
 		// signal forthe main method to start execution
 		bool start;
@@ -79,17 +77,17 @@ namespace OS {
 
 	private:	// Private methods
 
-		inline static void main_method(Thread* thread) {
+		inline static void main_method(Thread* thread, void* arg) {
 
 			while (!(thread->start && thread->method != nullptr));
 
-			thread->method(thread);
+			thread->method(thread, arg);
 		}
 
 	public:		// Public methods
 
 		// Constructor
-		Thread(const char name[20], Method method, StackSize stack_size = StackSize::DONT_CARE,
+		Thread(const char name[20], Method method, void* args, StackSize stack_size = StackSize::DONT_CARE,
 			Priority priority = Priority::NORMAL);
 
 		// Destructor
