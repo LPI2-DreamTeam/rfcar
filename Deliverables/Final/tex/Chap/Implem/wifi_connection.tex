@@ -1,12 +1,14 @@
 \subsection{Wi-Fi}%
 \label{sec:wifi-implem}
 %
-Wi-Fi is the second (redundancy) communication technology adopted to guarantee effective control of the rover with the commands from the smartphone.
+Wi-Fi is the second communication technology adopted to guarantee effective control of the rover with the commands from the smartphone.
 %
 \subsubsection{Wi-Fi Connection Setup}
+\label{sec:wifi-implem-connection}
 %code not final
 %
 \subsubsection{Wi-Fi Video Feed}
+\label{sec:wifi-implem-video}
 %
 One important user feature defined in the design of the smartphone application in section \ref{sec:smartphone-design} was the capability of watching the \gls{rvvs}' live camera feed within the app. The applied solution is based on the \textbf{Youtube Android Player \gls{api}} \cite{yt_api} as it enables a more \textbf{reliable video stream} whilst ensuring \textbf{project off-load}. Resorting to the latter, one can also tackle the fullscreen video display which was a big concern in terms of user-friendliness. Nevertheless, one can still claim that a framewise transmission approach via Wi-Fi is even more fail-safe and secure since one doesn't need to rely on an external entity for video communication.
 Despite this, the framewise approach was discarded to ensure deadline meeting, hence its implementation required some prior subject experience or further research. The implementation of the abovementioned feature is depicted in listing \ref{lst:video-view}.\\
