@@ -31,6 +31,28 @@ These layers are, from the bottom to the top:
 \end{itemize}
 
 
+%//////////////////////////////// Static model /////////////////////////////////
+\subsubsection{Static Model: Package diagram}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./img/navig-package-diagram.png}
+	\caption {Navigation subsystem package diagram}
+	\label{fig:navig-package-diagram}
+	\end{figure}
+
+
+
+\subsubsection{Static Model: Class diagram}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{./img/navig-class-diagram.png}
+	\caption {Navigation subsystem class diagram}
+	\label{fig:navig-class-diagram}
+	\end{figure}
+
 
 
 %//////////////////////////////// # IO Package /////////////////////////////////
@@ -38,12 +60,6 @@ These layers are, from the bottom to the top:
 
 The \textbf{IO} package is comprised of the \textbf{IO Entity} and \textbf{IO Link} subpackages. The modules within these subpackages are the parts of the hardware abstraction layers responsible for standardizing the General Purpose Input/Output resources of the machine.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{./img/package-diagram-io.png}
-	\caption {IO Package Diagram}
-	\label{fig:navig-package-diagram-io}
-	\end{figure}
 
 
 The \textbf{IO Link} subpackage is the interface provides the most generic yet complete package for interacting with the machine. It provides such functionality as automatic resource assignment, automatic buffering or timed output/input.
@@ -63,13 +79,6 @@ The \textbf{IO Entity} subpackage serves for specialization of functionality pre
 
 The COM package is the sum of the COM Data and COM Transport subpackages. These  modules are responsible for standardizing the access to the inter-device communication resources of each machine. 
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{./img/package-diagram-com.png}
-	\caption {COM Package Diagram}
-	\label{fig:navig-package-diagram-com}
-	\end{figure}
-
 
 The \textbf{COM Data} subpackage is aimed at providing a platform-agnostic interface for communicating over a serial or Bluetooth connection, while also providing specific functionality for different protocols/roles.
 The \textbf{COM Transport} subpackage provides tools for managing multiple simultaneous, redundant, multiprotocol and multi-stream connections as well as automatically parsing of data for usage in time-constrained scenarios.
@@ -87,12 +96,6 @@ The \textbf{COM Transport} subpackage provides tools for managing multiple simul
 
 The modules in the OS package mainly serve the purposes of thread creation and management management, inter-thread synchronization and thread-safe access to memory.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{./img/package-diagram-os.png}
-	\caption {OS Package Diagram}
-	\label{fig:navig-package-diagram-os}
-	\end{figure}
 
 
 
