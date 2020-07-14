@@ -28,14 +28,14 @@ After turning on Bluetooth on both android (ram) and PC devices (JOAO F), as dep
 %
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.9\textwidth]{img/bt_app_pc.png}
-\caption{\label{fig:bt_app_pc}Smartphone as "ram" and PC as "JOAOF" with Bluetooth on}
+\includegraphics[width=0.7\textwidth]{img/bt_app_pc.png}
+\caption{\label{fig:bt_app_pc}Smartphone as "ram" and PC as "JOAOF" with Bluetooth enabled}
 \end{figure}
 %
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.5\textwidth]{img/bt_intro_main.png}
-\caption{\label{fig:bt_intro_main}BTapp: Initial and main activities, accordingly}
+\includegraphics[width=0.7\textwidth]{img/bt_intro_main.png}
+\caption{\label{fig:bt_intro_main}BTapp: Initial and main activities, accordingly (Test UI)}
 \end{figure}
 %
 \begin{figure}[!ht]
@@ -48,37 +48,37 @@ To make an initial connection from square one, the smartphone should be discover
 %
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.4\textwidth]{img/bt_con_scan_pair_suc.png}
+\includegraphics[width=0.5\textwidth]{img/bt_con_scan_pair_suc.png}
 \caption{\label{fig:bt_con_scan_pair_suc}BTapp and PC: Pressed Scan Devices button, target device pressed and paired successfull message on PC. A PIN number given by the PC must be inserted on app to conclude the pair phase}
 \end{figure}
 %
 \begin{figure}[!hbt]
 \centering
-\includegraphics[width=0.4\textwidth]{img/bt_failed_pair.png}
+\includegraphics[width=0.5\textwidth]{img/bt_failed_pair.png}
 \caption{\label{fig:bt_failed_pair}BTapp: Pair failed examples: Wrong pin number or already paired device}
 \end{figure}
 %
 \begin{figure}[!hbt]
 \centering
-\includegraphics[width=0.5\textwidth]{img/bt_sequence_connect.png}
+\includegraphics[width=0.7\textwidth]{img/bt_sequence_connect.png}
 \caption{\label{fig:bt_sequence_connect}BTapp: Connect phases: List devices pressed, target deviced pressed and successfull display of connection establish toast}
 \end{figure}
 %
 \begin{figure}[!hbt]
 \centering
-\includegraphics[width=0.5\textwidth]{img/bt_sendapp_recpc.png}
+\includegraphics[width=0.8\textwidth]{img/bt_sendapp_recpc.png}
 \caption{\label{fig:bt_sendapp_recpc}BTapp and PC BT server: Successfull message exchanged from android to pc and android echo}
 \end{figure}
 %
 \begin{figure}[!hbt]
 \centering
-\includegraphics[width=0.5\textwidth]{img/bt_sendPC_recAPP.png}
+\includegraphics[width=0.8\textwidth]{img/bt_sendPC_recAPP.png}
 \caption{\label{fig:bt_sendPC_recAPP}BTapp and PC BT server: Successfull message exchanged from pc to android}
 \end{figure}
 %
 \begin{figure}[!hbt]
 \centering
-\includegraphics[width=0.3\textwidth]{img/bt_resending_rereceiving.png}
+\includegraphics[width=0.4\textwidth]{img/bt_resending_rereceiving.png}
 \caption{\label{fig:bt_resending_rereceiving}BTapp: It's possible to resend and receive more than once}
 \end{figure}
 %
@@ -86,11 +86,11 @@ When on the connection setup phase, the scan button was clicked to show the PC t
 
 Lastly, after opening output log terminals to receive app messages on the personal computer virtual machine guest operative system, on the principal menu, in the Enter message section, the messages were typed and then sent via clicking the adjacent send button. The message was then echoed on the phone and conveyed to the target (JOAO F) device, where they were displayed. Figure \ref{fig:bt_sendapp_recpc} show app and PC terminal points of view. Regarding figure \ref{fig:bt_sendPC_recAPP}, the message was written on the terminal and received on the smartphone, respectively. Figure \ref{fig:bt_resending_rereceiving} display final state on the app log after resending a different message as well as obtaining another one via the same source. Note that the PC terminal images already depicts all messages exchanged and show the initial command configuration needed for the test to happen.
 
-On one hand, in the receiving terminal, the first command: \textit{$cd$} \textit{$/media/sf\_ze\_bt\_server$}
-changed the directory to where the server app is located. The second: \textit{$make$} \textit{$all$} \textit{$\&\&$ $./com\_ll$} compile all the source files and run \textit{$com\_ll$}.
+On one hand, in the receiving terminal, the first command:  \emph{cd} \emph{/media/sf\_ze\_bt\_server}
+changed the directory to where the server app is located. The second:  \emph{make all \&\& ./com\_ll} compile all the source files and run \emph{com\_ll}.
 
-On the other hand, in the sending terminal, the current directory was changed to \textit{\textit{$/dev$}} with the command: \textit{$cd$} \textit{$/dev$}
-to navigate to where virtual COM4 (ttyS3) so that messages could be sent through, as exemplified in the instruction: \textit{$echo$ $Msg$ $da$ $VM$} \textit{$> ttyS3$}. 
+On the other hand, in the sending terminal, the current directory was changed to \emph{/dev} with the command:  \emph{cd}  \emph{/dev}
+to navigate to where virtual COM4 (ttyS3) so that messages could be sent through, as exemplified in the instruction:  \emph{echo Msg da VM}  \emph{> ttyS3}. 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../../dissertation"

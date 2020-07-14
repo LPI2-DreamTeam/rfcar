@@ -5,7 +5,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager sensorManager;
     Sensor rot_sensor;
 
-    TextView x_val, y_val, z_val, inclination, rotation, pitch, roll, azimuth, voltage;
+    TextView x_val, y_val, z_val, inclination, rotation, pitch, roll, azimuth, voltage, wheel_t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         roll = (TextView) findViewById(R.id.roll);
         azimuth = (TextView) findViewById(R.id.azimuth);
         voltage = (TextView) findViewById(R.id.voltage_layout);
+		wheel_t = (TextView) findViewById(R.id.wheel_tilt_layout);
 
         Log.d(TAG, "onCreate: Initializing Sensor Services");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -32,8 +33,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             if (mysensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
                 float[] g = event.values.clone();
-                boolean isInInitialPos = false;
-                boolean thresholdReached = false;
 
                 //Normalise
                 double norm = Math.sqrt(g[0] * g[0] + g[1] * g[1] + g[2] * g[2] + g[3] * g[3]);
@@ -72,19 +71,42 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 int pitchInitialVal = 0;
                 int max_tension = 6;
                 float voltage_ = 0;
+				float wheel_tilt = 0;
+                int max_wheel_tilt = 45;
+                int right_w = 64;
+                int left_w = 56;
+                int init_tilt = 94;
+                int temp_diff = Math.abs(rot - init_tilt);
 
                 if(roll_ > 0)
-                voltage_ = (float) (Math.abs(roll_) * max_tension) / rollThreshold;
-                if(voltage_ > 6)
-                    voltage_ = 6;
+                    voltage_ = (float) (Math.abs(roll_) * max_tension) / rollThreshold;
+                if(voltage_ > max_tension)
+                    voltage_ = max_tension;
                 else if(Math.abs(pitch_) > 70)
                     voltage_ = 0;
+
+                if(rot > init_tilt) {
+                    wheel_tilt = (float) (temp_diff * 100) / left_w;
+                if(wheel_tilt > 100)
+                    wheel_tilt = 100;
+                }
+                else if(rot == init_tilt)
+                    wheel_tilt = 0;
+                else {
+                    wheel_tilt = (float) (temp_diff * 100) / right_w;
+                    if(wheel_tilt > 100)
+                        wheel_tilt = -100;
+                    else
+                        wheel_tilt = -wheel_tilt;
+
+                }
 
                 Log.d(TAG, "onSensorChanged: Voltage_: " + String.format("%s", voltage_));
 
                     pitch.setText(String.format("Pitch: %s", pitch_));
                     roll.setText(String.format("Roll: %s", roll_));
                     azimuth.setText(String.format("Azimuth: %s", azimuth_));
-                    linear_vel.setText(String.format("Voltage Applied: %s", voltage_));
+                    voltage.setText(String.format("Speed(%%Max): %s", voltage_));
+                    wheel_t.setText(String.format("Wheel tilt(%%Max): %s", wheel_tilt));
             }
         }
