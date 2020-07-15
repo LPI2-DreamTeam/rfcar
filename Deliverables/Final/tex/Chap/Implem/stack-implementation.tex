@@ -1,8 +1,8 @@
 %intro
-As forementioned, the initial approach consisted of the three-way interaction depicted in the RFCAR deployment diagram, in section \ref{sec:hw-sw-mapping} - figure \ref{fig:deployment-diag}. However, due to the extraordinary circumstances the need to virtualize the navigation and remote vision subsystems rose. Specifically, both were simulated on a virtual machine with an \textbf{18.04 Lubuntu image}, a Ubuntu-based lightweight Linux distribution. This implies that the High-level hardware abstraction layer's implementation should be done using Linux-specific APIs and libraries. As such, in an effort to meet the established deadlines the liberty of using C++ and its \gls{stl} was taken. 
+As forementioned, the initial approach consisted of the three-way interaction depicted in the RFCAR deployment diagram, in section \ref{sec:hw-sw-mapping} - figure \ref{fig:deployment-diag}. However, due to the extraordinary circumstances the need to virtualize the navigation and remote vision subsystems rose. Specifically, both were simulated on a virtual machine with an \textbf{18.04 Lubuntu image}, a Ubuntu-based lightweight Linux distribution. This implies that the High-level Hardware Abstraction layer's implementation should be done using Linux-specific APIs and libraries. As such, in an effort to meet the established deadlines the liberty of using C++ and its \gls{stl} was taken. 
 %
 \subsubsection{IO: Input/Output Package}
-As foresaid in section \ref{sec:io-package}, the IO package includes the IO Entity and IO Link subpackages. The IO_Entity header file represented in listing \ref{lst:io-entity-interface}, includes a declaration of a generic template (within IO namespace) that allows the specialization of GPIO objects (belonging to the IO Link package) in physical entities like a motor or an infrared sensor, in this case. Each specialization of an Entity object requires the definition of the targeted constructor. There, one can decide which type the entity is going to take and its position within the rover model whilst configuring the entity attending to its GPIO requirements. This is done through preemptively defined GPIO-targeted modes in \ref{lst:io-GPIO-interface}.\par
+As foresaid in section \ref{sec:io-package}, the IO package includes the IO Entity and IO Link subpackages. The IO\_Entity header file represented in listing \ref{lst:io-entity-interface}, includes a declaration of a generic template (within IO namespace) that allows the specialization of GPIO objects (belonging to the IO Link package) in physical entities like a motor or an infrared sensor, in this case. Each specialization of an Entity object requires the definition of the targeted constructor. There, one can decide which type the entity is going to take and its position within the rover model whilst configuring the entity attending to its GPIO requirements. This is done through preemptively defined GPIO-targeted modes in \ref{lst:io-GPIO-interface}.\par
 %
 The second subpackage, IO Link, is listed in \ref{lst:io-GPIO-interface} and \ref{lst:io-GPIO-source}. This generic package interacts directly with the virtualization of the machine itself (sensors and actuators) through timed input and output in binary files while also defining targeted GPIO modes for certain entities. The IO interface in listing \ref{lst:io-interface} allows the definition of transversal structures and typedefs for the IO-related packages.
 %
@@ -11,15 +11,15 @@ The second subpackage, IO Link, is listed in \ref{lst:io-GPIO-interface} and \re
 style=customc]{./listing/IO.hpp}
 %
 %IO_Entity.hpp
-\lstinputlisting[language=C++, caption={IO_Entity Interface},label=lst:io-entity-interface,
+\lstinputlisting[language=C++, caption={IO\_Entity Interface},label=lst:io-entity-interface,
 style=customc]{./listing/IO_Entity.hpp}
 %
 %IO_GPIO.hpp
-\lstinputlisting[language=C++, caption={IO_GPIO Interface},label=lst:io-GPIO-interface,
+\lstinputlisting[language=C++, caption={IO\_GPIO Interface},label=lst:io-GPIO-interface,
 style=customc]{./listing/IO_GPIO.hpp}
 %
 %IO_GPIO.cpp
-\lstinputlisting[language=C++, caption={IO_GPIO Source},label=lst:io-GPIO-source,
+\lstinputlisting[language=C++, caption={IO\_GPIO Source},label=lst:io-GPIO-source,
 style=customc]{./listing/IO_GPIO.cpp}
 %
 %
