@@ -89,17 +89,72 @@ The \textbf{COM Transport} subpackage provides tools for managing multiple simul
 	\caption {COM subpackage interaction and information propagation diagram}
 	\label{fig:navig-module-stack-com}
 	\end{figure}
+
 	
 
 %//////////////////////////////// # OS Package /////////////////////////////////
 \subsubsection{OS: Scheduler Package}
 
-The modules in the OS package mainly serve the purposes of thread creation and management management, inter-thread synchronization and thread-safe access to memory.
+The modules in the \textbf{OS} package mainly serve the purposes of thread creation and management management, inter-thread synchronization and thread-safe access to memory. Therefore, they all revolve around threaded execution although each fills in the need for a special bit of functionality.
+
+The \textbf{OS::Thread} module provides a platform-agnostic interface for creating an object that will use native types and interfaces that allow each object to behave like a separate execution thread.
 
 
 
 
 \subsubsection{MEM: Memory Structures Package}
+
+The \textbf{MEM} package includes modules that offer typical containers such as linked lists and circular lists that are tightly contained and thread-safe. These are very practical ways of implementing those types of structures in heavily threaded applications as they provide easy-to-use interfaces, low-complexity operations and guarantee safe access to the resources when shared by multiple threads. 
+\newline
+Both \textbf{MEM::CircularList} and \textbf{MEM::LinkedList} provide interfaces for inserting and removing objects, retrieving basic information about their state, such as their size and a means to empty the list in an efficient fashion. They both also implement the universal error reporting interface with a specific type for such errors, \textbf{MEM::Error}. When making specific operations the user can also choose how the container should react when another thread of execution is accessing the structure: in \textbf{MEM::BlockingMode BLOCKING} mode, the list will wait until the resources are freed and in \textbf{NON\_BLOCKING} mode, in the same situation it will return with an error code.
+\newline
+The \textbf{MEM::CircularList} provides a medium for creating a fixed-size First-In-First-Out (FIFO) container to which the user can push a single or multiple objects and retrieve them in a similar fashion. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./img/navig-class-circularlist.png}
+	\caption {MEM::CircularList interface and members}
+	\label{fig:navig-class-circularlist}
+	\end{figure}
+
+The \textbf{MEM::LinkedList} prioritizes quick insertion at the front or the back of any list and removal of specific objects from anywhere in the list with the same complexity. It it optimized exclusively for operations with single objects.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./img/navig-class-linkedlist.png}
+	\caption {MEM::LinkedList interface and members}
+	\label{fig:navig-class-linkedlist}
+	\end{figure}
+
+
+The modules within this package are mainly used by the \textbf{IO} and \textbf{COM} class modules for buffering information and storing objects in lists where insertions and removals need to be fast but they can also be used by higher-level classes due to their \textbf{versatile interfaces} and \textbf{general-purpose} nature.
+
+////////////// IMPLEMENTATION
+Both lists provide efficient methods for insertion and removal of elements and completely clearing the list, all of these operations with O(1) complexity.
+It is implemented with recourse to a C-style array to optimize for use as a single-byte data container (e.g. strings of characters in message buffers).
+/////////////////////////////
+
+
+
+%//////////////////////////////// # CLK Package ////////////////////////////////
+
 \subsubsection{CLK: Timing Package}
+
+The \textbf{CLK} package is comprised by only the \textbf{Timer} module and convenient type definitions. It provides a means for setting up repeated timed delays and executing a specific routine automatically when each delay ends. It also provides an interface for waiting for the end of the timed delay and/or the execution of the specified routine and autonomously notifies all waiting objects of these events.
+It is mainly used by the \textbf{IO::GPIO} class for timing conversions but it can as easily be used by higher-level classes due to its \textbf{versatile interface} and \textbf{general-purpose} nature.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./img/navig-class-timer.png}
+	\caption {CLK::Timer interface and members}
+	\label{fig:navig-class-timer}
+	\end{figure}
+
+
+
+%//////////////////////////////// # APP Package ////////////////////////////////
+
 \subsubsection{APP: Main Application Package}
+
+The main application package is comprised by  
 
