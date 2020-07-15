@@ -1,25 +1,7 @@
-///------------------------------------------- C++ Source file -------------------------------------
-/// @file       V4L2WebCam.cpp
-/// @brief      Implementation of a web cam based on the Video for Linux 2 API (V4L2)
-/// @project    Webcam
-/// @version    1
-/// @date       January 29, 2018
-///-------------------------------------------------------------------------------------------------
-///
-/// Module description
-/// ------------------
-/// @file
-/// @verbatim
-/// Global usage description:
-/// -------------------------
-/// Originally based on code provided by
-/// https://gist.github.com/mike168m/6dd4eb42b2ec906e064d
-/// 
-/// See for the Video for Linux 2 API (V4L2)
-/// https://www.linuxtv.org/downloads/legacy/video4linux/API/V4L2_API/spec-single/v4l2.html
-///
-/// @endverbatim
-///-------------------------------------------------------------------------------------------------
+/**
+ * @file Webcam_V4L2.h
+ * @brief Webcam wrapper implementation using V4L2 API
+ */
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -28,27 +10,23 @@
 #include <cstring>
 #include <fstream>
 
-#include "V4L2WebCam.h"
-#include "V4L2WebCamException.h"
+#include "Webcam_V4L2.h"
+#include "Webcam_V4L2Exception.h"
 
 static const int BUFFERSIZE = 80;
 
-static const char* FailToOpenWebCamStr = "Failed to open the web cam";
-static const char* FailToQueryCapabilitiesStr = "Failed to query web cam capabilities";
 static const char* DeviceNotOpenStr = "The device is not open";
 static const char* UnableToSetImageFormatStr = "Unable to set image format";
 static const char* NoBufferFromDeviceStr = "Could not request buffer from device";
 static const char* NoBufferInformationStr = "Device did not provide buffer information";
+static const char* FailToOpenWebCamStr = "Failed to open the web cam";
+static const char* FailToQueryCapabilitiesStr = "Failed to query web cam capabilities";
 static const char* CouldNotStartVideoStreamStr = "Could not start video stream";
 static const char* CouldNotStopVideoStreamStr = "Could not stop video stream";
 static const char* CouldNotQueueBufferStr = "Could not queue buffer";
 static const char* CouldNotDequeueBufferStr = "Could not dequeue buffer";
 
-///-------------------------------------------------------------------------------------------------
-/// @brief Constructor
-/// @param type   The type of capture to be performed
-/// @param memory The type of buffer memory used
-V4L2WebCam::V4L2WebCam(v4l2_buf_type type, v4l2_memory memory)
+Webcam_V4L2::Webcam_V4L2(v4l2_buf_type type, v4l2_memory memory)
   : m_bufferType(type),
     m_memory(memory),
     m_fileDescriptor(-1),
@@ -57,17 +35,12 @@ V4L2WebCam::V4L2WebCam(v4l2_buf_type type, v4l2_memory memory)
   memset(&m_capability, 0x0, sizeof(v4l2_capability));
 }
 
-///-------------------------------------------------------------------------------------------------
-/// @brief Destructor
-V4L2WebCam::~V4L2WebCam()
+Webcam_V4L2::~Webcam_V4L2()
 {
   close();
 }
 
-///-------------------------------------------------------------------------------------------------
-/// @brief Opens the web cam
-/// @param device The device, for example, /dev/video0
-void V4L2WebCam::open(const std::string& device)
+void Webcam_V4L2::open(const std::string& device)
 {
   if (isOpen())
   {
@@ -83,9 +56,7 @@ void V4L2WebCam::open(const std::string& device)
                errno, FailToQueryCapabilitiesStr);
 }
 
-///-------------------------------------------------------------------------------------------------
-/// @brief Closes the web cam
-void V4L2WebCam::close() noexcept
+void Webcam_V4L2::close() noexcept
 {
   if (!isOpen())
   {
@@ -97,21 +68,12 @@ void V4L2WebCam::close() noexcept
   m_fileDescriptor = -1;
 }
 
-///-------------------------------------------------------------------------------------------------
-/// @brief Queries whether the web cam has been opened
-/// @return True when opened
-bool V4L2WebCam::isOpen() const noexcept
+bool Webcam_V4L2::isOpen() const noexcept
 {
   return (-1 != fileDescriptor());
 }
 
-///-------------------------------------------------------------------------------------------------
-/// @brief Sets the image format and dimensions
-/// @param width        The width of the image in pixels
-/// @param height       The height of the image in pixels
-/// @param pixelformat  The encoding of the image (i.e. JPEG)
-/// @param field        Unknown
-void V4L2WebCam::setFormat(uint32_t width, uint32_t height, uint32_t pixelformat, v4l2_field field)
+void Webcam_V4L2::setFormat(uint32_t width, uint32_t height, uint32_t pixelformat, v4l2_field field)
 {
   throwIfError((-1 == fileDescriptor()), EBADF, DeviceNotOpenStr);
   
@@ -126,10 +88,7 @@ void V4L2WebCam::setFormat(uint32_t width, uint32_t height, uint32_t pixelformat
                errno, UnableToSetImageFormatStr);
 }
 
-///-------------------------------------------------------------------------------------------------
-/// @brief Sets the number of buffers
-/// @param numBuffers The number of buffers to use
-void V4L2WebCam::setRequestBuffer(uint32_t numBuffers)
+void Webcam_V4L2::setRequestBuffer(uint32_t numBuffers)
 {
   throwIfError((-1 == fileDescriptor()), EBADF, DeviceNotOpenStr);
   
@@ -144,7 +103,7 @@ void V4L2WebCam::setRequestBuffer(uint32_t numBuffers)
   allocateBuffer();
 }
 
-void V4L2WebCam::allocateBuffer()
+void Webcam_V4L2::allocateBuffer()
 {
   throwIfError((-1 == fileDescriptor()), EBADF, DeviceNotOpenStr);
   
@@ -169,10 +128,7 @@ void V4L2WebCam::allocateBuffer()
   memset(m_bufferPtr, 0x0, queryBuffer.length);  
 }
 
-///-------------------------------------------------------------------------------------------------
-/// @brief Starts the stream and writes the output to a file
-/// @param file The filename to write to
-void V4L2WebCam::startStream(const std::string& file)
+void Webcam_V4L2::startStream(const std::string& file)
 {
   throwIfError((-1 == fileDescriptor()), EBADF, DeviceNotOpenStr);
   
@@ -206,7 +162,7 @@ void V4L2WebCam::startStream(const std::string& file)
   outFile.close();
 }
 
-void V4L2WebCam::throwIfError(bool errorOccured, int errNum, const std::string& errorMsg)
+void Webcam_V4L2::throwIfError(bool errorOccured, int errNum, const std::string& errorMsg)
 {
   if (!errorOccured)
   {
@@ -215,16 +171,17 @@ void V4L2WebCam::throwIfError(bool errorOccured, int errNum, const std::string& 
   
   char buffer[BUFFERSIZE];
   memset(buffer, 0x0, sizeof(buffer));
-  throw V4L2WebCamException(errorMsg + ": " + strerror_r(errNum, buffer, sizeof(buffer)));
+  throw Webcam_V4L2Exception(errorMsg + ": " + strerror_r(errNum, buffer,
+                                                          sizeof(buffer)));
 }
 
-int V4L2WebCam::fileDescriptor() const noexcept
+int Webcam_V4L2::fileDescriptor() const noexcept
 {
   std::lock_guard lock(m_mutex);
   return m_fileDescriptor;
 }
 
-void V4L2WebCam::open(const char* device) noexcept
+void Webcam_V4L2::open(const char* device) noexcept
 {
   std::lock_guard lock(m_mutex);
   m_fileDescriptor = ::open(device, O_RDWR);

@@ -60,7 +60,7 @@
 #   	- and we add the rule install:all
 
 # PROJ name (can be anything one wants)
-PROJ=test
+PROJ=webcam-main
 
 # File Paths
 SRC_DIR=.
@@ -74,7 +74,7 @@ CPPFLAGS = #-I '/usr/local/opt/llvm/include/c++/v1', '/usr/local/Cellar/llvm/3.5
 #CXXFLAGS = -Wall #-Werror  # e.g (-W -ansi -pedantic)
 # changed CXXFLAGS and CC because of tuple
 # src: https://github.com/rogual/neovim-dot-app/issues/46#issuecomment-90966755
-CXXFLAGS = -std=c++17 -Wall #-pthread #-Werror  # e.g (-W -ansi -pedantic)
+CXXFLAGS = -std=c++17 -Wall -ljpeg -lv4l1 -lv4l2 -DIO_READ -DIO_MMAP -DIO_USERPTR #-pthread #-Werror  # e.g (-W -ansi -pedantic)
 #LDFLAGS = -lbluetooth -lpthread #-lform -lncurses
 
 RM=rm -rf

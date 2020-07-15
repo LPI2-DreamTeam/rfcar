@@ -38,13 +38,13 @@ C[n] = C_{est} {+} K_c\bigg(e[n] {+} \frac{T}{\tau_i} \sum_{i=0}^n e[i] + \tau_d
 \item \(e[n{-}1]\): error for instant n-1.
 \item \(T\): sampling period [s]
 \end{itemize}
-Determing the equivalences for the controller’s earnings in the most conventional one: 
+Determining the equivalences for the earnings of the controller in the most conventional one: 
 \begin{equation}
 \label{equ:pid-discrete-params}
 K_p = K_c;~K_i = K_c\frac{T}{\tau_i};~K_d = K_c \frac{\tau_d}{T}
 \end{equation}
 
-There are other algorithms for PID control, namely the speed algorithm and the modified ones (position and speed). The speed algorithm calculates the variation of the controller output signal in relation to the immediately previous moment, presenting advantages over position algorithm as it does not need initialization and protects against eventual saturation of the controller (wind-up) and against computational failures. The modified algorithms aim to mitigate the derivate jump when there is an abrupt change in the error, by applying the derivate action to the measured variable instead of the error.\\
+There are other algorithms for PID control, namely the speed algorithm and the modified ones (position and speed). The speed algorithm calculates the variation of the controller output signal in relation to the immediately previous moment, presenting advantages over position algorithm as it does not need initialization and protects against eventual saturation of the controller (wind-up) and against computational failures. The modified algorithms aim to mitigate the derivative jump when there is an abrupt change in the error, by applying the derivative action to the measured variable instead of the error.\\
 
 To the modified speed algorithm will then come:
 \begin{equation}
