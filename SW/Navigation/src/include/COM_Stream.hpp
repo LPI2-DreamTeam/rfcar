@@ -11,7 +11,7 @@ namespace COM{
 	
 	public:
 
-		typedef void *(ParserCallback)(uint32_t, uint8_t);
+		typedef void *(ParserCallback)(uint32_t/*buffer size*/, uint8_t* /*buffer ptr*/) ;
 
 		typedef struct Config_T {
 			COM::LL<>* device;
