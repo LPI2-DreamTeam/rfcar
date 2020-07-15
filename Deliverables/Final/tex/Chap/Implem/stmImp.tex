@@ -1,4 +1,5 @@
 \subsubsection{Implementation on STM32}
+\label{sec::stmImp}
 In a first iteration of the implementation and subsequent testing, the STM32 was used, by implementing the control algorithm in equation~\ref{equ:pid-discrete-veloc-modif} in a program designed to create command variables through simulated measurements of the desired control variables, the command variables would then act upon the simulated system model in equation~\ref{equ:sysModel} that would then return the measured variables for the controller to use; thus the real system's controller and behaviour can be simulated.
 The command variables and control variables are placed on a buffer for each iteration and at the end of the simulation the values are sent to an interface for analysis.
 \subsubsection{STM32 Program}

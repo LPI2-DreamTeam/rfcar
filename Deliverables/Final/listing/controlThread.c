@@ -1,0 +1,146 @@
+void controlThread(OS::Thread* thread, void* arg) {
+
+//////////////////////////////// Motor implementation example ///////////////////////////////////
+
+	// Configure pwm to have an update rate of 2ms
+	IO::Config config_pwm = {.update_period = 2, nullptr, nullptr};
+	// Configure pulse counter to have a sample rate of 10ms
+	IO ::Config config_pc = {.update_period = PC_UPDT_PERIOD, (IO::ConvCpltCallback*)&pcCallback, nullptr};
+
+	IO::Entity<IO::MOTOR> motor_left(&config_pwm, &config_pc, IO::Entity<IO::MOTOR>::LEFT);
+	IO::Entity<IO::MOTOR> motor_right(&config_pwm, &config_pc, IO::Entity<IO::MOTOR>::RIGHT);
+
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////// Sensor implementation ///////////////////////////////////
+
+	// Configure sensor to have an update rate of 10ms
+	IO::Config config_sensor = {.update_period = 10, (IO::ConvCpltCallback*)&irsensorCallback, nullptr};
+
+	IO::Entity<IO::IR_SENSOR> sensor1(&config_sensor,FRONT_LEFT);
+	IO::Entity<IO::IR_SENSOR> sensor2(&config_sensor,FRONT_CENTER);
+	IO::Entity<IO::IR_SENSOR> sensor3(&config_sensor,FRONT_RIGHT);
+	IO::Entity<IO::IR_SENSOR> sensor4(&config_sensor,RIGHT_FRONT);
+	IO::Entity<IO::IR_SENSOR> sensor5(&config_sensor,RIGHT_BACK);
+	IO::Entity<IO::IR_SENSOR> sensor6(&config_sensor,BACK_RIGHT);
+	IO::Entity<IO::IR_SENSOR> sensor7(&config_sensor,BACK_LEFT);
+	IO::Entity<IO::IR_SENSOR> sensor8(&config_sensor,LEFT_BACK);
+	IO::Entity<IO::IR_SENSOR> sensor9(&config_sensor,LEFT_FRONT);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////	CONFIGURE STREAMS	/////////////////////////////////////////////////////////////////
+	//configure commands and request streams rapsberry and smartphone
+	COM::Manager::CreateDevice Smartphone(COM::BLUETOOTH	,COM::CLIENT,4); 
+	COM::Manager::CreateDevice Raspberry(COM::BLUETOOTH,COM::SERVER,1);	
+
+	COM::Stream::Config config_stream_sp={&Smartpone,STREAM_ID_SMARTPHONE_COMMAND,(COM::Stream::ParserCallback*) &parseCallback(),COM::BIDIRECTIONAL};
+	COM::Stream::Config config_stream_rasp={&Raspberry,STREAM_ID_RASPBERRY_COMMAND,(COM::Stream::ParserCallback*) &parseCallback(),COM::BIDIRECTIONAL};
+
+	COM::Manager::createStream stream_sp(&config_stream_sp,5); 		
+	COM::Manager::createStream stream_rasp(&config_stream_rasp,5);	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	char temp_buffer[50];
+	float distances[9];
+	float angles[2];
+
+	float ref_theta;
+	float ref_speed;
+
+	float out_pwm[2];
+
+//CONTROL VARS BEGIN
+float nUvr=0,nUvl=0, nVx=0,nVy=0,Vr_m=0,Vl_m=0,Vr_minus1=0, Vl_minus1=0;
+float Uvl=0,Uvr=0, Vr_ref=0, Vl_ref=0, Uvl_minus1=0, Uvr_minus1=0;
+int vflag=0;
+
+float L=WHEELBASE;
+float Kp=0.05;
+float Ki=0.1;
+//CONTROL VARS END
+
+
+	thread->sleepFor(5);
+	thread->keepCurrentTimestamp();
+
+	while(1) {
+
+		vflag=0;
+
+		//SEND CMD REQUEST TO SMARTPHONE
+		COM::Manager::queueMSG(REQUEST_COMMAND,&stream_sp);
+
+		//REQUESTS COMMAND TO RASPBERRY PI
+		COM::Manager::queueMSG(REQUEST_COMMAND,&stream_rasp);
+
+		//SLEEP FOR 38 MS
+		thread->sleepUntilElapsed(38);
+
+		//FETCHING IR SENSORS DISTANCES
+		distances[0] = sensor1.inputDistance();
+		distances[1] = sensor2.inputDistance();
+		distances[2] = sensor3.inputDistance();
+		distances[3] = sensor4.inputDistance();
+		distances[4] = sensor5.inputDistance();
+		distances[5] = sensor6.inputDistance();
+		distances[6] = sensor7.inputDistance();
+		distances[7] = sensor8.inputDistance();
+		distances[8] = sensor9.inputDistance();
+
+		for(i=0;i<9;i++){
+			if(distances[i]<40/*cm*/){
+				distances[i]=1;
+			}
+		}
+// attribution
+		motor_left.inputshaftAngle();
+		motor_right.inputshaftAngle();
+
+		//SLEEP FOR 2 MS
+		thread->sleepUntilElapsed(40);
+
+		// CONTROL RULE
+		psi_mutex.lock();
+		for(i=0;i<9;i++)
+   		 {
+      		if(distances[i]==1 && ((psidot<=(i+1)*(3.14*2/9)) && (psidot>=i*(3.14*2/9))))
+    	  	{
+     			Vr_ref=0;
+				V_ref=0;
+        		Vl_ref=0;
+				teta=0;
+				vflag=1;
+        	}
+ 	   }
+		if(!vflag)
+		{
+		Vr_ref = V_ref + teta*V_ref/2;
+    	Vl_ref = V_ref - teta*V_ref/2;
+		}
+		psi_mutex.unlock();
+
+
+		Uvr = Uvr_minus1 + Kp*(Vr_minus1-Vr_m) + Ki*(Vr_ref-Vr_m);	//PID_r
+    	Uvl = Uvl_minus1 + Kp*(Vl_minus1-Vl_m) + Ki*(Vl_ref-Vl_m);	//PID_l
+		
+		Uvl_minus1=Uvl;
+		Uvr_minus1=Uvr;
+		
+		Vr_minus1=Vr_m;
+		Vl_minus1=Vl_m;
+
+		out_pwm[IO::LEFT] 	= (Uvl/MOTOR_MAX_ABS_VOLT)*100;
+		out_pwm[IO::RIGHT]	= (Uvr/MOTOR_MAX_ABS_VOLT)*100;
+
+		thread->sleepUntilElapsed(50);
+		thread->keepCurrentTimestamp();
+
+		motor_left.outputPulseWidth(out_pwm[IO::LEFT]);
+		motor_right.outputPulseWidth(out_pwm[IO::RIGHT]);
+
+		
+	}
+}
