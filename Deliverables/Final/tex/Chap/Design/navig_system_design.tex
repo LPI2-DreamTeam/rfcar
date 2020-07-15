@@ -60,11 +60,33 @@ These layers are, from the bottom to the top:
 
 The \textbf{IO} package is comprised of the \textbf{IO Entity} and \textbf{IO Link} subpackages. The modules within these subpackages are the parts of the hardware abstraction layers responsible for standardizing the General Purpose Input/Output resources of the machine.
 
+The \textbf{IO Link} subpackage is the interface provides the most generic yet complete package for interacting with the machine. Its only module \textbf{IO::GPIO} provides such functionality as automatic resource assignment upon creation, automatic buffering of read and output values and the option of executing a specific piece of code when a conversion is completed for better effort distribution between layers.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.38\textwidth]{./img/navig-class-gpio.png}
+	\caption {IO::GPIO interface and members}
+	\label{fig:navig-class-gpio}
+	\end{figure}
 
 
-The \textbf{IO Link} subpackage is the interface provides the most generic yet complete package for interacting with the machine. It provides such functionality as automatic resource assignment, automatic buffering or timed output/input.
+The \textbf{IO::Entity} module from the \textbf{IO Entity} subpackage serves for specialization of functionality present in \textbf{IO Link} to serve a certain purpose attached to a physical meaning. This means it also extends the aforementioned callback mechanisms from \textbf{IO::GPIO} for automatic calculation of real-world values based on the measurements taken or otherwise that can be adapted and tailored further to serve the purpose of the specific application. Both provide a modest interface for storing important values calculated in the context of a \texttt{IO::ConversionCpltCallback} and a way to retrieve them.\\
 
-The \textbf{IO Entity} subpackage serves for specialization of functionality present in \textbf{IO Link} to serve a certain purpose attached to a physical meaning. This means it also provides methods for automatic calculation of real-world values based on the measurements taken or otherwise.
+Its \texttt{MOTOR} specialization uses an instance of \textbf{IO::GPIO} as an \texttt{INPUT\_PULSE\_COUNTING} to be able to count the number of pulses from the motor's encoder and output and one as an \texttt{OUTPUT\_PWM} to be able to output a pulse width modulated signal with a duty-cycle $D$ such that 
+$$
+V_{out average} = \frac{D\times V_{max}}{100}
+$$
+
+The \texttt{IR\_SENSOR} specialization uses an instance of \textbf{IO::GPIO} as an \texttt{INPUT\_ANALOG} for application in IR sensing applications. It provides a way to change the last calculated distance specifically for use in the corresponding callback function and an interface for retrieving that same value.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\textwidth]{./img/navig-class-entity.png}
+	\caption {IO::Entity interface and specializations' methods and members}
+	\label{fig:navig-class-entity}
+	\end{figure}
+
+
 
 \begin{figure}[H]
 	\centering
@@ -73,6 +95,13 @@ The \textbf{IO Entity} subpackage serves for specialization of functionality pre
 	\label{fig:navig-module-stack-io}
 	\end{figure}
 
+ 
+
+
+////////////// IMPLEMENTATION
+A callback for translating the motor encoder's pulse count into the adequate value of shaft position and rotational velocity. 
+A callback for translating the analog value from the IR sensor into the distance from the sensor to an obstacle
+/////////////////////////////
 
 %//////////////////////////////// # COM Package ////////////////////////////////
 \subsubsection{COM: Communications Package}
@@ -90,16 +119,94 @@ The \textbf{COM Transport} subpackage provides tools for managing multiple simul
 	\label{fig:navig-module-stack-com}
 	\end{figure}
 
+
+
+The \textbf{COM::LL} module 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./img/navig-class-ll.png}
+	\caption {COM::LL interface and specializations' methods and members}
+	\label{fig:navig-class-ll}
+	\end{figure}
+
+
+The \textbf{COM::Stream} module 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./img/navig-class-stream.png}
+	\caption {COM::Stream interface and members}
+	\label{fig:navig-class-stream}
+	\end{figure}
+
+
+The \textbf{COM::RedundancyEngine} module 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.35\textwidth]{./img/navig-class-redundancy-engine.png}
+	\caption {COM::RedundancyEngine interface and members}
+	\label{fig:navig-class-redundancy-engine}
+	\end{figure}
+
+
+The \textbf{COM::Manager} module 
 	
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./img/navig-class-manager.png}
+	\caption {COM::Manager interface and members}
+	\label{fig:navig-class-manager}
+	\end{figure}
+
+
 
 %//////////////////////////////// # OS Package /////////////////////////////////
 \subsubsection{OS: Scheduler Package}
 
 The modules in the \textbf{OS} package mainly serve the purposes of thread creation and management management, inter-thread synchronization and thread-safe access to memory. Therefore, they all revolve around threaded execution although each fills in the need for a special bit of functionality.
 
-The \textbf{OS::Thread} module provides a platform-agnostic interface for creating an object that will use native types and interfaces that allow each object to behave like a separate execution thread.
+The \textbf{OS::Thread} module provides a platform-agnostic interface for creating an object that will use native types and interfaces that allow each object to behave like a separate execution thread. The provided controls for it include execution and sleep mechanisms as well as options for waiting for the end of their execution and detaching threads from the parent thread. Scheduling can be managed with the options concerning thread priority and for the possibility of creating static threads it also provides the chance of delimiting the stack size. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./img/navig-class-thread.png}
+	\caption {OS::Thread interface and members}
+	\label{fig:navig-class-thread}
+	\end{figure}
 
 
+The \textbf{OS::Mutex} module provides a way for controlling access to shared resources that are not defined as thread-safe, which is any object that the user might create that is not of any of the modules in the High-level Hardware Abstraction Layer. It can be locked (\texttt{lock()}) in one thread in order to block access to a specific excerpt of code and it can only be locked again by the same thread or any other after it is unlocked (\texttt{unlock()}) by whatever thread locked it. It is thus non-recursive, which means that any thread, including the thread that locked in blocked in the call to \texttt{lock()} it until it is unlocked.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.15\textwidth]{./img/navig-class-mutex.png}
+	\caption {OS::Mutex interface and members}
+	\label{fig:navig-class-mutex}
+	\end{figure}
+
+
+The \textbf{OS::SharedMemory} module, one the other hand, provides a platform for sharing resources between specific threads. It may be considered an expansion upon \textbf{OS::Mutex} that is specifically tailored to be used in memory protection and can reduce the roster of threads that get access to a certain memory area. 
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.25\textwidth]{./img/navig-class-sharedmemory.png}
+	\caption {OS::SharedMemory interface and members}
+	\label{fig:navig-class-sharedmemory}
+	\end{figure}
+
+
+\textbf{OS::Notification} is a small module that provides the inter-thread synchronization method known as a signal or a notification. A call to \texttt{wait()} from one thread will make it halt until a call for \texttt{notifyOne()} that targets it is given from another thread. A call to \texttt{notifyAll()} will notify all threads. 
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.28\textwidth]{./img/navig-class-notification.png}
+	\caption {OS::Notification interface and members}
+	\label{fig:navig-class-notification}
+	\end{figure}
 
 
 \subsubsection{MEM: Memory Structures Package}
@@ -145,7 +252,7 @@ It is mainly used by the \textbf{IO::GPIO} class for timing conversions but it c
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.4\textwidth]{./img/navig-class-timer.png}
+	\includegraphics[width=0.43\textwidth]{./img/navig-class-timer.png}
 	\caption {CLK::Timer interface and members}
 	\label{fig:navig-class-timer}
 	\end{figure}
