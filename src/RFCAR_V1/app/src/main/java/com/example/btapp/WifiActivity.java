@@ -74,9 +74,9 @@ public class WifiActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wifi_devices_discovered);
 
-        wifi_read_box = (TextView) findViewById(R.id.wifi_msg_read);
+        wifi_read_box = findViewById(R.id.wifi_msg_read);
 
-        send_wifi_msg = (Button) findViewById(R.id.wifi_msg_btn);
+        send_wifi_msg = findViewById(R.id.wifi_msg_btn);
         send_wifi_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +90,7 @@ public class WifiActivity extends AppCompatActivity{
             }
         });
 
-        return_button = (ImageButton) findViewById(R.id.return_btn);
+        return_button = findViewById(R.id.return_btn);
         return_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +99,7 @@ public class WifiActivity extends AppCompatActivity{
             }
         });
 
-        wifi_devices_discovered = (ListView) findViewById(R.id.wifi_list_view);
+        wifi_devices_discovered = findViewById(R.id.wifi_list_view);
         wifi_devices_discovered.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -124,7 +124,7 @@ public class WifiActivity extends AppCompatActivity{
         });
 
 
-        connection_status2 = (TextView) findViewById(R.id.connection_status2);
+        connection_status2 = findViewById(R.id.connection_status2);
 
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
