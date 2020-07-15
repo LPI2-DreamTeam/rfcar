@@ -28,6 +28,7 @@ float teta=0;
 float psidot=0;
 float Vr_m=0;
 float Vl_m=0;
+float V_m=0;
 
 OS::Mutex psi_mutex; 
 
@@ -47,17 +48,16 @@ void pcCallback(number value, void* p) {
 	IO::Entity<IO::MOTOR>* p_motor = reinterpret_cast<IO::Entity<IO::MOTOR>*>(p);
 	float last_angle = p_motor->inputShaftAngle();
 	float angle;
-	float v;
 	float omega;
 	uint32_t pulses = value._uint32;
 
 	angle=(last_angle + PULSE_ANGLE * pulses)%360;
 	omega=(angle-last_angle)/PC_UPDT_PERIOD;
-	v=omega*WHEEL_RADIUS;
+	V_m=omega*WHEEL_RADIUS;
 
 	psi_mutex.lock();
-	Vr_m= v + WHEELBASE/2 * omega;
-	Vl_m= v - WHEELBASE/2 * omega;
+	Vr_m= V_m + WHEELBASE/2 * omega;
+	Vl_m= V_m - WHEELBASE/2 * omega;
 	psi_mutex.unlock();
 	p_motor->setShaftAngle(angle);
 
@@ -228,7 +228,6 @@ float Ki=0.1;
 // attribution
 		motor_left.inputshaftAngle();
 		motor_right.inputshaftAngle();
-		// calculate wheel speed
 
 		//SLEEP FOR 2 MS
 		thread->sleepUntilElapsed(40);
@@ -278,7 +277,7 @@ float Ki=0.1;
 
 void simulationThread(OS::Thread* thread, void* arg) {
 
-float psi=0,x=0,y=0, V_m=0, aux_x=0, aux_y=0, aux_psi=0;
+float psi=0,x=0,y=0, aux_x=0, aux_y=0, aux_psi=0;
 	while(1) {
 
 	thread->keepCurrentTimeStamp();
@@ -286,7 +285,6 @@ float psi=0,x=0,y=0, V_m=0, aux_x=0, aux_y=0, aux_psi=0;
 	psi_mutex.lock();
 	psi=psidot*0.05+aux_psi;
 	aux_psi=psi;
-	/*V_m= Uvr/2 + Uvl/2;*/ // CHECK WITH RAM
 	nVx = V_m* cos(psi) - L/2 * V_ref/L * teta * sin(psi);
     nVy = V_m* sin(psi) - L/2 * V_ref/L * teta * cos(psi);
 	psi_mutex.unlock();
