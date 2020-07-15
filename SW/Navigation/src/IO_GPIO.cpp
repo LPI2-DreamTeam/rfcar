@@ -27,7 +27,6 @@ namespace IO {
 				// Move back in the file the right amount of characters to read the conversion ID and the conversion value 
 				conversions_file.seekg(-(int32_t)(sizeof(line_id) + sizeof(conversion)), std::ios_base::end);
 
-				// Praying to the Endian gods
 				conversions_file.read(reinterpret_cast<char*>(&line_id), sizeof(last_line_id));
 				conversions_file.read(reinterpret_cast<char*>(&(conversion._uint8_arr)), sizeof(conversion));
 			} while (line_id == gpio_ptr->last_line_id);
@@ -48,7 +47,6 @@ namespace IO {
 				return nullptr;
 			}
 			
-			// Praying to the Endian gods
 			conversions_file.write(reinterpret_cast<char*>(&(gpio_ptr->last_line_id)), sizeof(gpio_ptr->last_line_id));
 			conversions_file.write(reinterpret_cast<char*>(&(conversion)), sizeof(conversion));
 
@@ -56,7 +54,6 @@ namespace IO {
 			conversions_file.close();
 		}
 
-		/////// NOT WORKING 
 		if (gpio_ptr->conv_cplt_callback != NULL)
 			(*(gpio_ptr->conv_cplt_callback))(conversion, gpio_ptr->callback_arg);
 
