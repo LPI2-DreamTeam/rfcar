@@ -10,7 +10,7 @@
 
 namespace IO {
 
-	GPIO::States GPIO::global_states = {0, 0, 0};
+	GPIO::States GPIO::global_states = { 0, 0, 0 };
 
 	void* GPIO::timeElapsedCallback(void* ptr) {
 
@@ -27,6 +27,7 @@ namespace IO {
 				// Move back in the file the right amount of characters to read the conversion ID and the conversion value 
 				conversions_file.seekg(-(int32_t)(sizeof(line_id) + sizeof(conversion)), std::ios_base::end);
 
+				// Praying to the Endian gods
 				conversions_file.read(reinterpret_cast<char*>(&line_id), sizeof(last_line_id));
 				conversions_file.read(reinterpret_cast<char*>(&(conversion._uint8_arr)), sizeof(conversion));
 			} while (line_id == gpio_ptr->last_line_id);
@@ -36,26 +37,25 @@ namespace IO {
 			gpio_ptr->last_line_id = line_id;
 			gpio_ptr->insertNewConversion(conversion);
 			// Else if mode is output
-		} else {
+		}
+		else {
 
 			gpio_ptr->fetchLastConversions(conversion);
 
 			std::ofstream conversions_file(gpio_ptr->filename, std::ios::binary | std::ios::out | std::ios::app);
-			
+
 			if (!conversions_file.is_open()) {
 				gpio_ptr->last_error = IO::Error::FAIL_OUTPUT;
 				return nullptr;
 			}
-			
+
+			// Praying to the Endian gods
 			conversions_file.write(reinterpret_cast<char*>(&(gpio_ptr->last_line_id)), sizeof(gpio_ptr->last_line_id));
 			conversions_file.write(reinterpret_cast<char*>(&(conversion)), sizeof(conversion));
 
 			gpio_ptr->last_line_id += 1;
 			conversions_file.close();
 		}
-
-		if (gpio_ptr->conv_cplt_callback != NULL)
-			(*(gpio_ptr->conv_cplt_callback))(conversion, gpio_ptr->callback_arg);
 
 		gpio_ptr->last_error = IO::OK;
 
@@ -69,7 +69,8 @@ namespace IO {
 		if (id == IO_GPIO_MAX_OBJECT_COUNT) {
 			this->last_error = OBJECT_UNAVAILABLE;
 
-		} else {
+		}
+		else {
 			this->filename = std::string(IO_FOLDER) + std::string("gpio") + std::to_string(id) + ".bin";
 			std::ofstream file(this->filename, std::ios::trunc);
 			file.close();
@@ -80,13 +81,14 @@ namespace IO {
 
 
 	Error GPIO::configure(Config* config, Mode mode) {
-		
+
 		this->mode = mode;
 
 		if (config == nullptr) {
 			last_error = NULL_CONFIG;
-		
-		} else {
+
+		}
+		else {
 
 			update_period_ms = config->update_period;
 			conv_cplt_callback = config->conv_cplt_callback;
@@ -100,7 +102,7 @@ namespace IO {
 
 
 	void GPIO::run() {
-		
+
 		markRunning(this);
 		timer.setCounter(update_period_ms);
 		timer.setAutoReload(update_period_ms);
@@ -111,22 +113,22 @@ namespace IO {
 
 
 	Error GPIO::insertNewConversion(number value) {
-		
+
 		if (mode < Mode::OUTPUT_PWM)
 			this->last_error = INVALID_OPERATION;
-			
+
 		else if (this->conversion_buffer.push(value) != MEM::OK)
 			last_error = BUFFER_FULL;
 
 		else
 			last_error = OK;
-		
+
 		return this->last_error;
 	}
 
 
 	Error GPIO::fetchLastConversions(number& value) {
-	
+
 		while (conversion_buffer.pop(&value) != MEM::EMPTY);
 		last_error = OK;
 		return this->last_error;
@@ -157,7 +159,7 @@ namespace IO {
 				break;
 			}
 		}
-		
+
 		return i;
 	}
 
@@ -177,7 +179,7 @@ namespace IO {
 			global_states.configured &= ~(1U) << obj->id;
 			global_states.running &= ~(1U) << obj->id;
 		}
-			
+
 	}
 
 	void GPIO::markRunning(GPIO* obj, bool value) {
@@ -199,15 +201,15 @@ namespace IO {
 	}
 
 	bool GPIO::isConfigured(GPIO* obj) {
-		return (global_states.configured>>obj->id) & 1U;
+		return (global_states.configured >> obj->id) & 1U;
 	}
-	
+
 	bool GPIO::isRunning(GPIO* obj) {
-		return (global_states.running>>obj->id) & 1U;
+		return (global_states.running >> obj->id) & 1U;
 	}
 
 	bool GPIO::isAssigned(GPIO* obj) {
-		return (global_states.assigned>>obj->id) & 1U;
+		return (global_states.assigned >> obj->id) & 1U;
 	}
 
 }

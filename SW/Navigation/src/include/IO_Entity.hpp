@@ -1,4 +1,4 @@
-#ifndef _IO_ENTITY_H
+ #ifndef _IO_ENTITY_H
 #define _IO_ENTITY_H
 
 #include "IO_GPIO.hpp"
