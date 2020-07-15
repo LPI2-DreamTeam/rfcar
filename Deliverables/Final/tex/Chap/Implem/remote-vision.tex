@@ -47,7 +47,7 @@ the 20--35 EUR pricepoint.
 \label{fig:pi-zero-w-cam}
 \end{figure}
 %
-
+%
 \subsection{Software}%
 \label{sec:software-rvvs-implem}
 The software part is mainly comprised of two main components: the software
@@ -161,7 +161,11 @@ respective thread, responsible for starting a webcam stream on user-demand.
 %
 \subsubsection{Wi-Fi}%
 \label{sec:wi-fi-rvvs-implem}
-
+For the implementation of the Wi-Fi communication, \gls{tcpip} sockets were used
+in conjunction with the client/server architecture. Although only the server is
+running on the \gls{rvvs} subsystem, the instantiation of both client and server
+enables the testing of the complete communications workflow, without the need to
+add the uncertainty associated with the communication medium.
 
 %
 %%% Local Variables:

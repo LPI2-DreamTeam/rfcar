@@ -22,11 +22,13 @@ int main(int argc, char* argv[])
 /* Open the device */
     wbc.open(DEVICE);
 /* Set format to 320x240 and Motion JPEG */
-    wbc.setFormat(320, 240, V4L2_PIX_FMT_MJPEG);
+//    wbc.setFormat(320, 240, V4L2_PIX_FMT_MJPEG);
+    wbc.setFormat(320, 240, V4L2_PIX_FMT_UYVY);
 /* Request 1 buffer */
     wbc.setRequestBuffer(1U);
 /* Start stream and write to file */
-    wbc.startStream("output.jpg");
+    wbc.startStream("output.yuvy");
+//    wbc.startStream("output.jpg");
 /* Close device */
     wbc.close();
   }catch(const Webcam_V4L2Exception& e){
