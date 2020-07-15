@@ -17,10 +17,17 @@
 #define STATUS "ASK"
 #define STATUS_OK "OK"
 #define STATUS_NOT_OK "NOT_OK"
+#define ENCODER_RESOLUTION 500.0
+#define PULSE_ANGLE (float) 360.0/ENCODER_RESOLUTION
+#define PC_UPDT_PERIOD 10
+#define WHEEL_RADIUS 0.03 //m
+#define WHEELBASE 0.20
 
 float V_ref=0;
 float teta=0;
 float psidot=0;
+float Vr_m=0;
+float Vl_m=0;
 
 OS::Mutex psi_mutex; 
 
@@ -38,12 +45,24 @@ namespace DEBUG {
 void pcCallback(number value, void* p) {
 
 	IO::Entity<IO::MOTOR>* p_motor = reinterpret_cast<IO::Entity<IO::MOTOR>*>(p);
+	float last_angle = p_motor->inputShaftAngle();
 	float angle;
+	float v;
+	float omega;
 	uint32_t pulses = value._uint32;
 
-	// calculo do angulo
+	angle=(last_angle + PULSE_ANGLE * pulses)%360;
+	omega=(angle-last_angle)/PC_UPDT_PERIOD;
+	v=omega*WHEEL_RADIUS;
 
+	psi_mutex.lock();
+	Vr_m= v + WHEELBASE/2 * omega;
+	Vl_m= v - WHEELBASE/2 * omega;
+	psi_mutex.unlock();
 	p_motor->setShaftAngle(angle);
+
+
+
 }
 
 
@@ -96,8 +115,16 @@ void irsensorCallback(number value, void* p){
 	}
 }
 
-void parseCallback(uint32_t buffer_size, uint8_t* buff_ptr){
-/*acrescentar codigo antes do controlador*/
+void parseCallback(uint32_t buffer_size, uint8_t* buff_ptr) {
+	
+		psi_mutex.lock();
+		
+		teta = (float)*buff_ptr;
+		V_ref = (float)*(buff_ptr+sizeof(float));
+		V_ref=(V_ref/100)*6;
+		teta=(teta/100)*0.5;
+
+		psi_mutex.unlock();
 }
 
 
@@ -108,7 +135,7 @@ void controlThread(OS::Thread* thread, void* arg) {
 	// Configure pwm to have an update rate of 2ms
 	IO::Config config_pwm = {.update_period = 2, nullptr, nullptr};
 	// Configure pulse counter to have a sample rate of 10ms
-	IO ::Config config_pc = {.update_period = 10, (IO::ConvCpltCallback*)&pcCallback, nullptr};
+	IO ::Config config_pc = {.update_period = PC_UPDT_PERIOD, (IO::ConvCpltCallback*)&pcCallback, nullptr};
 
 	IO::Entity<IO::MOTOR> motor_left(&config_pwm, &config_pc, IO::Entity<IO::MOTOR>::LEFT);
 	IO::Entity<IO::MOTOR> motor_right(&config_pwm, &config_pc, IO::Entity<IO::MOTOR>::RIGHT);
@@ -117,7 +144,7 @@ void controlThread(OS::Thread* thread, void* arg) {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//////////////////////////////// Sensor implementation example ///////////////////////////////////
+//////////////////////////////// Sensor implementation ///////////////////////////////////
 
 	// Configure sensor to have an update rate of 10ms
 	IO::Config config_sensor = {.update_period = 10, (IO::ConvCpltCallback*)&irsensorCallback, nullptr};
@@ -133,59 +160,18 @@ void controlThread(OS::Thread* thread, void* arg) {
 	IO::Entity<IO::IR_SENSOR> sensor9(&config_sensor,LEFT_FRONT);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-
-	//motor_left.outputPulseWidth();
-	//motor_left.inputShaftAngle();
-
-	// config ir sensors -> done
-	// config motors ->done
-	// config comms
 	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//configure device smartphone ?
-	//configure device raspberry ?
+	/////////////////////////////////////////////////	CONFIGURE STREAMS	/////////////////////////////////////////////////////////////////
 	//configure commands and request streams rapsberry and smartphone
-	COM::Manager::CreateDevice Smartphone(COM::BLUETOOTH	,COM::CLIENT,4); 	//??
-	COM::Manager::CreateDevice Raspberry(COM::BLUETOOTH,COM::SERVER,1);	//??
+	COM::Manager::CreateDevice Smartphone(COM::BLUETOOTH	,COM::CLIENT,4); 
+	COM::Manager::CreateDevice Raspberry(COM::BLUETOOTH,COM::SERVER,1);	
 
 	COM::Stream::Config config_stream_sp={&Smartpone,STREAM_ID_SMARTPHONE_COMMAND,(COM::Stream::ParserCallback*) &parseCallback(),COM::BIDIRECTIONAL};
 	COM::Stream::Config config_stream_rasp={&Raspberry,STREAM_ID_RASPBERRY_COMMAND,(COM::Stream::ParserCallback*) &parseCallback(),COM::BIDIRECTIONAL};
 
-	COM::Manager::createStream stream_sp(&config_stream_sp,5); 		// LAST NUMBER UNKNOWN ASKS FOR  CLK::Time polling_rate_read TIME BETWEEN VERIFICATION
-	COM::Manager::createStream stream_rasp(&config_stream_rasp,5);	// LAST NUMBER UNKNOWN ASKS FOR  CLK::Time polling_rate_read TIME BETWEEN VERIFICATION
+	COM::Manager::createStream stream_sp(&config_stream_sp,5); 		
+	COM::Manager::createStream stream_rasp(&config_stream_rasp,5);	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//queueMsg falta size, to be updated
-
-/*
-	//REQUESTS COMMAND TO SMARTPHONE
-	COM::Manager::queueMSG(REQUEST_COMMAND,&stream_sp);
-
-	uint32_t size = COM::Manager::fetchLastMsg(&stream_sp) == 0;
-	
-	//WAITS FOR COMMAND
-	if(size == 0) {
-		// 
-	}
-
-	//REQUESTS COMMAND TO RASPBERRY PI
-	COM::Manager::queueMSG(REQUEST_COMMAND,&stream_rasp);
-
-	//WAITS FOR COMMAND
-	while(COM::Manager::fetchLastMsg(&stream_rasp) ==0);
-
-	//STATUS FEEDBACK SMARTPHONE
-	COM::Manager::queueMSG(STATUS_OK,&stream_sp);
-
-	//WAITS FOR ACKNOWLEDGEMENT
-	while(COM::Manager::fetchLastMsg(&stream_sp) ==0);
-
-	//STATUS FEEDBACK RASPBERRY PI
-	COM::Manager::queueMSG(STATUS_OK,&stream_rasp);
-
-	//WAITS FOR ACKNOWLEDGEMENT
-	while(COM::Manager::fetchLastMsg(&stream_rasp) ==0);
-*/
 
 	char temp_buffer[50];
 	float distances[9];
@@ -195,15 +181,13 @@ void controlThread(OS::Thread* thread, void* arg) {
 	float ref_speed;
 
 	float out_pwm[2];
-	float Vr;
-	float Vl;
 
 //CONTROL VARS BEGIN
 float nUvr=0,nUvl=0, nVx=0,nVy=0,Vr_m=0,Vl_m=0,Vr_minus1=0, Vl_minus1=0;
 float Uvl=0,Uvr=0, Vr_ref=0, Vl_ref=0, Uvl_minus1=0, Uvr_minus1=0;
 int vflag=0;
 
-float L=0.20;
+float L=WHEELBASE;
 float Kp=0.05;
 float Ki=0.1;
 //CONTROL VARS END
@@ -245,20 +229,10 @@ float Ki=0.1;
 		motor_left.inputshaftAngle();
 		motor_right.inputshaftAngle();
 		// calculate wheel speed
-		Vr_m=0;
-		Vl_m=0;
 
 		//SLEEP FOR 2 MS
 		thread->sleepUntilElapsed(40);
 
-		psi_mutex.lock();
-		if (COM::Manager::fetchLastMsg(&stream_sp) != 0) {
-			teta 	= (float)stream_sp;
-			V_ref 	= (float)(stream_sp+sizeof(float));
-			V_ref=(V_ref/100)*6;
-			teta=(teta/100)*0.5;
-		}
-		psi_mutex.unlock();
 		// CONTROL RULE
 		psi_mutex.lock();
 		for(i=0;i<9;i++)
@@ -312,9 +286,7 @@ float psi=0,x=0,y=0, V_m=0, aux_x=0, aux_y=0, aux_psi=0;
 	psi_mutex.lock();
 	psi=psidot*0.05+aux_psi;
 	aux_psi=psi;
-	psi_mutex.unlock();
 	/*V_m= Uvr/2 + Uvl/2;*/ // CHECK WITH RAM
-	psi_mutex.lock();
 	nVx = V_m* cos(psi) - L/2 * V_ref/L * teta * sin(psi);
     nVy = V_m* sin(psi) - L/2 * V_ref/L * teta * cos(psi);
 	psi_mutex.unlock();
@@ -323,13 +295,9 @@ float psi=0,x=0,y=0, V_m=0, aux_x=0, aux_y=0, aux_psi=0;
 	aux_x=x;
 	aux_y=y;
 		
-		
-	//norm=sqrt(pow(nVx,2)+pow(nVy,2));
 	psi_mutex.lock();
     psidot=V_m/L * teta;
 	psi_mutex.unlock();
-    //Vr_m = norm + teta*V_m/2;
-    //Vl_m = norm - teta*V_m/2;
 
 	thread->sleepUntilElapsed(10);
 	}
