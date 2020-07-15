@@ -140,7 +140,7 @@ variables there are the file descriptor associated with the device
 \texttt{m\_FileDescriptor}, the pointer to a buffer frame \texttt{m\_bufferPtr},
 and the V4L2 variables representing the buffer's type, memory type and
 capabilities, respectively. Additionally, a mutually exclusive object variable
-\texttt{m\_mutex} is used to manage concurrent access to the device via file descriptor.
+\texttt{m\_mutex} is used to manage concurrent access to the device via file descriptor.\\
 % Webcam header file
 \lstinputlisting[language=C++, caption={Webcam wrapper interface using the V4L2 API},label=lst:webcam-h,
 style=customc]{./listing/webcam-v4l2.h}%
@@ -151,7 +151,7 @@ the attached camera is placed under Linux filesystem. A webcam object is created
 for video capture and then is tried out the aforementioned workflow by opening
 the device, setting the dimensions to 320x240 pixels and the format to Motion
 JPEG (MJPEG), requesting one buffer, starting the stream to an output file and
-finally closing the device. 
+finally closing the device.\\ 
 % Webcam main
 \lstinputlisting[language=C++, caption={Webcam driver program},label=lst:webcam-main,
 style=customc]{./listing/webcam-main.cpp}%
