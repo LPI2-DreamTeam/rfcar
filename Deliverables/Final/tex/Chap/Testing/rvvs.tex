@@ -31,13 +31,14 @@ guest (Listing~\ref{lst:deploy-cmds}).
 Pi},label=lst:deploy-cmds,
 style=customc]{./listing/ssh-scp.sh}%
 
-The web camera was then tested using the \texttt{lsusb} command and piping the
+The web camera was then tested using the \texttt{lsusb} command and piped the
 output to a \texttt{.txt} file for further
-examination. Listing~\ref{ref:lst:lsb-output} contains an excerpt of this output
+examination. Listing~\ref{lst:lsb-output} contains an excerpt of this output
 where it can be observed the
 webcam model (\texttt{Cubeternet WebCam}) and the \gls{usb}2.0 interface.
-\lstinputlisting[language=sh, caption={Webcam information obtained via
-  \texttt{lsusb} (excerpt)},label=lst:lsb-output,
+\lstinputlisting[language=sh,%
+caption={Webcam information obtained via \texttt{lsusb} (excerpt)},%
+label=lst:lsb-output,%
 style=customc]{./listing/lsusb-output.sh}%
 
 However, this information by itself is not so useful. Additionally, and much

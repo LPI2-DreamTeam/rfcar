@@ -1,0 +1,26 @@
+\section{Image Acquisition}%
+\label{sec:img-acq-verif}
+In this section is verified the compliance between foreseen (see
+Section~\ref{sec:image-acquisit}) and actual specifications (see
+Section~\ref{sec:img-acq-rvvs-test}).
+
+As can be seen in this latter section, unfortunately, the available webcam is
+very old, supporting only the \texttt{uyvy422} format (luminance +
+chrominance). This prevents the straightforward video capture and its streaming
+to a remote streaming platform (e.g. \texttt{Youtube}) where it's ubiquitously
+available through a shareable link. A more convenient format would be the
+MJPEG.
+
+Concerning the framerate, it can be that the webcam supports 30 fps
+only. However, it's actual value in dependent on system's load, but, as video
+capture was not possible, consequently, it is left undetermined.
+
+For the same reason, and although several resolutions are available (640x320,
+352x288, 340x240, 176x144, and 160x120), it was only possible to test out image
+acquisition at these resolutions, with success, but lacking the video capture
+tests, which is not critical, as it does not depend on dynamic conditions, only
+on a statically defined capability of the webcam.
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../dissertation"
+%%% End:
