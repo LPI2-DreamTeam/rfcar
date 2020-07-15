@@ -13,10 +13,16 @@
 #define STREAM_ID_SMARTPHONE_COMMAND 100
 #define STREAM_ID_RASPBERRY_COMMAND 101
 #define MOTOR_MAX_ABS_VOLT 6
-const string REQUEST_COMMAND ="CMD"
-const string STATUS = "ASK"
-const string STATUS_OK = "OK"
-const string STATUS_NOT_OK = "NOT_OK"
+#define REQUEST_COMMAND "CMD"
+#define STATUS "ASK"
+#define STATUS_OK "OK"
+#define STATUS_NOT_OK "NOT_OK"
+
+float V_ref=0;
+float teta=0;
+float psidot=0;
+
+OS::Mutex psi_mutex; 
 
 const std::string
 namespace DEBUG {
@@ -40,18 +46,58 @@ void pcCallback(number value, void* p) {
 	p_motor->setShaftAngle(angle);
 }
 
-void pwmCallback(number value, void* p) {
-
-}
 
 void irsensorCallback(number value, void* p){
 
+	IO::Entity<IO::IR_SENSOR>* p_sensor = reinterpret_cast<IO::Entity<IO::IR_SENSOR>*>(p);
+	float distance_temp;
+	value *= 3.3;
+
+	//LINEAR INTERPOLATION OF THE SENSOR'S VOLT/DISTANCE CURVE
+	if(value>=2.5 && value<=3.1)
+	{
+		distance_temp= 20/3 *(4-value);
+		p_sensor->setDistance(distance_temp);
+	}
+	else if(value>=1.4 && value<2.5);
+	{
+		distance_temp=10/-1.1 * (value-3.6);
+		p_sensor->setDistance(distance_temp);
+ 	}
+	else if(value>=0.9 && value<1.4)
+	{
+		distance_temp=20*(2.4-value);
+		p_sensor->setDistance(distance_temp);
+	}
+	else if(value>=0.75 && value<=0.9)
+	{
+		distance_temp=200/3 * (1.35-value);
+		p_sensor->setDistance(distance_temp);
+	}
+	else if(value>=0.6 && value<=0.75)
+	{
+		distance_temp=200/3 * (1.2-value);
+		p_sensor->setDistance(distance_temp);
+	}
+	else if(value>=0.5 && value<=0.6)
+	{
+		distance_temp=100 * (1.1-value);
+		p_sensor->setDistance(distance_temp);
+	}
+	else if(value>=0.45 && value<=0.5)
+	{
+		distance_temp=200 * (0.8-value);
+		p_sensor->setDistance(distance_temp);
+	}
+	else if(value<0.45)
+	{
+		distance_temp=0.8;
+		p_sensor->setDistance(distance_temp);
+	}
 }
 
-void parseCallback(){
-	value *=3.3;
-	for(int i=0;i<9;i++)
-	if()
+void parseCallback(uint32_t buffer_size, uint8_t* buff_ptr){
+/*acrescentar codigo antes do controlador*/
 }
 
 
@@ -60,7 +106,7 @@ void controlThread(OS::Thread* thread, void* arg) {
 //////////////////////////////// Motor implementation example ///////////////////////////////////
 
 	// Configure pwm to have an update rate of 2ms
-	IO::Config config_pwm = {.update_period = 2, (IO::ConvCpltCallback*)&pwmCallback, nullptr};
+	IO::Config config_pwm = {.update_period = 2, nullptr, nullptr};
 	// Configure pulse counter to have a sample rate of 10ms
 	IO ::Config config_pc = {.update_period = 10, (IO::ConvCpltCallback*)&pcCallback, nullptr};
 
@@ -153,21 +199,22 @@ void controlThread(OS::Thread* thread, void* arg) {
 	float Vl;
 
 //CONTROL VARS BEGIN
-float nUvr=0,nUvl=0,psi=0,psidot=0, nVx=0,nVy=0,Vr_m=0,Vl_m=0,Vr_minus1=0, Vl_minus1=0,x=0,y=0;
-float Uvl=0,Uvr=0,norm=0, counter=0, V_m=0, Vr_ref=0, Vl_ref=0, Uvl_minus1=0, Uvr_minus1=0;
-float aux_x=0,aux_y=0, aux_psi=0;
-int i=0, vflag=0;
-
-float V_ref;
-float teta;
+float nUvr=0,nUvl=0, nVx=0,nVy=0,Vr_m=0,Vl_m=0,Vr_minus1=0, Vl_minus1=0;
+float Uvl=0,Uvr=0, Vr_ref=0, Vl_ref=0, Uvl_minus1=0, Uvr_minus1=0;
+int vflag=0;
 
 float L=0.20;
 float Kp=0.05;
 float Ki=0.1;
 //CONTROL VARS END
+
+
+	thread->sleepFor(5);
+	thread->keepCurrentTimestamp();
+
 	while(1) {
+
 		vflag=0;
-		thread->keepCurrentTimestamp();
 
 		//SEND CMD REQUEST TO SMARTPHONE
 		COM::Manager::queueMSG(REQUEST_COMMAND,&stream_sp);
@@ -204,16 +251,16 @@ float Ki=0.1;
 		//SLEEP FOR 2 MS
 		thread->sleepUntilElapsed(40);
 
-		
+		psi_mutex.lock();
 		if (COM::Manager::fetchLastMsg(&stream_sp) != 0) {
 			teta 	= (float)stream_sp;
 			V_ref 	= (float)(stream_sp+sizeof(float));
 			V_ref=(V_ref/100)*6;
 			teta=(teta/100)*0.5;
 		}
-
+		psi_mutex.unlock();
 		// CONTROL RULE
-
+		psi_mutex.lock();
 		for(i=0;i<9;i++)
    		 {
       		if(distances[i]==1 && ((psidot<=(i+1)*(3.14*2/9)) && (psidot>=i*(3.14*2/9))))
@@ -230,6 +277,8 @@ float Ki=0.1;
 		Vr_ref = V_ref + teta*V_ref/2;
     	Vl_ref = V_ref - teta*V_ref/2;
 		}
+		psi_mutex.unlock();
+
 
 		Uvr = Uvr_minus1 + Kp*(Vr_minus1-Vr_m) + Ki*(Vr_ref-Vr_m);	//PID_r
     	Uvl = Uvl_minus1 + Kp*(Vl_minus1-Vl_m) + Ki*(Vl_ref-Vl_m);	//PID_l
@@ -244,22 +293,31 @@ float Ki=0.1;
 		out_pwm[IO::RIGHT]	= (Uvr/MOTOR_MAX_ABS_VOLT)*100;
 
 		thread->sleepUntilElapsed(50);
+		thread->keepCurrentTimestamp();
 
 		motor_left.outputPulseWidth(out_pwm[IO::LEFT]);
 		motor_right.outputPulseWidth(out_pwm[IO::RIGHT]);
 
+		
 	}
 }
 
 void simulationThread(OS::Thread* thread, void* arg) {
 
+float psi=0,x=0,y=0, V_m=0, aux_x=0, aux_y=0, aux_psi=0;
 	while(1) {
+
+	thread->keepCurrentTimeStamp();
+
+	psi_mutex.lock();
 	psi=psidot*0.05+aux_psi;
 	aux_psi=psi;
-
+	psi_mutex.unlock();
 	/*V_m= Uvr/2 + Uvl/2;*/ // CHECK WITH RAM
+	psi_mutex.lock();
 	nVx = V_m* cos(psi) - L/2 * V_ref/L * teta * sin(psi);
     nVy = V_m* sin(psi) - L/2 * V_ref/L * teta * cos(psi);
+	psi_mutex.unlock();
 	x=nVx*0.05 +aux_x;
 	y=nVy*0.05+aux_y;
 	aux_x=x;
@@ -267,9 +325,13 @@ void simulationThread(OS::Thread* thread, void* arg) {
 		
 		
 	//norm=sqrt(pow(nVx,2)+pow(nVy,2));
+	psi_mutex.lock();
     psidot=V_m/L * teta;
+	psi_mutex.unlock();
     //Vr_m = norm + teta*V_m/2;
     //Vl_m = norm - teta*V_m/2;
+
+	thread->sleepUntilElapsed(10);
 	}
 }
 
