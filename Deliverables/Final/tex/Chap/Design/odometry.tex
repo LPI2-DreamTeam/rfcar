@@ -9,7 +9,7 @@ and a second simulation, involving a turn towards a wall. In order either simula
 
 \begin{figure}[!htbp]
 \centering
-       \includegraphics[page=1,width=1\textwidth]{img/startState.png} 
+       \includegraphics[page=1,width=0.55\textwidth]{img/startState.png} 
 \caption{Initial State of simulation}
 \label{fig:iniState}
 \end{figure}
@@ -17,7 +17,7 @@ and a second simulation, involving a turn towards a wall. In order either simula
 Firstly it must turn towards the wall, Fig~\ref{fig:sim1Turn}.
 \begin{figure}[!htbp]
 \centering
-       \includegraphics[page=1,width=1\textwidth]{img/line2.png} 
+       \includegraphics[page=1,width=0.55\textwidth]{img/line2.png} 
 \caption{After Rover Turns Towards Wall}
 \label{fig:sim1Turn}
 \end{figure}
@@ -26,7 +26,7 @@ Afterwards it must head in a straight line and stop before the obstacle, Fig~\re
 
 \begin{figure}[!htbp]
 \centering
-       \includegraphics[page=1,width=1\textwidth]{img/line3.png} 
+       \includegraphics[page=1,width=0.55\textwidth]{img/line3.png} 
 \caption{Rover Stopped Before Reaching Wall}
 \label{fig:sim2Line}
 \end{figure}
@@ -35,24 +35,25 @@ In the second simulation, which shall start, once again from the initial positio
 
 \begin{figure}[!htbp]
 \centering
-       \includegraphics[page=1,width=1\textwidth]{img/turn2.png} 
+       \includegraphics[page=1,width=0.55\textwidth]{img/turn2.png} 
 \caption{Rover Starts the Turn}
 \label{fig:sim2Line}
 \end{figure}
 
 \begin{figure}[!htbp]
 \centering
-       \includegraphics[page=1,width=1\textwidth]{img/turn3.png} 
+       \includegraphics[page=1,width=0.55\textwidth]{img/turn3.png} 
 \caption{Rover Turned and Stopped Before Reaching Wall}
 \label{fig:sim3Line}
 \end{figure}
 \newpage
+
 \subsubsection{Odometric Sensor} 
 For the obstacle avoidance, several of \href{https://www.botnroll.com/pt/infravermelhos/158-sen-00242.html}{GP2Y0A21YK Infrared Sensors} (Fig~\ref{fig:sensor}) will be placed on the rover, since it has an allowable field angle of up to \ang{40}, this would mean at least 9 sensors would be required to cover \ang{360}, this is assuming that they are placed in such a way that there is no overlap, however since any sort of "blind spot" will place the rover in jeopardy, some overlap is desired. Considering the rover's dimensions, it is unlikely that 9 sensors can be placed upon it with enough overlap to completely cover the \ang{360}, therefore it is likely that a few more will have to placed to guarantee safety of the rover.
 
 \begin{figure}[!htbp]
 \centering
-       \includegraphics[page=1,width=0.9\textwidth]{img/sensor.png} 
+       \includegraphics[page=1,width=0.35\textwidth]{img/sensor.png} 
 \caption{Odometric Infrared Sensor GP2Y0A21YK}
 \label{fig:sensor}
 \end{figure}
