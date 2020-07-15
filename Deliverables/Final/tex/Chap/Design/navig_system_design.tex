@@ -57,7 +57,7 @@ These layers are, from the bottom to the top:
 
 %//////////////////////////////// # IO Package /////////////////////////////////
 \subsubsection{IO: Input/Output Package}
-
+\label{sec:io-package}
 The \textbf{IO} package is comprised of the \textbf{IO Entity} and \textbf{IO Link} subpackages. The modules within these subpackages are the parts of the hardware abstraction layers responsible for standardizing the General Purpose Input/Output resources of the machine.
 
 The \textbf{IO Link} subpackage is the interface provides the most generic yet complete package for interacting with the machine. Its only module \textbf{IO::GPIO} provides such functionality as automatic resource assignment upon creation, automatic buffering of read and output values and the option of executing a specific piece of code when a conversion is completed for better effort distribution between layers.
