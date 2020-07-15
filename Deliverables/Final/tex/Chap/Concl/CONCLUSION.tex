@@ -1,8 +1,22 @@
 	% CHAPTER - Conclusion/Future Work --------------
 \chapter{Conclusion}
 \label{ch:conclusion}
-In this chapter the conclusions and prospect for future work are presented.
-
+\subsection{Conclusions}
+The realization of this project went through several phases, following the waterfall methodology and top-down approach with two process iterations, modular and integrated.\\
+In the analysis stage, the foreseen specifications were listed, as well as the envisioned tests for verification and validation of the product. Additionally, a preliminary design was sketched as a possible viable solution.\\
+In the design phase, the considerations drawn in the analysis, combined with the initial design, were used to conceptualize a viable solution for the product materialization. The system as decomposed into smaller subsystems that was conducted by specialized teams, namely: Hardware control, smartphone, STM32, camera and Raspberry pi.\\
+The implementation phase started with a modular implementation of all the referred smaller subsystems and consecutive test. This phase always want hand to hand with the design since the functionalities didn't always work at first. After the modular implementation came te integrated implementation where all the smaller subsystem were combined in order to form the final product. Even though some tests were successful in the integrated implementation, others were not possible to accomplish.\\
+After the implementation and respective tests, came the verification phase where the focus test the the foreseen specifications.\\
+Finally, came the phase of product validation in which an external agent tested the product interface according to the instructions provided.\\
+The documentation was always a strong pillar in all the referred phases, and as such, was always updated every time any progress was made.\\
+From a critical point of view, this project suffered a large restriction due the current situation the world is in, which hindered the interaction between the members of the group making it difficult to manufacture a prototype and to integrate the functionalities modularly implemented. As such, the base of the project was simulation.\\
+Despite the obstacles, this project can be considered a accomplishment due to the success of the android interface, multi platform communications, camera and control algorithm.
+\newpage
+\subsection{Prospect for Future Work}
+In the foreseeable future, an actual prototype could be implemented using the developed control algorithms, communications, camera and interface, as was the initial plan.\\
+In order to make the system better, it could be used a different camera, with better frame rate, resolution and range. Also, redundancy could be added to communication making the system more stable and less fault-prone. 
+\\To create a better environment for the user, some upgrades could be made such as, finish video feed interface, add gprs tracking in order to have knowledge of the position of the car at all times, and more rigorous odometry that does not force the car to stop when in front of an obstacle, but allows it to go in other directions.\\
+Finally, the prototype could be tested in different real environments, as it was envisioned.
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../../dissertation"
