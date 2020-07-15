@@ -159,12 +159,12 @@ void V4L2WebCam::allocateBuffer()
   // use a pointer to point to the newly created buffer
   // mmap() will map the memory address of the device to
   // an address in memory
-  m_bufferPtr = static_cast (mmap(NULL,
-                                         queryBuffer.length,
-                                         PROT_READ | PROT_WRITE,
-                                         MAP_SHARED,
-                                         fileDescriptor(),
-                                         queryBuffer.m.offset));
+  m_bufferPtr = static_cast<char *> (mmap(NULL,
+                                  queryBuffer.length,
+                                  PROT_READ | PROT_WRITE,
+                                  MAP_SHARED,
+                                  fileDescriptor(),
+                                  queryBuffer.m.offset));
   
   memset(m_bufferPtr, 0x0, queryBuffer.length);  
 }

@@ -38,9 +38,9 @@ int main(int argc, char* argv[])
   try
   {
     webcam.open(DEVICE);
-    webcam.setFormat(1024, 1024, V4L2_PIX_FMT_MJPEG);
+    webcam.setFormat(640, 480, V4L2_PIX_FMT_MJPEG);
     webcam.setRequestBuffer(1U);
-    webcam.startStream("output.jpg");
+    webcam.startStream("output.png");
     webcam.close();
   }
   catch(const V4L2WebCamException& e)
