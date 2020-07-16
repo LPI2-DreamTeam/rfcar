@@ -7,7 +7,8 @@ For the first set of simulations, the aim is to find the values for the PID gain
 \includegraphics[width=0.8\textwidth]{./img/pidtuned.png}
 \caption {\label{fig:pid1-tuned}Automatic matlab tune}
 \end{figure}
-Resorting the matlab functionality to automatically tune the PID gains for the system, the outcome is the present in the figure \ref{fig:pid1-tuned}. It is possible to see that the velocity of the car reaches the reference value in approximately 11 seconds which is too long. The aim is for the car to get to the speed reference as fast as possible, so, in order for that to happen, new values of $K_p$ and $K_i$ have to be found in simulations.
+Resorting the matlab functionality to automatically tune the PID gains for the system, the outcome is the present in the figure \ref{fig:pid1-tuned}. It is possible to see that the velocity of the car reaches the reference value in approximately 11 seconds which is too long. The aim is for the car to get to the speed reference as fast as possible, so, in order for that to happen, new values of $K_p$ and $K_i$ have to be found in simulations.\
+
 For the first simulation, $K_p = 1$, $K_i = 1$, Linear speed = 1 m/s, $\theta = 0~\si{rad}$:
 \begin{figure}[!h]
 \centering
@@ -62,7 +63,7 @@ For the first simulation, the parameters were: Speed reference= 1m/s and $\theta
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=0.8\textwidth]{./img/vel10.png}
+\includegraphics[width=0.65\textwidth]{./img/vel10.png}
 \caption {\label{fig:sim1 - vel}Linear speed with reference v=1m/s,$\theta = 0~\si{rad}$}
 \end{figure}
  As expected,the figure \ref{fig:sim1 - vel} shows that the car linear velocity reached 1m/s. The angle of tilt is equal to 0 which means the car will be moving in a straight line, and as such, both wheels will are moving at the same speed of the car.\\
