@@ -35,7 +35,8 @@ namespace WCOM {
 
     bool LL<TCP, CLIENT>::port_occupation[TCP_AVAILABLE_PORTS + 1] = {0};
 	
-    LL<TCP, CLIENT>::LL(int32_t port) {
+    LL<TCP, CLIENT>::LL(const std::string hostName,
+                        const int32_t port) {
 
         this->port = port;
 
