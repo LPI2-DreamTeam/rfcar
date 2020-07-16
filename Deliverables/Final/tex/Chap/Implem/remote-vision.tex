@@ -167,6 +167,30 @@ running on the \gls{rvvs} subsystem, the instantiation of both client and server
 enables the testing of the complete communications workflow, without the need to
 add the uncertainty associated with the communication medium.
 
+
+%  UTILITY FUNCTIONS:
+%  One must specially careful with the byte ordering (aka endianess), so one does not get
+%  "translations" mistakes. In that sense, one must remember two things:
+%  	1. The network byte ordering is always big endian.
+%  	2. Before sending data packets to the network, one must always convert it to 
+%          network byte ordering.
+%  For this purpose, we use the following utility functions:
+%  + Byte Ordering:
+%   - Host Byte Order to Network Byte Order:
+%   	- short: htons();
+%   	- long:  htonl().
+%   - Network Byte Order to Host Byte Order:
+%   	- short: ntohs();
+%   	- long:  ntohl();
+%
+%  + IP Adress format:
+%   - ASCII dotted to Binary: inet_aton()
+%   - Binary to ASCII dotted: inet_ntoa()
+%  
+%  + Padding
+%   - bzero: write zeroes to a byte string
+%   	bzero(void *s, size_t n);
+
 %
 %%% Local Variables:
 %%% mode: latex

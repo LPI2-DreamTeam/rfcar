@@ -6,18 +6,6 @@ As foresaid in section \ref{sec:io-package}, the IO package includes the IO Enti
 %
 The second subpackage, IO Link, is listed in \ref{lst:io-GPIO-interface} and \ref{lst:io-GPIO-source}. This generic package interacts directly with the virtualization of the machine itself (sensors and actuators) through timed input and output in binary files while also defining targeted GPIO modes for certain entities. The IO interface in listing \ref{lst:io-interface} allows the definition of transversal structures and typedefs for the IO-related packages.
 %
-%IO.hpp
-\lstinputlisting[language=C++, caption={IO Interface},label=lst:io-interface,
-style=customc]{./listing/IO.hpp}
-%
-%IO_Entity.hpp
-\lstinputlisting[language=C++, caption={IO\_Entity Interface},label=lst:io-entity-interface,
-style=customc]{./listing/IO_Entity.hpp}
-%
-%IO_GPIO.hpp
-\lstinputlisting[language=C++, caption={IO\_GPIO Interface},label=lst:io-GPIO-interface,
-style=customc]{./listing/IO_GPIO.hpp}
-%
 %IO_GPIO.cpp
 \lstinputlisting[language=C++, caption={IO\_GPIO Source},label=lst:io-GPIO-source,
 style=customc]{./listing/IO_GPIO.cpp}
@@ -27,6 +15,14 @@ style=customc]{./listing/IO_GPIO.cpp}
 \paragraph{COM::LL}
 The COM::LL package possesses 3 templates, depending on which entities are communicating (client or server) and which protocol is being used to communicate (serial or bluetooth). The main difference between the three lies in how they communicate, the serial protocol uses local sockets (AF\_LOCAL) to be able to communicate with the Remote Vision Subsystem in the same machine whilst bluetooth uses a connection to a serial port that is associated with the bluetooth adapter of the host device and any communication via object of this class is done through this port.
 The package provides means of communication via reading and writing on buffers and is implemented with several error verifications and feedback messages indicating either the reason for errors or that the operation was a success. The error verifying during the creation of the of the objects makes sure of the existence of the requested port, followed by ensuring that no two objects access the same port. Each time one of the available means is used for communicating, it is always verified if the client-server connection has already been established and if not it doesn't permit sending or reading messages.
+\lstinputlisting[language=C++, caption={COM\_Stream},label=lst:com-stream-source,
+style=customc]{./listing/COM_Stream.cpp}
+%
+\lstinputlisting[language=C++, caption={COM\_Manager},label=lst:com-manager-source,
+style=customc]{./listing/COM_Manager.cpp}
+%
+\lstinputlisting[language=C++, caption={COM\_LL},label=lst:com-ll-source,
+style=customc]{./listing/COM_LL.cpp}
 %
 \subsubsection{OS: Scheduler Package}
 %
@@ -35,6 +31,10 @@ The package provides means of communication via reading and writing on buffers a
 \subsubsection{CLK: Timing Package}
 The \textbf{CLK} package is comprised by only the \textbf{Timer} module and convenient type definitions. It is very useful for dealing with the periodicity of each thread and provides a means for setting up repeated timed delays and executing a specific routine automatically when each delay ends. It provides an interface for waiting for the end of the timed delay and/or the execution of the specified routine and autonomously notifies all waiting objects of these events.
 It is mainly used by the \textbf{IO::GPIO} class for timing conversions but it can as easily be used by higher-level classes due to its \textbf{versatile interface} and \textbf{general-purpose} nature.
+%
+%IO_GPIO.cpp
+\lstinputlisting[language=C++, caption={Timer},label=lst:Timer,
+style=customc]{./listing/CLK_Timer.cpp}
 %
 \subsubsection{APP: Main Application Package}
 %

@@ -101,10 +101,10 @@ public class MsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         switch(viewType){
             case RCVD:
-                v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_received, parent, false);
+                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_received, parent, false);
                 return new ViewHolder(v);
             case SENT:
-                v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_sent, parent, false);
+                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_sent, parent, false);
                 return new ViewHolder(v);
         }
         return null;

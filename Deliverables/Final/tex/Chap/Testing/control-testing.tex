@@ -3,26 +3,34 @@
 The implementation of the control module was made using the modified speed algorithm mentioned and explained in \ref{sec:des-pid}.\\
 The tests for this module consists in the comparison between the results obtained and simulated in \ref{sec:des-sim-res}.\\
 Starting with speed reference = 1 m/s and $\theta=0~\si{rad}$:
+\newpage
 \begin{figure}[!h]
 \centering
 \includegraphics[width=0.7\textwidth]{./img/testv1t0.PNG}
 \caption {\label{fig:test - vel0}Wheels velocity v=1m/s,$\theta = 0~\si{rad}$}
 \end{figure}
-In the figure \ref{fig:test - vel0} shows that the velocity of both wheels reaches the reference value in nearly 1.5 seconds, while in the simulation \ref{fig:sim1 - vel} it takes about 3 seconds. This discrepancy is due to the controller in use. The simulations  were made using the PID block provided by Simulink, while in the implementation, the controller algorithm used was as mentioned before, the modified speed algorithm. With this algorithm the behavior of the car is the same as with the traditional PID, but faster.\\
-\begin{figure}[!h]
+In the figure \ref{fig:test - vel0} shows that the velocity of both wheels reaches the reference value in nearly 1.5 seconds, while in the simulation \ref{fig:sim1 - vel} it takes about 3 seconds. This discrepancy is due to the controller in use. The simulations  were made using the PID block provided by Simulink, while in the implementation, the controller algorithm used was as mentioned before, the modified speed algorithm. With this algorithm the behavior of the car is the same as with the traditional PID, but faster.
+
+
+\begin{figure}[!hb]
 \centering
 \includegraphics[width=0.7\textwidth]{./img/testx1t0.PNG}
 \caption {\label{fig:test - xy0}Position v=1m/s,$\theta = 0~\si{rad}$}
 \end{figure}
+
+
 In the figure \ref{fig:test - xy0} it can be observed that the position of the car is the same as in the simulation \ref{fig:sim1 - pos}.\\
-With speed reference = 1m/s and $\theta = 0.1~\si{rad}$:\\
+With speed reference = 1m/s and $\theta = 0.1~\si{rad}$:
+\newpage
 \begin{figure}[!h]
 \centering
 \includegraphics[width=0.7\textwidth]{./img/testv1t01.PNG}
 \caption {\label{fig:test - vel01}Wheels velocity v=1m/s,$\theta = 0.1~\si{rad}$}
 \end{figure}
 In the figure \ref{fig:test - vel01} comparing to \ref{fig:sim2 - vel} it's possible to see that once again the time it takes to reach steady state is smaller for the reason mention before. In the implemented algorithm it's also possible to see that the steady value of the velocity of both wheels has a ripple around the reference value. \\
-\begin{figure}[!h]
+
+
+\begin{figure}[!hb]
 \centering
 \includegraphics[width=0.7\textwidth]{./img/testx1t01.PNG}
 \caption {\label{fig:test - xy01}Position v=1m/s,$\theta = 0.1~\si{rad}$}
