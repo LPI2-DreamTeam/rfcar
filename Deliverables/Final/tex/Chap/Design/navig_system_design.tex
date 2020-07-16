@@ -164,7 +164,7 @@ The \textbf{COM::Manager} module
 
 %//////////////////////////////// # OS Package /////////////////////////////////
 \subsubsection{OS: Scheduler Package}
-
+\label{sec:osPack}
 The modules in the \textbf{OS} package mainly serve the purposes of thread creation and management management, inter-thread synchronization and thread-safe access to memory. Therefore, they all revolve around threaded execution although each fills in the need for a special bit of functionality.
 
 The \textbf{OS::Thread} module provides a platform-agnostic interface for creating an object that will use native types and interfaces that allow each object to behave like a separate execution thread. The provided controls for it include execution and sleep mechanisms as well as options for waiting for the end of their execution and detaching threads from the parent thread. Scheduling can be managed with the options concerning thread priority and for the possibility of creating static threads it also provides the chance of delimiting the stack size. 
