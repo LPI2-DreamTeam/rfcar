@@ -83,3 +83,12 @@ changed the directory to where the server app is located. The second:  \emph{mak
 
 On the other hand, in the sending terminal, the current directory was changed to \emph{/dev} with the command:  \emph{cd}  \emph{/dev}
 to navigate to where virtual COM4 (ttyS3) so that messages could be sent through, as exemplified in the instruction:  \emph{echo Msg da VM}  \emph{> ttyS3}.
+
+After properly testing the message exchange between the smartphone and the \gls{nvs} one would simply need to start sending the control values (speed and wheel tilt percentages) periodically, receive the important alerts from the \gls{nvs} and redirect them to the notification pop-ups created earlier. The results of these tests are represented in figure \ref{fig:alert-toast}. Note that the video stream presented in figure \ref{fig:alert-toast} is merely used for test purposes as a way to envision a live rover feed.
+%
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{img/alert-popups.png}
+\caption{\label{fig:alert-toast}Final product pop-up notification examples}
+\end{figure}
+%

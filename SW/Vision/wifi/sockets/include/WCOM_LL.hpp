@@ -19,12 +19,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <memory>
-#include <bluetooth/bluetooth.h>
-#include <bluetooth/rfcomm.h>
-
-
-#include <bluetooth/hci.h>
-#include <bluetooth/hci_lib.h>
+//#include <bluetooth/bluetooth.h>
+//#include <bluetooth/rfcomm.h>
+//
+//
+//#include <bluetooth/hci.h>
+//#include <bluetooth/hci_lib.h>
 #include <fcntl.h>
 
 // AF_UNIX is used for communication between processes in the same machine efficiently
@@ -66,7 +66,7 @@ namespace COM {
      *	They update after each function call for all functions but the constructors, destructors and getLastError()
      */
     typedef enum Error_T {
-        OK=0, INVALID_CONFIG, DEAD, NOT_CONNECTED, READ_FAIL, WRITE_FAIL, CLOSE_FAIL, OPEN_FAIL, ACCEPT_FAIL, ALREADY_OPEN, ALREADY_CLOSED, INVALID_PORT
+        OK=0, INVALID_CONFIG, DEAD, NOT_CONNECTED, READ_FAIL, WRITE_FAIL, CLOSE_FAIL, OPEN_FAIL, ACCEPT_FAIL, ALREADY_OPEN, ALREADY_CLOSED, INVALID_PORT, INVALID_ADDR
     } Error;
 
 
@@ -129,6 +129,8 @@ namespace COM {
          *	@return General result code from the last function execution
          */
         virtual Error getLastError() = 0;
+
+
     };
 
 
@@ -153,7 +155,7 @@ namespace COM {
 #ifdef _LINUX_
         int32_t connect_socket_fd = -1;
         int32_t sock_port = -1;
-        struct sockaddr_un server_address;
+        struct sockaddr_in server_address;
 #endif
 
     public:		// Public methods: override
@@ -169,16 +171,17 @@ namespace COM {
         Error getLastError(std::string& error_message) override;
         Error getLastError() override;
 
+        Error getAddr(std::string &serverAddr);
+        int getPort(void);
+
     public:		// Public methods: specific
 
-        /*! @brief Open a connection in the established port
-         *
-         *	@return Connection state
+        /**
+         * @brief Connects to server at specified addr and port
+         * @param addr: remote address to connect (server)
+         * @return port: port
          */
-        bool openConnection(void);
-
-        LL(int32_t port);
-
+        bool connect(const std::string &addr, int port);
     };
 	
 
@@ -239,65 +242,10 @@ namespace COM {
          *	@return General result code from the function's execution
          */
         Error acceptConnection(void);
+
+        Error getAddr(std::string &serverAddr);
+        int getPort(void);
     };
-
-
-
-
-//////////////////////////////// BLUETOOTH, CLIENT /////////////////////////////////////////////////////////////////////////////////
-
-    template <>
-    class LL<BLUETOOTH, SERVER> : public LL<> {
-	
-    private:	// Private members
-
-        static bool port_occupation[BLUETOOTH_AVAILABLE_PORTS + 1];
-
-        OS::Mutex mutex;	/*! Mutex meant to help keep functions of the same entity from executing at the same time*/
-        bool connected;		/*! Connection state */
-        Error last_error;	/*! Result from the execution of the last function */
-        std::string last_error_str;	/*! Result from the execution of the last function */
-        bool dead;			/*! True kill() has been called or the object was poorly configured*/
-        bool listened;			/*! Whether or not listenConnection() has been called */
-		
-        uint32_t port;		/*! Number that identifies the object in light of what hardware it is using. As such, it must be 
-                                 *   unique. Must be between 1 and TCP_AVAILABLE_PORTS */
-		
-
-#ifdef _LINUX_
-        int32_t tcp_fd = -1;	/*! File descriptor for the socket */
-#endif
-
-    public:		// Public methods: override
-
-        LL() : LL(BLUETOOTH_DEFAULT_PORT) {}
-        ~LL() override;
-
-        Error readStr(char* p_buff, uint32_t len) override;
-        Error writeStr(const char* p_buff, uint32_t len) override;
-        bool isConnected(void) override;
-        Error closeConnection(void) override;
-        void kill(void) override;
-        Error getLastError(std::string& error_message) override;
-        Error getLastError() override;
-
-    public:		// Public methods: specific
-		
-        LL(int32_t port);
-
-        /*! @brief Listen for a connection
-         *	
-         *	@return General result code from the function's execution
-         */
-        Error listenConnection(void);
-
-        /*! @brief Accept connection
-         *	
-         *	@return General result code from the function's execution
-         */
-        Error acceptConnection(void);
-    };
-	
 
 }
 
