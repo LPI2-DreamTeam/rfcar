@@ -1,9 +1,18 @@
+<<<<<<< HEAD
+\glossaryentry{ell?\glossentry{ell}|setentrycounter[]{page}\glsnumberformat}{xvi}
+\glossaryentry{omega?\glossentry{omega}|setentrycounter[]{page}\glsnumberformat}{xvi}
+\glossaryentry{phi?\glossentry{phi}|setentrycounter[]{page}\glsnumberformat}{xvi}
+\glossaryentry{pi?\glossentry{pi}|setentrycounter[]{page}\glsnumberformat}{xvi}
+\glossaryentry{psi?\glossentry{psi}|setentrycounter[]{page}\glsnumberformat}{xvi}
+\glossaryentry{theta?\glossentry{theta}|setentrycounter[]{page}\glsnumberformat}{xvi}
+=======
 \glossaryentry{ell?\glossentry{ell}|setentrycounter[]{page}\glsnumberformat}{xiii}
 \glossaryentry{omega?\glossentry{omega}|setentrycounter[]{page}\glsnumberformat}{xiii}
 \glossaryentry{phi?\glossentry{phi}|setentrycounter[]{page}\glsnumberformat}{xiii}
 \glossaryentry{pi?\glossentry{pi}|setentrycounter[]{page}\glsnumberformat}{xiii}
 \glossaryentry{psi?\glossentry{psi}|setentrycounter[]{page}\glsnumberformat}{xiii}
 \glossaryentry{theta?\glossentry{theta}|setentrycounter[]{page}\glsnumberformat}{xiii}
+>>>>>>> 6aab1ff1220d469479d30d4424b7a4538828c6e9
 \glossaryentry{ell?\glossentry{ell}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{omega?\glossentry{omega}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{phi?\glossentry{phi}|setentrycounter[]{page}\glsnumberformat}{40}

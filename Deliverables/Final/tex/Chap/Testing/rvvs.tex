@@ -86,6 +86,32 @@ However, this is a tedious process that could be avoided by using a different,
 newer, web camera supporting additional formats and resolutions, which limited
 severely the implementation and testing.
 %
+\subsubsection{Wi-Fi}%
+\label{sec:wifi-rvvs-test}
+The Wi-Fi communications workflow, implemented in
+Section~\ref{sec:wi-fi-rvvs-implem}, was tested out to assess its behaviour,
+based on the client/server architecture in a concurrent execution scenario.
+
+For this purpose, a small driver program was used (~\ref{lst:wcom-main}), encapsulating each role on
+the network --- client and server --- in the respective thread and then execute
+them. The server thread creates a socket, binds to a port and address and
+listens for incomming connections. If this happens, it tries to accept the
+connection from a client, and tries to read any incoming data, prints it out and
+then exits. The client thread, on the other hand, tries to connect to the
+\texttt{localhost}, on IP address \texttt{127.0.0.1}, and if sucessful, sends
+a message to the server.
+% WCOM main
+\lstinputlisting[language=C++, caption={Wi-Fi client/server driver program},label=lst:wcom-main,
+style=customc]{./listing/wcom-main.cpp}%
+
+Listing~\ref{lst:wcom-output} presents the previous program's output, running on
+the Raspberry Pi. It can be observed that client and server exchange a message,
+thus, validating the implementation of the client/server model for the Wi-Fi communication. 
+% WCOM main
+\lstinputlisting[language=C++, caption={Wi-Fi client/server driver program},label=lst:wcom-output,
+style=customc]{./listing/wcom-output.sh}%
+%
+%
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../../dissertation"
