@@ -116,7 +116,7 @@ The \textbf{COM Transport} subpackage provides tools for managing multiple simul
 
 
 
-The \textbf{COM::LL} module makes up the lower layer of the COM package. It should then have very well defined and error-tolerant behaviour and a somewhat familiar interface. With that in mind, it had an error-reporting system
+The \textbf{COM::LL} module makes up the lower layer of the COM package. It should then have very well defined and error-tolerant behaviour and a somewhat familiar interface. With that in mind, it had an error-reporting system that would give feedback over a variery of errors such as invalid ports or non existing connections. It has been envisioned to be capable of connecting devices through serial and bluetooth protocols using a typical client and server socket model.
 
 \begin{figure}[H]
 	\centering
@@ -126,7 +126,7 @@ The \textbf{COM::LL} module makes up the lower layer of the COM package. It shou
 	\end{figure}
 
 
-The \textbf{COM::Stream} module 
+The \textbf{COM::Stream} module allows the partitioning of communications effected through the same medium into streams, resulting in well established boundaries which simplify any information processing required. It allows the formatting of any message into a recognizable packet complete with all the required metadata, for packet and stream identifications and simple error detection. It also permits the establishment of callbacks for effort distributing in parsing the information.
 
 \begin{figure}[H]
 	\centering
@@ -136,7 +136,7 @@ The \textbf{COM::Stream} module
 	\end{figure}
 
 
-The \textbf{COM::RedundancyEngine} module 
+The \textbf{COM::RedundancyEngine} module allows several related streams "connect" and "disconnect" to and from it and compares the information between them resolving conflicts and missing information. The latter of which can be accessed through a call \texttt{resolve()}.
 
 \begin{figure}[H]
 	\centering
@@ -146,8 +146,7 @@ The \textbf{COM::RedundancyEngine} module
 	\end{figure}
 
 
-The \textbf{COM::Manager} module 
-	
+The \textbf{COM::Manager} module is a higher level when compared to the others, it connects the tools of the other modules to create an interface that allows quick and intuitive communication setup and automatization of processes such as redundancy management.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{./img/navig-class-manager.png}
