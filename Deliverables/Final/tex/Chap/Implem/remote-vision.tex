@@ -167,7 +167,51 @@ running on the \gls{rvvs} subsystem, the instantiation of both client and server
 enables the testing of the complete communications workflow, without the need to
 add the uncertainty associated with the communication medium.
 
+As aforementioned the \gls{rvvs} stack shares common elements with the
+\gls{nvs} due to the shared interfaces and common philosophy, enabling code
+reuse. In that sense, the \texttt{OS}, \texttt{COM Transport}, and \texttt{COM
+  Data} were fully reused.
 
+Additionally, the \texttt{WCOM} packages, corresponding to the Wi-Fi
+communication, were adapted from the \texttt{COM} packages, as both rely on
+sockets and on the client/server architecture with concurrent execution. The
+difference relies on the type of protocol used (TCP instead of RS232) and some
+idiosyncrasies of the Internet programming, namely:
+\begin{itemize}
+\item \emph{Socket Family} The \texttt{TCP\_SOCKET\_FAMILY} is \texttt{AF\_INET}, with the
+  \texttt{SOCKET\_TYPE} remaining the same (\texttt{SOCK\_STREAM}).
+\item \emph{Port range}:The port range available is from 1024--65535, as the
+  ports between 0--1023 are well-known/reserved ports (system ports).
+\item \emph{Byte ordering}(endianess): the network byte ordering is always big
+  endian. To avaid translation mistakes, before sending data packets to the
+  network, they must always be converted to the network byte ordering (big
+  endian). For this purpose are available some utility functions for the conversion:
+  \begin{itemize}
+  \item Host Byte Order to Network Byte Order: \texttt{htons}, \texttt{htonl}
+  \item Network Byte Order to Host Byte Order: \texttt{htons}, \texttt{htonl}
+  \end{itemize}
+\item \texttt{Padding}: the \gls{tcp} header padding is used to ensure that
+  header and data are aligned with multiples of 32-bits (4 bytes). For this
+  purposes, the \texttt{bzero} function can be used, or, for above
+  \texttt{C++11}, the library function \texttt{std::fill\_n}.
+\item \texttt{IP Address format}: IP addresses for devices are encoded in
+  binary, thus, to obtain a human readable address, the ASCII dotted to Binary
+  (\texttt{inet\_aton}) and Binary to ASCII dotted (\texttt{inet\_ntoa}) functions
+  can be used.
+\item \texttt{hostname}: in same cases, like connecting to a server, is required
+  to obtain additional information from its hostname. For this purpose the
+  function \texttt{gethostbyname} function can be used.
+\end{itemize}
+
+The remaining part of the implementation is identical to the \texttt{COM}
+sockets, thus, exempting further explanations.
+%
+\subsubsection{Telemetry}%
+\label{sec:telem-rvvs-implem}
+The telemetry class provides basic functionalities for obtaining simple, yet
+relevant statistics about vehicle's operation. The implementation is trivial,
+following the devised in the class diagram, thus, exempting also further explanations.
+%
 %  UTILITY FUNCTIONS:
 %  One must specially careful with the byte ordering (aka endianess), so one does not get
 %  "translations" mistakes. In that sense, one must remember two things:
@@ -190,7 +234,7 @@ add the uncertainty associated with the communication medium.
 %  + Padding
 %   - bzero: write zeroes to a byte string
 %   	bzero(void *s, size_t n);
-
+%
 %
 %%% Local Variables:
 %%% mode: latex
