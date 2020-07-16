@@ -163,8 +163,43 @@ The object model, represented in \gls{uml} with class diagrams, describes the
 structure of the system in terms of objects, attributes, associations, and
 operations. 
 %
+\begin{figure}[!hbt]
+\centering
+    \includegraphics[width=0.7\textwidth]{./img/webcam_v4l2_class_diag.png}
+  \caption{Class Diagram of Webcam class v4l2}%
+\label{fig:webcam-v4l2-class-diag}
+\end{figure}
+%
+As depicted in Fig.~\ref{fig:webcam-v4l2-class-diag} the
+webcam V4L2 has a constructor that receives the type of capture to perform and the type of buffer memory used.
 
+The functions below were public.
 
+Also has an open function that turns on a given camera, given its location (directory) passed as a string. By contrast, a close function is also used to turn off the web camera.
+
+Next, image properties of the webcam can be changed with the setFormat functions. The function parameters are width and height of the image in pixels, the image codification like for example, JPEG, and field, of unknown value.
+
+Moreover, the setRequestedBuffer receives the number of memory  blocks to use.
+
+In addition to that, the startStream starts the stream that outputs to a file, identified as a string with its directory.
+
+However, the next functions are private meaning that they are only invoked as a callback of the public functions aforementioned.
+
+With that in mind, the allocateBuffer, fileDescriptor and open were defined. The first allocates the buffers as detailed by the setRequestedBuffer function. The second, maintains the integrity of the file descriptor. The last it is a low level call to open the device, called by the first open function that encapsulates it.
+
+Lastly, the variable members of the class are from up to down, the buffer type, memory buffer, the buffer capabilities, file descriptor linked with the device, buffer pointer and a mutex variable to only allow access at the time, locking the desired resources to prevent unattended access.
+%
+\begin{figure}[!hbt]
+\centering
+    \includegraphics[width=0.7\textwidth]{./img/telemetry_classdiag.png}
+  \caption{Class Diagram of Telemetry class}%
+\label{fig:telemetry-classdiag}
+\end{figure}
+%
+As illustrated in Fig.~\ref{fig:webcam-v4l2-class-diag}, the telemetry class has two variable members: the max velocity and distance travelled, accessed and updated with the succeeding member functions, in public.
+
+In the first place, the default empty constructor, second by the functions that retrieve the member variable values, respectively the getMaxVelocity and getTravelledDistance. At last, an updateValues function is used to alter the aforementioned variables with new values.
+%
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../../dissertation"

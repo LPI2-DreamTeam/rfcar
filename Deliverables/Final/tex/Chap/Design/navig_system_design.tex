@@ -22,6 +22,7 @@ The system is divided into such packages as follows:
 
 Each subpackage also belongs to a certain layer of software, characterized not by the resources it is associated to but by how close the modules within it are to the hardware. Futhermore, the packages should be distributed between layers in such a way that one seldomly need to use another that doesn't belong to the same layer or the layer directly below. 
 
+
 These layers are, from the bottom to the top:
 \begin{itemize}
 	\item The High-level Hardware Abstraction Layer, which consists of the \textbf{OS} (partly), \textbf{MEM}, \textbf{CLK}, \textbf{IO Link} and \textbf{COM Data} packages/subpackages. Modules within this layer are responsible for the lower-level interaction with the system's resources so they are made to be thread-safe. Their implementation is platform-dependent and their interface is platform-agnostic. The main goal for this layer of software is to standardize the hardware, making for clean, maintainable and easily portable code. 
@@ -49,7 +50,7 @@ These layers are, from the bottom to the top:
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{./img/navig-class-diagram.png}
-	\caption {Navigation subsystem class diagram}
+	\caption {Navigation subsystem class diagram (augmented in Appendix \ref{fig:navig-class-diagram-augmented})}
 	\label{fig:navig-class-diagram}
 	\end{figure}
 
@@ -97,12 +98,6 @@ The \texttt{IR\_SENSOR} specialization uses an instance of \textbf{IO::GPIO} as 
 
  
 
-
-////////////// IMPLEMENTATION
-A callback for translating the motor encoder's pulse count into the adequate value of shaft position and rotational velocity. 
-A callback for translating the analog value from the IR sensor into the distance from the sensor to an obstacle
-/////////////////////////////
-
 %//////////////////////////////// # COM Package ////////////////////////////////
 \subsubsection{COM: Communications Package}
 
@@ -121,7 +116,7 @@ The \textbf{COM Transport} subpackage provides tools for managing multiple simul
 
 
 
-The \textbf{COM::LL} module 
+The \textbf{COM::LL} module makes up the lower layer of the COM package. It should then have very well defined and error-tolerant behaviour and a somewhat familiar interface. With that in mind, it had an error-reporting system that would give feedback over a variery of errors such as invalid ports or non existing connections. It has been envisioned to be capable of connecting devices through serial and bluetooth protocols using a typical client and server socket model.
 
 \begin{figure}[H]
 	\centering
@@ -131,7 +126,7 @@ The \textbf{COM::LL} module
 	\end{figure}
 
 
-The \textbf{COM::Stream} module 
+The \textbf{COM::Stream} module allows the partitioning of communications effected through the same medium into streams, resulting in well established boundaries which simplify any information processing required. It allows the formatting of any message into a recognizable packet complete with all the required metadata, for packet and stream identifications and simple error detection. It also permits the establishment of callbacks for effort distributing in parsing the information.
 
 \begin{figure}[H]
 	\centering
@@ -141,7 +136,7 @@ The \textbf{COM::Stream} module
 	\end{figure}
 
 
-The \textbf{COM::RedundancyEngine} module 
+The \textbf{COM::RedundancyEngine} module allows several related streams "connect" and "disconnect" to and from it and compares the information between them resolving conflicts and missing information. The latter of which can be accessed through a call \texttt{resolve()}.
 
 \begin{figure}[H]
 	\centering
@@ -151,8 +146,7 @@ The \textbf{COM::RedundancyEngine} module
 	\end{figure}
 
 
-The \textbf{COM::Manager} module 
-	
+The \textbf{COM::Manager} module is a higher level when compared to the others, it connects the tools of the other modules to create an interface that allows quick and intuitive communication setup and automatization of processes such as redundancy management.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{./img/navig-class-manager.png}
@@ -164,7 +158,7 @@ The \textbf{COM::Manager} module
 
 %//////////////////////////////// # OS Package /////////////////////////////////
 \subsubsection{OS: Scheduler Package}
-
+\label{sec:osPack}
 The modules in the \textbf{OS} package mainly serve the purposes of thread creation and management management, inter-thread synchronization and thread-safe access to memory. Therefore, they all revolve around threaded execution although each fills in the need for a special bit of functionality.
 
 The \textbf{OS::Thread} module provides a platform-agnostic interface for creating an object that will use native types and interfaces that allow each object to behave like a separate execution thread. The provided controls for it include execution and sleep mechanisms as well as options for waiting for the end of their execution and detaching threads from the parent thread. Scheduling can be managed with the options concerning thread priority and for the possibility of creating static threads it also provides the chance of delimiting the stack size. 
@@ -235,12 +229,6 @@ The \textbf{MEM::LinkedList} prioritizes quick insertion at the front or the bac
 
 
 The modules within this package are mainly used by the \textbf{IO} and \textbf{COM} class modules for buffering information and storing objects in lists where insertions and removals need to be fast but they can also be used by higher-level classes due to their \textbf{versatile interfaces} and \textbf{general-purpose} nature.
-
-////////////// IMPLEMENTATION
-Both lists provide efficient methods for insertion and removal of elements and completely clearing the list, all of these operations with O(1) complexity.
-It is implemented with recourse to a C-style array to optimize for use as a single-byte data container (e.g. strings of characters in message buffers).
-/////////////////////////////
-
 
 
 %//////////////////////////////// # CLK Package ////////////////////////////////

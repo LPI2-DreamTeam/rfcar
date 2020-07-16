@@ -25,8 +25,22 @@ style=customc]{./listing/COM_Manager.cpp}
 style=customc]{./listing/COM_LL.cpp}
 %
 \subsubsection{OS: Scheduler Package}
+\paragraph{OS::Mutex}
+Has the purpose of managing concurrent access in a way that avoids errors, as previously mentioned in section~\ref{sec:osPack}.
+\paragraph{OS::SharedMemory}
+Makes use of the std::list container for storing the thread whitelist, for it requires efficient methods for insertion and removal of elements.
+\paragraph{OS::Thread}
+The execution of the method is controlled by a call to the \texttt{run()} method which gives the start signal to the main method guaranteeing that whichever thread called the \texttt{run()} method is the parent thread. It permits a precise control of the total time of the thread whilst making sure that the only thread that can control it is itself.
 %
 \subsubsection{MEM: Memory Structures Package}
+
+Both lists provide efficient methods for insertion and removal of elements and completely clearing the list, all of these operations with O(1) complexity.
+
+\paragraph{MEM::CircularList}
+It is implemented with recourse to a C-style array to optimize for use as a single-byte data container (e.g. strings of characters in message buffers).
+
+\paragraph{MEM::LinkedList}
+Implemented with a std::list from the STL of C++ due to the well devised methods made available by this type of container, ensuring a smooth and practical implementation. Also std::list is in and of itself the STL implementation of a linked list, guaranteeing the expected algorithm complexity of a true linked list.
 %
 \subsubsection{CLK: Timing Package}
 The \textbf{CLK} package is comprised by only the \textbf{Timer} module and convenient type definitions. It is very useful for dealing with the periodicity of each thread and provides a means for setting up repeated timed delays and executing a specific routine automatically when each delay ends. It provides an interface for waiting for the end of the timed delay and/or the execution of the specified routine and autonomously notifies all waiting objects of these events.
