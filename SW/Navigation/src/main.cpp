@@ -310,9 +310,11 @@ int main(int argc, char* argv[]) {
 	OS::Thread simulationThread("Simulation Thread", 
 		simulationThread, nullptr, OS::Thread::DONT_CARE, OS::Thread::HIGH);
 
+	simulationThread.run();
+	controlThread.run();
 
-	std::cin.get();
-
+	sisimulationThread.join();
+	controlThread.join();
 
 	std::cout << "\nDone. Press ENTER to exit.\n";
 	std::cin.get();

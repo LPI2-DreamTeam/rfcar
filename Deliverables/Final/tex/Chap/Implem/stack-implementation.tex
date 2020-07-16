@@ -65,8 +65,12 @@ The \textbf{CLK} package is comprised by only the \textbf{Timer} module and conv
 It is mainly used by the \textbf{IO::GPIO} class for timing conversions but it can as easily be used by higher-level classes due to its \textbf{versatile interface} and \textbf{general-purpose} nature.
 %
 %IO_GPIO.cpp
-\lstinputlisting[language=C++, caption={Timer},label=lst:Timer,
+\lstinputlisting[language=C++, caption={CLK::Timer},label=lst:Timer,
 style=customc]{./listing/CLK_Timer.cpp}
 %
 \subsubsection{APP: Main Application Package}
 %
+The main application uses the threads implemented in the section~\ref{sec:control-thread-mapping}. These threads are configured and set to run in the \texttt{main} method.
+
+\lstinputlisting[language=C++, caption={Main Application},label=lst:mainapp,
+style=customc]{./listing/main.cpp}
