@@ -210,7 +210,7 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_drawer_);
 
-            wifi_connection_status = (TextView) findViewById(R.id.connection_status);
+            wifi_connection_status = findViewById(R.id.connection_status);
 
             wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             wifi_connection_status.setText(R.string.idle);
@@ -218,7 +218,7 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
             //////
 
             btAdapter = BluetoothAdapter.getDefaultAdapter();
-            newDevList = (ListView) findViewById(R.id.new_devices_list_view);
+            newDevList = findViewById(R.id.new_devices_list_view);
             Toolbar toolbar = findViewById(R.id.toolbar);
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             NavigationView navigationView = findViewById(R.id.nav_view);
@@ -344,7 +344,7 @@ public class Drawer_Activity extends AppCompatActivity implements NavigationView
                 int request = 0;
                 startActivityForResult(discoverableIntent, request);
 
-                IntentFilter intentFilter = new IntentFilter(btAdapter.ACTION_SCAN_MODE_CHANGED);
+                IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
                 registerReceiver(change_bt_state_broadcastReceiver,intentFilter);
 
             }

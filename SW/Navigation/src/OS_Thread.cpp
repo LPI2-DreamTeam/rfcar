@@ -20,7 +20,7 @@ namespace OS {
 		this->method = method;
 		std::memcpy(this->name, name, 20);
 
-		// In windows we ignore priority and stack size altogether
+		// In Linux we ignore priority and stack size altogether
 		this->priority = priority;
 		this->stack_size = stack_size;
 

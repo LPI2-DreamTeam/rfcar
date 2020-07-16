@@ -447,6 +447,42 @@ namespace WCOM {
     }
 
 
+// gethostbyname() version
+// takes a host name in the internet as an argument and returns a pointer to a
+// hostent containing information about that host. If the structure is NULL,
+// the system could not locate a host with this name.
+    Error LL<TCP, SERVER>::getHostByName(const std::string hostName) {
+
+        socklen_t clilen;
+
+        // Make sure the listen() operation has been executed
+        if (this->listened == false) {
+            last_error = ACCEPT_FAIL;
+            last_error_str = "ERROR[ACCEPT_FAIL]: Should listen before accepting\n";
+            return last_error;
+        }
+
+        clilen = sizeof(this->listen_serv_addr);
+		
+        // Accept connection. This blocks the thread's execution until it returns.
+        this->connect_socket_fd = accept(this->listen_socket_fd, (struct sockaddr*) &this->connect_serv_addr, &clilen);
+
+        // Check if accept() returned a valid file descriptor
+        if (this->connect_socket_fd <= 0) {
+            last_error = ACCEPT_FAIL;
+            last_error_str = "ERROR[ACCEPT_FAIL]: Failed acceptance (invalid file descriptor)\n";
+            return last_error;
+        }
+
+        // Signal connection established
+        this->connected = true;
+        last_error = OK;
+        last_error_str = "OK: Acepted connection\n";
+
+        return last_error;
+    }
+
+
 }
 
 
