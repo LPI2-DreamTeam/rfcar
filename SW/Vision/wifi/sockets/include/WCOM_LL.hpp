@@ -66,7 +66,7 @@ namespace COM {
      *	They update after each function call for all functions but the constructors, destructors and getLastError()
      */
     typedef enum Error_T {
-        OK=0, INVALID_CONFIG, DEAD, NOT_CONNECTED, READ_FAIL, WRITE_FAIL, CLOSE_FAIL, OPEN_FAIL, ACCEPT_FAIL, ALREADY_OPEN, ALREADY_CLOSED, INVALID_PORT
+        OK=0, INVALID_CONFIG, DEAD, NOT_CONNECTED, READ_FAIL, WRITE_FAIL, CLOSE_FAIL, OPEN_FAIL, ACCEPT_FAIL, ALREADY_OPEN, ALREADY_CLOSED, INVALID_PORT, INVALID_ADDR
     } Error;
 
 
@@ -129,6 +129,8 @@ namespace COM {
          *	@return General result code from the last function execution
          */
         virtual Error getLastError() = 0;
+
+
     };
 
 
@@ -168,17 +170,18 @@ namespace COM {
         void kill(void) override;
         Error getLastError(std::string& error_message) override;
         Error getLastError() override;
+        Error getAddr(std::string &serverAddr) = 0;
+
+        int getPort(void) = 0;
 
     public:		// Public methods: specific
 
-        /*! @brief Open a connection in the established port
-         *
-         *	@return Connection state
+        /**
+         * @brief Connects to server at specified addr and port
+         * @param addr: remote address to connect (server)
+         * @return port: port
          */
-        bool openConnection(void);
-
-        LL(int32_t port);
-
+        bool connect(const std::string &addr, int port);
     };
 	
 

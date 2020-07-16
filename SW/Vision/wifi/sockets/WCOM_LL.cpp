@@ -35,38 +35,15 @@ namespace WCOM {
 
     bool LL<TCP, CLIENT>::port_occupation[TCP_AVAILABLE_PORTS + 1] = {0};
 	
-    LL<TCP, CLIENT>::LL(const std::string hostName,
-                        const int32_t port) {
-
-        this->port = port;
-
-        if (port > 0 && port <= TCP_AVAILABLE_PORTS) {
-			
-            if (port_occupation[port] == true) {
-                this->dead = true;
-                last_error = INVALID_PORT;
-                last_error_str = "ERROR[INVALID_CONFIG]: The object was given an valid port number that was already taken\n";
-            } else {
-                this->dead = false;
-                last_error = OK;
-                last_error_str = "OK: The object was correctly configured\n";
-                port_occupation[port] = true;
-            }
-        } else {
-            this->dead = true;
-            last_error = INVALID_PORT;
-            last_error_str = "ERROR[INVALID_CONFIG]: The object was given an invalid port number\n";
-        }
-
+    LL<TCP, CLIENT>::LL() {
         this->connected = false;
         this->dead = false;
-
         this->connect_socket_fd = -1;
     }
 
-    LL<TCP, CLIENT>::LL() : LL(TCP_DEFAULT_PORT) {
+    //LL<TCP, CLIENT>::LL() : LL(TCP_DEFAULT_PORT) {
 
-    }
+    //}
 
     LL<TCP, CLIENT>::~LL() {
 
@@ -77,6 +54,9 @@ namespace WCOM {
 
         std::unique_lock<std::mutex>lock(this->mutex.native());
 
+    /* Clear buffer for reception*/
+        std::fill_n((char*)& p_buff, len, 0);
+   
         if (!this->connected) {
             last_error = NOT_CONNECTED;
             last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
@@ -156,36 +136,80 @@ namespace WCOM {
         return last_error;
     }
 
-    bool LL<TCP, CLIENT>::openConnection() {
+    bool LL<TCP, CLIENT>::connect(const string &addr, int port) {
+        
+        this->port = -1;
+        if (port > 0 && port <= TCP_AVAILABLE_PORTS) {
+            if (port_occupation[port] == true) {
+                this->dead = true;
+                last_error = INVALID_PORT;
+                last_error_str = "ERROR[INVALID_CONFIG]: The object was given an valid port number that was already taken\n";
+                return false;
+            } else {
+                this->dead = false;
+                last_error = OK;
+                last_error_str = "OK: The object was correctly configured\n";
+                port_occupation[port] = true;
+            }
+        } else {
+            this->dead = true;
+            last_error = INVALID_PORT;
+            last_error_str = "ERROR[INVALID_CONFIG]: The object was given an invalid port number\n";
+            return false;
+        }
 
-        std::string server_path = SERVERS_FOLDER TCP_SERVERS_PREFIX + std::to_string(this->port);
-        std::unique_lock<std::mutex>lock(this->mutex.native());
-
-        // Check if the socket is already open
-        if (this->connect_socket_fd > 0) {
+// Check if the socket is already open
+        if ( this->connected ) {
             last_error = ALREADY_OPEN;
             last_error_str = "ERROR[ALREADY_OPEN]: A connection with this server or another one is already open\n";
             return this->connected;
         }
-	
+
+        /* Store port */
+        this->port = port;
+
+/* Try to obtain address */
+    // gethostbyname() version
+    // takes a host name in the internet as an argument and returns a ptr to a
+    // hostent containing information about that host. If the structure is NULL,
+    // the system could not locate a host with this name.
+	struct hostent *server = gethostbyname(addr.c_str()); // this is a pointer to a struct of type hostent, which defines a host computer in the internet.
+        if(server == NULL){
+            last_error = INVALID_ADDR;
+            last_error_str = "ERROR[UNKOWN SERVER]: IP addr not recognized\n";
+            return this->connected;
+        }
+
+    /* Lock */
+        std::unique_lock<std::mutex>lock(this->mutex.native());
+
         // Attempt to open socket
         this->connect_socket_fd = socket(TCP_SOCKET_FAMILY, TCP_SOCKET_TYPE, 0);
 
-        // If this->connect_socket_fd == 1, it means that the socket could not be open and thus the file descriptor is invalid
+        // If this->connect_socket_fd == -1, it means that the socket could not be open and thus the file descriptor is invalid
         if (this->connect_socket_fd < 0) {
             last_error = OPEN_FAIL;
             last_error_str = "ERROR[OPEN_FAIL]: Failed to open socket\n";
             return this->connected;
         }
 
-        std::fill_n((char*)& this->server_address, sizeof(this->server_address), 0);
+    // Filling the serv_addr struct. Because the field server->h_addr
+    // is a char string we use the function:
+    // 	void bcopy( char *s1, char *s2, int length);
+    // which copies length bytes from s1 to s2
+	//bzero( (char* ) &this->server_address, sizeof(this->server_address) );
+        std::fill_n((char*)& this->server_address,
+                    sizeof(this->server_address), 0);
+	this->server_address.sin_family = TCP_SOCKET_FAMILY; //AF_INET; IPv4 fam
+        // watch out for endianess
+	this->server_address.sin_port = htons(port_nr);
 
-        // Set server socket family and socket file path
-        this->server_address.sun_family = TCP_SOCKET_FAMILY;
-        strcpy(this->server_address.sun_path, server_path.c_str());
 
-        // Attempt to establish a connection
-        if (connect(this->connect_socket_fd, (struct sockaddr*) & this->server_address, sizeof(this->server_address)) < 0) {
+
+    // 2. Attempt to establish a connection: connect to remote server
+        if (connect(this->connect_socket_fd,
+                    (struct sockaddr*) &this->server_address,
+                    sizeof(this->server_address)) < 0) {
             last_error = OPEN_FAIL;
             last_error_str = "ERROR[OPEN_FAIL]: Failed connecting\n";
             return this->connected;
@@ -206,6 +230,20 @@ namespace WCOM {
 
     Error LL<TCP, CLIENT>::getLastError() {
         return last_error;
+    }
+    Error LL<TCP, CLIENT>::getAddr(std::string &serverAddr) {
+        if(this->connected)
+            serverAddr = inet_ntoa(this->server_address.sin_addr);
+        else
+            serverAddr = "";
+        return INVALID_ADDR;
+    }
+    int LL<TCP, CLIENT>::getPort() {
+        if(this->connected)
+            return ((int)inet_ntoa(this->port));
+        else
+            return -1;
+        return INVALID_ADDR;
     }
 }
 
@@ -446,43 +484,6 @@ namespace WCOM {
 
         return last_error;
     }
-
-
-// gethostbyname() version
-// takes a host name in the internet as an argument and returns a pointer to a
-// hostent containing information about that host. If the structure is NULL,
-// the system could not locate a host with this name.
-    Error LL<TCP, SERVER>::getHostByName(const std::string hostName) {
-
-        socklen_t clilen;
-
-        // Make sure the listen() operation has been executed
-        if (this->listened == false) {
-            last_error = ACCEPT_FAIL;
-            last_error_str = "ERROR[ACCEPT_FAIL]: Should listen before accepting\n";
-            return last_error;
-        }
-
-        clilen = sizeof(this->listen_serv_addr);
-		
-        // Accept connection. This blocks the thread's execution until it returns.
-        this->connect_socket_fd = accept(this->listen_socket_fd, (struct sockaddr*) &this->connect_serv_addr, &clilen);
-
-        // Check if accept() returned a valid file descriptor
-        if (this->connect_socket_fd <= 0) {
-            last_error = ACCEPT_FAIL;
-            last_error_str = "ERROR[ACCEPT_FAIL]: Failed acceptance (invalid file descriptor)\n";
-            return last_error;
-        }
-
-        // Signal connection established
-        this->connected = true;
-        last_error = OK;
-        last_error_str = "OK: Acepted connection\n";
-
-        return last_error;
-    }
-
 
 }
 
