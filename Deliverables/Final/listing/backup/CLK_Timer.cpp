@@ -6,6 +6,8 @@
 
 namespace CLK {
 
+	uint32_t Timer::next_id = 0;
+
 	Timer::Timer() : Timer((CLK::TimeElapsedCallback*)nullptr, nullptr) {
 
 	}
@@ -56,6 +58,9 @@ namespace CLK {
 		tmr_ptr->done = true;
 	};
 
+	/**
+	 * @return void
+	 */
 	void Timer::start() {
 		
 		std::unique_lock<std::mutex> lock(this->mutex);
@@ -64,6 +69,9 @@ namespace CLK {
 		thread.run();
 	}
 
+	/**
+	 * @return void
+	 */
 	void Timer::stop() {
 
 		std::unique_lock<std::mutex> lock(this->mutex);
@@ -71,6 +79,54 @@ namespace CLK {
 		last_error = OK;
 	}
 
+	/**
+	 * @param arr
+	 * @return void
+	 */
+	CLK::Error Timer::setAutoReload(uint32_t arr) {
+		std::unique_lock<std::mutex> lock(this->mutex);
+		
+		last_error = OK;
+		
+		if (!done)
+			last_error = STILL_RUNNING;
+
+		else 
+			auto_reload = arr;
+
+		return last_error;
+	}
+
+	/**
+	 * @param cnt
+	 * @return void
+	 */
+	CLK::Error Timer::setCounter(uint32_t cnt) {
+		std::unique_lock<std::mutex> lock(this->mutex);
+		
+		last_error = OK;
+
+		if (!done) 
+			last_error = STILL_RUNNING;
+
+		else 
+			counter = cnt;
+
+		return last_error;
+	}
+
+	/**
+	 * @return bool
+	 */
+	bool Timer::isDone() {
+		return done;
+	}
+
+	/**
+	 * @param tim_ov
+	 * @param isr_done
+	 * @return void
+	 */
 	void Timer::waitNotification(bool isr_done, bool tim_ov) {
 		
 		if (tim_ov)
@@ -82,4 +138,10 @@ namespace CLK {
 		last_error = OK;
 	}
 
+	/**
+	 * @return Error
+	 */
+	Error Timer::getLastError() {
+		return last_error;
+	}
 }
