@@ -37,6 +37,54 @@ The NVS susbsystem tests are presented next.
 \label{sec:integrated-testing}
 \input{./tex/Chap/Testing/integrated-testing}
 %
+\section{Functionalities: Summary}%
+\label{sec:functionalities-summary}
+% \input{./tex/Chap/Testing/functionalities-summary.tex}
+The summary of the implemented functionalities is as follows:
+\begin{itemize}
+\item[{$\boxtimes$}] NVS [3/3]
+\begin{itemize}
+\item[{$\boxtimes$}] Digital control of the vehicle: speed and direction
+\item[{$\boxtimes$}] Obstacle avoidance
+\item[{$\boxtimes$}] STM32 full-stack implementation
+\begin{itemize}
+\item[{$\boxtimes$}] OS: threads, shared-memory, mutex.
+\item[{$\boxtimes$}] IO: sensors, motors
+\item[{$\boxtimes$}] Communication [2/2]:
+\begin{itemize}
+\item[{$\boxtimes$}] Bluetooth: client and server
+\item[{$\boxtimes$}] RS232: client and server
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\item[{$\boxtimes$}] Smartphone [3/3]
+\begin{itemize}
+\item[{$\boxtimes$}] User Interface
+\begin{itemize}
+\item[{$\boxtimes$}] Retrieving smartphone sensors data for simplified vehicle
+navigation (accelerometer/rotation sensor)
+\item[{$\boxtimes$}] Video Feed
+\item[{$\boxtimes$}] Notifications
+\end{itemize}
+\item[{$\boxtimes$}] Bluetooth: client and server
+\item[{$\boxtimes$}] Wi-Fi: client and server
+\end{itemize}
+\item[{$\boxminus$}] RVVS [2/3]
+\begin{itemize}
+\item[{$\boxtimes$}] Communication [2/2]:
+\begin{itemize}
+\item[{$\boxtimes$}] Wi-Fi: client and server
+\item[{$\boxtimes$}] RS232: client and server
+\end{itemize}
+\item[{$\boxminus$}] Image Acquisition [1/2]
+\begin{itemize}
+\item[{$\boxtimes$}] Image capture from webcam
+\item[{$\square$}] Video capture and streaming
+\end{itemize}
+\item[{$\boxtimes$}] Telemetry
+\end{itemize}
+\end{itemize}
+%
 %
 %%% Local Variables:
 %%% mode: latex

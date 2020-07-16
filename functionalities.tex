@@ -1,4 +1,4 @@
-% Created 2020-07-16 Thu 09:10
+% Created 2020-07-16 Thu 10:23
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -30,20 +30,49 @@
 
 \tableofcontents
 
-\section{Functionalities [0/3]}
-\label{sec:org88176f5}
+\section{Functionalities [2/3]}
+\label{sec:org11d6bdb}
 \begin{itemize}
-\item[{$\boxminus$}] RVVS
+\item[{$\boxtimes$}] NVS [3/3]
+\begin{itemize}
+\item[{$\boxtimes$}] Digital control of the vehicle: speed and direction
+\item[{$\boxtimes$}] Obstacle avoidance
+\item[{$\boxtimes$}] STM32 full-stack implementation
+\begin{itemize}
+\item[{$\boxtimes$}] OS: threads, shared-memory, mutex.
+\item[{$\boxtimes$}] IO: sensors, motors
+\item[{$\boxtimes$}] Communication [2/2]:
+\begin{itemize}
+\item[{$\boxtimes$}] Bluetooth: client and server
+\item[{$\boxtimes$}] RS232: client and server
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\item[{$\boxtimes$}] Smartphone [3/3]
+\begin{itemize}
+\item[{$\boxtimes$}] User Interface
+\begin{itemize}
+\item[{$\boxtimes$}] Retrieving smartphone sensors data for simplified vehicle
+navigation (accelerometer/rotation sensor)
+\item[{$\boxtimes$}] Video Feed
+\item[{$\boxtimes$}] Notifications
+\end{itemize}
+\item[{$\boxtimes$}] Bluetooth: client and server
+\item[{$\boxtimes$}] Wi-Fi: client and server
+\end{itemize}
+\item[{$\boxminus$}] RVVS [2/3]
+\begin{itemize}
+\item[{$\boxtimes$}] Communication [2/2]:
 \begin{itemize}
 \item[{$\boxtimes$}] Wi-Fi: client and server
-\item[{$\boxminus$}] Image Aquisition
+\item[{$\boxtimes$}] RS232: client and server
+\end{itemize}
+\item[{$\boxminus$}] Image Acquisition [1/2]
 \begin{itemize}
 \item[{$\boxtimes$}] Image capture from webcam
 \item[{$\square$}] Video capture and streaming
 \end{itemize}
 \item[{$\boxtimes$}] Telemetry
 \end{itemize}
-\item[{$\square$}] NVS
-\item[{$\square$}] Smartphone
 \end{itemize}
 \end{document}
