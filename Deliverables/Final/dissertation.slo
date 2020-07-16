@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 \glossaryentry{ell?\glossentry{ell}|setentrycounter[]{page}\glsnumberformat}{xvi}
+=======
+<glossaryentry{ell?\glossentry{ell}|setentrycounter[]{page}\glsnumberformat}{xvi}
+>>>>>>> 5c6938fa74d012d6686d562c720e829264d1e6a9
 \glossaryentry{omega?\glossentry{omega}|setentrycounter[]{page}\glsnumberformat}{xvi}
 \glossaryentry{phi?\glossentry{phi}|setentrycounter[]{page}\glsnumberformat}{xvi}
 \glossaryentry{pi?\glossentry{pi}|setentrycounter[]{page}\glsnumberformat}{xvi}
