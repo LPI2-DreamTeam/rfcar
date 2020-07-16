@@ -1,10 +1,11 @@
-#ifndef COM_LL_H
-#define COM_LL_H
+#ifndef WCOM_LL_H
+#define WCOM_LL_H
 
 #include "main.hpp"
+//#include "WCOM.hpp"
 #include "Mutex.hpp"
 
-#define TCP_AVAILABLE_PORTS 5
+#define TCP_AVAILABLE_PORTS ((int)32000)
 #define BLUETOOTH_AVAILABLE_PORTS 4
 
 #ifdef _LINUX_
@@ -28,7 +29,7 @@
 #include <fcntl.h>
 
 // AF_UNIX is used for communication between processes in the same machine efficiently
-#define TCP_SOCKET_FAMILY	AF_UNIX
+#define TCP_SOCKET_FAMILY	AF_INET
 // SOCK_STREAM Provides sequenced, reliable, two-way, connection-based byte streams
 #define TCP_SOCKET_TYPE		SOCK_STREAM
 // Prefix for the tcp communication servers
@@ -36,23 +37,13 @@
 // Default port to be assigned to a tcp object when none is provided
 #define TCP_DEFAULT_PORT		0
 
-// AF_UNIX is used for communication between processes in the same machine efficiently
-#define BLUETOOTH_SOCKET_FAMILY		AF_BLUETOOTH
-// SOCK_STREAM Provides sequenced, reliable, two-way, connection-based byte streams
-#define BLUETOOTH_SOCKET_TYPE		SOCK_STREAM
-// Default port to be assigned to a bluetooth object when none is provided
-#define BLUETOOTH_DEFAULT_PORT		0
-
-// Folder where the socket files are hosted
-#define SERVERS_FOLDER		"/tmp/servers/"
-
 #endif		// _LINUX_
 
-namespace COM {
+namespace WCOM {
 
     /*! @brief Communication protocols */
     typedef enum Protocol_T {
-        INTERFACE=0, TCP, BLUETOOTH
+        INTERFACE=0, TCP
     } Protocol;
 
     /*! @brief Communication roles */
@@ -176,12 +167,13 @@ namespace COM {
 
     public:		// Public methods: specific
 
+        LL(int32_t port);
         /**
          * @brief Connects to server at specified addr and port
          * @param addr: remote address to connect (server)
          * @return port: port
          */
-        bool connect(const std::string &addr, int port);
+        bool Connect(const std::string &addr, int port);
     };
 	
 
@@ -210,8 +202,8 @@ namespace COM {
         int32_t connect_socket_fd = -1;	/*! File descriptor for the connection socket */
         int32_t listen_socket_fd = -1;	/*! File descriptor for the listening socket */
         int32_t sock_port = -1;			/*! Socket port */
-        struct sockaddr_un connect_serv_addr;	/*! Address of the socket used during communications */
-        struct sockaddr_un listen_serv_addr;	/*! Address of the socket used for listening */
+        struct sockaddr_in connect_serv_addr;	/*! Address of the socket used during communications */
+        struct sockaddr_in listen_serv_addr;	/*! Address of the socket used for listening */
 #endif
 
     public:		// Public methods: override

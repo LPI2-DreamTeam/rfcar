@@ -10,12 +10,15 @@
 		\setentrycounter[]{page}\glsnumberformat{40}}}\glsgroupskip
 \glsgroupheading{P}\relax \glsresetentrylist %
 \glossentry{phi}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{vi}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{40}}}%
 \glossentry{pi}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{vi}}}%
 \glossentry{psi}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{vi}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{40}}}\glsgroupskip
 \glsgroupheading{T}\relax \glsresetentrylist %
 \glossentry{theta}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{vi}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{40}}}%
 \end{theglossary}\glossarypostamble

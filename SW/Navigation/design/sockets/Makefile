@@ -75,7 +75,7 @@ CPPFLAGS = -g  -I '${SRC_DIR}/include'
 # changed CXXFLAGS and CC because of tuple
 # src: https://github.com/rogual/neovim-dot-app/issues/46#issuecomment-90966755
 CXXFLAGS = -std=c++17 -Wall -pthread #-Werror  # e.g (-W -ansi -pedantic)
-LDFLAGS = -lbluetooth -lpthread 
+LDFLAGS = -lpthread 
 
 RM=rm -rf
 

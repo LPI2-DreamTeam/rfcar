@@ -102,7 +102,7 @@ namespace WCOM {
 
     bool LL<TCP, CLIENT>::port_occupation[TCP_AVAILABLE_PORTS + 1] = {0};
     
-    LL<TCP, CLIENT>::LL() {
+    LL<TCP, CLIENT>::LL(int32_t port) {
         this->connected = false;
         this->dead = false;
         this->connect_socket_fd = -1;
@@ -203,8 +203,11 @@ namespace WCOM {
         return last_error;
     }
 
-    bool LL<TCP, CLIENT>::connect(const string &addr, int port) {
+    bool LL<TCP, CLIENT>::Connect(const std::string &addr, int port) {
         
+    /* Lock */
+        std::unique_lock<std::mutex>lock(this->mutex.native());
+
         this->port = -1;
         if (port > 0 && port <= TCP_AVAILABLE_PORTS) {
             if (port_occupation[port] == true) {
@@ -247,8 +250,6 @@ namespace WCOM {
             return this->connected;
         }
 
-    /* Lock */
-        std::unique_lock<std::mutex>lock(this->mutex.native());
 
         // Attempt to open socket
         this->connect_socket_fd = socket(TCP_SOCKET_FAMILY, TCP_SOCKET_TYPE, 0);
@@ -269,7 +270,7 @@ namespace WCOM {
                     sizeof(this->server_address), 0);
 	this->server_address.sin_family = TCP_SOCKET_FAMILY; //AF_INET; IPv4 fam
         // watch out for endianess
-	this->server_address.sin_port = htons(port_nr);
+	this->server_address.sin_port = htons(this->port);
 
 
 
@@ -307,7 +308,7 @@ namespace WCOM {
     }
     int LL<TCP, CLIENT>::getPort() {
         if(this->connected)
-            return ((int)inet_ntoa(this->port));
+            return this->port;
         else
             return -1;
         return INVALID_PORT;
@@ -563,9 +564,9 @@ namespace WCOM {
         std::fill_n((char*)& this->listen_serv_addr,
                     sizeof(this->listen_serv_addr), 0);
 		
-	this->listen_server_addr.sin_family = AF_INET; // IPv4 family
-	this->listen_server_addr.sin_port = htons(this->port); // Host TO Network Short
-	this->listen_server_addr.sin_addr.s_addr = INADDR_ANY; // listen to all interfaces (0.0.0.0) on the designated port
+	this->listen_serv_addr.sin_family = TCP_SOCKET_FAMILY; // IPv4 family
+	this->listen_serv_addr.sin_port = htons(this->port); // Host TO Network Short
+	this->listen_serv_addr.sin_addr.s_addr = INADDR_ANY; // listen to all interfaces (0.0.0.0) on the designated port
 
         // Path should be unlinked before a bind() call
         // https://stackoverflow.com/questions/17451971/getting-address-already-in-use-error-using-unix-socket
@@ -577,14 +578,16 @@ namespace WCOM {
 //            return last_error;
 //        }
 
+        unsigned int sockaddr_len = sizeof(struct sockaddr_in);
         // Assign the address specified by addr to the socket referred to by the file descriptor sockfd
         if (bind(this->listen_socket_fd,
                  (struct sockaddr*) & this->listen_serv_addr,
-                 SUN_LEN(&this->listen_serv_addr)) < 0) {
+                 sockaddr_len) < 0) {
 			
             // Error feedback
             last_error = OPEN_FAIL;
-            last_error_str = "ERROR[OPEN_FAIL]: Failed to bind\n";
+            last_error_str = "ERROR[OPEN_FAIL]: Failed to bind\n"
+                + std::string( strerror(errno) );
             return last_error;
         }
 
@@ -608,6 +611,8 @@ namespace WCOM {
     }
 
     Error LL<TCP, SERVER>::acceptConnection(void) {
+
+        std::unique_lock<std::mutex>lock(this->mutex.native());
 
         socklen_t clilen;
 
@@ -650,7 +655,7 @@ namespace WCOM {
     }
     int LL<TCP, SERVER>::getPort() {
         if(this->connected)
-            return ((int)inet_ntoa(this->port));
+            return this->port;
         else
             return -1;
         return INVALID_PORT;

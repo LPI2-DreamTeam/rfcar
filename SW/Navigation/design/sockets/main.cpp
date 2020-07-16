@@ -162,9 +162,9 @@ void socketClientTest(OS::Thread*) {
 int main(int argc, char* argv[]) {
 
 	using namespace std::chrono_literals;
-	//OS::Thread server_thread("Socket server test", socketServerTest);
-	OS::Thread server_thread("Bluetooth socket server test", bluetoothSocketServerTest);
-	//OS::Thread client_thread("Socket client test", socketClientTest);
+	OS::Thread server_thread("Socket server test", socketServerTest);
+//	OS::Thread server_thread("Bluetooth socket server test", bluetoothSocketServerTest);
+	OS::Thread client_thread("Socket client test", socketClientTest);
 
 	std::cout << "\n---------------------------\n";
 	std::cout << "Working...\n\n";
@@ -174,12 +174,12 @@ int main(int argc, char* argv[]) {
 	server_thread.run();
 	// Wait for the server to configure. Anothr option would be to make 
 	// the client try to establish a connection indefinitely.
-	//std::this_thread::sleep_for(1s);
-	//client_thread.run();
+	std::this_thread::sleep_for(1s);
+	client_thread.run();
 
 	// Synchronize the tasks
 	server_thread.join();
-	//client_thread.join();
+	client_thread.join();
 	std::cout << "Joined!" << std::endl;
 
 	return 0;

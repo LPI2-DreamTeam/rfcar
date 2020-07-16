@@ -65,20 +65,23 @@
 //    return;
 //}
 
+#define PORT_TEST 4545
+#define BUFFER_SZ ((uint32_t) 64)
 
 void tcp_socketServerTest(OS::Thread*) {
 
     WCOM::Error error;
     std::string error_str;
-    WCOM::LL<WCOM::Protocol::TCP, WCOM::Role::SERVER> server(1);
+    WCOM::LL<WCOM::Protocol::TCP, WCOM::Role::SERVER> server(PORT_TEST);
     char buffer[30];
 
     // Serves to demonstrate that a pointer to the generic class can be used to access methods methods from the specialized classes
     WCOM::LL<>* server_ptr = &server;
     WCOM::LL<WCOM::Protocol::TCP, WCOM::Role::SERVER>* server_ptr2 = \
-        static_cast<WCOM::LL<WCOM::Protocol::TCP, WCOM::Role::SERVER>*>(server_ptr);
+        static_cast<WCOM::LL<WCOM::Protocol::TCP,
+                             WCOM::Role::SERVER>*>(server_ptr);
 
-    std::cout << "FUN[socketServerTest]: STARTED\n";
+    std::cout << "FUN[TCP socketServerTest]: STARTED\n";
 	
     // Create socket, bind and listen for connection
     error = server_ptr2->listenConnection();
@@ -101,10 +104,10 @@ void tcp_socketServerTest(OS::Thread*) {
 
     while(1) {
 
-        char temp_buffer[6];
+        char temp_buffer[BUFFER_SZ];
 		
         // Read string into temporary buffer to demonstrate how a message could be read continuously
-        server_ptr->readStr(temp_buffer, 5);
+        server_ptr->readStr(temp_buffer, BUFFER_SZ - 1);
         error = server_ptr->getLastError(error_str);
         std::cout << "SERVER   " << error_str;
 
@@ -117,7 +120,8 @@ void tcp_socketServerTest(OS::Thread*) {
         // Check for reception of the message termination character
         if (strchr(buffer, '\n') != NULL) {
             // When finished, ptint the message and close the connection
-            std::cout << "FUN[socketServerTest]: Message received: " << buffer;
+            std::cout << "FUN[TCP socketServerTest]: Message received: "
+                      << buffer;
             break;
         } 
     }
@@ -131,20 +135,22 @@ void tcp_socketClientTest(OS::Thread*) {
 
     WCOM::Error error;
     std::string error_str;
-    WCOM::LL<WCOM::Protocol::TCP, WCOM::Role::CLIENT> client(1);
+    WCOM::LL<WCOM::Protocol::TCP, WCOM::Role::CLIENT> client(PORT_TEST);
     WCOM::LL<>* client_ptr = &client;
 	
-    char buffer[30] = "This is a message\n";
+    char buffer[BUFFER_SZ] = "This is a message\n";
 
-    std::cout << "FUN[socketClientTest]: STARTED\n";
+    std::cout << "FUN[TCP socketClientTest]: STARTED\n";
 	
     // Complains about being asked to create 2 objects with the same port, as it should
     // WCOM::LL<WCOM::Protocol::TCP, WCOM::Role::CLIENT> client2(1);
     // client2.getLastError(error_str);
     // std::cout << error_str;
 
+    std::string serv_addr = "127.0.0.1";
+    
     // Open connection
-    client.openConnection();
+    client.Connect(serv_addr, PORT_TEST);
     error = client_ptr->getLastError(error_str);
     std::cout << "CLIENT   " << error_str;
 
@@ -174,11 +180,11 @@ int main(int argc, char* argv[]) {
     // Wait for the server to configure. Anothr option would be to make 
     // the client try to establish a connection indefinitely.
     //std::this_thread::sleep_for(1s);
-    //client_thread.run();
+    client_thread.run();
 
     // Synchronize the tasks
     server_thread.join();
-    //client_thread.join();
+    client_thread.join();
     std::cout << "Joined!" << std::endl;
 
     return 0;
