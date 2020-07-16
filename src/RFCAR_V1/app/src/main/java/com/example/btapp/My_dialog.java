@@ -104,8 +104,8 @@ public class My_dialog extends AppCompatDialogFragment implements AdapterView.On
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        pairedList = (ListView) view.findViewById(R.id.paired_devices_list_view);
-        newDevList = (ListView) view.findViewById(R.id.new_devices_list_view);
+        pairedList = view.findViewById(R.id.paired_devices_list_view);
+        newDevList = view.findViewById(R.id.new_devices_list_view);
 
          receiver = new BroadcastReceiver() {
             @Override
@@ -125,7 +125,7 @@ public class My_dialog extends AppCompatDialogFragment implements AdapterView.On
         arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, dev_list);
         newDevList.setAdapter(arrayAdapter);
 
-        Button btn_dev = (Button) view.findViewById(R.id.btn_scan_dev);
+        Button btn_dev = view.findViewById(R.id.btn_scan_dev);
         btn_dev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +136,7 @@ public class My_dialog extends AppCompatDialogFragment implements AdapterView.On
             }
         });
 
-        Button btn_scan = (Button) view.findViewById(R.id.btn_list_dev);
+        Button btn_scan = view.findViewById(R.id.btn_list_dev);
         btn_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,7 +191,7 @@ public class My_dialog extends AppCompatDialogFragment implements AdapterView.On
                 String address = info.substring(info.length() - 17);
                 String name = info.replaceAll(address," ");
 
-                if(my_scanned_devices.get(position).getBondState() == my_scanned_devices.get(position).BOND_BONDED){
+                if(my_scanned_devices.get(position).getBondState() == BluetoothDevice.BOND_BONDED){
                     showToast("Already Paired Device",4, SHORT_TOAST);
                     return;
                 }

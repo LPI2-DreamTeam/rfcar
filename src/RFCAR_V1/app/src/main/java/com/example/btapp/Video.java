@@ -50,7 +50,7 @@ public class Video extends YouTubeBaseActivity implements SensorEventListener {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.youtube_video);
-        return_btn2 = (ImageButton) findViewById(R.id.return_btn2);
+        return_btn2 = findViewById(R.id.return_btn2);
         return_btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,8 +59,8 @@ public class Video extends YouTubeBaseActivity implements SensorEventListener {
             }
         });
 
-        tilt = (TextView) findViewById(R.id.tilt_ref);
-        speed = (TextView) findViewById(R.id.speed_ref);
+        tilt = findViewById(R.id.tilt_ref);
+        speed = findViewById(R.id.speed_ref);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
@@ -70,7 +70,7 @@ public class Video extends YouTubeBaseActivity implements SensorEventListener {
         sensorManager.registerListener(Video.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(Video.this, rot_sensor, 10000);
 
-        mYoutubePlayerView = (YouTubePlayerView) findViewById(R.id.Youtube_display);
+        mYoutubePlayerView = findViewById(R.id.Youtube_display);
         playerStateChangeListener = new MyPlayerStateChangeListener();
         playbackEventListener = new MyPlaybackEventListener();
         monInitializedListener = new YouTubePlayer.OnInitializedListener() {
@@ -87,6 +87,7 @@ public class Video extends YouTubeBaseActivity implements SensorEventListener {
                     @Override
                     public void onFullscreen(boolean b) {
                         isFullScreen = b;
+                        showToast("Warning: Low battery",5,LONG_TOAST);
                     }
                 });
             }
