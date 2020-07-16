@@ -13,13 +13,8 @@ style=customc]{./listing/IO_GPIO.cpp}
 %
 \subsubsection{COM: Communications Package}
 \paragraph{COM::LL}
-The COM::LL package possesses 3 templates, depending on which entities are communicating (client or server) and which protocol is being used to communicate (serial or bluetooth). The main difference between the three lies in how they communicate, the serial protocol uses local sockets (AF\_LOCAL) to be able to communicate with the Remote Vision Subsystem in the same machine whilst bluetooth uses a connection to a serial port that is associated with the bluetooth adapter of the host device and any communication via object of this class is done through this port.
+The COM::LL package possesses 3 templates, depending on which entities are communicating (client or server) and which protocol is being used to communicate (serial or Bluetooth). The main difference between the three lies in how they communicate, the serial protocol uses local sockets (AF\_LOCAL) to be able to communicate with the Remote Vision Subsystem in the same machine whilst Bluetooth uses a connection to a serial port that is associated with the Bluetooth adapter of the host device and any communication via object of this class is done through this port.
 The package provides means of communication via reading and writing on buffers and is implemented with several error verifications and feedback messages indicating either the reason for errors or that the operation was a success. The error verifying during the creation of the of the objects makes sure of the existence of the requested port, followed by ensuring that no two objects access the same port. Each time one of the available means is used for communicating, it is always verified if the client-server connection has already been established and if not it doesn't permit sending or reading messages.
-\lstinputlisting[language=C++, caption={COM\_Stream},label=lst:com-stream-source,
-style=customc]{./listing/COM_Stream.cpp}
-%
-\lstinputlisting[language=C++, caption={COM\_Manager},label=lst:com-manager-source,
-style=customc]{./listing/COM_Manager.cpp}
 %
 \lstinputlisting[language=C++, caption={COM\_LL},label=lst:com-ll-source,
 style=customc]{./listing/COM_LL.cpp}

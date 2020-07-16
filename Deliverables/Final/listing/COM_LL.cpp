@@ -21,12 +21,6 @@
 // Default port to be assigned to a serial object when none is provided
 #define SERIAL_DEFAULT_PORT		0
 
-// AF_UNIX is used for communication between processes in the same machine efficiently
-#define BLUETOOTH_SOCKET_FAMILY		AF_BLUETOOTH
-// SOCK_STREAM Provides sequenced, reliable, two-way, connection-based byte streams
-#define BLUETOOTH_SOCKET_TYPE		SOCK_STREAM
-// Prefix for the serial communication servers
-#define BLUETOOTH_SERVERS_PREFIX	"bluetooth"
 // Default port to be assigned to a bluetooth object when none is provided
 #define BLUETOOTH_DEFAULT_PORT		0
 
@@ -89,11 +83,6 @@ namespace COM {
 
 	}
 
-	LL<SERIAL, CLIENT>::~LL() {
-
-		
-	}
-
 	Error LL<SERIAL, CLIENT>::readStr(char * p_buff, uint32_t len) {
 
 		std::unique_lock<std::mutex>lock(this->mutex.native());
@@ -142,41 +131,6 @@ namespace COM {
 		return last_error;
 	}
 
-	bool LL<SERIAL, CLIENT>::isConnected(void) {
-
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		return this->connected;
-	}
-
-	void LL<SERIAL, CLIENT>::kill(void) {
-
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		shutdown(this->connect_socket_fd, SHUT_RDWR);
-		this->dead = true;
-	}
-
-	Error LL<SERIAL, CLIENT>::closeConnection(void) {
-
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		if (this->connected) {
-
-			if (close(this->connect_socket_fd) < 0) {
-				last_error = CLOSE_FAIL;
-				last_error_str = "ERROR[CLOSE_FAIL]: Failed closing connection\n";
-				return CLOSE_FAIL;
-			}
-		}
-
-		this->connected = false;
-		last_error = OK;
-		last_error_str = "OK: CLose connection";
-
-		return last_error;
-	}
-
 	bool LL<SERIAL, CLIENT>::openConnection() {
 
 		std::string server_path = SERVERS_FOLDER SERIAL_SERVERS_PREFIX + std::to_string(this->port);
@@ -219,19 +173,7 @@ namespace COM {
 
 		return this->connected;
 	}
-
-	Error LL<SERIAL, CLIENT>::getLastError(std::string& error_message) {
-		error_message = last_error_str;
-		return last_error;
-	}
-
-	Error LL<SERIAL, CLIENT>::getLastError() {
-		return last_error;
-	}
 }
-
-
-
 
 
 //////////////////////////////// SERIAL, SERVER ////////////////////////////////////////////////////////////////////////////////////
@@ -272,73 +214,6 @@ namespace COM {
 		
 	}
 
-	LL<SERIAL, SERVER>::~LL() {
-
-	}
-
-	Error LL<SERIAL, SERVER>::readStr(char * p_buff, uint32_t len) {
-		
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		if (!this->connected) {
-			last_error = NOT_CONNECTED;
-			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
-
-		} else if (this->dead) {
-			last_error = DEAD;
-			last_error_str = "ERROR[DEAD]: Object is dead\n";
-			
-		} else if (read(this->connect_socket_fd, p_buff, len) < 0) {
-			last_error = READ_FAIL;
-			last_error_str = "ERROR[READ_FAIL]: Failed reading from socket\n";
-		
-		} else {
-			last_error = OK;
-			last_error_str = "OK: Read string\n";
-		}
-
-		return last_error;
-	}
-
-	Error LL<SERIAL, SERVER>::writeStr(const char * p_buff, uint32_t len) {
-		
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		if (!this->connected) {
-			last_error = NOT_CONNECTED;
-			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
-
-		} else if (this->dead) {
-			last_error = DEAD;
-			last_error_str = "ERROR[DEAD]: Object is dead\n";
-			
-		} else if (write(this->connect_socket_fd, p_buff, len) < 0) {
-			last_error = WRITE_FAIL;
-			last_error_str = "ERROR[WRITE_FAIL]: Failed writing to socket\n";
-		
-		} else {
-			last_error = OK;
-			last_error_str = "OK: Write string\n";
-		}
-
-		return last_error;
-	}
-
-	bool LL<SERIAL, SERVER>::isConnected(void)  {
-
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		return this->connected;
-	}
-
-	void LL<SERIAL, SERVER>::kill(void) {
-
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		shutdown(this->listen_socket_fd, SHUT_RDWR);
-		this->dead = true;
-	}
-
 	Error LL<SERIAL, SERVER>::closeConnection(void) {
 
 		std::unique_lock<std::mutex>lock(this->mutex.native());
@@ -359,16 +234,6 @@ namespace COM {
 		return last_error;
 	}
 
-	Error LL<SERIAL, SERVER>::getLastError(std::string& error_message) {
-
-		error_message = last_error_str;
-		return last_error;
-	}
-
-	Error LL<SERIAL, SERVER>::getLastError() {
-
-		return last_error;
-	}
 
 	Error LL<SERIAL, SERVER>::listenConnection(void) {
 
@@ -507,104 +372,6 @@ namespace COM {
 	}
 
 
-	LL<BLUETOOTH, SERVER>::~LL() {
-
-	}
-
-	Error LL<BLUETOOTH, SERVER>::readStr(char * p_buff, uint32_t len) {
-		
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		if (!this->connected) {
-			last_error = NOT_CONNECTED;
-			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
-
-		} else if (this->dead) {
-			last_error = DEAD;
-			last_error_str = "ERROR[DEAD]: Object is dead\n";
-			
-		} else if (read(this->serial_fd, p_buff, len) < 0) {
-			last_error = READ_FAIL;
-			last_error_str = "ERROR[READ_FAIL]: Failed reading from socket\n";
-		
-		} else {
-			last_error = OK;
-			last_error_str = "OK: Read string\n";
-		}
-
-		return last_error;
-	}
-
-	Error LL<BLUETOOTH, SERVER>::writeStr(const char * p_buff, uint32_t len) {
-
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		if (!this->connected) {
-			last_error = NOT_CONNECTED;
-			last_error_str = "ERROR[NOT_CONNECTED]: Not connected\n";
-
-		} else if (this->dead) {
-			last_error = DEAD;
-			last_error_str = "ERROR[DEAD]: Object is dead\n";
-			
-		} else if (write(this->serial_fd, p_buff, len) < 0) {
-			last_error = WRITE_FAIL;
-			last_error_str = "ERROR[WRITE_FAIL]: Failed writing to socket\n";
-		
-		} else {
-			last_error = OK;
-			last_error_str = "OK: Write string\n";
-		}
-
-		return last_error;
-	}
-
-	bool LL<BLUETOOTH, SERVER>::isConnected(void)  {
-
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		return this->connected;
-	}
-
-	void LL<BLUETOOTH, SERVER>::kill(void) {
-
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		shutdown(this->serial_fd, SHUT_RDWR);
-		this->dead = true;
-	}
-
-	Error LL<BLUETOOTH, SERVER>::closeConnection(void) {
-
-		std::unique_lock<std::mutex>lock(this->mutex.native());
-
-		if (this->connected) {
-
-			if (close(this->serial_fd) < 0) {
-				last_error = CLOSE_FAIL;
-				last_error_str = "ERROR[CLOSE_FAIL]: Failed closing connection\n";
-				return CLOSE_FAIL;
-			}
-		}
-
-		this->connected = false;
-		last_error = OK;
-		last_error_str = "OK: Close connection\n";
-
-		return last_error;
-	}
-
-	Error LL<BLUETOOTH, SERVER>::getLastError(std::string& error_message) {
-
-		error_message = last_error_str;
-		return last_error;
-	}
-
-	Error LL<BLUETOOTH, SERVER>::getLastError() {
-
-		return last_error;
-	}
-
 	Error LL<BLUETOOTH, SERVER>::listenConnection(void) {
 
 		std::unique_lock<std::mutex>lock(this->mutex.native());
@@ -681,8 +448,6 @@ namespace COM {
 			return last_error;
 		}
 
-		// HANDSHAKE
-
 		// Signal connection established
 		this->connected = true;
 		last_error = OK;
@@ -690,9 +455,6 @@ namespace COM {
 
 		return last_error;
 	}
-
-
-
 }
 
 
