@@ -1,0 +1,565 @@
+% Created 2020-07-16 Thu 09:09
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\author{Hugo Carvalho A85156, Hugo Ferreira A80665, João Faria A85632, João de Carvalho A83564, José Mendes A85951, José Pires A50178\thanks{a50178@alunos.uminho.pt}}
+\date{\textit{<2020-03-10 Tue>}}
+\title{LPI2 - Project Integrator: RFCAR}
+\hypersetup{
+ pdfauthor={Hugo Carvalho A85156, Hugo Ferreira A80665, João Faria A85632, João de Carvalho A83564, José Mendes A85951, José Pires A50178},
+ pdftitle={LPI2 - Project Integrator: RFCAR},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Gestão do Projecto}
+\label{sec:org6b887bc}
+\subsection{Filesystem: Directórios}
+\label{sec:org675f262}
+\textbf{Estrutura do filesystem}: Cada directório deverá conter um ficheiro \texttt{rd} de
+ base; todos os outros poderão ter outro nome, mas este será convencionado.
+\begin{itemize}
+\item \href{rd-PI.org}{rd-PI}: contém a informação genérica essencial acerca do projecto.
+\item \href{sec/img}{./sec/img/}: contém as imagens relativas aos ficheiros de documentação. Cada
+subdirectório deverá conter uma pasta deste tipo.
+\item \href{ProjManag}{./ProjManag/}: contém os documentos essenciais à gestão do projecto: diagrama
+de Gantt, horas do projecto, etc.
+\item \href{Proj}{./Proj/}: contém a informação relacionada com o projecto dividida pelas várias
+iterações. Os documentos gerados neste directório servirão de base à escrita
+do relatório final, sendo, por isso, mais informais e destinando-se a manter
+todos os grupos de trabalho actualizados.
+\begin{itemize}
+\item \href{Pesquisa}{./Proj/Iterations/<x>/Research/}: Deve conter todo o \emph{knowledge base} para o
+projecto. É a primeira  etapa do mesmo, mas deverá ser incrementado sempre
+que necessário. Deve conter o conceito do produto a desenvolver, quais os
+objectivos, a utilidade, etc. \textbf{x} representa o número da iteração.
+\item \href{Analise}{./Proj/Iterations/<x>/Analysis/}: Contém os resultados da Análise da pesquisa
+inicial. Deve resultar na elaboração dos requisitos e restrições ao
+projecto/produto. Deverá ter uma base quantitativa para iniciar o design,
+constituindo o conjunto de especificações preliminares do produto:
+\begin{itemize}
+\item p. ex.: velocidade deverá ser, no máximo, até 2 m/s.
+\end{itemize}
+\item \href{Design}{./Proj/Iterations/<x>/Design/}: contém o desenvolvimento de uma, ou mais,
+solução(ões) para o produto. Deverá incluir toda a parte de modelação da solução, p. ex.:
+\begin{itemize}
+\item Design do sistema de controlo: analiticamente e recorrendo a simulação em
+scilab
+\item Design da sensorização do sistema: design dos circuitos e respectiva
+simulação
+\item Design da parte de potência: alimentação, actuação dos motores e respectiva
+simulação
+\item Design da parte mecânica: design do tapete
+\end{itemize}
+\item \href{Implem}{./Proj/Iterations/<x>/Implem/}: contém a implementação do sistema: 
+\begin{itemize}
+\item desenhos do controlador, sistemas de medição e de potência prontos para
+testes;
+\item desenhos das peças mecânicas a produzir e/ou adquirir
+\item Lista de materiais
+\begin{itemize}
+\item Na fase final do projeto, deverá incluir os PCBs
+\end{itemize}
+\end{itemize}
+\item \href{Testes}{./Proj/Iterations/<x>/Tests}: contém todos os testes realizados ao sistema e
+aos vários protótipos. Consideram-se testes apenas os que são realizados
+sobre qualquer componente ou protótipo físico.
+\end{itemize}
+\item \href{Deliverables}{./Deliverables/}: contém todos os elementos a entregar acerca do projecto:
+relatórios, desenhos finais, apresentações, etc.
+\begin{itemize}
+\item \href{Deliverables/prod-concept.org}{prod-concept}: conceito de produto a entregar contendo (até
+\textit{<2019-11-05 Tue>}):
+\begin{itemize}
+\item constituição do grupo
+\item Orientador
+\item Conceito do produto a desenvolver: \textbf{Kit didáctico dum sistema de controlo
+de carga num tapete rolante}
+\end{itemize}
+\end{itemize}
+\item \href{Doc}{./Doc/}: contém a info necessária para reproduzir o projecto.
+\item \href{readme.org}{./writing/}: ficheiros relativos à escrita do relatório final de forma
+incremental.
+\item \href{SW}{./SW/}: software desenvolvido para o projecto decomposto pelas várias
+vertentes.
+\item \href{HW}{./HW/}: HW desenvolvido para o projecto decomposto pelas várias vertentes.
+\end{itemize}
+\subsection{Horas do Projecto}
+\label{sec:org6fc3a8d}
+Cada elemento do grupo deverá adicionar o nr. de horas dedicado ao projecto
+no ficheiro \href{ProjManag/ProjHours.xlsx}{ProjHours.xlsx}.Basta duplicar a folha inicial.
+\subsection{Contactos}
+\label{sec:org35be522}
+Aqui estão os contactos de todos os elementos do grupo. Sintam-se à vontade para editar.
+\begin{center}
+\begin{tabular}{lrll}
+Nome & Nr. Aluno & Email & Tlm\\
+\hline
+Nuno Rodrigues & 85207 & nunorodrigues0707@gmail.com & \\
+Hugo Carvalho & 85156 & hugo.mitab@gmail.com & \\
+Hugo Ferreira & 80665 & hugunited11@gmail.com & \\
+João Faria & 85632 & joaofaria99@gmail.com & \\
+João Carvalho & 83564 & jafpcarvalho44@gmail.com & \\
+José Mendes & 85951 & josepr.mendes@gmail.com & \\
+José Pires & 50178 & a50178@alunos.uminho.pt & 911 901290\\
+\end{tabular}
+\end{center}
+
+\section{Tools}
+\label{sec:org43134b7}
+\subsection{Team conversation}
+\label{sec:org10b807a}
+A ferramenta \href{https://twist.com}{Twist} foi escolhida por fornecer agrupamento de conversas em
+tópicos
+\subsection{Diagrama de Gantt}
+\label{sec:orgee1b3c6}
+Será usado o \href{https://www.gantter.com/}{Gantter} para elaboração do diagrama de Gantt requirido pela
+etapa 0. Este diagrama deverá ser o mais minucioso possível e será utilizado
+para rastreamento e gestão do projecto.
+\begin{itemize}
+\item Dado que é gratuito durante 30 dias, será necessário criar contas adicionais
+de email.
+\item Permite exportar e importar ficheiros do tipo \texttt{.gantter} (ver \href{sec/examples/PL2.gantter}{exemplo}).
+\end{itemize}
+
+O mapa de Gantt original deverá ser preservado, como constando da etapa 1, mas
+deverá ser actualizado ao longo do projecto.
+\subsection{Get Things Done}
+\label{sec:org745fc98}
+O diagrama de Gantt deverá ser usado numa macro-escala para gestão do projecto.
+Contudo, muitas vezes estas são ainda de granularidade elevada. Assim, cada
+elemento, ou sub-grupo tem liberdade de utilizar uma ferramenta para definição
+de tarefas mais pequenas, o que poderá ajudar à produtividade.
+\begin{itemize}
+\item Estas subtarefas devem enquadrar-se de algum modo no diagrama de Gantt.
+\item Uma ferramenta deste tipo é o \href{https://trello.com/}{Trello}.
+\end{itemize}
+
+Cada elemento do grupo deverá adicionar o nr. de horas dedicado ao projecto
+no ficheiro \href{ProjManag/ProjHours.xlsx}{ProjHours.xlsx}.Basta duplicar a folha inicial.
+\subsection{Documentation + Tracking Project}
+\label{sec:orgac9a1b9}
+Existe um grande fluxo de informação associado ao projeto. Para gerir melhor
+essa informação cada grupo de trabalho deverá geral a documentação relativa aos
+seus tópicos, nomeadamente:
+\begin{itemize}
+\item \emph{código}: usando o doxygen
+\item \emph{documentação genérica}: usando o \LaTeX{}
+\item \emph{gestão de projecto}: usando o Trello para adicionar tarefas e atribuí-las aos
+diferentes membros da equipa.
+\end{itemize}
+
+\subsubsection{Workflow}
+\label{sec:org9de74ce}
+Para a gestão da informação relacionada com o projecto será necessário adoptar
+algumas normas e convenções para utilização adequada e conveniente do repositório.
+\begin{enumerate}
+\item \textbf{Filesystem}: Será criado um \emph{filesystem}, cuja raiz é o directório actual e
+cujas paths devem ser relativas. Para armazenamento do \emph{filesystem} será
+usada o github. Para visualizar e navegar pelo conteúdo basta replicar o
+\emph{filesystem} em qq directório. O \emph{filesystem} será navegável através dos
+links indicados neste readme file na secção \hyperref[sec:org675f262]{Directórios} deste documento.
+\item \textbf{Estrutura}:
+\begin{enumerate}
+\item Existirá um ficheiro readme \texttt{rd.tex} por cada directório que deve conter a
+informação essencial a esse tópico e permite a navegação para os restantes
+subtópicos através de links.
+\item Cada pasta deve conter um directório \texttt{./sec/img/} aonde serão armazenadas
+as imagens relevantes para o tópico.
+\item Este ficheiro poderá ser compilado usando o \LaTeX{}, gerando-se o respectivo
+PDF que estará também disponível no mesmo directório.
+\end{enumerate}
+\end{enumerate}
+
+\textbf{Workflow}:
+\begin{enumerate}
+\item \textbf{Projecto}:
+\begin{itemize}
+\item As tarefas deverão ser adicionadas a cartões do Trello e atribuídas aos
+diferentes elementos da equipa, com a data prevista de entrega.
+\item Cada cartão deverá ter uma data prevista de entrega, não sendo recomendado
+misturar tarefas para diferentes datas.
+\item Na vista \emph{Calendar} é possível visualizar os cartões do projecto.
+\end{itemize}
+\item \textbf{Código}:
+\begin{itemize}
+\item O código deverá ser adicionado ao directório específico pelo grupo de
+trabalho indicado que deverá supervisionar a gestão deste, através dos
+"pushs" e "merges".
+\item Deverá ser incluído um Doxyfile para geração da documentação quando
+requisitada. Não será necessário atualizar toda a documentação para o
+repositório já que o Doxygen poderá fazê-lo mediante um ficheiro de
+documentação válido e os ficheiros codificados com as tags correctas.
+\end{itemize}
+\item \textbf{Doc}:
+\begin{itemize}
+\item Criar os ficheiros \texttt{.tex} desejados, e.g., \texttt{rd.tex}.
+\item Compilar o ficheiro \texttt{.tex} e gerar o respectivo PDF.
+\end{itemize}
+\end{enumerate}
+
+\subsection{Git}
+\label{sec:org2f8e126}
+Git is a version control tool, providing easy management of a distributed
+document source between the several elements of the team.
+
+\subsubsection{Workflow}
+\label{sec:orgc1f6901}
+\begin{enumerate}
+\item Basic
+\label{sec:org7bfd8b9}
+\begin{enumerate}
+\item \textbf{Clone} the project
+\item The administrator will add you as a colaborator, giving you direct push
+permissions.
+\item \textbf{Pull} the last changes from remote repository before starting to work in
+the project and just before pushing changes to remote repository:
+\begin{itemize}
+\item using:  \texttt{git pull <branchname>}
+\item this avoids most conflicts.
+\end{itemize}
+\item \textbf{Modify} the documents required, keeping it limited to a narrow scope: e.g.,
+fix a bug, add a functionality, etc. Large modifications should be avoided.
+\item \textbf{Stage} the changes: add them to tracking
+\item \textbf{Commit} (or discard) the changes: if commited the changes will override the
+previous files in the local repository.
+\item \textbf{Push} the changes: send the local repository changes to the remote
+repository (hosted on github) for update, using \texttt{git push <remoteName>}
+\begin{itemize}
+\item Conflicts can be detected if someone has modified:
+\begin{itemize}
+\item the remote repository (some files, but not the ones you've worked in):
+for this, one can just pull changes (see 2)
+\item the file(s) you've worked in: in that case, you have to pull the changes
+(see 2), modify the files with your changes, and commit again.
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\item Advanced
+\label{sec:org651005b}
+The advanced workflow increments the basic one, by isolating the core source of
+the project (current version fully operational) from the addition of new
+functionalities or from code refinement. 
+
+For this purpose, a branch should be created with a descriptive name from master
+remote (preferably) and the functionality added.
+
+\textbf{Workflow (advanced}:
+\begin{enumerate}
+\item \textbf{Branch} from master branch remote: \texttt{git branch <branchName> <remoteName>}
+\item \textbf{Modify} the required files
+\item \textbf{merge} the branch again to master remote, effectively adding the
+functionalities to the core.: \texttt{git merge <branchName> <remoteName>}
+\end{enumerate}
+\end{enumerate}
+
+\subsubsection{Commits' policy}
+\label{sec:orgdeaac38}
+The commits made first to local repository and then to the remote repository
+should contain relevant information about the changes/deletions being made,
+namely the reason behind them and what has been changed.
+
+For this purpose, a set of thumb rules and tags are used to enforce this policy
+as follows:
+\begin{itemize}
+\item \texttt{ADD: <what> to <where> and <why>}: addition of a new file, a new
+functionality, a new snippet of code
+\item \texttt{FIX: <what>, <where> and <why>}: fixing a bug, duplicate files, etc. fall in
+this category
+\item \texttt{UPDT: <what>, <where> and <why>}: updating the contents of a file, the file
+structure, etc., follow in this category
+\item \texttt{RM: <what> to <where> and <why>}: removing of a file
+\end{itemize}
+
+\textbf{Example}: \texttt{ADD: Git Workflow and Commit Policies to add consistency}
+\section{Project}
+\label{sec:org6085193}
+\subsection{RFCAR - Radio Frequency Camera Assisted Rover}
+\label{sec:org6b47175}
+\subsubsection{Motivation}
+\label{sec:org5cf0d10}
+This project is being developed in the scope of the integrator project of
+LPI2. It aims to develop skills in the software engineering area and digital
+design, wireless communication protocols, odometric vehicle navigation, etc. 
+
+\subsubsection{Description}
+\label{sec:orgeca8efe}
+  The project consists of a remote controlled car used to assist exploration
+  and maintenance domains. For this purpose, the vehicle should contain a
+  remotely operated camera feeding back video to the user. Additionally, the
+  vehicle must contain odometric sensors to assist in driving and prevent
+  crashes when user is not in control, e.g., when connection is lost.
+The vehicle can be used for exploration of unaccessible areas to human operators
+  like fluid pipelines and other hazardous sites.
+\subsubsection{Technologies}
+\label{sec:org5114a76}
+\begin{itemize}
+\item STM32: vehicle's low level control
+\item Raspberry Pi: camera interface
+\item Android: Human Machine Interface
+\item Others (yet to be defined):
+\begin{itemize}
+\item Wi-Fi
+\item Bluetooth
+\item GPS
+\item GPRS
+\end{itemize}
+\end{itemize}
+\subsection{Workgroups}
+\label{sec:org5a6642b}
+\begin{enumerate}
+\item \textbf{HW Control}: Nuno (50\%), Alex (50\%), Hugo F. (50\%)
+\begin{itemize}
+\item Car chassis
+\item odometric sensors: ultrasonic + InfraRed
+\item motors
+\item buzzer
+\item lights
+\item battery
+\item GPS
+\end{itemize}
+\item \textbf{Smartphone}: HMI - Hugo C. (80\%), João Faria (100\%), Zé Mendes (50\%)
+\begin{itemize}
+\item Accelerometers
+\item GPS
+\item Wi-Fi/ RF
+\item GPRS
+\item Display
+\end{itemize}
+\item \textbf{STM32}: Low-level SW layer control: Zé Mendes (50\%), Nuno (50\%), Alex (50\%),
+Hugo F. (50\%),
+\begin{itemize}
+\item Control of car's HW
+\item USART interface with HW controlling a camera
+\end{itemize}
+\item \textbf{Camera + control HW}: e.g. Raspberry Pi - Zé Pires(100\%), Hugo C. (20\%)
+\begin{itemize}
+\item Raspberry Pi Zero: runs Linux OS
+\item Camera
+\end{itemize}
+\item \textbf{PCBs}: Hugo Carvalho, Hugo Ferreira
+\end{enumerate}
+\subsection{Meetings}
+\label{sec:orgaefaf80}
+\subsubsection{2 --- Planeamento}
+\label{sec:orgca11fd1}
+\textit{<2019-11-12 Tue 14:15>}
+
+\begin{enumerate}
+\item Tópicos
+\label{sec:org108efd5}
+\begin{enumerate}
+\item Ferramentas de gestão do projecto: Typora, Pandoc, Excel (horas)
+\item Análise da pesquisa preliminar sobre tapetes rolantes: treadmills
+\item Definição dos componentes básicos para a concepção duma treadmill
+\begin{itemize}
+\item \textbf{Mecânica}: correia (belt), rolos (eixos)
+\item \textbf{Electrónica}:
+\begin{itemize}
+\item Alimentação:
+\begin{itemize}
+\item Baterias vs Fontes de Alimentação comutadas
+\end{itemize}
+\end{itemize}
+\item \textbf{Actuação}: motor DC e circuito de potência
+\item \textbf{Controlo}: controlador analógico
+\item \textbf{Sensores}: sensor de corrente para inferir carga a que o motor está
+sujeito
+\end{itemize}
+\item Planeamento preliminar (dependente da aprovação inicial do tutor): Divisão do
+projecto em várias etapas:
+\begin{enumerate}
+\item \textbf{Pesquisa} --- \emph{State of the art of treadmills}:
+\begin{itemize}
+\item Princípio de funcionamento
+\item Identificação dos principais componentes do sistema e as suas
+características
+\end{itemize}
+\item \textbf{Análise}: Contém os resultados da Análise da pesquisa inicial. Deve
+resultar na elaboração dos requisitos e restrições ao projecto/produto,
+Deverá ter uma base quantitativa para iniciar o design, constituindo o
+conjunto de especificações preliminares do produto: - p. ex.: velocidade
+deverá ser, no máximo, até 2 m/s.
+\begin{enumerate}
+\item Iteração 1: 3 dias \textit{<2019-11-14 Thu>}
+\item Iteração 2: 3 dias
+\end{enumerate}
+\item \href{Design}{./Design/}: Pode ser dividido em \textbf{design conceptual} e \textbf{design da
+solução}. 
+\begin{itemize}
+\item No design conceptual, são identificadas as várias soluções possíveis
+para o problema, sendo quantificada a sua relevância para o projecto
+através duma escala, inserida numa matriz de avaliação, p.ex., \href{https://en.wikipedia.org/wiki/Quality\_function\_deployment}{QFD}.
+\item Design da solução: contém o desenvolvimento da solução identificada
+para o produto. Deverá incluir toda a parte de modelação da solução,
+p. ex.:
+\begin{itemize}
+\item Design do sistema de controlo: analiticamente e recorrendo a
+simulação em scilab
+\item Design da sensorização do sistema: design dos circuitos e respectiva
+simulação
+\item Design da parte de potência: alimentação, actuação dos motores e
+respectiva simulação
+\item Design da parte mecânica: design do tapete
+\end{itemize}
+\item Iteração 1: 2 semanas
+\item Iteração 2: 1 semana
+\end{itemize}
+\item \href{Implem}{./Implem/}: será feita em duas partes: \uline{por módulos} e \uline{integrada}. Contém
+a implementação do sistema: 
+\begin{itemize}
+\item desenhos do controlador, sistemas de medição e de potência prontos para
+testes;
+\item desenhos das peças mecânicas a produzir e/ou adquirir
+\item Lista de materiais
+\begin{itemize}
+\item Na fase final do projeto, deverá incluir os PCBs
+\end{itemize}
+\item Iteração 1: 2 semanas
+\item Iteração 2: 1 semana
+\end{itemize}
+\item \href{Testes}{./Testes/}: será feito em duas partes: \uline{por módulos} e \uline{total}. contém
+todos os testes realizados ao sistema e aos vários
+protótipos. Consideram-se testes apenas os que são realizados sobre
+qualquer componente ou protótipo físico.
+\begin{itemize}
+\item Iteração 1: 2 semanas
+\item Iteração 2: 1 semana
+\end{itemize}
+\item \textbf{Verificação/Validação}: (3 dias) --- as especificações listadas na
+Análise devem ser verificadas e o protótipo validado por um agente externo
+(utilizador externo ao grupo).
+\item \textbf{Entrega}: (2 semanas) --- término do projeto com:
+\begin{enumerate}
+\item Protótipo final produzido, verificado e validado
+\item Documentação de suporte: como replicar, manual de instruções
+\item Relatório Final: \textit{<2020-01-30 Thu>}
+\item Apresentação Pública: \textit{<2020-01-31 Fri>}
+\end{enumerate}
+\end{enumerate}
+\item Definição das equipas de projeto pelas áreas identificadas (a \textbf{negrito}
+encontram-se os coordenadores de cada departamento):
+\begin{itemize}
+\item \uline{Mecânica}: \textbf{José Pires}
+\item \uline{Human Machine Interface (HMI) \& Sensores}: \textbf{Hugo Carvalho}, Hugo Ferreira
+\item \uline{Actuação}: \textbf{João Faria}, Nuno Rodrigues
+\item \uline{Controlo}: \textbf{João Carvalho}, Nuno Rodrigues
+\begin{itemize}
+\item Estas equipas poderão sofrer alterações conforme o projecto assim o
+exija.
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\end{enumerate}
+
+\section{\href{/Users/zemiguel/Documents/Univ/MI\_Electro/Sem6/LPI2/PI/github/Deliverables/Final/sec/cheatsheet.pdf::3}{Cheatsheet}}
+\label{sec:orgead43b2}
+\section{{\bfseries\sffamily ▭▭ IN-PROGRESS} Write Document [8/11]}
+\label{sec:org138e41c}
+\begin{enumerate}
+\item{$\boxtimes$} Introduction
+\item{$\boxtimes$} State of the Art
+\item{$\boxtimes$} Theorethical Foundations [2/2]
+\begin{enumerate}
+\item{$\boxtimes$} Project methodologies
+\item{$\boxtimes$} Communications
+\begin{enumerate}
+\item{$\boxtimes$} Bluetooth
+\item{$\boxtimes$} Wi-Fi
+\item{$\boxtimes$} GPRS
+\item{$\boxtimes$} Network Programmings - Sockets
+\item{$\boxtimes$} Client-Server Architecture
+\end{enumerate}
+\end{enumerate}
+\item{$\boxtimes$} Requirements Elicitation and Specifications Definition
+\item{$\boxtimes$} Analysis
+\item{$\boxtimes$} Design
+\item{$\square$} Implementation
+\item{$\square$} Testing
+\item{$\boxtimes$} Verification and Validation
+\item{$\square$} Conclusions
+\item{$\boxtimes$} Appendices [1/1]
+\begin{itemize}
+\item[{$\boxtimes$}] Planning
+\end{itemize}
+\end{enumerate}
+
+\section{12 July}
+\label{sec:orgf96db10}
+\subsection{Implem [0/1]}
+\label{sec:org4f8bf1b}
+\begin{itemize}
+\item[{$\square$}] Controlo [0/3]
+\begin{itemize}
+\item[{$\square$}] \uline{Nuno}: Incluir valores dos parametros e do T numa tabela
+\item[{$\square$}] \uline{Alexandre}: Algoritmo de velocidade modificado (ver eq. 5.14)
+\begin{itemize}
+\item Threads:
+\begin{enumerate}
+\item Simulator (Car Model): generates stimulus - \uline{Alexandre}
+\item Controller (PID controllers): receives stimulus and calculates
+response: \uline{Nuno}
+\begin{enumerate}
+\item Left wheel
+\item Right Wheel
+\end{enumerate}
+\end{enumerate}
+\end{itemize}
+\item[{$\square$}] \uline{Ferreira}: Fazer diagrama de Blocos Simulador + Controlador
+\begin{itemize}
+\item Documentar, dizendo que o simulador representa o modelo, gerando
+estimulos para o controlador, a fim de se analisar o seu comportamento.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\subsection{Testing [0/2]}
+\label{sec:orgd1c10f9}
+\begin{itemize}
+\item[{$\square$}] Controlo: à medida que se faz a implementacao, fazer os testes para
+validar o algoritmo de controlo, usando as referencias da simulacao (seccao
+5.1.X)
+\item[{$\square$}] Bluetooth: testar a aplicacao e documentar
+\end{itemize}
+\subsection{Validation [0/1]}
+\label{sec:org1ad11ef}
+\begin{itemize}
+\item[{$\square$}] Faria: ask someone to try Smartphone App, take pics and document
+\end{itemize}
+
+\section{Functionalities [0/3]}
+\label{sec:org6ca3cb2}
+\begin{itemize}
+\item[{$\boxminus$}] RVVS
+\begin{itemize}
+\item[{$\boxtimes$}] Wi-Fi: client and server
+\item[{$\boxminus$}] Image Aquisition
+\begin{itemize}
+\item[{$\boxtimes$}] Image capture from webcam
+\item[{$\square$}] Video capture and streaming
+\end{itemize}
+\item[{$\boxtimes$}] Telemetry
+\end{itemize}
+\item[{$\square$}] NVS
+\item[{$\square$}] Smartphone
+\end{itemize}
+\end{document}
