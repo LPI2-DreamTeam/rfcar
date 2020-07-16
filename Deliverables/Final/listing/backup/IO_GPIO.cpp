@@ -1,6 +1,13 @@
 #include "IO_GPIO.hpp"
 
 #ifdef _LINUX_
+
+//#include <termios.h> // Contains POSIX terminal control definitions
+#include <fstream>
+#include <string>
+
+#define IO_FOLDER	"io\\"
+
 namespace IO {
 
 	GPIO::States GPIO::global_states = {0, 0, 0};
@@ -20,6 +27,7 @@ namespace IO {
 				// Move back in the file the right amount of characters to read the conversion ID and the conversion value 
 				conversions_file.seekg(-(int32_t)(sizeof(line_id) + sizeof(conversion)), std::ios_base::end);
 
+				// Praying to the Endian gods
 				conversions_file.read(reinterpret_cast<char*>(&line_id), sizeof(last_line_id));
 				conversions_file.read(reinterpret_cast<char*>(&(conversion._uint8_arr)), sizeof(conversion));
 			} while (line_id == gpio_ptr->last_line_id);
@@ -48,7 +56,7 @@ namespace IO {
 			conversions_file.close();
 		}
 
-		// Call conversion complete callback
+		/////// NOT WORKING 
 		if (gpio_ptr->conv_cplt_callback != NULL)
 			(*(gpio_ptr->conv_cplt_callback))(conversion, gpio_ptr->callback_arg);
 
@@ -121,11 +129,88 @@ namespace IO {
 
 
 	Error GPIO::fetchLastConversions(number& value) {
-		
-		// Fetch only last conversion to guarantee that synchronism is maintained
+	
 		while (conversion_buffer.pop(&value) != MEM::EMPTY);
 		last_error = OK;
 		return this->last_error;
+	}
+
+
+	bool GPIO::isConfigured() {
+		return isConfigured(this);
+	}
+
+
+	bool GPIO::isAssigned() {
+		return isAssigned(this);
+	}
+
+
+	bool GPIO::isRunning() {
+		return isRunning(this);
+	}
+
+	uint32_t GPIO::grabAvailableObject() {
+
+		uint32_t i;
+
+		for (i = 0; i < IO_GPIO_MAX_OBJECT_COUNT; i++) {
+			if (((global_states.assigned >> i) & 1) == 0) {
+				global_states.assigned |= 1U << i;
+				break;
+			}
+		}
+		
+		return i;
+	}
+
+	void GPIO::releaseObject(GPIO* obj) {
+
+		global_states.assigned &= ~(1U) << obj->id;
+		global_states.configured &= ~(1U) << obj->id;
+		global_states.running &= ~(1U) << obj->id;
+	}
+
+	void GPIO::markConfigured(GPIO* obj, bool value) {
+
+		if (value)
+			global_states.configured |= 1U << obj->id;
+
+		else {
+			global_states.configured &= ~(1U) << obj->id;
+			global_states.running &= ~(1U) << obj->id;
+		}
+			
+	}
+
+	void GPIO::markRunning(GPIO* obj, bool value) {
+
+		if (value)
+			global_states.running |= 1U << obj->id;
+
+		else
+			global_states.running &= ~(1U) << obj->id;
+	}
+
+	void GPIO::markAssigned(GPIO* obj, bool value) {
+
+		if (value)
+			global_states.assigned |= 1U << obj->id;
+
+		else
+			global_states.assigned &= ~(1U) << obj->id;
+	}
+
+	bool GPIO::isConfigured(GPIO* obj) {
+		return (global_states.configured>>obj->id) & 1U;
+	}
+	
+	bool GPIO::isRunning(GPIO* obj) {
+		return (global_states.running>>obj->id) & 1U;
+	}
+
+	bool GPIO::isAssigned(GPIO* obj) {
+		return (global_states.assigned>>obj->id) & 1U;
 	}
 
 }
