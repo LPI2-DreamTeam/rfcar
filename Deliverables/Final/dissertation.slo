@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 \glossaryentry{ell?\glossentry{ell}|setentrycounter[]{page}\glsnumberformat}{xvi}
 =======
@@ -8,6 +9,14 @@
 \glossaryentry{pi?\glossentry{pi}|setentrycounter[]{page}\glsnumberformat}{xvi}
 \glossaryentry{psi?\glossentry{psi}|setentrycounter[]{page}\glsnumberformat}{xvi}
 \glossaryentry{theta?\glossentry{theta}|setentrycounter[]{page}\glsnumberformat}{xvi}
+=======
+\glossaryentry{ell?\glossentry{ell}|setentrycounter[]{page}\glsnumberformat}{xiv}
+\glossaryentry{omega?\glossentry{omega}|setentrycounter[]{page}\glsnumberformat}{xiv}
+\glossaryentry{phi?\glossentry{phi}|setentrycounter[]{page}\glsnumberformat}{xiv}
+\glossaryentry{pi?\glossentry{pi}|setentrycounter[]{page}\glsnumberformat}{xiv}
+\glossaryentry{psi?\glossentry{psi}|setentrycounter[]{page}\glsnumberformat}{xiv}
+\glossaryentry{theta?\glossentry{theta}|setentrycounter[]{page}\glsnumberformat}{xiv}
+>>>>>>> Stashed changes
 \glossaryentry{ell?\glossentry{ell}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{omega?\glossentry{omega}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{phi?\glossentry{phi}|setentrycounter[]{page}\glsnumberformat}{40}
