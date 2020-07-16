@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Paired Devices"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <ListView
+        android:id="@+id/pairedDeviceList"
+        android:layout_width="match_parent"
+        android:layout_height="169dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Discovered Devices"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <ListView
+        android:id="@+id/discoveredDeviceList"
+        android:layout_width="320dp"
+        android:layout_height="236dp" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/Widget.MaterialComponents.TabLayout.Colored"
+        android:layout_width="421dp"
+        android:layout_height="60dp"
+        android:background="#009688"
+        android:onClick="@android:string/cancel"
+        android:text="CANCEL" />
+
+
+</LinearLayout>
