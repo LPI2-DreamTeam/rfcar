@@ -188,7 +188,18 @@ However, the next functions are private meaning that they are only invoked as a 
 With that in mind, the allocateBuffer, fileDescriptor and open were defined. The first allocates the buffers as detailed by the setRequestedBuffer function. The second, maintains the integrity of the file descriptor. The last it is a low level call to open the device, called by the first open function that encapsulates it.
 
 Lastly, the variable members of the class are from up to down, the buffer type, memory buffer, the buffer capabilities, file descriptor linked with the device, buffer pointer and a mutex variable to only allow access at the time, locking the desired resources to prevent unattended access.
+%
+\begin{figure}[!hbt]
+\centering
+    \includegraphics[width=0.7\textwidth]{./img/telemetry_classdiag.png}
+  \caption{Class Diagram of Telemetry class}%
+\label{fig:telemetry-classdiag}
+\end{figure}
+%
+As illustrated in Fig.~\ref{fig:webcam-v4l2-class-diag}, the telemetry class has two variable members: the max velocity and distance travelled, accessed and updated with the succeeding member functions, in public.
 
+In the first place, the default empty constructor, second by the functions that retrieve the member variable values, respectively the getMaxVelocity and getTravelledDistance. At last, an updateValues function is used to alter the aforementioned variables with new values.
+%
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../../dissertation"
