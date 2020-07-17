@@ -179,38 +179,28 @@ namespace WCOM {
 
 
 
-//////////////////////////////// TCP, SERVER ////////////////////////////////////////////////////////////////////////////////////
-
+/////////// TCP, SERVER //////////////////////////
     template <>
     class LL<TCP, SERVER> : public LL<> {
-	
     private:	// Private members
-
         static bool port_occupation[TCP_AVAILABLE_PORTS + 1];
-
-        OS::Mutex mutex;	/*! Mutex meant to help keep functions of the same entity from executing at the same time*/
-        bool connected;		/*! Connection state */
-        Error last_error;	/*! Result from the execution of the last function */
-        std::string last_error_str;	/*! Result from the execution of the last function */
-        bool dead;			/*! True kill() has been called or the object was poorly configured*/
-        bool listened;		/*! Whether or not listenConnection() has been called */
-        uint32_t port;		/*! Number that identifies the object in light of what hardware it is using. As such, it must be 
-                                 *   unique. Must be between 1 and TCP_AVAILABLE_PORTS */
-
-
+        OS::Mutex mutex;  /*! Mutex for concurrency control */
+        bool connected;	  /*! Connection state */
+        Error last_error; /*! Result from the execution of the last function */
+        std::string last_error_str;  /*! Result of the execution of last cmd */
+        bool dead;   /*! True kill() has been called or the obj was poorly config*/
+        bool listened; /*! Whether or not listenConnection() has been called */
+        uint32_t port; /*! port nr: unique. Between 1 and TCP_AVAILABLE_PORTS */
 #ifdef _LINUX_
-        int32_t connect_socket_fd = -1;	/*! File descriptor for the connection socket */
-        int32_t listen_socket_fd = -1;	/*! File descriptor for the listening socket */
-        int32_t sock_port = -1;			/*! Socket port */
-        struct sockaddr_in connect_serv_addr;	/*! Address of the socket used during communications */
-        struct sockaddr_in listen_serv_addr;	/*! Address of the socket used for listening */
+        int32_t connect_socket_fd = -1;	/*! FID for the connection socket */
+        int32_t listen_socket_fd = -1;	/*! FID for the listening socket */
+        int32_t sock_port = -1;		/*! Socket port */
+        struct sockaddr_in connect_serv_addr; /*! Addr of the socket used during comm */
+        struct sockaddr_in listen_serv_addr; /*! Addr of the socket used for listening */
 #endif
-
     public:		// Public methods: override
-
         LL();
         ~LL() override;
-
         Error readStr(char* p_buff, uint32_t len) override;
         Error writeStr(const char* p_buff, uint32_t len) override;
         bool isConnected(void) override;
@@ -218,27 +208,13 @@ namespace WCOM {
         void kill(void) override;
         Error getLastError(std::string& error_message) override;
         Error getLastError() override;
-
-    public:		// Public methods: specific
-		
+    // Public methods: specific
         LL(int32_t port);
-
-        /*! @brief Listen for a connection
-         *	
-         *	@return General result code from the function's execution
-         */
         Error listenConnection(void);
-
-        /*! @brief Accept connection
-         *	
-         *	@return General result code from the function's execution
-         */
         Error acceptConnection(void);
-
         Error getAddr(std::string &serverAddr);
         int getPort(void);
     };
-
 }
 
 #endif
